@@ -32,6 +32,7 @@ public class AppApi {
     public static enum Action {
         TEST_POST_JSON,
         TEST_GET_JSON,
+        POST_LOGIN_JSON,
     }
 
     /**
@@ -42,7 +43,8 @@ public class AppApi {
 
         {
             put(Action.TEST_GET_JSON, "https://www.baidu.com/");
-
+            put(Action.TEST_GET_JSON, "https://www.baidu.com/");
+            put(Action.POST_LOGIN_JSON, formatPhpUrl("Opclient/login/doLogin"));
         }
     };
 
