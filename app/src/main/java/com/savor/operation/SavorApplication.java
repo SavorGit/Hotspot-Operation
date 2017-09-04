@@ -1,10 +1,8 @@
 package com.savor.operation;
 
+import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
 
-import com.common.api.utils.AppUtils;
 import com.common.api.utils.LogUtils;
 import com.savor.operation.activity.MainActivity;
 import com.savor.operation.core.Session;
@@ -17,14 +15,13 @@ import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
 
-import java.io.File;
 import java.util.Map;
 
 /**
  * Created by hezd on 2016/12/13.
  */
 
-public class SavorApplication extends MultiDexApplication {
+public class SavorApplication extends Application {
 
     private static SavorApplication mInstance;
 
@@ -43,12 +40,6 @@ public class SavorApplication extends MultiDexApplication {
         MobclickAgent.openActivityDurationTrack(false);
 
         initUmengPush();
-    }
-
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        MultiDex.install(this);
     }
 
     private void initUmengPush() {
