@@ -50,6 +50,10 @@
             android:name=".activity.AbnormalityReportActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AbnormalityInfoActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="app_debug"

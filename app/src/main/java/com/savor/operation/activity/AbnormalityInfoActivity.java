@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 
 import com.savor.operation.R;
 
@@ -12,13 +11,13 @@ import com.savor.operation.R;
  * Created by bushlee on 2017/9/4.
  */
 
-public class AbnormalityReportActivity extends BaseActivity implements View.OnClickListener{
+public class AbnormalityInfoActivity extends BaseActivity implements View.OnClickListener{
     private Context context;
     private RelativeLayout back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_abnormality_record);
+        setContentView(R.layout.activity_abnormality_info);
         context = this;
         getViews();
         setViews();
