@@ -12,9 +12,8 @@ import com.savor.operation.R;
  * Created by bushlee on 2017/9/4.
  */
 
-public class MaintenanceRecordActivity extends BaseActivity implements View.OnClickListener{
+public class AbnormalityReportActivity extends BaseActivity implements View.OnClickListener{
     private Context context;
-    private Spinner spinner;
     private RelativeLayout back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +26,13 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
     }
 
     @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
     public void getViews() {
-        spinner = (Spinner) findViewById(R.id.spinner);
-        back = (RelativeLayout) findViewById(R.id.back);
+
     }
 
     @Override
@@ -39,7 +42,7 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void setListeners() {
-        back.setOnClickListener(this);
+
     }
 
     @Override
@@ -49,11 +52,6 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void hideLoadingLayout() {
-
-    }
-
-    @Override
-    public void onClick(View v) {
 
     }
 }
