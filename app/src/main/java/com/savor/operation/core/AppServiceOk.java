@@ -18,7 +18,6 @@ import com.common.api.okhttp.request.RequestCall;
 import com.common.api.utils.AppUtils;
 import com.common.api.utils.LogUtils;
 import com.google.gson.Gson;
-import com.savor.operation.bean.ImageProResonse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -530,22 +529,22 @@ public class AppServiceOk {
                             int resultcode = jsonObject.getInt("result");
                             LogUtils.d("savor:pro resultcode="+result);
                             Gson gson = new Gson();
-                            ImageProResonse prepareResponseVo =  gson.fromJson(result,ImageProResonse.class);
-                            if(AppApi.TVBOX_RESPONSE_STATE_SUCCESS == resultcode) {
-                                handler.onSuccess(action,prepareResponseVo);
-                            }else if(AppApi.TVBOX_RESPONSE_STATE_ERROR == resultcode||
-                                    AppApi.TVBOX_RESPONSE_STATE_FORCE == resultcode){
-                                int relt = jsonObject.getInt("result");
-                                ResponseErrorMessage error = new ResponseErrorMessage();
-                                error.setCode(relt);
-                                error.setMessage(prepareResponseVo.getInfo());
-                                handler.onError(action,error);
-                            }else {
-                                ResponseErrorMessage responseErrorMessage = new ResponseErrorMessage();
-                                responseErrorMessage.setCode(-1);
-                                responseErrorMessage.setMessage("投屏失败");
-                                handler.onError(action,responseErrorMessage);
-                            }
+//                            ImageProResonse prepareResponseVo =  gson.fromJson(result,ImageProResonse.class);
+//                            if(AppApi.TVBOX_RESPONSE_STATE_SUCCESS == resultcode) {
+//                                handler.onSuccess(action,prepareResponseVo);
+//                            }else if(AppApi.TVBOX_RESPONSE_STATE_ERROR == resultcode||
+//                                    AppApi.TVBOX_RESPONSE_STATE_FORCE == resultcode){
+//                                int relt = jsonObject.getInt("result");
+//                                ResponseErrorMessage error = new ResponseErrorMessage();
+//                                error.setCode(relt);
+//                                error.setMessage(prepareResponseVo.getInfo());
+//                                handler.onError(action,error);
+//                            }else {
+//                                ResponseErrorMessage responseErrorMessage = new ResponseErrorMessage();
+//                                responseErrorMessage.setCode(-1);
+//                                responseErrorMessage.setMessage("投屏失败");
+//                                handler.onError(action,responseErrorMessage);
+//                            }
                         }
                     } catch (JSONException e) {
                         LogUtils.d("action111:报错啦"+action+",jsonResult:"+result);

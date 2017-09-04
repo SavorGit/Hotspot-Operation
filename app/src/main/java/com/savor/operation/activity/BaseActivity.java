@@ -72,6 +72,16 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
     }
 
     @Override
+    public void showLoadingLayout() {
+
+    }
+
+    @Override
+    public void hideLoadingLayout() {
+
+    }
+
+    @Override
     public void onNetworkFailed(AppApi.Action method) {
 
     }
