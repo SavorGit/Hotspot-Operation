@@ -16,16 +16,11 @@ import android.widget.TextView;
 import com.common.api.utils.LogUtils;
 import com.common.api.utils.ShowProgressDialog;
 import com.savor.operation.R;
-import com.savor.operation.bean.RotateProResponse;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.core.Session;
 import com.savor.operation.interfaces.IBaseView;
-import com.savor.operation.interfaces.IHotspotSenseView;
-import com.savor.operation.presenter.BindTvPresenter;
-import com.savor.operation.projection.ProjectionManager;
-import com.savor.operation.widget.CommonDialog;
 
 
 /**
@@ -36,7 +31,7 @@ import com.savor.operation.widget.CommonDialog;
  * @author bc
  * 
  */
-public abstract class BaseFragment extends Fragment implements ApiRequestListener ,IBaseView,IBindTvView, IHotspotSenseView {
+public abstract class BaseFragment extends Fragment implements ApiRequestListener ,IBaseView {
 	Session mSession;
 //	protected PictureUtils bitmapUtils;
 //	protected BitmapDisplayConfig config;
@@ -51,8 +46,6 @@ public abstract class BaseFragment extends Fragment implements ApiRequestListene
 
 	protected Activity mActivity;
 	private ProgressDialog mProgressDialog;
-	protected BindTvPresenter mBindTvPresenter;
-	private CommonDialog mHintDialog;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -70,10 +63,6 @@ public abstract class BaseFragment extends Fragment implements ApiRequestListene
 //		nextIV = (ImageView) rootView.findViewById(R.id.nextIV);
 //		nextTV = (TextView) rootView.findViewById(R.id.nextTV);
 //		titleTV = (TextView) rootView.findViewById(R.id.titleTV);
-	}
-
-	protected void initPresenter() {
-		mBindTvPresenter = new BindTvPresenter(getContext(),this,this,this);
 	}
 
 	@Override
@@ -167,7 +156,7 @@ public abstract class BaseFragment extends Fragment implements ApiRequestListene
 			ResponseErrorMessage msg = (ResponseErrorMessage) statusCode;
 			int code = msg.getCode();
 			String message = msg.getMessage();
-			showToast(message);
+//			showToast(message);
 		}
 	}
 
@@ -188,30 +177,9 @@ public abstract class BaseFragment extends Fragment implements ApiRequestListene
 				defaultMsg = errorMessage.getMessage();
 			}
 		}
-		showToast(defaultMsg);
+//		showToast(defaultMsg);
 	}
 
-	public void showToast(String message) {
-		if(mHintDialog == null) {
-			mHintDialog = new CommonDialog(getActivity(),message);
-		}
-		mHintDialog.setContent(message);
-		mHintDialog.show();
-	}
-
-	@Override
-	public void showLoadingLayout() {
-		if(mProgressDialog == null)
-			mProgressDialog = ShowProgressDialog.showProgressDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, getString(R.string.loading_hint));
-	}
-
-	@Override
-	public void hideLoadingLayout() {
-		if(mProgressDialog!=null&&mProgressDialog.isShowing()) {
-			mProgressDialog.dismiss();
-			mProgressDialog = null;
-		}
-	}
 
 	@Override
 	public void getViews() {
@@ -226,94 +194,6 @@ public abstract class BaseFragment extends Fragment implements ApiRequestListene
 	@Override
 	public void setListeners() {
 		
-	}
-
-	@Override
-	public void showChangeWifiDialog() {
-//		mChangeWifiDiallog = new HotsDialog(this)
-//				.builder()
-//				.setTitle("连接失败")
-//				.setMsg(getString(R.string.tv_bind_wifi)+""+ (TextUtils.isEmpty(mSession.getSsid())?"与电视相同的wifi":mSession.getSsid()))
-//				.setCancelable(false)
-//				.setPositiveButton("去设置", new View.OnClickListener() {
-//					@Override
-//					public void onClick(View view) {
-//						Intent intent = new Intent();
-//						intent.setAction("android.net.wifi.PICK_WIFI_NETWORK");
-//						startActivity(intent);
-//					}
-//				})
-//				.setNegativeButton("取消", new View.OnClickListener() {
-//					@Override
-//					public void onClick(View view) {
-//					}
-//				});
-//		mChangeWifiDiallog.show();
-	}
-
-	@Override
-	public void readyForCode() {
-
-	}
-
-	@Override
-	public void closeQrcodeDialog() {
-
-	}
-
-	@Override
-	public void initBindcodeResult() {
-
-	}
-
-	@Override
-	public void startLinkTv() {
-
-	}
-
-	@Override
-	public void showUnLinkDialog() {
-
-	}
-
-	protected void stopProjection() {
-		String projectId = ProjectionManager.getInstance().getProjectId();
-		AppApi.notifyTvBoxStop(getActivity(),mSession.getTVBoxUrl(),projectId,this);
-	}
-
-	@Override
-	public void rotate(RotateProResponse rotateResponse) {
-
-	}
-
-	@Override
-	public void reCheckPlatform() {
-
-	}
-
-	@Override
-	public void initSenseState() {
-
-	}
-
-	@Override
-	public void showProjection(boolean isBind) {
-
-	}
-
-	@Override
-	public void hideProjection() {
-
-	}
-
-	@Override
-	public void refreshData() {
-
-	}
-
-	@Override
-	public void checkSense() {
-
 	}
 
 }

@@ -37,15 +37,6 @@ import com.common.api.utils.AppUtils;
 import com.common.api.utils.LogUtils;
 import com.common.api.utils.Pair;
 import com.common.api.utils.SaveFileData;
-import com.savor.operation.bean.HotelMapCache;
-import com.savor.operation.bean.HotelMapListData;
-import com.savor.operation.bean.PdfInfo;
-import com.savor.operation.bean.SmallPlatInfoBySSDP;
-import com.savor.operation.bean.SmallPlatformByGetIp;
-import com.savor.operation.bean.StartUpSettingsBean;
-import com.savor.operation.bean.TvBoxInfo;
-import com.savor.operation.bean.TvBoxSSDPInfo;
-import com.savor.operation.bean.VodBean;
 import com.savor.operation.utils.STIDUtil;
 
 import java.io.ByteArrayInputStream;
@@ -55,7 +46,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,8 +54,6 @@ import java.util.List;
 @SuppressLint("WorldReadableFiles")
 public class Session implements Serializable{
     private final static String TAG = "Session";
-    /**是否开启调试模式，调试模式连接海强机顶盒*/
-    public static final boolean isDev = false;
     /**服务员推广数据*/
     private static final String P_APP_WAITER_DATA = "p_app_waiter_data";
     private int roomid;
@@ -177,7 +165,6 @@ public class Session implements Serializable{
 
     private String deviceid;
 
-    private SmallPlatInfoBySSDP smallPlatInfoBySSDP;
     /***/
     private String mTVBoxUrl;
 
@@ -199,17 +186,8 @@ public class Session implements Serializable{
     private String qrcode;
     private String channelName;
     private String channelId;
-    private StartUpSettingsBean mStartUpSettingsBean;
-    /**机顶盒信息*/
-    private TvBoxInfo mTvboxInfo;
-    /**机顶盒ssdp信息*/
-    private TvBoxSSDPInfo mTvBoxSSDPInfo;
     /**是否需要删除启动图或视频*/
     private boolean isDeleteStartUp;
-    /**通过云平台获取的小平台信息*/
-    private SmallPlatformByGetIp mSmallPlatInfoByIp;
-    /**pdf浏览历史*/
-    private List<PdfInfo> mPdfList;
     /**区域id*/
     private String area_id;
     /**服务员推广缓存数据（上传失败后会缓存在本地）*/
@@ -219,8 +197,6 @@ public class Session implements Serializable{
     private String boxMac;
     /**是否已经写入open日志，启动后如果已经写入就不会再次写入了*/
     private boolean isWriteOpenLog;
-    private HotelMapCache mHotelMapCache;
-    private HotelMapListData hotelMapListData;
     private double latestLat;
     private double latestLng;
 
@@ -404,59 +380,11 @@ public class Session implements Serializable{
         return this.mWaiterData;
     }
 
-    public void setTvBoxInfo(TvBoxInfo info) {
-        this.mTvboxInfo = info;
-    }
-
-    public void setTvBoxUrl(TvBoxInfo info) {
-        this.mTvboxInfo = info;
-        if (info == null) {
-            return;
-        }
-        String box_ip = info.getBox_ip();
-        String hotel_id = info.getHotel_id();
-        String room_id = info.getRoom_id();
-        String ssid = info.getSsid();
-        String box_mac = info.getBox_mac();
-        String tvBoxUrl = "http://" + box_ip + ":8080";
-        int hotelId = 0;
-        int roomId = 0;
-        try {
-            hotelId = Integer.parseInt(hotel_id);
-            roomId = Integer.parseInt(room_id);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-        setHotelid(hotelId);
-        setRoomid(roomId);
-        setWifiSsid(ssid);
-        setBoxMac(box_mac);
-        this.mTVBoxUrl = tvBoxUrl;
-    }
-
-    public TvBoxInfo getTvboxInfo() {
-        return this.mTvboxInfo;
-    }
-
-    public void setTvBoxIp(String tvboxIp) {
-        this.mTVBoxUrl = tvboxIp;
-    }
-
-
     public int getRoomid() {
 //        if(isDev)
 //            return 1555;
 //        else
         return roomid;
-    }
-
-    public void setStartUpSettings(StartUpSettingsBean bean) {
-        this.mStartUpSettingsBean = bean;
-        setObj(APP_START_UP_SETTINGS,bean);
-    }
-
-    public StartUpSettingsBean getStartUpSettings() {
-        return mStartUpSettingsBean;
     }
 
     public void setRoomid(int roomid) {
@@ -496,11 +424,6 @@ public class Session implements Serializable{
 
     private void readSettings() {
 //        mHotelMapCache = (HotelMapCache) getObj(P_APP_HOTEL_MAP);
-        mUploadFirstUse = mPreference.loadBooleanKey(P_APP_FIRST_USE,false);
-        mWaiterData = mPreference.loadStringKey(P_APP_WAITER_DATA,null);
-        mPdfList = (List<PdfInfo>) getObj(P_APP_PDF_LIST);
-        mStartUpSettingsBean = (StartUpSettingsBean) getObj(APP_START_UP_SETTINGS);
-        mCompressPath = getCompressPath(mContext);
         deviceid = STIDUtil.getDeviceId(mContext);
         netType = mPreference.loadStringKey(P_APP_NET_TYPE, "");
         isNeedGuide = mPreference.loadBooleanKey(P_APP_IS_SHOW_GUIDE, isNeedGuide);
@@ -508,7 +431,6 @@ public class Session implements Serializable{
         interval = mPreference.loadIntKey(SLIDE_INTERVAL, 10);
         lastTime = mPreference.loadLongKey(P_APP_LASTSTARTUP,0);
         isFirstPlay = mPreference.loadBooleanKey(P_APP_FIRST_PLAY,true);
-        area_id = mPreference.loadStringKey(P_APP_AREA_ID, "");
 
         setDeviceid(deviceid);
         getApplicationInfo();
@@ -534,15 +456,6 @@ public class Session implements Serializable{
         }
         LogUtils.d("gallery path:"+path);
         return path;
-    }
-
-    public void setPdfList(List<PdfInfo> pdfList) {
-        this.mPdfList = pdfList;
-        setObj(P_APP_PDF_LIST,pdfList);
-    }
-
-    public List<PdfInfo> getPdfList() {
-        return this.mPdfList;
     }
 
     /*
@@ -809,54 +722,6 @@ public class Session implements Serializable{
         return buffer.toString();
     }
 
-    /**获取小平台信息*/
-    public SmallPlatInfoBySSDP getSmallPlatInfoBySSDP() {
-        return smallPlatInfoBySSDP;
-    }
-
-    /**是否有可连接设备，是否获取到小平台*/
-    public boolean isSmallPlatformEnable() {
-        return !TextUtils.isEmpty(platformIp);
-    }
-
-    public void setSmallPlatInfoBySSDP(SmallPlatInfoBySSDP smallPlatInfoBySSDP) {
-        this.smallPlatInfoBySSDP = smallPlatInfoBySSDP;
-    }
-
-    public void collectVod(VodBean vodAndTopicItemVo) {
-        List<VodBean> collections = getCollections();
-        List<String> collectionsUrl = getCollectionsUrl();
-        if(collections == null){
-            collections = new ArrayList<>();
-        }
-
-        if (collectionsUrl == null) {
-            collectionsUrl = new ArrayList<>();
-        }
-
-//        if(collections.contains(vodAndTopicItemVo))
-//            collections.remove(vodAndTopicItemVo);
-//        collections.add(0,vodAndTopicItemVo);
-//        setObj(P_APP_COLLECTIONS,collections);
-
-        if (containsUrl(vodAndTopicItemVo.getContentURL())) {
-            collections.remove(vodAndTopicItemVo);
-            collectionsUrl.remove(vodAndTopicItemVo.getContentURL());
-        }
-
-        collections.add(0,vodAndTopicItemVo);
-        collectionsUrl.add(0,vodAndTopicItemVo.getContentURL());
-        setObj(P_APP_COLLECTIONS,collections);
-        setObj(P_APP_COLLECTIONS_URL,collectionsUrl);
-
-    }
-
-    public List<VodBean> getCollections() {
-        Object obj = getObj(P_APP_COLLECTIONS);
-        if(obj instanceof List)
-            return (List<VodBean>) obj;
-        return null;
-    }
 
     public List<String> getCollectionsUrl() {
         Object obj = getObj(P_APP_COLLECTIONS_URL);
@@ -864,101 +729,11 @@ public class Session implements Serializable{
             return (List<String>) obj;
         return null;
     }
-    public boolean contains(VodBean itemVo) {
-        List<VodBean> collections = getCollections();
-        if(collections!=null) {
-            return collections.contains(itemVo);
-        }
-        return false;
-    }
-
-    public boolean containsUrl(String url) {
-        List<String> collections = getCollectionsUrl();
-        if(collections!=null) {
-            return collections.contains(url);
-        }
-        return false;
-    }
-
-    public void remoeCollect(VodBean itemVo) {
-        List<VodBean> collections = getCollections();
-
-        if(collections!=null) {
-
-            for (int i = 0; i < collections.size(); i++){
-                VodBean vo = collections.get(i);
-                if (vo.getContentURL().equals(itemVo.getContentURL())) {
-                    collections.remove(vo);
-                }
-            }
-            remoeCollectUrl(itemVo.getContentURL());
-        }
-        setObj(P_APP_COLLECTIONS,collections);
-    }
-
-    public void remoeCollectUrl(String url) {
-        List<String> collections = getCollectionsUrl();
-
-        if(collections!=null) {
-            collections.remove(url);
-        }
-        setObj(P_APP_COLLECTIONS_URL,collections);
-    }
-
-//    public void setApConnection(boolean b) {
-//        this.mApConnectionEnable = b;
-//    }
-
 
     public void setWifiSsid(String wifiName) {
         this.mSsid = wifiName;
     }
 
-    public String getSsid() {
-        return mSsid;
-    }
-
-
-    public void setSmallIp(String platformIp) {
-        this.platformIp = platformIp;
-    }
-
-    public String getPlatformUrl() {
-        return  platformIp;
-    }
-
-    public void setQrcode(String qrcode) {
-        this.qrcode = qrcode;
-    }
-
-    public String getQrcode() {
-        return this.qrcode;
-    }
-
-    public void setTvBoxSSDPInfo(TvBoxSSDPInfo tvBoxSSDPInfo) {
-        this.mTvBoxSSDPInfo = tvBoxSSDPInfo;
-    }
-
-    public TvBoxSSDPInfo getTvBoxSSDPInfo() {
-        return this.mTvBoxSSDPInfo;
-    }
-
-    public void setDeleteStartUp(boolean isDeleteStartUp) {
-        this.isDeleteStartUp = isDeleteStartUp;
-    }
-
-    public boolean isDeleteStartUp() {
-        return this.isDeleteStartUp;
-    }
-
-    public void setSmallPlatInfoByGetIp(SmallPlatformByGetIp smallPlatformByGetIp) {
-        this.mSmallPlatInfoByIp = smallPlatformByGetIp;
-        setArea_id(smallPlatformByGetIp.getArea_id());
-    }
-
-    public SmallPlatformByGetIp getmSmallPlatInfoByIp() {
-        return mSmallPlatInfoByIp;
-    }
 
     public String getArea_id() {
         return area_id;
@@ -974,46 +749,6 @@ public class Session implements Serializable{
         writePreference(new Pair<String, Object>(P_APP_FIRST_USE, isUploadFirstuse));
     }
 
-    public void setBoxMac(String boxMac) {
-        this.boxMac = boxMac;
-    }
-
-    public String getBoxMac() {
-        return boxMac;
-    }
-
-    public void setIsWriteOpenLog(boolean isWriteOpenLog) {
-        this.isWriteOpenLog = isWriteOpenLog;
-    }
-
-    public boolean isWriteOpenLog() {
-        return this.isWriteOpenLog;
-    }
-
-    public void setHotelMapCache(HotelMapCache cache) {
-        this.mHotelMapCache = cache;
-//        writePreference(new Pair<String, Object>(P_APP_HOTEL_MAP, cache));
-    }
-
-    public HotelMapCache getmHotelMapCache() {
-        return mHotelMapCache;
-    }
-
-    public void setHotelMapList(HotelMapListData hotelMapListData) {
-        this.hotelMapListData = hotelMapListData;
-    }
-
-    public HotelMapListData getHotelMapList() {
-        return hotelMapListData;
-    }
-
-    public void setLatestLat(double latestLat) {
-        this.latestLat = latestLat;
-    }
-
-    public void setLatestLng(double latestLng) {
-        this.latestLng = latestLng;
-    }
 
     public double getLatestLat() {
         return latestLat;

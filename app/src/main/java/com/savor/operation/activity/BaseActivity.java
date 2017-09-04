@@ -9,7 +9,6 @@ import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.core.Session;
 import com.savor.operation.interfaces.IBaseView;
 import com.savor.operation.utils.ActivitiesManager;
-import com.savor.operation.widget.CommonDialog;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -20,7 +19,6 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
 
     protected Session mSession;
     protected Activity mContext;
-    private CommonDialog mHintDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +29,6 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
         ActivitiesManager.getInstance().pushActivity(this);
     }
 
-    public void showToast(String message) {
-        if(this.isFinishing()) {
-            return;
-        }
-        if(mHintDialog == null) {
-            mHintDialog = new CommonDialog(this,message);
-        }
-        mHintDialog.setContent(message);
-        mHintDialog.show();
-    }
 
     @Override
     protected void onResume() {
@@ -67,18 +55,8 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
         if(obj instanceof ResponseErrorMessage) {
             ResponseErrorMessage message = (ResponseErrorMessage) obj;
             String msg = message.getMessage();
-            showToast(msg);
+//            showToast(msg);
         }
-    }
-
-    @Override
-    public void showLoadingLayout() {
-
-    }
-
-    @Override
-    public void hideLoadingLayout() {
-
     }
 
     @Override

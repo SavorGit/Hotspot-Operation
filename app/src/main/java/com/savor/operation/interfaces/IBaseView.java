@@ -13,8 +13,4 @@ public interface IBaseView {
     void getViews();
     void setViews();
     void setListeners();
-//    void setContentLayout(int resId);
-    void showToast(String msg);
-    void showLoadingLayout();
-    void hideLoadingLayout();
 }

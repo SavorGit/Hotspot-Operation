@@ -8,7 +8,7 @@
     </style>
     <!-- Base application theme. -->
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimaryDark">@color/app_red_color</item>
+        <!--<item name="colorPrimaryDark">@color/app_red_color</item>-->
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
