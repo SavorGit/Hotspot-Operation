@@ -19,19 +19,14 @@ import com.common.api.utils.LogUtils;
 import com.common.api.utils.ShowMessage;
 import com.common.api.utils.ShowProgressDialog;
 import com.savor.operation.R;
-import com.savor.operation.bean.BaseProReqeust;
-import com.savor.operation.bean.MediaInfo;
-import com.savor.operation.bean.RotateProResponse;
-import com.savor.operation.bean.TvBoxInfo;
+
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.core.Session;
 import com.savor.operation.interfaces.IBaseView;
 import com.savor.operation.interfaces.IHotspotSenseView;
-import com.savor.operation.presenter.BindTvPresenter;
-import com.savor.operation.projection.ProjectionManager;
-import com.savor.operation.service.ProjectionService;
+
 import com.savor.operation.utils.ActivitiesManager;
 import com.savor.operation.utils.ConstantValues;
 import com.savor.operation.utils.WifiUtil;
