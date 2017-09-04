@@ -3,14 +3,8 @@ package com.savor.operation.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.widget.ContentLoadingProgressBar;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.common.api.utils.ShowMessage;
-import com.savor.operation.R;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
@@ -20,21 +14,9 @@ import com.savor.operation.utils.ActivitiesManager;
 
 
 public abstract class BaseFragmentActivity extends FragmentActivity implements IBaseView,ApiRequestListener {
-	protected FrameLayout backFL;
-	protected ImageView backIV;
-	protected TextView backTV;
-	protected FrameLayout nextFL;
-	protected ImageView nextIV;
-	protected TextView nextTV;
-	protected TextView titleTV;
-	
-//	protected PictureUtils pictureUtils;
-//	protected BitmapDisplayConfig config;
-	
+
 	protected Session mSession;
 	protected Context mContext;
-	private FrameLayout mParentLayout;
-	private ContentLoadingProgressBar mLoadingPb;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -42,26 +24,6 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements I
 		mSession = Session.get(getApplicationContext());
 		mContext = this;
 		ActivitiesManager.getInstance().pushActivity(this);
-//		setContentView(R.layout.base_layout);
-//		EtagoClientApplication.setApplicationContext(this);
-	}
-
-//	@Override
-//	public void setContentLayout(int resId) {
-//		mParentLayout = (FrameLayout) findViewById(R.id.fl_parent);
-//		mLoadingPb = (ContentLoadingProgressBar) findViewById(R.id.pb_loading);
-//		View childView = View.inflate(this, resId, null);
-//		mParentLayout.addView(childView,0);
-//	}
-
-	@Override
-	public void showLoadingLayout() {
-		mLoadingPb.setVisibility(View.VISIBLE);
-	}
-
-	@Override
-	public void hideLoadingLayout() {
-		mLoadingPb.setVisibility(View.GONE);
 	}
 
 	public void showToast(String message) {
@@ -84,7 +46,6 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements I
 
 		if(obj instanceof ResponseErrorMessage) {
 			ResponseErrorMessage message = (ResponseErrorMessage) obj;
-			int code = message.getCode();
 			String msg = message.getMessage();
 			showToast(msg);
 //			if(1006==code||12056==code) {
