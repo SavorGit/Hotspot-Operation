@@ -6,7 +6,6 @@ import android.os.Process;
 import android.widget.Toast;
 
 import com.savor.operation.utils.ActivitiesManager;
-import com.umeng.analytics.MobclickAgent;
 
 
 /**
@@ -26,10 +25,6 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
     @Override
     public void uncaughtException(Thread t, Throwable e) {
         e.printStackTrace();
-
-        // 友盟保存统计信息
-        MobclickAgent.onKillProcess(mContext);
-
 
         showCrashTips();
 
