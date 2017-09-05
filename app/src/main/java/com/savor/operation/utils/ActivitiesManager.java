@@ -3,11 +3,8 @@ package com.savor.operation.utils;
 import android.app.Activity;
 
 import com.common.api.utils.LogUtils;
-import com.savor.operation.bean.MediaInfo;
-import com.savor.operation.bean.VideoInfo;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Stack;
 
 /**
@@ -21,10 +18,6 @@ public class ActivitiesManager {
 	// activity栈
 	private static Stack<Activity> mActivityStack;
 	private static ActivitiesManager mActivitiesManager;
-	private static Class mProjectionActivity;
-	private List<MediaInfo> mModelPicList;
-	private VideoInfo mVideoInfo;
-	private int picPosition;
 
 
 	private ActivitiesManager() {
@@ -35,7 +28,7 @@ public class ActivitiesManager {
 		if (null == mActivitiesManager) {
 			mActivitiesManager = new ActivitiesManager();
 			if (null == mActivityStack) {
-				mActivityStack = new Stack<Activity>();
+				mActivityStack = new Stack<>();
 			}
 		}
 		return mActivitiesManager;
@@ -51,7 +44,7 @@ public class ActivitiesManager {
 	 * @return 当前activity
 	 */
 	public Activity getCurrentActivity() {
-		Activity activity = null;
+		Activity activity ;
 
 		try {
 			activity = mActivityStack.lastElement();

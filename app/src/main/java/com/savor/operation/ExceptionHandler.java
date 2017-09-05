@@ -1,15 +1,11 @@
 package com.savor.operation;
 
 import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Looper;
 import android.os.Process;
 import android.widget.Toast;
 
-import com.savor.operation.service.LocalJettyService;
 import com.savor.operation.utils.ActivitiesManager;
-import com.umeng.analytics.MobclickAgent;
 
 
 /**
@@ -26,23 +22,11 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
         mContext = context;
 
     }
-    /**
-     * 启动jetty服务service
-     */
-    private void startJettyServer(Context context) {
-        Intent intent = new Intent(context, LocalJettyService.class);
-        context.startService(intent);
-    }
     @Override
     public void uncaughtException(Thread t, Throwable e) {
         e.printStackTrace();
 
-        // 友盟保存统计信息
-        MobclickAgent.onKillProcess(mContext);
-
-
         showCrashTips();
-        startJettyServer(mContext);
 
         // 退出并重启应用
         exitAndRestart();
