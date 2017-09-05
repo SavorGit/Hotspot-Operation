@@ -44,13 +44,5 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
 
     }
 
-    @Override
-    public void showLoadingLayout() {
 
-    }
-
-    @Override
-    public void hideLoadingLayout() {
-
-    }
 }

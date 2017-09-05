@@ -47,13 +47,4 @@ public class AbnormalityReportActivity extends BaseActivity implements View.OnCl
 
     }
 
-    @Override
-    public void showLoadingLayout() {
-
-    }
-
-    @Override
-    public void hideLoadingLayout() {
-
-    }
 }

@@ -42,15 +42,6 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
         back.setOnClickListener(this);
     }
 
-    @Override
-    public void showLoadingLayout() {
-
-    }
-
-    @Override
-    public void hideLoadingLayout() {
-
-    }
 
     @Override
     public void onClick(View v) {
