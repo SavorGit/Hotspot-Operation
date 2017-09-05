@@ -34,8 +34,7 @@
         android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme">
-        <activity android:name=".activity.MainActivity"/>
-
+        <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.MaintenanceRecordActivity"
             android:configChanges="orientation|screenSize"
@@ -52,7 +51,6 @@
         <meta-data
             android:name="app_debug"
             android:value="1" />
-
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="59acb7f0f29d98425d000cfa" />
@@ -63,16 +61,17 @@
             android:name="UMENG_MESSAGE_SECRET"
             android:value="3c7df71a0b6ea4ed2a615903dab9dd9b" />
 
-        <activity android:name=".activity.LoginActivity"
+        <activity
+            android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateHidden"
-            >
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.SearchActivity"></activity>
     </application>
 
 </manifest>

@@ -91,6 +91,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.tv_refresh:
                 ShowMessage.showToast(this,"刷新数据");
@@ -98,12 +99,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_exit:
                 mSession.setLoginResponse(null);
-                Intent intent = new Intent(this,LoginActivity.class);
+                intent = new Intent(this,LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
             case R.id.tv_search:
-
+                intent = new Intent(this,SearchActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tv_fix_history:
 
