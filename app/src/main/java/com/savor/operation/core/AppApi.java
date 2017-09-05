@@ -36,6 +36,8 @@ public class AppApi {
         POST_LOGIN_JSON,
         /**首页*/
         POST_INDEX_JSON,
+        /**获取所有维修用户*/
+        POST_REPAIR_USER_JSON,
     }
 
     /**
@@ -49,6 +51,7 @@ public class AppApi {
             put(Action.TEST_GET_JSON, "https://www.baidu.com/");
             put(Action.POST_LOGIN_JSON, formatPhpUrl("Opclient/login/doLogin"));
             put(Action.POST_INDEX_JSON, formatPhpUrl("Opclient/index/index"));
+            put(Action.POST_REPAIR_USER_JSON, formatPhpUrl("Opclient/Box/getAllRepairUser"));
         }
     };
 
@@ -103,6 +106,10 @@ public class AppApi {
         new AppServiceOk(context, Action.POST_INDEX_JSON, handler, params).post();
     }
 
+    public static void getAllRepairUser(Context context, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        new AppServiceOk(context, Action.POST_REPAIR_USER_JSON, handler, params).post();
+    }
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";
     // 业务异常
