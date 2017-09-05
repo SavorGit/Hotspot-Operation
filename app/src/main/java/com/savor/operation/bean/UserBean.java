@@ -10,7 +10,6 @@ public class UserBean implements Serializable {
     private static final long serialVersionUID = -1;
     private String userid;
     private String username;
-
     public String getUserid() {
         return userid;
     }
