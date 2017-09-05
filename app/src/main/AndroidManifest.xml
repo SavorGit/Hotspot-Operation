@@ -36,6 +36,19 @@
         android:theme="@style/AppBaseTheme">
         <activity android:name=".activity.MainActivity"/>
 
+        <activity
+            android:name=".activity.MaintenanceRecordActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AbnormalityReportActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AbnormalityInfoActivity"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="app_debug"
             android:value="1" />
