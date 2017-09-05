@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.adapter.IndexInfoAdapter;
 import com.savor.operation.bean.IndexInfo;
@@ -30,6 +31,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView mVersionTv;
     private TextView mUserNmaeTv;
     private Button mExitBtn;
+    private TextView mRefreshTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void getViews() {
+        mRefreshTv = (TextView) findViewById(R.id.tv_refresh);
         mExitBtn = (Button) findViewById(R.id.btn_exit);
         mUserNmaeTv = (TextView) findViewById(R.id.tv_username);
         mVersionTv = (TextView) findViewById(R.id.tv_version);
@@ -70,7 +73,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String versionName = packageInfo.versionName;
-            mVersionTv.setText("运维端"+versionName);
+            mVersionTv.setText("运维端v"+versionName);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -79,6 +82,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void setListeners() {
+        mRefreshTv.setOnClickListener(this);
         mExitBtn.setOnClickListener(this);
         mSearchTv.setOnClickListener(this);
         mFixHistoryTv.setOnClickListener(this);
@@ -88,6 +92,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_refresh:
+                ShowMessage.showToast(this,"刷新数据");
+                getData();
+                break;
             case R.id.btn_exit:
                 mSession.setLoginResponse(null);
                 Intent intent = new Intent(this,LoginActivity.class);
@@ -111,6 +119,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (method) {
             case POST_INDEX_JSON:
                 if(obj instanceof IndexInfo) {
+                    ShowMessage.showToast(this,"数据获取成功");
                     IndexInfo indexInfo = (IndexInfo) obj;
                     List<String> list = indexInfo.getList();
                     mAdapter.setData(list);
