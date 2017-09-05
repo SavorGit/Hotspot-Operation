@@ -23,6 +23,7 @@ public class AbnormalityReportActivity extends BaseActivity implements View.OnCl
         getViews();
         setViews();
         setListeners();
+
     }
 
     @Override
