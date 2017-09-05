@@ -22,14 +22,17 @@ import com.common.api.utils.DesUtils;
 import com.common.api.utils.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.UserBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Response;
 
@@ -227,6 +230,10 @@ public class ApiResponseFactory {
                 break;
             case POST_INDEX_JSON:
                 result = new Gson().fromJson(info, IndexInfo.class);
+                break;
+            case POST_REPAIR_USER_JSON:
+                result = gson.fromJson(info, new TypeToken<List<UserBean>>() {
+                }.getType());
                 break;
             default:
                 break;
