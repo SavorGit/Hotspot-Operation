@@ -99,7 +99,7 @@ public class AppApi {
      * @param handler 接口回调
      */
     public static void getIndexInfo(Context context, ApiRequestListener handler) {
-        final HashMap<String, Object> params = new HashMap<String, Object>();
+        final HashMap<String, Object> params = new HashMap<>();
         new AppServiceOk(context, Action.POST_INDEX_JSON, handler, params).post();
     }
 
