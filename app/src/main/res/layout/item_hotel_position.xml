@@ -77,12 +77,14 @@
             android:text="维修记录：" />
 
         <TextView
+            android:padding="10dp"
+            android:textColor="@color/white"
             android:id="@+id/tv_fix"
             android:layout_alignParentRight="true"
             android:layout_gravity="right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_edittext"
+            android:background="@drawable/bg_solid_corner_red"
             android:text="@string/fix" />
         <android.support.v7.widget.RecyclerView
             android:layout_toRightOf="@id/tv_hint"
