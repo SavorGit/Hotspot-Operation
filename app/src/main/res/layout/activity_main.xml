@@ -83,11 +83,13 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rlv_info"
                 android:layout_marginLeft="15dp"
+                android:dividerHeight="10dp"
                 android:layout_marginRight="15dp"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
             <TextView
+                android:id="@+id/tv_reamrk"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 tools:text="注：异常为心跳失联超过15小时"

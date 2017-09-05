@@ -22,6 +22,7 @@ import com.common.api.utils.DesUtils;
 import com.common.api.utils.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoginResponse;
 
 import org.json.JSONArray;
@@ -225,7 +226,7 @@ public class ApiResponseFactory {
                 result = new Gson().fromJson(info, LoginResponse.class);
                 break;
             case POST_INDEX_JSON:
-                result = new Gson().fromJson(info, LoginResponse.class);
+                result = new Gson().fromJson(info, IndexInfo.class);
                 break;
             default:
                 break;
