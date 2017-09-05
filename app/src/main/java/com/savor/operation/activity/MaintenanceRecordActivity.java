@@ -54,6 +54,11 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back:
+                finish();
+                break;
 
+        }
     }
 }
