@@ -114,14 +114,15 @@
             android:text="登录账号："
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <TextView
+        <Button
+            android:id="@+id/btn_exit"
             android:padding="10dp"
             android:textColor="@color/white"
             android:text="@string/exit"
             android:background="@drawable/bg_solid_corner_red"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp" />
         <TextView
             android:id="@+id/tv_version"
             android:layout_centerVertical="true"
