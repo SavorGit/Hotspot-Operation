@@ -43,7 +43,10 @@ public class SearchHotelListAdapter extends RecyclerView.Adapter<SearchHotelList
         int itemCount = getItemCount();
         if(itemCount == 0 || position == itemCount -1) {
             holder.divider.setVisibility(View.GONE);
+        }else {
+            holder.divider.setVisibility(View.VISIBLE);
         }
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
