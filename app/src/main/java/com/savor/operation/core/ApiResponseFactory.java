@@ -224,6 +224,9 @@ public class ApiResponseFactory {
             case POST_LOGIN_JSON:
                 result = new Gson().fromJson(info, LoginResponse.class);
                 break;
+            case POST_INDEX_JSON:
+                result = new Gson().fromJson(info, LoginResponse.class);
+                break;
             default:
                 break;
         }

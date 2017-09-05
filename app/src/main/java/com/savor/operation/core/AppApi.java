@@ -32,7 +32,10 @@ public class AppApi {
     public static enum Action {
         TEST_POST_JSON,
         TEST_GET_JSON,
+        /**登录*/
         POST_LOGIN_JSON,
+        /**首页*/
+        POST_INDEX_JSON,
     }
 
     /**
@@ -45,6 +48,7 @@ public class AppApi {
             put(Action.TEST_GET_JSON, "https://www.baidu.com/");
             put(Action.TEST_GET_JSON, "https://www.baidu.com/");
             put(Action.POST_LOGIN_JSON, formatPhpUrl("Opclient/login/doLogin"));
+            put(Action.POST_INDEX_JSON, formatPhpUrl("Opclient/index/index"));
         }
     };
 
@@ -89,7 +93,15 @@ public class AppApi {
         new AppServiceOk(context, Action.POST_LOGIN_JSON, handler, params).post();
     }
 
-
+    /**
+     * 获取运维端首页信息
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getIndexInfo(Context context, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<String, Object>();
+        new AppServiceOk(context, Action.POST_INDEX_JSON, handler, params).post();
+    }
 
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";
