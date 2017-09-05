@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.common.api.utils.DensityUtil;
+
 import java.util.List;
 
 /**
@@ -49,6 +51,8 @@ public class IndexInfoAdapter extends RecyclerView.Adapter<IndexInfoAdapter.Inde
         public IndexHolder(View itemView) {
             super(itemView);
             textView = (TextView) itemView;
+            int padding = DensityUtil.dip2px(mContext,5);
+            textView.setPadding(padding,0,padding,padding);
         }
     }
 }

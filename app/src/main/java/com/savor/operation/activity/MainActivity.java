@@ -1,6 +1,9 @@
 package com.savor.operation.activity;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.TextView;
 import com.savor.operation.R;
 import com.savor.operation.adapter.IndexInfoAdapter;
 import com.savor.operation.bean.IndexInfo;
+import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.core.AppApi;
 
 import java.util.List;
@@ -21,6 +25,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView mRemarkTv;
     private RecyclerView mInfoLv;
     private IndexInfoAdapter mAdapter;
+    private TextView mVersionTv;
+    private TextView mUserNmaeTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void getViews() {
+        mUserNmaeTv = (TextView) findViewById(R.id.tv_username);
+        mVersionTv = (TextView) findViewById(R.id.tv_version);
         mInfoLv = (RecyclerView) findViewById(R.id.rlv_info);
         mRemarkTv = (TextView) findViewById(R.id.tv_reamrk);
         mSearchTv = (TextView) findViewById(R.id.tv_search);
@@ -53,6 +61,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         mAdapter = new IndexInfoAdapter(this);
         mInfoLv.setAdapter(mAdapter);
+        mInfoLv.setItemAnimator(new DefaultItemAnimator());
+
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String versionName = packageInfo.versionName;
+            mVersionTv.setText("运维端"+versionName);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -85,6 +103,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     IndexInfo indexInfo = (IndexInfo) obj;
                     List<String> list = indexInfo.getList();
                     mAdapter.setData(list);
+                    String remark = indexInfo.getRemark();
+                    mRemarkTv.setText(remark);
+                    LoginResponse loginResponse = mSession.getLoginResponse();
+                    mUserNmaeTv.setText("登录账号："+loginResponse.getUsername());
                 }
                 break;
         }
