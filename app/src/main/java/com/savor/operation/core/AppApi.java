@@ -73,8 +73,22 @@ public class AppApi {
 //        API_URLS.put(Action.TEST_GET_JSON,"http://"+ smallPlatInfoBySSDP.getServerIp()+":"+ smallPlatInfoBySSDP.getCommandPort()+"/small-platform-1.0.0.0.1-SNAPSHOT/com/execute/call-tdc");
 //        final HashMap<String, Object> params = new HashMap<String, Object>();
 //        new AppServiceOk(context, Action.TEST_GET_JSON, handler, params).get();
-
     }
+
+    /**
+     * 登录
+     * @param context 上下文
+     * @param username 用户名
+     * @param password 密码
+     * @param handler 接口回调
+     */
+    public static void login(Context context, String username,String password, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("username", username);
+        params.put("password", password);
+        new AppServiceOk(context, Action.POST_LOGIN_JSON, handler, params).post();
+    }
+
 
 
     // 超时（网络）异常

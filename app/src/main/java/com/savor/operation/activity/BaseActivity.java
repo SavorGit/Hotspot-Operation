@@ -3,8 +3,10 @@ package com.savor.operation.activity;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.common.api.utils.ShowMessage;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.core.Session;
 import com.savor.operation.interfaces.IBaseView;
 import com.savor.operation.utils.ActivitiesManager;
@@ -46,11 +48,11 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
     @Override
     public void onError(AppApi.Action method, Object obj) {
 
-//        if(obj instanceof ResponseErrorMessage) {
-//            ResponseErrorMessage message = (ResponseErrorMessage) obj;
-//            String msg = message.getMessage();
-//            showToast(msg);
-//        }
+        if(obj instanceof ResponseErrorMessage) {
+            ResponseErrorMessage message = (ResponseErrorMessage) obj;
+            String msg = message.getMessage();
+            ShowMessage.showToast(this,msg);
+        }
     }
 
     @Override

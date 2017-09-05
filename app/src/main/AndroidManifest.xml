@@ -34,13 +34,7 @@
         android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme">
-        <!--<activity android:name=".activity.MainActivity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+        <activity android:name=".activity.MainActivity"/>
 
         <meta-data
             android:name="app_debug"

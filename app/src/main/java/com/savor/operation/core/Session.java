@@ -37,6 +37,7 @@ import com.common.api.utils.AppUtils;
 import com.common.api.utils.LogUtils;
 import com.common.api.utils.Pair;
 import com.common.api.utils.SaveFileData;
+import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.utils.STIDUtil;
 
 import java.io.ByteArrayInputStream;
@@ -52,18 +53,12 @@ import java.util.List;
  * @author Administrator
  */
 @SuppressLint("WorldReadableFiles")
-public class Session implements Serializable{
+public class Session {
     private final static String TAG = "Session";
-    /**服务员推广数据*/
-    private static final String P_APP_WAITER_DATA = "p_app_waiter_data";
-    private int roomid;
-    private int hotelid = 0;
-    private String LocalIp;
     private Context mContext;
     private SaveFileData mPreference;
     private static  Session mInstance;
     public boolean isDebug = true;
-    private int interval;
 
     /** 是否已经显示引导图，没有显示则显示 */
     private boolean isNeedGuide = true;
@@ -71,8 +66,8 @@ public class Session implements Serializable{
     private static final String P_APP_DEVICEID = "pref.savor.deviceid";
     private static final String P_APP_HOTELID = "pref.savor.hotelid";
     private static final String P_APP_PLATFORM_URL = "pref.savor.platformurl";
-    private static final String P_APP_COLLECTIONS = "pref.savor.collections";
-    private static final String P_APP_COLLECTIONS_URL = "pref.savor.collectionsurl";
+    /**登录后返回用户信息*/
+    private static final String P_APP_LOGIN_RESPONSE = "pref.savor.login";
     /**是否显示引导图*/
     private static final String P_APP_IS_SHOW_GUIDE = "version_v1.0";
 
@@ -83,16 +78,11 @@ public class Session implements Serializable{
     private static final String P_APP_LASTSTARTUP = "p_app_laststartup";
     /**首次播放蒙层提示引导图*/
     private static final String P_APP_FIRST_PLAY = "p_app_firstplay";
-    /**启动配置*/
-    private static final String APP_START_UP_SETTINGS = "app_start_up_settings";
-    public static final String SLIDE_INTERVAL = "slide_interval";
     private long lastTime;
     /**
      * 设备deviceId
      */
     private static final String P_APP_NET_TYPE = "pref.savor.net_type";
-    /**pdf浏览历史*/
-    private static final String P_APP_PDF_LIST = "p_app_pdf_list";
 
     private static final String P_APP_AREA_ID = "p_app_area_id";
     /**首次使用*/
@@ -165,40 +155,16 @@ public class Session implements Serializable{
 
     private String deviceid;
 
-    /***/
-    private String mTVBoxUrl;
-
     private int sessionID;
-    public static String LocalUrl;
-    /**压缩图片的路径*/
-    public String mCompressPath;
     /**机顶盒连接的wifi名称*/
     private String sid;
-//    /**是否*/
-//    private boolean mApConnectionEnable;
     public boolean isApkDownloading = false;
     private String mSsid;
-    /**是否首次播放引导图蒙层*/
-    private boolean isFirstPlay = true;
-    /**小平台地址*/
-    private String platformIp;
-    /**扫码后缓存的二维码，3分钟后清除*/
-    private String qrcode;
     private String channelName;
     private String channelId;
-    /**是否需要删除启动图或视频*/
-    private boolean isDeleteStartUp;
-    /**区域id*/
-    private String area_id;
-    /**服务员推广缓存数据（上传失败后会缓存在本地）*/
-    private String mWaiterData;
-    /**是否已提交首次使用*/
-    private boolean mUploadFirstUse;
     private String boxMac;
-    /**是否已经写入open日志，启动后如果已经写入就不会再次写入了*/
-    private boolean isWriteOpenLog;
-    private double latestLat;
-    private double latestLng;
+    /**登录成功返回信息*/
+    private LoginResponse loginResponse;
 
     private Session(Context context) {
 
@@ -223,26 +189,7 @@ public class Session implements Serializable{
     public String getNetType() {
         return AppUtils.getNetworkType(mContext)+"";
     }
-    public long getLastTime() {
-        return lastTime;
-    }
 
-    public void setLastTime(long lastTime) {
-        this.lastTime = lastTime;
-        writePreference(new Pair<String, Object>(P_APP_LASTSTARTUP, lastTime));
-    }
-    public void setFirstPlay(boolean firstPlay) {
-        this.isFirstPlay = firstPlay;
-        writePreference(new Pair<String, Object>(P_APP_FIRST_PLAY, firstPlay));
-    }
-
-    public boolean ismUploadFirstUse() {
-        return mUploadFirstUse;
-    }
-
-    public boolean isFristPlay() {
-        return isFirstPlay;
-    }
     public String getModel() {
         return model;
     }
@@ -286,122 +233,6 @@ public class Session implements Serializable{
     }
 
 
-    public String getLocalIp() {
-        return LocalIp;
-    }
-
-    public void setLocalIp(String localIp) {
-        LocalIp = localIp;
-        setLocalUrl(localIp);
-    }
-
-    public String getVersionName() {
-        return versionName;
-    }
-
-    public void setVersionName(String versionName) {
-        this.versionName = versionName;
-    }
-
-    public static String getLocalUrl() {
-        return LocalUrl;
-    }
-
-    public static void setLocalUrl(String localUrl) {
-        LocalUrl = "http://" + localUrl + ":8080";
-    }
-
-    public int getInterval() {
-        return interval;
-    }
-
-    public void setInterval(int interval) {
-        this.interval = interval;
-        writePreference(new Pair<String, Object>(SLIDE_INTERVAL, interval));
-    }
-
-    public String getTVBoxUrl() {
-//        if(isDev) {
-//          return "http://192.168.2.125:8080";
-//        }else {
-            return mTVBoxUrl;
-//        }
-    }
-
-    public boolean isBindTv() {
-//        if(isDev) {
-//         return true;
-//        }else {
-            return !TextUtils.isEmpty(mTVBoxUrl);
-//        }
-    }
-
-    public boolean isApkDownloading() {
-        return isApkDownloading;
-    }
-
-    public void setApkDownloading(boolean isApkDownloading) {
-        this.isApkDownloading = isApkDownloading;
-    }
-    public void resetPlatform() {
-        mTVBoxUrl = null;
-    }
-    public void setTVBoxUrl(String tvBoxUrl) {
-        Uri parse = Uri.parse(tvBoxUrl);
-        String ip = parse.getQueryParameter("ip");
-        String bId = parse.getQueryParameter("bid");
-        String rId = parse.getQueryParameter("rid");
-        String sid = parse.getQueryParameter("sid");
-        tvBoxUrl = "http://" + ip + ":8080";
-
-        int hotelId = -1;
-        int roomId = -1;
-        try {
-            hotelId = Integer.parseInt(bId);
-            roomId = Integer.parseInt(rId);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
-
-        if(hotelId!=-1)
-            setHotelid(hotelId);
-        setRoomid(roomId);
-        setWifiSsid(sid);
-        LogUtils.d("PlatformUrl=" + tvBoxUrl);
-        this.mTVBoxUrl = tvBoxUrl;
-    }
-
-    public void setWaiterData(String waiterData) {
-        this.mWaiterData = waiterData;
-        writePreference(new Pair<String, Object>(P_APP_WAITER_DATA, waiterData));
-    }
-
-    public String getWaiterData() {
-        return this.mWaiterData;
-    }
-
-    public int getRoomid() {
-//        if(isDev)
-//            return 1555;
-//        else
-        return roomid;
-    }
-
-    public void setRoomid(int roomid) {
-        this.roomid = roomid;
-    }
-
-    public int getHotelid() {
-//        if(isDev)
-            return hotelid;
-//        else
-//         return 156;
-    }
-
-    public void setHotelid(int hotelid) {
-        this.hotelid = hotelid;
-    }
-
     public static Session get(Context context) {
 
         if (mInstance == null) {
@@ -414,23 +245,14 @@ public class Session implements Serializable{
         return mInstance;
     }
 
-    public String getCompressPath() {
-        return mCompressPath;
-    }
-
-    public void setmCompressPath(String mCompressPath) {
-        this.mCompressPath = mCompressPath;
-    }
-
     private void readSettings() {
 //        mHotelMapCache = (HotelMapCache) getObj(P_APP_HOTEL_MAP);
+        loginResponse = (LoginResponse) getObj(P_APP_LOGIN_RESPONSE);
         deviceid = STIDUtil.getDeviceId(mContext);
         netType = mPreference.loadStringKey(P_APP_NET_TYPE, "");
         isNeedGuide = mPreference.loadBooleanKey(P_APP_IS_SHOW_GUIDE, isNeedGuide);
         isScanGuide = mPreference.loadBooleanKey(P_APP_IS_SHOW_SCAN_GUIDE, isScanGuide);
-        interval = mPreference.loadIntKey(SLIDE_INTERVAL, 10);
         lastTime = mPreference.loadLongKey(P_APP_LASTSTARTUP,0);
-        isFirstPlay = mPreference.loadBooleanKey(P_APP_FIRST_PLAY,true);
 
         setDeviceid(deviceid);
         getApplicationInfo();
@@ -535,14 +357,14 @@ public class Session implements Serializable{
 
         if ("".equals(key) ||P_APP_PLATFORM_URL.equals(key)
                 ||P_APP_AREA_ID.equals(key)
-                || P_APP_WAITER_DATA.equals(key)) {
+                ) {
             mPreference.saveStringKey(key, (String) updateItem.second);
         }else if(P_APP_IS_SHOW_GUIDE.equals(key)
                 ||P_APP_FIRST_PLAY.equals(key)
                 ||P_APP_IS_SHOW_SCAN_GUIDE.equals(key)
                 ||P_APP_FIRST_USE.equals(key)){
             mPreference.saveBooleanKey(key,(boolean)updateItem.second);
-        }else if(SLIDE_INTERVAL.equals(key)||P_APP_HOTELID.equals(key)){
+        }else if(P_APP_HOTELID.equals(key)){
             mPreference.saveIntKey(key,(Integer) updateItem.second);
         }else if(P_APP_LASTSTARTUP.equals(key)) {
             mPreference.saveLongKey(key,(Long)updateItem.second);
@@ -698,63 +520,16 @@ public class Session implements Serializable{
         buffer.append(";language=");
         buffer.append("");
         buffer.append(";location=");
-        buffer.append(latestLng+","+latestLat);
-//        buffer.append(";imei=");
-//        buffer.append(imei);
-//        buffer.append(";sim=");
-//        buffer.append(sim);
-//        buffer.append(";macaddress=");
-//        buffer.append(getMac());
-
-//        buffer.append(";source=");
-//        buffer.append("22");
-
-//        TimeZone timeZone = TimeZone.getDefault();
-//        buffer.append(";systemtimezone=");
-//        buffer.append(timeZone.getID());
-
-        /** 加入流水号 */
-//		buffer.append(";seq=");
-//		buffer.append(imei + AppUtils.getXuHao());
-//		buffer.append(";num=");
-//		buffer.append(num);
-        // LogUtils.e(buffer.toString());
         return buffer.toString();
     }
 
 
-    public List<String> getCollectionsUrl() {
-        Object obj = getObj(P_APP_COLLECTIONS_URL);
-        if(obj instanceof List)
-            return (List<String>) obj;
-        return null;
+    public void setLoginResponse(LoginResponse loginResponse) {
+        this.loginResponse = loginResponse;
+        setObj(P_APP_LOGIN_RESPONSE,loginResponse);
     }
 
-    public void setWifiSsid(String wifiName) {
-        this.mSsid = wifiName;
-    }
-
-
-    public String getArea_id() {
-        return area_id;
-    }
-
-    public void setArea_id(String area_id) {
-        this.area_id = area_id;
-        writePreference(new Pair<String, Object>(P_APP_AREA_ID, area_id));
-    }
-
-    public void setIsUploadFirstuse(boolean isUploadFirstuse) {
-        this.mUploadFirstUse = isUploadFirstuse;
-        writePreference(new Pair<String, Object>(P_APP_FIRST_USE, isUploadFirstuse));
-    }
-
-
-    public double getLatestLat() {
-        return latestLat;
-    }
-
-    public double getLatestLng() {
-        return latestLng;
+    public LoginResponse getLoginResponse() {
+        return this.loginResponse;
     }
 }
