@@ -111,7 +111,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 break;
             case R.id.tv_exception_report:
-
+                intent = new Intent(this,AbnormalityReportActivity.class);
+                startActivity(intent);
                 break;
         }
     }
