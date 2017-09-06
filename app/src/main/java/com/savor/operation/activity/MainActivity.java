@@ -108,6 +108,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.tv_fix_history:
+                intent = new Intent(this,MaintenanceRecordActivity.class);
+                startActivity(intent);
 
                 break;
             case R.id.tv_exception_report:
