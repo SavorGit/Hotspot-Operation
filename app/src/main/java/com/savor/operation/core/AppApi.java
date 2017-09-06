@@ -43,7 +43,9 @@ public class AppApi {
         /**异常报告列表*/
         POST_ERROR_REPORT_LIST_JSON,
         /**异常报告详情页*/
-        POST_ERROR_REPORT_DETAIL_JSON
+        POST_ERROR_REPORT_DETAIL_JSON,
+        /**获取用户维修记录*/
+        POST_REPAIR_RECORD_LIST_JSON
     }
 
     /**
@@ -61,6 +63,7 @@ public class AppApi {
             put(Action.POST_SEARCH_HOTEL_JSON, formatPhpUrl("Opclient/hotel/searchHotel"));
             put(Action.POST_ERROR_REPORT_LIST_JSON, formatPhpUrl("Opclient/ErrorReport/getList"));
             put(Action.POST_ERROR_REPORT_DETAIL_JSON, formatPhpUrl("Opclient/ErrorReport/getErrorDetail"));
+            put(Action.POST_REPAIR_RECORD_LIST_JSON, formatPhpUrl("Opclient/Box/getRepairRecordListByUserid"));
 
         }
     };
@@ -145,7 +148,7 @@ public class AppApi {
     }
 
     /**
-     * 异常报告列表
+     * 异常报告详情页
      * @param context 上下文
      * @param handler 接口回调
      */
@@ -157,6 +160,17 @@ public class AppApi {
         new AppServiceOk(context, Action.POST_ERROR_REPORT_DETAIL_JSON, handler, params).post();
     }
 
+    /**
+     * 获取用户维修记录
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getRepairRecordList(Context context, String userid,int page_num,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("userid",userid);
+        params.put("page_num",page_num);
+        new AppServiceOk(context, Action.POST_REPAIR_RECORD_LIST_JSON, handler, params).post();
+    }
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";
     // 业务异常
