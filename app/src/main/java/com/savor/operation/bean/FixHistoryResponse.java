@@ -58,6 +58,38 @@ public class FixHistoryResponse implements Serializable {
             this.box_info = box_info;
         }
 
+        @Override
+        public String toString() {
+            return "ListBean{" +
+                    "version=" + version +
+                    ", banwei='" + banwei + '\'' +
+                    ", box_info=" + box_info +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ListBean listBean = (ListBean) o;
+
+            if (version != null ? !version.equals(listBean.version) : listBean.version != null)
+                return false;
+            if (banwei != null ? !banwei.equals(listBean.banwei) : listBean.banwei != null)
+                return false;
+            return box_info != null ? box_info.equals(listBean.box_info) : listBean.box_info == null;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = version != null ? version.hashCode() : 0;
+            result = 31 * result + (banwei != null ? banwei.hashCode() : 0);
+            result = 31 * result + (box_info != null ? box_info.hashCode() : 0);
+            return result;
+        }
+
         public class VersionBean implements Serializable{
             /**
              * last_heart_time : {"ltime":"2分","lstate":1}
@@ -249,7 +281,7 @@ public class FixHistoryResponse implements Serializable {
             private int ustate;
             private String last_heart_time;
             private String ltime;
-            private List<?> repair_record;
+            private List<String> repair_record;
 
             public String getRname() {
                 return rname;
@@ -299,11 +331,11 @@ public class FixHistoryResponse implements Serializable {
                 this.ltime = ltime;
             }
 
-            public List<?> getRepair_record() {
+            public List<String> getRepair_record() {
                 return repair_record;
             }
 
-            public void setRepair_record(List<?> repair_record) {
+            public void setRepair_record(List<String> repair_record) {
                 this.repair_record = repair_record;
             }
 

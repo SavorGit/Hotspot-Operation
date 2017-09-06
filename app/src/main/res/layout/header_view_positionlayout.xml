@@ -20,16 +20,12 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_sp_version"
             android:layout_weight="1"
             android:text="发布小平台版本号：1.2.1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:layout_weight="1"
-            android:text="发布apk版本号：1.2.1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </LinearLayout>
     <RelativeLayout
         android:padding="10dp"
@@ -40,40 +36,21 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_last_sp_version"
             android:layout_weight="1"
-            android:text="最新小平台版本号：1.2.1"
+            android:text="最后小平台版本号：1.2.1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:src="@drawable/adv_gallery_red_mark"
+            android:id="@+id/iv_sp_state"
+            android:src="@drawable/cirlce_green"
             android:layout_alignParentRight="true"
             android:text="发布apk版本号：1.2.1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
-    <RelativeLayout
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_weight="1"
-            android:text="最新APK版本号：1.2.1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:src="@drawable/adv_gallery_red_mark_selector"
-            android:layout_alignParentRight="true"
-            android:text="发布apk版本号：1.2.1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
     <RelativeLayout
         android:paddingTop="10dp"
         android:paddingLeft="10dp"
@@ -85,13 +62,15 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_last_xintiao"
             android:layout_weight="1"
             android:text="小平台最后心跳时间：3分钟前"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:src="@drawable/adv_gallery_red_mark"
+            android:id="@+id/iv_last_xintiao"
+            android:src="@drawable/cirlce_red"
             android:layout_alignParentRight="true"
             android:text="发布apk版本号：1.2.1"
             android:layout_width="wrap_content"
@@ -119,6 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
     <TextView
+        android:id="@+id/tv_position_desc"
         android:textSize="16sp"
         android:textStyle="bold"
         android:text="版位信息（共8个，失联超过15小时 5个）"
