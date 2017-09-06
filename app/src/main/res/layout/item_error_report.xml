@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_main_bg">
+    
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="截止到09-05 14点，共有55家酒楼(54家酒楼异常,52个小平台失联超过15小时,602个机顶盒失联超过15小时)"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:maxLines="4"
+        />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_below="@id/info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:padding="3dp"
+        android:textSize="15sp"
+        android:layout_marginTop="4dp"
+        android:text="2017-09-05 14:01:00"
+        android:textColor="@color/black"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/arraw_right"/>
+
+
+
+</RelativeLayout>

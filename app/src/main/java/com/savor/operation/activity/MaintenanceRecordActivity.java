@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
+import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
 
 /**
@@ -16,6 +17,7 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
     private Context context;
     private Spinner spinner;
     private RelativeLayout back;
+    private PullToRefreshListView mPullRefreshListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
