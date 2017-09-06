@@ -23,10 +23,13 @@ import com.common.api.utils.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.savor.operation.bean.ErrorDetail;
+import com.savor.operation.bean.ErrorReport;
 import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.HotelListResponse;
 import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.UserBean;
 
 import org.json.JSONArray;
@@ -239,6 +242,18 @@ public class ApiResponseFactory {
                 break;
             case POST_SEARCH_HOTEL_JSON:
                 result = gson.fromJson(info, HotelListResponse.class);
+                break;
+            case POST_ERROR_REPORT_LIST_JSON:
+                result = gson.fromJson(info, new TypeToken<ErrorReport>() {
+                }.getType());
+                break;
+            case POST_ERROR_REPORT_DETAIL_JSON:
+                result = gson.fromJson(info, new TypeToken<ErrorDetail>() {
+                }.getType());
+                break;
+            case POST_REPAIR_RECORD_LIST_JSON:
+                result = gson.fromJson(info, new TypeToken<RepairRecordList>() {
+                }.getType());
                 break;
             default:
                 break;
