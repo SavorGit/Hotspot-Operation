@@ -38,6 +38,8 @@ public class AppApi {
         POST_INDEX_JSON,
         /**获取所有维修用户*/
         POST_REPAIR_USER_JSON,
+        /**搜索酒楼*/
+        POST_SEARCH_HOTEL_JSON,
     }
 
     /**
@@ -52,6 +54,7 @@ public class AppApi {
             put(Action.POST_LOGIN_JSON, formatPhpUrl("Opclient/login/doLogin"));
             put(Action.POST_INDEX_JSON, formatPhpUrl("Opclient/index/index"));
             put(Action.POST_REPAIR_USER_JSON, formatPhpUrl("Opclient/Box/getAllRepairUser"));
+            put(Action.POST_SEARCH_HOTEL_JSON, formatPhpUrl("Opclient/hotel/searchHotel"));
         }
     };
 
@@ -110,6 +113,18 @@ public class AppApi {
         final HashMap<String, Object> params = new HashMap<>();
         new AppServiceOk(context, Action.POST_REPAIR_USER_JSON, handler, params).post();
     }
+
+    /**
+     * 获取运维端首页信息
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void searchHotel(Context context, String hotel_name,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("hotel_name",hotel_name);
+        new AppServiceOk(context, Action.POST_SEARCH_HOTEL_JSON, handler, params).post();
+    }
+
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";
     // 业务异常
