@@ -40,6 +40,8 @@ public class AppApi {
         POST_REPAIR_USER_JSON,
         /**搜索酒楼*/
         POST_SEARCH_HOTEL_JSON,
+        /**异常报告列表*/
+        POST_ERROR_REPORT_LIST_JSON
     }
 
     /**
@@ -55,6 +57,7 @@ public class AppApi {
             put(Action.POST_INDEX_JSON, formatPhpUrl("Opclient/index/index"));
             put(Action.POST_REPAIR_USER_JSON, formatPhpUrl("Opclient/Box/getAllRepairUser"));
             put(Action.POST_SEARCH_HOTEL_JSON, formatPhpUrl("Opclient/hotel/searchHotel"));
+            put(Action.POST_ERROR_REPORT_LIST_JSON, formatPhpUrl("Opclient/ErrorReport/getList"));
         }
     };
 
@@ -123,6 +126,17 @@ public class AppApi {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("hotel_name",hotel_name);
         new AppServiceOk(context, Action.POST_SEARCH_HOTEL_JSON, handler, params).post();
+    }
+
+    /**
+     * 异常报告列表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getErrorReportList(Context context, String hotel_name,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("hotel_name",hotel_name);
+        new AppServiceOk(context, Action.POST_ERROR_REPORT_LIST_JSON, handler, params).post();
     }
 
     // 超时（网络）异常
