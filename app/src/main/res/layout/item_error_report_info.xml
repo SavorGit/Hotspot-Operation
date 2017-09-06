@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_main_bg">
+
+    <TextView
+        android:id="@+id/hotel_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="永峰写字楼(测试) 共85个版位"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="6dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="6dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/small_palt_info"
+        android:layout_below="@id/hotel_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="小平台正常,上次上报时间2017-09-05 20:50:01;"
+        android:layout_marginTop="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="6dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/box_info"
+        android:layout_below="@id/small_palt_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="机顶盒异常22个最后上报时间 2017-09-05 20:50:01"
+        android:layout_marginTop="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="6dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="2dp"
+        android:src="@drawable/arraw_right"/>
+
+
+</RelativeLayout>
