@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.savor.operation.R;
 
+import java.util.List;
+
 /**
  * Created by hezd on 2017/9/5.
  */
@@ -16,6 +18,7 @@ import com.savor.operation.R;
 public class TvBoxFixHistoryAdapter extends RecyclerView.Adapter<TvBoxFixHistoryAdapter.BoxFixHolder> {
 
     private final Context mContext;
+    private List<String> data;
 
     public TvBoxFixHistoryAdapter(Context context) {
         this.mContext = context;
@@ -26,14 +29,20 @@ public class TvBoxFixHistoryAdapter extends RecyclerView.Adapter<TvBoxFixHistory
         return new BoxFixHolder(LayoutInflater.from(mContext).inflate(R.layout.item_box_fix_history,parent,false));
     }
 
+    public void setData(List<String> data) {
+        this.data = data;
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onBindViewHolder(BoxFixHolder holder, int position) {
-        holder.tv_fix_desc.setText("08-28 17：39（郑伟）");
+        String s = data.get(position);
+        holder.tv_fix_desc.setText(s);
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return data == null?0:data.size();
     }
 
     public class BoxFixHolder extends RecyclerView.ViewHolder {

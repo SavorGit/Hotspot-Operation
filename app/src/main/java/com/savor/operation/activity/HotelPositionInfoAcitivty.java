@@ -10,14 +10,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.common.api.utils.DensityUtil;
+import com.common.api.widget.MultiDialog;
 import com.savor.operation.R;
 import com.savor.operation.adapter.HotelPositionAdapter;
+import com.savor.operation.bean.DamageConfig;
+import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.Hotel;
+import com.savor.operation.core.AppApi;
+import com.savor.operation.widget.FixDialog;
+
+import java.util.List;
 
 /**
  * 酒楼版位信息
  */
-public class HotelPositionInfoAcitivty extends BaseActivity {
+public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPositionAdapter.OnFixBtnClickListener {
 
     private ListView mPostionListView;
     private ImageView mBackBtn;
@@ -26,6 +33,13 @@ public class HotelPositionInfoAcitivty extends BaseActivity {
     private HotelPositionAdapter mHotelPositionAdapter;
     private Hotel mHotel;
     private View mHeaderView;
+    private TextView mSpVersionTv;
+    private TextView mLastSpVersionTv;
+    private TextView mLastXintiao;
+    private ImageView mSpState;
+    private ImageView mLastXintiaoIV;
+    private TextView mPositionDesc;
+    private DamageConfig damageConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +50,18 @@ public class HotelPositionInfoAcitivty extends BaseActivity {
         getViews();
         setViews();
         setListeners();
+
+        getData();
+        getDamageInfo();
+
+    }
+
+    private void getDamageInfo() {
+        AppApi.getDamageConfig(this,this);
+    }
+
+    private void getData() {
+        AppApi.getFixHistory(this,mHotel.getId(),this);
     }
 
     private void handleIntent() {
@@ -50,6 +76,15 @@ public class HotelPositionInfoAcitivty extends BaseActivity {
         mRightTv = (TextView) findViewById(R.id.tv_right);
         mPostionListView = (ListView) findViewById(R.id.lv_hotel_position_list);
         mHeaderView = ImageView.inflate(this, R.layout.header_view_positionlayout,null);
+
+        mSpVersionTv = (TextView) mHeaderView.findViewById(R.id.tv_sp_version);
+        mLastSpVersionTv = (TextView) mHeaderView.findViewById(R.id.tv_last_sp_version);
+        mLastXintiao = (TextView) mHeaderView.findViewById(R.id.tv_last_xintiao);
+        mSpState = (ImageView) mHeaderView.findViewById(R.id.iv_sp_state);
+        mLastXintiaoIV = (ImageView) mHeaderView.findViewById(R.id.iv_last_xintiao);
+        mPositionDesc = (TextView) mHeaderView.findViewById(R.id.tv_position_desc);
+
+        damageConfig = mSession.getDamageConfig();
     }
 
     @Override
@@ -78,6 +113,73 @@ public class HotelPositionInfoAcitivty extends BaseActivity {
 
     @Override
     public void setListeners() {
+        mHotelPositionAdapter.setOnFixBtnClickListener(this);
+    }
 
+    @Override
+    public void onSuccess(AppApi.Action method, Object obj) {
+        switch (method) {
+            case POST_FIX_HISTORY_JSON:
+                if(obj instanceof FixHistoryResponse) {
+                    FixHistoryResponse fixHistoryResponse = (FixHistoryResponse) obj;
+                    initSmallPlatfromInfo(fixHistoryResponse);
+                }
+                break;
+            case POST_DAMAGE_CONFIG_JSON:
+                if(obj instanceof DamageConfig) {
+                    damageConfig = (DamageConfig) obj;
+                    List<DamageConfig.DamageInfo> list = damageConfig.getList();
+                    if(list!=null&&list.size()>0) {
+                        mSession.setDamageConfig(damageConfig);
+                    }
+                }
+                break;
+        }
+    }
+
+    private void initSmallPlatfromInfo(FixHistoryResponse fixHistoryResponse) {
+        FixHistoryResponse.ListBean list = fixHistoryResponse.getList();
+        if (list != null) {
+            FixHistoryResponse.ListBean.VersionBean version = list.getVersion();
+            if (version != null) {
+                String new_small = version.getNew_small();
+                mSpVersionTv.setText("发布小平台版本号：" + new_small);
+
+                FixHistoryResponse.ListBean.VersionBean.LastSmallBean last_small = version.getLast_small();
+                int last_small_state = last_small.getLast_small_state();
+                String last_small_pla = last_small.getLast_small_pla();
+                if (last_small_state == 1) {
+                    mSpState.setImageResource(R.drawable.cirlce_green);
+                } else {
+                    mSpState.setImageResource(R.drawable.cirlce_red);
+                }
+                mLastSpVersionTv.setText("最后小平台版本号：" + last_small_pla);
+
+                FixHistoryResponse.ListBean.VersionBean.LastHeartTimeBean last_heart_time = version.getLast_heart_time();
+                int lstate = last_heart_time.getLstate();
+                String ltime = last_heart_time.getLtime();
+                mLastXintiao.setText("最后小平台心跳时间：" + ltime);
+                if (lstate == 1) {
+                    mLastXintiaoIV.setImageResource(R.drawable.cirlce_green);
+                } else {
+                    mLastXintiaoIV.setImageResource(R.drawable.cirlce_red);
+                }
+            }
+
+            String banwei = list.getBanwei();
+            mPositionDesc.setText(banwei);
+            List<FixHistoryResponse.ListBean.BoxInfoBean> box_info = list.getBox_info();
+            mHotelPositionAdapter.setData(box_info);
+        }
+    }
+
+    @Override
+    public void onFixBtnClick(int position, FixHistoryResponse.ListBean.BoxInfoBean boxInfoBean) {
+        new FixDialog(this, new FixDialog.OnSubmitBtnClickListener() {
+            @Override
+            public void onSubmitClick(boolean isResolve, String damageDesc, String comment) {
+
+            }
+        }).show();
     }
 }

@@ -45,7 +45,11 @@ public class AppApi {
         /**异常报告详情页*/
         POST_ERROR_REPORT_DETAIL_JSON,
         /**获取用户维修记录*/
-        POST_REPAIR_RECORD_LIST_JSON
+        POST_REPAIR_RECORD_LIST_JSON,
+        /**维修记录*/
+        POST_FIX_HISTORY_JSON,
+        /**获取酒楼损坏配置表*/
+        POST_DAMAGE_CONFIG_JSON,
     }
 
     /**
@@ -64,7 +68,8 @@ public class AppApi {
             put(Action.POST_ERROR_REPORT_LIST_JSON, formatPhpUrl("Opclient/ErrorReport/getList"));
             put(Action.POST_ERROR_REPORT_DETAIL_JSON, formatPhpUrl("Opclient/ErrorReport/getErrorDetail"));
             put(Action.POST_REPAIR_RECORD_LIST_JSON, formatPhpUrl("Opclient/Box/getRepairRecordListByUserid"));
-
+            put(Action.POST_FIX_HISTORY_JSON, formatPhpUrl("Opclient/Hotel/getHotelVersionById"));
+            put(Action.POST_DAMAGE_CONFIG_JSON, formatPhpUrl("Opclient/Box/getHotelBoxDamageConfig"));
         }
     };
 
@@ -171,6 +176,29 @@ public class AppApi {
         params.put("page_num",page_num);
         new AppServiceOk(context, Action.POST_REPAIR_RECORD_LIST_JSON, handler, params).post();
     }
+
+    /**
+     * 获取版位信息和维修记录
+     * @param context 上下文
+     * @param handler 接口回调
+     * @param hotelId 酒店id
+     */
+    public static void getFixHistory(Context context, String hotelId,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("hotel_id",hotelId);
+        new AppServiceOk(context, Action.POST_FIX_HISTORY_JSON, handler, params).post();
+    }
+
+    /**
+     * 酒店损坏配置表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getDamageConfig(Context context, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        new AppServiceOk(context, Action.POST_DAMAGE_CONFIG_JSON, handler, params).post();
+    }
+
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";
     // 业务异常

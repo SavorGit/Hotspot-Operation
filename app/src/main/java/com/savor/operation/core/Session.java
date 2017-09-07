@@ -37,6 +37,7 @@ import com.common.api.utils.AppUtils;
 import com.common.api.utils.LogUtils;
 import com.common.api.utils.Pair;
 import com.common.api.utils.SaveFileData;
+import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.utils.STIDUtil;
 
@@ -85,6 +86,7 @@ public class Session {
     private static final String P_APP_NET_TYPE = "pref.savor.net_type";
 
     private static final String P_APP_AREA_ID = "p_app_area_id";
+    private static final String P_APP_DAMAGE_CONFIG = "p_app_damage_config";
     /**首次使用*/
     private static final String P_APP_FIRST_USE = "p_app_first_use";
     /**最近可投屏酒店*/
@@ -165,6 +167,7 @@ public class Session {
     private String boxMac;
     /**登录成功返回信息*/
     private LoginResponse loginResponse;
+    private DamageConfig damageConfig;
 
     private Session(Context context) {
 
@@ -190,51 +193,15 @@ public class Session {
         return AppUtils.getNetworkType(mContext)+"";
     }
 
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public int getSessionID() {
-        return sessionID;
-    }
-
-    public String getImei() {
-        return imei;
-    }
-
-    public void setImei(String imei) {
-        this.imei = imei;
-    }
-
-    public void setSessionID(int sessionID) {
-        this.sessionID = sessionID;
-    }
-
-    public boolean isNeedGuide() {
-        return isNeedGuide;
-    }
 
     public void setNeedGuide(boolean needGuide) {
         isNeedGuide = needGuide;
         writePreference(new Pair<String, Object>(P_APP_IS_SHOW_GUIDE, needGuide));
     }
 
-    public boolean isScanGuide() {
-        return isScanGuide;
-    }
-
-    public void setScanGuide(boolean scanGuide) {
-        isScanGuide = scanGuide;
-        writePreference(new Pair<String, Object>(P_APP_IS_SHOW_SCAN_GUIDE, scanGuide));
-    }
 
 
     public static Session get(Context context) {
-
         if (mInstance == null) {
             synchronized (Session.class) {
                 if(mInstance == null) {
@@ -245,8 +212,17 @@ public class Session {
         return mInstance;
     }
 
+    public void setDamageConfig(DamageConfig damageConfig) {
+        this.damageConfig = damageConfig;
+        setObj(P_APP_DAMAGE_CONFIG,damageConfig);
+    }
+
+    public DamageConfig getDamageConfig() {
+        return this.damageConfig;
+    }
+
     private void readSettings() {
-//        mHotelMapCache = (HotelMapCache) getObj(P_APP_HOTEL_MAP);
+        damageConfig = (DamageConfig) getObj(P_APP_DAMAGE_CONFIG);
         loginResponse = (LoginResponse) getObj(P_APP_LOGIN_RESPONSE);
         deviceid = STIDUtil.getDeviceId(mContext);
         netType = mPreference.loadStringKey(P_APP_NET_TYPE, "");
