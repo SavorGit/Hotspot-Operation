@@ -100,6 +100,7 @@ public class FixHistoryResponse implements Serializable {
             private LastHeartTimeBean last_heart_time;
             private LastSmallBean last_small;
             private String new_small;
+            private String small_mac;
 
             @Override
             public String toString() {
@@ -107,6 +108,7 @@ public class FixHistoryResponse implements Serializable {
                         "last_heart_time=" + last_heart_time +
                         ", last_small=" + last_small +
                         ", new_small='" + new_small + '\'' +
+                        ", small_mac='" + small_mac + '\'' +
                         '}';
             }
 
@@ -121,7 +123,9 @@ public class FixHistoryResponse implements Serializable {
                     return false;
                 if (last_small != null ? !last_small.equals(that.last_small) : that.last_small != null)
                     return false;
-                return new_small != null ? new_small.equals(that.new_small) : that.new_small == null;
+                if (new_small != null ? !new_small.equals(that.new_small) : that.new_small != null)
+                    return false;
+                return small_mac != null ? small_mac.equals(that.small_mac) : that.small_mac == null;
 
             }
 
@@ -130,6 +134,7 @@ public class FixHistoryResponse implements Serializable {
                 int result = last_heart_time != null ? last_heart_time.hashCode() : 0;
                 result = 31 * result + (last_small != null ? last_small.hashCode() : 0);
                 result = 31 * result + (new_small != null ? new_small.hashCode() : 0);
+                result = 31 * result + (small_mac != null ? small_mac.hashCode() : 0);
                 return result;
             }
 
@@ -155,6 +160,14 @@ public class FixHistoryResponse implements Serializable {
 
             public void setNew_small(String new_small) {
                 this.new_small = new_small;
+            }
+
+            public String getSmall_mac() {
+                return small_mac;
+            }
+
+            public void setSmall_mac(String small_mac) {
+                this.small_mac = small_mac;
             }
 
             public  class LastHeartTimeBean implements Serializable{
@@ -326,11 +339,60 @@ public class FixHistoryResponse implements Serializable {
 
             private String rname;
             private String boxname;
+            private String last_nginx;
             private String mac;
             private int ustate;
             private String last_heart_time;
             private String ltime;
             private List<RepaireInfo> repair_record;
+
+            @Override
+            public String toString() {
+                return "BoxInfoBean{" +
+                        "rname='" + rname + '\'' +
+                        ", boxname='" + boxname + '\'' +
+                        ", last_nginx='" + last_nginx + '\'' +
+                        ", mac='" + mac + '\'' +
+                        ", ustate=" + ustate +
+                        ", last_heart_time='" + last_heart_time + '\'' +
+                        ", ltime='" + ltime + '\'' +
+                        ", repair_record=" + repair_record +
+                        '}';
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+
+                BoxInfoBean that = (BoxInfoBean) o;
+
+                if (ustate != that.ustate) return false;
+                if (rname != null ? !rname.equals(that.rname) : that.rname != null) return false;
+                if (boxname != null ? !boxname.equals(that.boxname) : that.boxname != null)
+                    return false;
+                if (last_nginx != null ? !last_nginx.equals(that.last_nginx) : that.last_nginx != null)
+                    return false;
+                if (mac != null ? !mac.equals(that.mac) : that.mac != null) return false;
+                if (last_heart_time != null ? !last_heart_time.equals(that.last_heart_time) : that.last_heart_time != null)
+                    return false;
+                if (ltime != null ? !ltime.equals(that.ltime) : that.ltime != null) return false;
+                return repair_record != null ? repair_record.equals(that.repair_record) : that.repair_record == null;
+
+            }
+
+            @Override
+            public int hashCode() {
+                int result = rname != null ? rname.hashCode() : 0;
+                result = 31 * result + (boxname != null ? boxname.hashCode() : 0);
+                result = 31 * result + (last_nginx != null ? last_nginx.hashCode() : 0);
+                result = 31 * result + (mac != null ? mac.hashCode() : 0);
+                result = 31 * result + ustate;
+                result = 31 * result + (last_heart_time != null ? last_heart_time.hashCode() : 0);
+                result = 31 * result + (ltime != null ? ltime.hashCode() : 0);
+                result = 31 * result + (repair_record != null ? repair_record.hashCode() : 0);
+                return result;
+            }
 
             public String getRname() {
                 return rname;
@@ -346,6 +408,14 @@ public class FixHistoryResponse implements Serializable {
 
             public void setBoxname(String boxname) {
                 this.boxname = boxname;
+            }
+
+            public String getLast_nginx() {
+                return last_nginx;
+            }
+
+            public void setLast_nginx(String last_nginx) {
+                this.last_nginx = last_nginx;
             }
 
             public String getMac() {
@@ -386,50 +456,6 @@ public class FixHistoryResponse implements Serializable {
 
             public void setRepair_record(List<RepaireInfo> repair_record) {
                 this.repair_record = repair_record;
-            }
-
-            @Override
-            public String toString() {
-                return "BoxInfoBean{" +
-                        "rname='" + rname + '\'' +
-                        ", boxname='" + boxname + '\'' +
-                        ", mac='" + mac + '\'' +
-                        ", ustate=" + ustate +
-                        ", last_heart_time='" + last_heart_time + '\'' +
-                        ", ltime='" + ltime + '\'' +
-                        ", repair_record=" + repair_record +
-                        '}';
-            }
-
-            @Override
-            public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
-
-                BoxInfoBean that = (BoxInfoBean) o;
-
-                if (ustate != that.ustate) return false;
-                if (rname != null ? !rname.equals(that.rname) : that.rname != null) return false;
-                if (boxname != null ? !boxname.equals(that.boxname) : that.boxname != null)
-                    return false;
-                if (mac != null ? !mac.equals(that.mac) : that.mac != null) return false;
-                if (last_heart_time != null ? !last_heart_time.equals(that.last_heart_time) : that.last_heart_time != null)
-                    return false;
-                if (ltime != null ? !ltime.equals(that.ltime) : that.ltime != null) return false;
-                return repair_record != null ? repair_record.equals(that.repair_record) : that.repair_record == null;
-
-            }
-
-            @Override
-            public int hashCode() {
-                int result = rname != null ? rname.hashCode() : 0;
-                result = 31 * result + (boxname != null ? boxname.hashCode() : 0);
-                result = 31 * result + (mac != null ? mac.hashCode() : 0);
-                result = 31 * result + ustate;
-                result = 31 * result + (last_heart_time != null ? last_heart_time.hashCode() : 0);
-                result = 31 * result + (ltime != null ? ltime.hashCode() : 0);
-                result = 31 * result + (repair_record != null ? repair_record.hashCode() : 0);
-                return result;
             }
         }
     }

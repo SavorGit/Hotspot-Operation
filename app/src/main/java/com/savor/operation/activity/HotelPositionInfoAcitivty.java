@@ -3,8 +3,8 @@ package com.savor.operation.activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * 酒楼版位信息
  */
-public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPositionAdapter.OnFixBtnClickListener {
+public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPositionAdapter.OnFixBtnClickListener, View.OnClickListener {
 
     private ListView mPostionListView;
     private ImageView mBackBtn;
@@ -42,6 +42,8 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
     private ImageView mLastXintiaoIV;
     private TextView mPositionDesc;
     private DamageConfig damageConfig;
+    private Button mFixSpBtn;
+    private FixHistoryResponse fixHistoryResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +87,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
         mSpState = (ImageView) mHeaderView.findViewById(R.id.iv_sp_state);
         mLastXintiaoIV = (ImageView) mHeaderView.findViewById(R.id.iv_last_xintiao);
         mPositionDesc = (TextView) mHeaderView.findViewById(R.id.tv_position_desc);
+        mFixSpBtn = (Button) mHeaderView.findViewById(R.id.btn_fix_sp);
 
         damageConfig = mSession.getDamageConfig();
     }
@@ -115,7 +118,41 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
 
     @Override
     public void setListeners() {
+        mTitleTv.setOnClickListener(this);
+        mRightTv.setOnClickListener(this);
         mHotelPositionAdapter.setOnFixBtnClickListener(this);
+        mFixSpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new FixDialog(HotelPositionInfoAcitivty.this, new FixDialog.OnSubmitBtnClickListener() {
+                    @Override
+                    public void onSubmitClick(FixDialog.OperationType type, FixHistoryResponse fixHistoryResponse, FixDialog.FixState isResolve, List<String> damageDesc, String comment, Hotel hotel) {
+                        StringBuilder sb = new StringBuilder();
+                        for(int i = 0;i<damageDesc.size();i++) {
+                            if(damageDesc.size() == 1 || i == damageDesc.size()-1) {
+                                sb.append(damageDesc.get(i));
+                            }else {
+                                sb.append(damageDesc.get(i)+",");
+                            }
+                        }
+
+                        int state = 0;
+                        if(isResolve == FixDialog.FixState.RESOLVED) {
+                            state = 1;
+                        }else if(isResolve == FixDialog.FixState.UNRESOLVED) {
+                            state = 2;
+                        }
+
+                        LoginResponse loginResponse = mSession.getLoginResponse();
+                        String userid = loginResponse.getUserid();
+
+                        AppApi.submitDamage(HotelPositionInfoAcitivty.this,fixHistoryResponse.getList().getVersion().getSmall_mac(),
+                                hotel.getId(),comment,sb.toString(),state+"", 1+"",userid,HotelPositionInfoAcitivty.this);
+
+                    }
+                }, FixDialog.OperationType.TYPE_SMALL, fixHistoryResponse, damageConfig, mHotel).show();
+            }
+        });
     }
 
     @Override
@@ -127,7 +164,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
                 break;
             case POST_FIX_HISTORY_JSON:
                 if(obj instanceof FixHistoryResponse) {
-                    FixHistoryResponse fixHistoryResponse = (FixHistoryResponse) obj;
+                    fixHistoryResponse = (FixHistoryResponse) obj;
                     initSmallPlatfromInfo(fixHistoryResponse);
                 }
                 break;
@@ -183,7 +220,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
     public void onFixBtnClick(int position, final FixHistoryResponse.PositionInfo.BoxInfoBean boxInfoBean) {
         new FixDialog(this, new FixDialog.OnSubmitBtnClickListener() {
             @Override
-            public void onSubmitClick(FixDialog.FixState isResolve, List<String> damageDesc, String comment, Hotel hotel) {
+            public void onSubmitClick(FixDialog.OperationType type,FixHistoryResponse response,FixDialog.FixState isResolve, List<String> damageDesc, String comment, Hotel hotel) {
 
                 StringBuilder sb = new StringBuilder();
                 for(int i = 0;i<damageDesc.size();i++) {
@@ -207,6 +244,21 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
                 AppApi.submitDamage(HotelPositionInfoAcitivty.this,boxInfoBean.getMac(),
                         hotel.getId(),comment,sb.toString(),state+"", 2+"",userid,HotelPositionInfoAcitivty.this);
             }
-        },damageConfig,mHotel).show();
+        }, FixDialog.OperationType.TYPE_BOX,fixHistoryResponse,damageConfig,mHotel).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_center:
+                Intent intent = new Intent(this,HotelDetailInfoActivity.class);
+                intent.putExtra("hotel",mHotel);
+                startActivity(intent);
+                break;
+            case R.id.tv_right:
+                ShowMessage.showToast(this,"刷新数据");
+                getData();
+                break;
+        }
     }
 }
