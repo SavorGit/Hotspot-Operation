@@ -17,6 +17,7 @@ public class UpgradeInfo implements Serializable {
     private String version_name;
     private String version_code;
     private String oss_addr;
+    private String create_time;
 
     public int getId() {
         return id;
@@ -82,6 +83,14 @@ public class UpgradeInfo implements Serializable {
         this.oss_addr = oss_addr;
     }
 
+    public String getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(String create_time) {
+        this.create_time = create_time;
+    }
+
 
     @Override
     public String toString() {
@@ -94,6 +103,7 @@ public class UpgradeInfo implements Serializable {
                 ", version_name='" + version_name + '\'' +
                 ", version_code='" + version_code + '\'' +
                 ", oss_addr='" + oss_addr + '\'' +
+                ", create_time='" + create_time + '\'' +
                 '}';
     }
 }

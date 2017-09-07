@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_main_bg">
+    android:background="@color/title_bg">
 
     <TextView
         android:id="@+id/hotel_info"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4dp"
-        android:text="永峰写字楼(测试) 共85个版位"
+        android:text=""
         android:layout_alignParentTop="true"
         android:layout_marginTop="6dp"
         android:layout_alignParentLeft="true"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4dp"
-        android:text="小平台正常,上次上报时间2017-09-05 20:50:01;"
+        android:text=""
         android:layout_marginTop="2dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="6dp"
@@ -37,12 +37,13 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4dp"
-        android:text="机顶盒异常22个最后上报时间 2017-09-05 20:50:01"
+        android:text=""
         android:layout_marginTop="2dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="6dp"
         android:textSize="15sp"
         android:textColor="@color/black"/>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

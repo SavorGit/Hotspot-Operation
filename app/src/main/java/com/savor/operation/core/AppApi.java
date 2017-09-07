@@ -2,6 +2,9 @@ package com.savor.operation.core;
 
 import android.content.Context;
 
+import com.common.api.utils.AppUtils;
+
+import java.io.File;
 import java.util.HashMap;
 
 public class AppApi {
@@ -52,6 +55,8 @@ public class AppApi {
         POST_DAMAGE_CONFIG_JSON,
         /**提交保修记录*/
         POST_SUBMIT_DAMAGE_JSON,
+        TEST_DOWNLOAD_JSON,
+        POST_UPGRADE_JSON
     }
 
     /**
@@ -73,6 +78,7 @@ public class AppApi {
             put(Action.POST_FIX_HISTORY_JSON, formatPhpUrl("Opclient/Hotel/getHotelVersionById"));
             put(Action.POST_DAMAGE_CONFIG_JSON, formatPhpUrl("Opclient/Box/getHotelBoxDamageConfig"));
             put(Action.POST_SUBMIT_DAMAGE_JSON, formatPhpUrl("Opclient/Box/InsertBoxDamage"));
+            put(Action.POST_UPGRADE_JSON, formatPhpUrl("Opclient/Version/index"));
         }
     };
 
@@ -96,6 +102,13 @@ public class AppApi {
 
     }
 
+    /**升级*/
+    public static void Upgrade(Context context,ApiRequestListener handler,int versionCode) {
+        final HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("versionCode", versionCode);
+        params.put("deviceType", 3);
+        new AppServiceOk(context,Action.POST_UPGRADE_JSON,handler,params).post();
+    }
     public static void testGet(Context context, ApiRequestListener handler) {
 //        SmallPlatInfoBySSDP smallPlatInfoBySSDP = Session.get(context).getSmallPlatInfoBySSDP();
 //        API_URLS.put(Action.TEST_GET_JSON,"http://"+ smallPlatInfoBySSDP.getServerIp()+":"+ smallPlatInfoBySSDP.getCommandPort()+"/small-platform-1.0.0.0.1-SNAPSHOT/com/execute/call-tdc");
@@ -103,6 +116,18 @@ public class AppApi {
 //        new AppServiceOk(context, Action.TEST_GET_JSON, handler, params).get();
     }
 
+    public static void downApp(Context context, String url, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<String, Object>();
+        String target = AppUtils.getPath(context, AppUtils.StorageFile.file);
+
+        String targetApk = target + APK_DOWNLOAD_FILENAME;
+        File tarFile = new File(targetApk);
+        if (tarFile.exists()) {
+            tarFile.delete();
+        }
+        new AppServiceOk(context, Action.TEST_DOWNLOAD_JSON, handler, params).downLoad(url, targetApk);
+
+    }
     /**
      * 登录
      * @param context 上下文

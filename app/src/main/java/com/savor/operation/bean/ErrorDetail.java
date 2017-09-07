@@ -12,6 +12,7 @@ public class ErrorDetail implements Serializable {
     private String info;
     private String date;
     private List<ErrorDetailBean> list;
+    private int isNextPage;
 
     public String getInfo() {
         return info;
@@ -37,33 +38,21 @@ public class ErrorDetail implements Serializable {
         this.list = list;
     }
 
+    public int getIsNextPage() {
+        return isNextPage;
+    }
+
+    public void setIsNextPage(int isNextPage) {
+        this.isNextPage = isNextPage;
+    }
+
     @Override
     public String toString() {
         return "ErrorDetail{" +
                 "info='" + info + '\'' +
                 ", date='" + date + '\'' +
                 ", list=" + list +
+                ", isNextPage=" + isNextPage +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ErrorDetail)) return false;
-
-        ErrorDetail that = (ErrorDetail) o;
-
-        if (info != null ? !info.equals(that.info) : that.info != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-        return list != null ? list.equals(that.list) : that.list == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = info != null ? info.hashCode() : 0;
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        result = 31 * result + (list != null ? list.hashCode() : 0);
-        return result;
     }
 }
