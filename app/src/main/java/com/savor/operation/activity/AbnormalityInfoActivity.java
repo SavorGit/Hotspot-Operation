@@ -57,7 +57,7 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
     private void getIntentData(){
         Intent intent = getIntent();
         if (intent != null) {
-            item = (ErrorReportBean) getIntent().getSerializableExtra("errorreport");
+            error_id = intent.getStringExtra("error_id");
         }
     }
 
@@ -86,11 +86,11 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
     @Override
     public void setViews() {
 
-        if (item != null) {
-            info.setText(item.getInfo());
-            time.setText(item.getDate());
-            error_id = item.getId();
-        }
+//        if (item != null) {
+//            info.setText(item.getInfo());
+//            time.setText(item.getDate());
+//            error_id = item.getId();
+//        }
         mAdapter = new ErrorReportInfoAdapter(context);
         mPullRefreshListView.setAdapter(mAdapter);
     }
@@ -103,6 +103,8 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
                 if(obj instanceof ErrorDetail) {
                     errorDetail= (ErrorDetail) obj;
                     if (errorDetail != null) {
+                        info.setText(errorDetail.getInfo());
+                        time.setText(errorDetail.getDate());
                         List<ErrorDetailBean> mList =  errorDetail.getList();
                         handleVodList(mList);
                     }
