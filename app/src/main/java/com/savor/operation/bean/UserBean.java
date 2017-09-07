@@ -10,6 +10,7 @@ public class UserBean implements Serializable {
     private static final long serialVersionUID = -1;
     private String userid;
     private String username;
+    private String nickname;
     public String getUserid() {
         return userid;
     }
@@ -25,11 +26,21 @@ public class UserBean implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     @Override
     public String toString() {
         return "UserBean{" +
                 "userid='" + userid + '\'' +
                 ", username='" + username + '\'' +
+                ", nickname='" + nickname + '\'' +
                 '}';
     }
 }
