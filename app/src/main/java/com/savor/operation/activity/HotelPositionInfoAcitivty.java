@@ -94,6 +94,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
 
     @Override
     public void setViews() {
+        mBackBtn.setOnClickListener(this);
         mHotelPositionAdapter = new HotelPositionAdapter(this);
         mPostionListView.setAdapter(mHotelPositionAdapter);
         mPostionListView.addHeaderView(mHeaderView);
@@ -258,6 +259,9 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
             case R.id.tv_right:
                 ShowMessage.showToast(this,"刷新数据");
                 getData();
+                break;
+            case R.id.iv_left:
+                finish();
                 break;
         }
     }
