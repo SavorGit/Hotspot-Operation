@@ -214,6 +214,7 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
             ErrorDetailBean item = (ErrorDetailBean)parent.getItemAtPosition(position);
             Hotel hotel = new Hotel();
             hotel.setId(item.getHotel_id());
+            hotel.setName(item.getHotel_name());
             if (item!=null){
                 Intent intent = new Intent();
                 intent.putExtra("hotel",hotel);
