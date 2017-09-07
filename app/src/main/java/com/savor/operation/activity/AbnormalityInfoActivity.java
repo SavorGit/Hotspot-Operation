@@ -103,8 +103,6 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
                 if(obj instanceof ErrorDetail) {
                     errorDetail= (ErrorDetail) obj;
                     if (errorDetail != null) {
-                        info.setText(errorDetail.getInfo());
-                        time.setText(errorDetail.getDate());
                         List<ErrorDetailBean> mList =  errorDetail.getList();
                         handleVodList(mList);
                     }
@@ -157,6 +155,8 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
 
         if (mList != null && mList.size() > 0) {
             if (isUp) {
+                info.setText(errorDetail.getInfo());
+                time.setText(errorDetail.getDate());
                 list.clear();
                 mAdapter.clear();
                 mPullRefreshListView.onLoadComplete(true,false);
