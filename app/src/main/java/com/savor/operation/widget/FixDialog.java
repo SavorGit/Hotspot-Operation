@@ -46,6 +46,7 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
     private List<String> selectedDamages = new ArrayList<>();
     private FixState currentFixSate = FixState.UNSELECTED;
     private AlertDialog alertDialog;
+    private TextView mSelectDescTv;
 
     public enum FixState {
         /**为选择*/
@@ -89,6 +90,7 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
         mDamageLayout = (RelativeLayout) findViewById(R.id.rl_damage_layout);
         mCancelBtn = (TextView) findViewById(R.id.tv_cancel);
         mSubmitBtn = (TextView) findViewById(R.id.tv_submit);
+        mSelectDescTv = (TextView)findViewById(R.id.tv_select_desc);
     }
 
     private void setViews() {
@@ -155,10 +157,14 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
                             }
                         }
                     });
-                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("保存", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            if(selectedDamages==null||selectedDamages.size()==0) {
+                                mSelectDescTv.setText("故障说明与维修记录");
+                            }else {
+                                mSelectDescTv.setText("已选择"+selectedDamages.size()+"项");
+                            }
                         }
                     });
                     builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
