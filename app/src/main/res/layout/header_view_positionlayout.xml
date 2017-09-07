@@ -49,7 +49,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
-
     <RelativeLayout
         android:paddingTop="10dp"
         android:paddingLeft="10dp"
@@ -75,19 +74,38 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <RelativeLayout
-        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:visibility="invisible"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/tv_fix_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="维修记录：" />
+
         <Button
             android:id="@+id/btn_fix_sp"
-            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
             android:layout_alignParentRight="true"
-            android:textColor="@color/white"
+            android:layout_marginRight="10dp"
             android:background="@drawable/bg_solid_corner_red"
             android:text="小平台维修"
+            android:textColor="@color/white" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_centerInParent="true"
+            android:id="@+id/rlv_history"
             android:layout_width="wrap_content"
-            android:layout_height="35dp" />
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/tv_fix_hint"
+            android:layout_toLeftOf="@id/btn_fix_sp"
+            android:orientation="vertical" />
     </RelativeLayout>
+
 
     <View
         android:layout_marginLeft="20dp"

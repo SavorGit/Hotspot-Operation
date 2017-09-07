@@ -72,9 +72,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.HotelPositionInfoAcitivty" />
-        <activity android:name=".activity.HotelMacInfoActivity"></activity>
+        <activity android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.HotelPositionInfoAcitivty"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.HotelMacInfoActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

@@ -3,6 +3,8 @@ package com.savor.operation.activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,6 +16,7 @@ import com.common.api.utils.DensityUtil;
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.adapter.HotelPositionAdapter;
+import com.savor.operation.adapter.TvBoxFixHistoryAdapter;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.Hotel;
@@ -44,6 +47,9 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
     private DamageConfig damageConfig;
     private Button mFixSpBtn;
     private FixHistoryResponse fixHistoryResponse;
+    private TextView mFixHintTv;
+    private RecyclerView mSpHistoryRlv;
+    private TvBoxFixHistoryAdapter mSpHistoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +94,8 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
         mLastXintiaoIV = (ImageView) mHeaderView.findViewById(R.id.iv_last_xintiao);
         mPositionDesc = (TextView) mHeaderView.findViewById(R.id.tv_position_desc);
         mFixSpBtn = (Button) mHeaderView.findViewById(R.id.btn_fix_sp);
+        mFixHintTv = (TextView) mHeaderView.findViewById(R.id.tv_fix_hint);
+        mSpHistoryRlv = (RecyclerView) mHeaderView.findViewById(R.id.rlv_history);
 
         damageConfig = mSession.getDamageConfig();
     }
@@ -115,6 +123,12 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
         layoutParams.height = DensityUtil.dip2px(this,35);
         layoutParams.setMargins(0,0,DensityUtil.dip2px(this,15),0);
         mRightTv.setPadding(DensityUtil.dip2px(this,10),0,DensityUtil.dip2px(this,10),0);
+
+        mSpHistoryAdapter = new TvBoxFixHistoryAdapter(this);
+        LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        mSpHistoryRlv.setLayoutManager(manager);
+        mSpHistoryRlv.setAdapter(mSpHistoryAdapter);
+
     }
 
     @Override
@@ -207,6 +221,14 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
                     mLastXintiaoIV.setImageResource(R.drawable.cirlce_green);
                 } else {
                     mLastXintiaoIV.setImageResource(R.drawable.cirlce_red);
+                }
+
+                List<FixHistoryResponse.PositionInfo.BoxInfoBean.RepaireInfo> repair_record = version.getRepair_record();
+                if(repair_record==null||repair_record.size()==0) {
+                    mFixHintTv.setVisibility(View.INVISIBLE);
+                }else {
+                    mFixHintTv.setVisibility(View.VISIBLE);
+                    mSpHistoryAdapter.setData(repair_record);
                 }
             }
 

@@ -30,6 +30,7 @@ import com.savor.operation.bean.UpgradeInfo;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.utils.STIDUtil;
+import com.savor.operation.widget.CommonDialog;
 import com.savor.operation.widget.UpgradeDialog;
 
 import java.io.File;
@@ -121,10 +122,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 getData();
                 break;
             case R.id.btn_exit:
-                mSession.setLoginResponse(null);
-                intent = new Intent(this,LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                new CommonDialog(this, "是否要注销当前登录账号", new CommonDialog.OnConfirmListener() {
+                    @Override
+                    public void onConfirm() {
+                        mSession.setLoginResponse(null);
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, new CommonDialog.OnCancelListener() {
+                    @Override
+                    public void onCancel() {
+
+                    }
+                },"确定").show();
+
                 break;
             case R.id.tv_search:
                 intent = new Intent(this,SearchActivity.class);
