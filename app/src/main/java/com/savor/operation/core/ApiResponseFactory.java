@@ -31,6 +31,7 @@ import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.HotelListResponse;
 import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.RepairRecord;
 import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.UserBean;
 
@@ -254,7 +255,7 @@ public class ApiResponseFactory {
                 }.getType());
                 break;
             case POST_REPAIR_RECORD_LIST_JSON:
-                result = gson.fromJson(info, new TypeToken<RepairRecordList>() {
+                result = gson.fromJson(info, new TypeToken<RepairRecord>() {
                 }.getType());
                 break;
             case POST_FIX_HISTORY_JSON:

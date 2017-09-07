@@ -3,6 +3,7 @@ package com.savor.operation.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
@@ -16,6 +17,7 @@ import com.savor.operation.adapter.SpinnerAdapter;
 import com.savor.operation.bean.ErrorReport;
 import com.savor.operation.bean.ErrorReportBean;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.RepairRecord;
 import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.RepairRecordListBean;
 import com.savor.operation.bean.UserBean;
@@ -36,6 +38,7 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
     private RelativeLayout back;
     private PullToRefreshListView mPullRefreshListView;
     private List<UserBean> userlist = new ArrayList<UserBean>();
+    private UserBean currentUser;
     private SpinnerAdapter spinnerAdapter;
     private MaintenanceRecordAdapter mAdapter;
     private int page = 1;
@@ -44,6 +47,7 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
     private List<RepairRecordListBean> list = new ArrayList<RepairRecordListBean>();
     private boolean isUp = true;
     private String userid;
+    private RepairRecord repairRecord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +72,9 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
     public void getViews() {
         LoginResponse loginResponse = mSession.getLoginResponse();
         userid = loginResponse.getUserid();
+        currentUser = new UserBean();
+        currentUser.setUserid(userid);
+        currentUser.setUsername(loginResponse.getUsername());
         spinner = (Spinner) findViewById(R.id.spinner);
         back = (RelativeLayout) findViewById(R.id.back);
         mPullRefreshListView  = (PullToRefreshListView)findViewById(R.id.listview);
@@ -93,16 +100,22 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
         switch (method) {
             case POST_REPAIR_USER_JSON:
                 if(obj instanceof List) {
-                    List<UserBean> hotelList = (List<UserBean>) obj;
-                    initSpinner(hotelList);
+                    userlist = (List<UserBean>) obj;
+                    initSpinner(userlist);
                 }
                 break;
             case POST_REPAIR_RECORD_LIST_JSON:
-                if(obj instanceof RepairRecordList) {
-                    RepairRecordList repairRecordList = (RepairRecordList) obj;
-                    if (repairRecordList != null) {
-                        List<RepairRecordListBean> list = repairRecordList.getList();
-                        handleVodList(list);
+                if(obj instanceof RepairRecord) {
+                    repairRecord = (RepairRecord) obj;
+                    if (repairRecord != null) {
+                        RepairRecordList rlist = repairRecord.getList();
+                        if (rlist != null) {
+                            List<RepairRecordListBean> list = rlist.getRepair_info();
+                            handleVodList(list);
+                        }
+
+
+
                     }
                 }
                 break;
@@ -144,6 +157,23 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
         if (hotelList != null && hotelList.size()>0) {
             spinnerAdapter = new SpinnerAdapter(context,hotelList);
             spinner.setAdapter(spinnerAdapter);
+            int index = hotelList.indexOf(currentUser);
+            spinner.setSelection(index);
+            spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+                public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                    // TODO Auto-generated method stub
+                /* 将所选mySpinner 的值带入myTextView 中*/
+                    UserBean user = (UserBean)spinnerAdapter.getItem(arg2);
+                    userid = user.getUserid();
+                    page = 1;
+                    isUp = true;
+                    getRepairRecordList();
+                    arg0.setVisibility(View.VISIBLE);
+                }
+                public void onNothingSelected(AdapterView<?> arg0) {
+                }
+            });
+
         }
     }
     private void handleVodList(List<RepairRecordListBean> mList) {
@@ -165,7 +195,7 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
            // haveNext = errorReport.getIsNextPage();
 
             if (mList.size() < 15) {
-                mPullRefreshListView.onLoadComplete(false, false);
+                mPullRefreshListView.onLoadComplete(false, true);
             } else {
                 mPullRefreshListView.onLoadComplete(true, false);
             }
