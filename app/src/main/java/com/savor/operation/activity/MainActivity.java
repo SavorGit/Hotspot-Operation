@@ -28,6 +28,7 @@ import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.UpgradeInfo;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.utils.STIDUtil;
 import com.savor.operation.widget.UpgradeDialog;
 
@@ -214,6 +215,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onError(AppApi.Action method, Object obj) {
+
+        switch (method) {
+
+            case POST_UPGRADE_JSON:
+                if(obj instanceof ResponseErrorMessage) {
+                    ResponseErrorMessage message = (ResponseErrorMessage) obj;
+                    int code = message.getCode();
+                    String msg = message.getMessage();
+//                    if (!ismuteUp){
+//                        if (!TextUtils.isEmpty(msg)){
+//                            showToast(msg);
+//                        }
+//                    }
+                }
+                break;
+
+
+        }
+    }
     private void upgrade(){
         AppApi.Upgrade(mContext,this,mSession.getVersionCode());
     }
