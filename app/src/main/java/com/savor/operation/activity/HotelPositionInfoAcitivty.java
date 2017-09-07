@@ -79,8 +79,8 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
         mTitleTv = (TextView) findViewById(R.id.tv_center);
         mRightTv = (TextView) findViewById(R.id.tv_right);
         mPostionListView = (ListView) findViewById(R.id.lv_hotel_position_list);
-        mHeaderView = ImageView.inflate(this, R.layout.header_view_positionlayout,null);
 
+        mHeaderView = ImageView.inflate(this, R.layout.header_view_positionlayout,null);
         mSpVersionTv = (TextView) mHeaderView.findViewById(R.id.tv_sp_version);
         mLastSpVersionTv = (TextView) mHeaderView.findViewById(R.id.tv_last_sp_version);
         mLastXintiao = (TextView) mHeaderView.findViewById(R.id.tv_last_xintiao);
@@ -251,7 +251,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_center:
-                Intent intent = new Intent(this,HotelDetailInfoActivity.class);
+                Intent intent = new Intent(this,HotelMacInfoActivity.class);
                 intent.putExtra("hotel",mHotel);
                 startActivity(intent);
                 break;

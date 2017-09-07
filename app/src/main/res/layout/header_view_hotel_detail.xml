@@ -162,7 +162,7 @@
             android:paddingBottom="@dimen/text_padding_2"
             android:paddingRight="10dp"
             android:paddingTop="@dimen/text_padding_2"
-            android:text="小平台存放位置" />
+            android:text="小平台存放位置：" />
     </LinearLayout>
 
 

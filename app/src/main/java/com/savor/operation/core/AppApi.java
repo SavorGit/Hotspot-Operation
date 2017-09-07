@@ -56,7 +56,9 @@ public class AppApi {
         /**提交保修记录*/
         POST_SUBMIT_DAMAGE_JSON,
         TEST_DOWNLOAD_JSON,
-        POST_UPGRADE_JSON
+        POST_UPGRADE_JSON,
+        /**获取酒店版位详细信息（mac地址等）*/
+        POST_HOTEL_MACINFO_JSON,
     }
 
     /**
@@ -79,6 +81,7 @@ public class AppApi {
             put(Action.POST_DAMAGE_CONFIG_JSON, formatPhpUrl("Opclient/Box/getHotelBoxDamageConfig"));
             put(Action.POST_SUBMIT_DAMAGE_JSON, formatPhpUrl("Opclient/Box/InsertBoxDamage"));
             put(Action.POST_UPGRADE_JSON, formatPhpUrl("Opclient/Version/index"));
+            put(Action.POST_HOTEL_MACINFO_JSON, formatPhpUrl("Opclient/Hotel/getHotelMacInfoById"));
         }
     };
 
@@ -244,6 +247,17 @@ public class AppApi {
         params.put("type",type);
         params.put("userid",userid);
         new AppServiceOk(context, Action.POST_SUBMIT_DAMAGE_JSON, handler, params).post();
+    }
+
+    /**
+     * 提交保修记录
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getHotelMacInfo(Context context,String hotel_id, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("hotel_id",hotel_id);
+        new AppServiceOk(context, Action.POST_HOTEL_MACINFO_JSON, handler, params).post();
     }
 
     // 超时（网络）异常
