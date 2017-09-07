@@ -116,7 +116,8 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
-
+        super.onError(method,obj);
+        mPullRefreshListView.onRefreshComplete();
         switch (method) {
             case POST_ERROR_REPORT_LIST_JSON:
 
