@@ -86,7 +86,7 @@ public class HotelPositionAdapter extends BaseAdapter {
             holder.tv_last_xintiao.setText("最后心跳时间："+last_heart_time);
         }
 
-        String ltime = boxInfoBean.getLtime();
+        String ltime = boxInfoBean.getLast_nginx();
         if(!TextUtils.isEmpty(ltime)) {
             holder.tv_last_log.setText("最后上传日志时间："+ltime);
         }

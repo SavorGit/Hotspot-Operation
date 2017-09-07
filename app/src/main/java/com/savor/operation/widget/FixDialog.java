@@ -18,6 +18,7 @@ import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.activity.HotelPositionInfoAcitivty;
 import com.savor.operation.bean.DamageConfig;
+import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.Hotel;
 
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ import java.util.List;
 
 public class FixDialog extends Dialog implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
+    private final OperationType type;
+    private final FixHistoryResponse fixRespone;
     private Hotel mHotel;
     private DamageConfig mDamageConfig;
     private OnSubmitBtnClickListener mOnSubmitListener;
@@ -53,12 +56,21 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
         UNRESOLVED,
     }
 
-    public FixDialog(@NonNull Context context, OnSubmitBtnClickListener listener, DamageConfig damageConfig, Hotel hotel) {
+    public enum OperationType {
+        /**小平台*/
+        TYPE_SMALL,
+        /**机顶盒*/
+        TYPE_BOX,
+    }
+
+    public FixDialog(@NonNull Context context, OnSubmitBtnClickListener listener, OperationType type, FixHistoryResponse fixHistoryResponse,DamageConfig damageConfig, Hotel hotel) {
         super(context);
         this.mContext = context;
         this.mOnSubmitListener = listener;
         this.mDamageConfig = damageConfig;
         this.mHotel = hotel;
+        this.type = type;
+        this.fixRespone = fixHistoryResponse;
     }
 
     @Override
@@ -107,7 +119,7 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
                         ShowMessage.showToast(mContext,"请选择维修记录或填写备注");
                         return;
                     }
-                    mOnSubmitListener.onSubmitClick(currentFixSate,selectedDamages,comment,mHotel);
+                    mOnSubmitListener.onSubmitClick(type,fixRespone,currentFixSate,selectedDamages,comment,mHotel);
                 }
                 dismiss();
                 break;
@@ -181,6 +193,6 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
          * @param damageDesc 故障原因
          * @param comment 评论
          */
-        void onSubmitClick(FixState isResolve, List<String> damageDesc, String comment,Hotel hotel);
+        void onSubmitClick(OperationType type,FixHistoryResponse fixHistoryResponse,FixState isResolve, List<String> damageDesc, String comment,Hotel hotel);
     }
 }
