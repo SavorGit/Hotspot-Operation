@@ -9,24 +9,16 @@ import java.util.List;
 
 public class RepairRecordList implements Serializable {
     private static final long serialVersionUID = -1;
-    private List<RepairRecordListBean> repair_info;
+    private List<RepairRecordListBean> list;
     private int isNextPage;
 
 
     public List<RepairRecordListBean> getList() {
-        return repair_info;
+        return list;
     }
 
     public void setList(List<RepairRecordListBean> list) {
-        this.repair_info = list;
-    }
-
-    public List<RepairRecordListBean> getRepair_info() {
-        return repair_info;
-    }
-
-    public void setRepair_info(List<RepairRecordListBean> repair_info) {
-        this.repair_info = repair_info;
+        this.list = list;
     }
 
     public int getIsNextPage() {
@@ -40,7 +32,7 @@ public class RepairRecordList implements Serializable {
     @Override
     public String toString() {
         return "RepairRecordList{" +
-                "repair_info=" + repair_info +
+                "list=" + list +
                 ", isNextPage=" + isNextPage +
                 '}';
     }

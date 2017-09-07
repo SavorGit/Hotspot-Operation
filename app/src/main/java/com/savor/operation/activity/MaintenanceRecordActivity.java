@@ -47,6 +47,7 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
     private List<RepairRecordListBean> list = new ArrayList<RepairRecordListBean>();
     private boolean isUp = true;
     private String userid;
+
     private RepairRecord repairRecord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,14 +106,12 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
                 }
                 break;
             case POST_REPAIR_RECORD_LIST_JSON:
-                if(obj instanceof RepairRecord) {
-                    repairRecord = (RepairRecord) obj;
+                if(obj instanceof RepairRecordList) {
+                    RepairRecordList repairRecord = (RepairRecordList) obj;
                     if (repairRecord != null) {
-                        RepairRecordList rlist = repairRecord.getList();
-                        if (rlist != null) {
-                            List<RepairRecordListBean> list = rlist.getRepair_info();
+
+                            List<RepairRecordListBean> list = repairRecord.getList();
                             handleVodList(list);
-                        }
 
 
 
@@ -157,7 +156,13 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
         if (hotelList != null && hotelList.size()>0) {
             spinnerAdapter = new SpinnerAdapter(context,hotelList);
             spinner.setAdapter(spinnerAdapter);
-            int index = hotelList.indexOf(currentUser);
+            int index = 0;
+            for (int i = 0; i < hotelList.size(); i++) {
+                UserBean user = hotelList.get(i);
+                if (userid.equals(user.getUserid())) {
+                    index = i;
+                }
+            }
             spinner.setSelection(index);
             spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
                 public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {

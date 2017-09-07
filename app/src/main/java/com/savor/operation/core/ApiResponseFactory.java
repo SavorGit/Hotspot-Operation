@@ -255,7 +255,7 @@ public class ApiResponseFactory {
                 }.getType());
                 break;
             case POST_REPAIR_RECORD_LIST_JSON:
-                result = gson.fromJson(info, new TypeToken<RepairRecord>() {
+                result = gson.fromJson(info, new TypeToken<RepairRecordList>() {
                 }.getType());
                 break;
             case POST_FIX_HISTORY_JSON:
