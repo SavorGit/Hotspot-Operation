@@ -73,7 +73,7 @@
         </activity>
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.HotelPositionInfoAcitivty" />
-        <activity android:name=".activity.HotelDetailInfoActivity"></activity>
+        <activity android:name=".activity.HotelMacInfoActivity"></activity>
     </application>
 
 </manifest>

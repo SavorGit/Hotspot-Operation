@@ -251,7 +251,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_center:
-                Intent intent = new Intent(this,HotelDetailInfoActivity.class);
+                Intent intent = new Intent(this,HotelMacInfoActivity.class);
                 intent.putExtra("hotel",mHotel);
                 startActivity(intent);
                 break;
