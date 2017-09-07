@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.Image;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,10 +82,14 @@ public class HotelPositionAdapter extends BaseAdapter {
         }
 
         String last_heart_time = boxInfoBean.getLast_heart_time();
-        holder.tv_last_xintiao.setText("最后心跳时间："+last_heart_time);
+        if(!TextUtils.isEmpty(last_heart_time)) {
+            holder.tv_last_xintiao.setText("最后心跳时间："+last_heart_time);
+        }
 
         String ltime = boxInfoBean.getLtime();
-        holder.tv_last_log.setText("最后上传日志时间："+ltime);
+        if(!TextUtils.isEmpty(ltime)) {
+            holder.tv_last_log.setText("最后上传日志时间："+ltime);
+        }
 
         TvBoxFixHistoryAdapter adapter = new TvBoxFixHistoryAdapter(mContext);
         LinearLayoutManager manager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);

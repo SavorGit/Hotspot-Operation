@@ -48,6 +48,8 @@ public class AppApi {
         POST_REPAIR_RECORD_LIST_JSON,
         /**维修记录*/
         POST_FIX_HISTORY_JSON,
+        /**获取酒楼损坏配置表*/
+        POST_DAMAGE_CONFIG_JSON,
     }
 
     /**
@@ -67,7 +69,7 @@ public class AppApi {
             put(Action.POST_ERROR_REPORT_DETAIL_JSON, formatPhpUrl("Opclient/ErrorReport/getErrorDetail"));
             put(Action.POST_REPAIR_RECORD_LIST_JSON, formatPhpUrl("Opclient/Box/getRepairRecordListByUserid"));
             put(Action.POST_FIX_HISTORY_JSON, formatPhpUrl("Opclient/Hotel/getHotelVersionById"));
-
+            put(Action.POST_DAMAGE_CONFIG_JSON, formatPhpUrl("Opclient/Box/getHotelBoxDamageConfig"));
         }
     };
 
@@ -186,6 +188,8 @@ public class AppApi {
         params.put("hotel_id",hotelId);
         new AppServiceOk(context, Action.POST_FIX_HISTORY_JSON, handler, params).post();
     }
+
+
 
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";
