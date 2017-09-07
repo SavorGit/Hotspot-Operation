@@ -44,7 +44,6 @@
 
         <ImageView
             android:id="@+id/iv_sp_state"
-            android:src="@drawable/cirlce_green"
             android:layout_alignParentRight="true"
             android:text="发布apk版本号：1.2.1"
             android:layout_width="wrap_content"
@@ -70,7 +69,6 @@
 
         <ImageView
             android:id="@+id/iv_last_xintiao"
-            android:src="@drawable/cirlce_red"
             android:layout_alignParentRight="true"
             android:text="发布apk版本号：1.2.1"
             android:layout_width="wrap_content"

@@ -79,8 +79,8 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
         mTitleTv = (TextView) findViewById(R.id.tv_center);
         mRightTv = (TextView) findViewById(R.id.tv_right);
         mPostionListView = (ListView) findViewById(R.id.lv_hotel_position_list);
-        mHeaderView = ImageView.inflate(this, R.layout.header_view_positionlayout,null);
 
+        mHeaderView = ImageView.inflate(this, R.layout.header_view_positionlayout,null);
         mSpVersionTv = (TextView) mHeaderView.findViewById(R.id.tv_sp_version);
         mLastSpVersionTv = (TextView) mHeaderView.findViewById(R.id.tv_last_sp_version);
         mLastXintiao = (TextView) mHeaderView.findViewById(R.id.tv_last_xintiao);
