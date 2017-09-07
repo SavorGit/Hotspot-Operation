@@ -3,6 +3,7 @@ package com.savor.operation.activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -10,12 +11,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.common.api.utils.DensityUtil;
-import com.common.api.widget.MultiDialog;
+import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.adapter.HotelPositionAdapter;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.Hotel;
+import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.widget.FixDialog;
 
@@ -119,6 +121,10 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method) {
+            case POST_SUBMIT_DAMAGE_JSON:
+                ShowMessage.showToast(HotelPositionInfoAcitivty.this,"提交成功");
+                getData();
+                break;
             case POST_FIX_HISTORY_JSON:
                 if(obj instanceof FixHistoryResponse) {
                     FixHistoryResponse fixHistoryResponse = (FixHistoryResponse) obj;
@@ -138,14 +144,14 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
     }
 
     private void initSmallPlatfromInfo(FixHistoryResponse fixHistoryResponse) {
-        FixHistoryResponse.ListBean list = fixHistoryResponse.getList();
+        FixHistoryResponse.PositionInfo list = fixHistoryResponse.getList();
         if (list != null) {
-            FixHistoryResponse.ListBean.VersionBean version = list.getVersion();
+            FixHistoryResponse.PositionInfo.VersionBean version = list.getVersion();
             if (version != null) {
                 String new_small = version.getNew_small();
                 mSpVersionTv.setText("发布小平台版本号：" + new_small);
 
-                FixHistoryResponse.ListBean.VersionBean.LastSmallBean last_small = version.getLast_small();
+                FixHistoryResponse.PositionInfo.VersionBean.LastSmallBean last_small = version.getLast_small();
                 int last_small_state = last_small.getLast_small_state();
                 String last_small_pla = last_small.getLast_small_pla();
                 if (last_small_state == 1) {
@@ -155,7 +161,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
                 }
                 mLastSpVersionTv.setText("最后小平台版本号：" + last_small_pla);
 
-                FixHistoryResponse.ListBean.VersionBean.LastHeartTimeBean last_heart_time = version.getLast_heart_time();
+                FixHistoryResponse.PositionInfo.VersionBean.LastHeartTimeBean last_heart_time = version.getLast_heart_time();
                 int lstate = last_heart_time.getLstate();
                 String ltime = last_heart_time.getLtime();
                 mLastXintiao.setText("最后小平台心跳时间：" + ltime);
@@ -168,18 +174,39 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
 
             String banwei = list.getBanwei();
             mPositionDesc.setText(banwei);
-            List<FixHistoryResponse.ListBean.BoxInfoBean> box_info = list.getBox_info();
+            List<FixHistoryResponse.PositionInfo.BoxInfoBean> box_info = list.getBox_info();
             mHotelPositionAdapter.setData(box_info);
         }
     }
 
     @Override
-    public void onFixBtnClick(int position, FixHistoryResponse.ListBean.BoxInfoBean boxInfoBean) {
+    public void onFixBtnClick(int position, final FixHistoryResponse.PositionInfo.BoxInfoBean boxInfoBean) {
         new FixDialog(this, new FixDialog.OnSubmitBtnClickListener() {
             @Override
-            public void onSubmitClick(boolean isResolve, String damageDesc, String comment) {
+            public void onSubmitClick(FixDialog.FixState isResolve, List<String> damageDesc, String comment, Hotel hotel) {
 
+                StringBuilder sb = new StringBuilder();
+                for(int i = 0;i<damageDesc.size();i++) {
+                    if(damageDesc.size() == 1 || i == damageDesc.size()-1) {
+                        sb.append(damageDesc.get(i));
+                    }else {
+                        sb.append(damageDesc.get(i)+",");
+                    }
+                }
+
+                int state = 0;
+                if(isResolve == FixDialog.FixState.RESOLVED) {
+                    state = 1;
+                }else if(isResolve == FixDialog.FixState.UNRESOLVED) {
+                    state = 2;
+                }
+
+                LoginResponse loginResponse = mSession.getLoginResponse();
+                String userid = loginResponse.getUserid();
+
+                AppApi.submitDamage(HotelPositionInfoAcitivty.this,boxInfoBean.getMac(),
+                        hotel.getId(),comment,sb.toString(),state+"", 2+"",userid,HotelPositionInfoAcitivty.this);
             }
-        }).show();
+        },damageConfig,mHotel).show();
     }
 }

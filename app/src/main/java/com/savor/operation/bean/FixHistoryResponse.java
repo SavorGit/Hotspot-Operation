@@ -13,17 +13,17 @@ public class FixHistoryResponse implements Serializable {
      * list : {"version":{"last_heart_time":{"ltime":"2分","lstate":1},"last_small":{"last_small_pla":"1.1.6","last_small_state":0},"new_small":"1.0.24"},"box_info":[{"rname":"新板卡测试","boxname":"V600","mac":"A0BB3ED24A5F","ustate":0,"last_heart_time":"无","ltime":"-888","repair_record":[]},{"rname":"望海楼","boxname":"望海楼1","mac":"FCD5D900B3B1","ustate":0,"last_heart_time":"无","ltime":"-888","repair_record":[]},{"rname":"雄起","boxname":"雄起","mac":"FCD5D930B4E5","ustate":0,"last_heart_time":"无","ltime":"-888","repair_record":[{"nickname":"Admin","ctime":"2017-09-05 10:21:49"},{"nickname":"Admin","ctime":"2017-09-05 10:34:03"},{"nickname":"Admin","ctime":"2017-09-05 10:34:11"},{"nickname":"Admin","ctime":"2017-09-05 10:34:58"},{"nickname":"Admin","ctime":"2017-09-05 14:45:58"},{"nickname":"Admin","ctime":"2017-09-05 14:51:01"},{"nickname":"Admin","ctime":"2017-09-05 14:55:29"},{"nickname":"Admin","ctime":"2017-09-05 15:03:09"},{"nickname":"Admin","ctime":"2017-09-05 15:03:10"},{"nickname":"Admin","ctime":"2017-09-05 15:03:11"},{"nickname":"Admin","ctime":"2017-09-05 15:03:31"},{"nickname":"Admin","ctime":"2017-09-05 15:03:45"}]},{"rname":"何竹冬","boxname":"何竹冬","mac":"FCD5D900B842","last_heart_time":"15天20小时","ltime":1503302402,"ustate":0,"repair_record":[]},{"rname":"小九修改","boxname":"xiaojiu5g","mac":"FCD5D900B18F","last_heart_time":"2分","ltime":1504671601,"ustate":1,"repair_record":[]},{"rname":"毕超","boxname":"bicao only","mac":"FCD5D900B6E4","last_heart_time":"2分","ltime":1504671601,"ustate":1,"repair_record":[]},{"rname":"测试","boxname":"ceshizhuanyong","mac":"FCD5D900B6A4","last_heart_time":"2分","ltime":1504671601,"ustate":1,"repair_record":[]}],"banwei":"版位信息(共29个,失联超过15个小时23个)"}
      */
 
-    private ListBean list;
+    private PositionInfo list;
 
-    public ListBean getList() {
+    public PositionInfo getList() {
         return list;
     }
 
-    public void setList(ListBean list) {
+    public void setList(PositionInfo list) {
         this.list = list;
     }
 
-    public static class ListBean {
+    public static class PositionInfo implements Serializable {
         /**
          * version : {"last_heart_time":{"ltime":"2分","lstate":1},"last_small":{"last_small_pla":"1.1.6","last_small_state":0},"new_small":"1.0.24"}
          * box_info : [{"rname":"新板卡测试","boxname":"V600","mac":"A0BB3ED24A5F","ustate":0,"last_heart_time":"无","ltime":"-888","repair_record":[]},{"rname":"望海楼","boxname":"望海楼1","mac":"FCD5D900B3B1","ustate":0,"last_heart_time":"无","ltime":"-888","repair_record":[]},{"rname":"雄起","boxname":"雄起","mac":"FCD5D930B4E5","ustate":0,"last_heart_time":"无","ltime":"-888","repair_record":[{"nickname":"Admin","ctime":"2017-09-05 10:21:49"},{"nickname":"Admin","ctime":"2017-09-05 10:34:03"},{"nickname":"Admin","ctime":"2017-09-05 10:34:11"},{"nickname":"Admin","ctime":"2017-09-05 10:34:58"},{"nickname":"Admin","ctime":"2017-09-05 14:45:58"},{"nickname":"Admin","ctime":"2017-09-05 14:51:01"},{"nickname":"Admin","ctime":"2017-09-05 14:55:29"},{"nickname":"Admin","ctime":"2017-09-05 15:03:09"},{"nickname":"Admin","ctime":"2017-09-05 15:03:10"},{"nickname":"Admin","ctime":"2017-09-05 15:03:11"},{"nickname":"Admin","ctime":"2017-09-05 15:03:31"},{"nickname":"Admin","ctime":"2017-09-05 15:03:45"}]},{"rname":"何竹冬","boxname":"何竹冬","mac":"FCD5D900B842","last_heart_time":"15天20小时","ltime":1503302402,"ustate":0,"repair_record":[]},{"rname":"小九修改","boxname":"xiaojiu5g","mac":"FCD5D900B18F","last_heart_time":"2分","ltime":1504671601,"ustate":1,"repair_record":[]},{"rname":"毕超","boxname":"bicao only","mac":"FCD5D900B6E4","last_heart_time":"2分","ltime":1504671601,"ustate":1,"repair_record":[]},{"rname":"测试","boxname":"ceshizhuanyong","mac":"FCD5D900B6A4","last_heart_time":"2分","ltime":1504671601,"ustate":1,"repair_record":[]}]
@@ -72,7 +72,7 @@ public class FixHistoryResponse implements Serializable {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
 
-            ListBean listBean = (ListBean) o;
+            PositionInfo listBean = (PositionInfo) o;
 
             if (version != null ? !version.equals(listBean.version) : listBean.version != null)
                 return false;
@@ -264,7 +264,56 @@ public class FixHistoryResponse implements Serializable {
             }
         }
 
-        public static class BoxInfoBean implements Serializable{
+        public class BoxInfoBean implements Serializable{
+            public class RepaireInfo implements Serializable {
+                private String nickname;
+                private String ctime;
+
+                @Override
+                public String toString() {
+                    return "RepaireInfo{" +
+                            "nickname='" + nickname + '\'' +
+                            ", ctime='" + ctime + '\'' +
+                            '}';
+                }
+
+                @Override
+                public boolean equals(Object o) {
+                    if (this == o) return true;
+                    if (o == null || getClass() != o.getClass()) return false;
+
+                    RepaireInfo that = (RepaireInfo) o;
+
+                    if (nickname != null ? !nickname.equals(that.nickname) : that.nickname != null)
+                        return false;
+                    return ctime != null ? ctime.equals(that.ctime) : that.ctime == null;
+
+                }
+
+                @Override
+                public int hashCode() {
+                    int result = nickname != null ? nickname.hashCode() : 0;
+                    result = 31 * result + (ctime != null ? ctime.hashCode() : 0);
+                    return result;
+                }
+
+                public String getNickname() {
+                    return nickname;
+                }
+
+                public void setNickname(String nickname) {
+                    this.nickname = nickname;
+                }
+
+                public String getCtime() {
+                    return ctime;
+                }
+
+                public void setCtime(String ctime) {
+                    this.ctime = ctime;
+                }
+            }
+
             /**
              * rname : 新板卡测试
              * boxname : V600
@@ -281,7 +330,7 @@ public class FixHistoryResponse implements Serializable {
             private int ustate;
             private String last_heart_time;
             private String ltime;
-            private List<String> repair_record;
+            private List<RepaireInfo> repair_record;
 
             public String getRname() {
                 return rname;
@@ -331,11 +380,11 @@ public class FixHistoryResponse implements Serializable {
                 this.ltime = ltime;
             }
 
-            public List<String> getRepair_record() {
+            public List<RepaireInfo> getRepair_record() {
                 return repair_record;
             }
 
-            public void setRepair_record(List<String> repair_record) {
+            public void setRepair_record(List<RepaireInfo> repair_record) {
                 this.repair_record = repair_record;
             }
 

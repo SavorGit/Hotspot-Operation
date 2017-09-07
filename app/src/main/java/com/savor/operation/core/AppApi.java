@@ -50,6 +50,8 @@ public class AppApi {
         POST_FIX_HISTORY_JSON,
         /**获取酒楼损坏配置表*/
         POST_DAMAGE_CONFIG_JSON,
+        /**提交保修记录*/
+        POST_SUBMIT_DAMAGE_JSON,
     }
 
     /**
@@ -70,6 +72,7 @@ public class AppApi {
             put(Action.POST_REPAIR_RECORD_LIST_JSON, formatPhpUrl("Opclient/Box/getRepairRecordListByUserid"));
             put(Action.POST_FIX_HISTORY_JSON, formatPhpUrl("Opclient/Hotel/getHotelVersionById"));
             put(Action.POST_DAMAGE_CONFIG_JSON, formatPhpUrl("Opclient/Box/getHotelBoxDamageConfig"));
+            put(Action.POST_SUBMIT_DAMAGE_JSON, formatPhpUrl("Opclient/Box/InsertBoxDamage"));
         }
     };
 
@@ -197,6 +200,25 @@ public class AppApi {
     public static void getDamageConfig(Context context, ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         new AppServiceOk(context, Action.POST_DAMAGE_CONFIG_JSON, handler, params).post();
+    }
+
+    /**
+     * 提交保修记录
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void submitDamage(Context context,String box_mac,String hotel_id,
+                                    String remark,String repair_num_str,String state,
+                                    String type,String userid, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("box_mac",box_mac);
+        params.put("hotel_id",hotel_id);
+        params.put("remark",remark);
+        params.put("repair_num_str",repair_num_str);
+        params.put("state",state);
+        params.put("type",type);
+        params.put("userid",userid);
+        new AppServiceOk(context, Action.POST_SUBMIT_DAMAGE_JSON, handler, params).post();
     }
 
     // 超时（网络）异常
