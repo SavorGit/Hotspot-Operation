@@ -193,6 +193,13 @@ public class Session {
         return AppUtils.getNetworkType(mContext)+"";
     }
 
+    public boolean isApkDownloading() {
+        return isApkDownloading;
+    }
+
+    public void setApkDownloading(boolean isApkDownloading) {
+        this.isApkDownloading = isApkDownloading;
+    }
 
     public void setNeedGuide(boolean needGuide) {
         isNeedGuide = needGuide;
