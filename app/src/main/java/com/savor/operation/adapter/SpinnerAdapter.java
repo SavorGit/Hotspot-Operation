@@ -75,6 +75,7 @@ public class SpinnerAdapter extends BaseAdapter {
 
         UserBean item = (UserBean) getItem(position);
         holder.name.setText(item.getUsername());
+       // holder.name.setText(item.getNickname());
         return convertView;
     }
 
