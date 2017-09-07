@@ -1,16 +1,13 @@
 package com.savor.operation.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.savor.operation.R;
@@ -26,14 +23,14 @@ import java.util.List;
 public class HotelPositionAdapter extends BaseAdapter {
 
     private final Context mContext;
-    private List<FixHistoryResponse.ListBean.BoxInfoBean> data;
+    private List<FixHistoryResponse.PositionInfo.BoxInfoBean> data;
     private OnFixBtnClickListener mOnFixBtnClickListener;
 
     public HotelPositionAdapter(Context context) {
         this.mContext = context;
     }
 
-    public void setData(List<FixHistoryResponse.ListBean.BoxInfoBean> data) {
+    public void setData(List<FixHistoryResponse.PositionInfo.BoxInfoBean> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -72,8 +69,8 @@ public class HotelPositionAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final FixHistoryResponse.ListBean.BoxInfoBean boxInfoBean = (FixHistoryResponse.ListBean.BoxInfoBean) getItem(position);
-        List<String> repair_record = boxInfoBean.getRepair_record();
+        final FixHistoryResponse.PositionInfo.BoxInfoBean boxInfoBean = (FixHistoryResponse.PositionInfo.BoxInfoBean) getItem(position);
+        List<FixHistoryResponse.PositionInfo.BoxInfoBean.RepaireInfo> repair_record = boxInfoBean.getRepair_record();
 
         holder.tv_box_info.setText(boxInfoBean.getRname()+" "+boxInfoBean.getMac()+" "+boxInfoBean.getBoxname());
 
@@ -131,7 +128,7 @@ public class HotelPositionAdapter extends BaseAdapter {
     }
 
     public interface OnFixBtnClickListener {
-        void onFixBtnClick(int position,FixHistoryResponse.ListBean.BoxInfoBean boxInfoBean);
+        void onFixBtnClick(int position,FixHistoryResponse.PositionInfo.BoxInfoBean boxInfoBean);
     }
 
     public void setOnFixBtnClickListener(OnFixBtnClickListener listener) {

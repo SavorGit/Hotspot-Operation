@@ -263,6 +263,9 @@ public class ApiResponseFactory {
             case POST_DAMAGE_CONFIG_JSON:
                 result = gson.fromJson(info, DamageConfig.class);
                 break;
+            case POST_SUBMIT_DAMAGE_JSON:
+                result = info;
+                break;
             default:
                 break;
         }
