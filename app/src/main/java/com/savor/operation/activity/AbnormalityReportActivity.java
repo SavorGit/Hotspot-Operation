@@ -192,7 +192,7 @@ public class AbnormalityReportActivity extends BaseActivity implements View.OnCl
             ErrorReportBean item = (ErrorReportBean)parent.getItemAtPosition(position);
             if (item!=null){
                 Intent intent = new Intent();
-                intent.putExtra("errorreport",item);
+                intent.putExtra("error_id",item.getId());
                 intent.setClass(AbnormalityReportActivity.this,AbnormalityInfoActivity.class);
                 startActivity(intent);
             }

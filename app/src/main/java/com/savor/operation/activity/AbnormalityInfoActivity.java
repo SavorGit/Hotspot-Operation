@@ -57,7 +57,7 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
     private void getIntentData(){
         Intent intent = getIntent();
         if (intent != null) {
-            item = (ErrorReportBean) getIntent().getSerializableExtra("errorreport");
+            error_id = intent.getStringExtra("error_id");
         }
     }
 
@@ -86,11 +86,11 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
     @Override
     public void setViews() {
 
-        if (item != null) {
-            info.setText(item.getInfo());
-            time.setText(item.getDate());
-            error_id = item.getId();
-        }
+//        if (item != null) {
+//            info.setText(item.getInfo());
+//            time.setText(item.getDate());
+//            error_id = item.getId();
+//        }
         mAdapter = new ErrorReportInfoAdapter(context);
         mPullRefreshListView.setAdapter(mAdapter);
     }
@@ -155,6 +155,8 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
 
         if (mList != null && mList.size() > 0) {
             if (isUp) {
+                info.setText(errorDetail.getInfo());
+                time.setText(errorDetail.getDate());
                 list.clear();
                 mAdapter.clear();
                 mPullRefreshListView.onLoadComplete(true,false);
@@ -214,6 +216,7 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
             ErrorDetailBean item = (ErrorDetailBean)parent.getItemAtPosition(position);
             Hotel hotel = new Hotel();
             hotel.setId(item.getHotel_id());
+            hotel.setName(item.getHotel_name());
             if (item!=null){
                 Intent intent = new Intent();
                 intent.putExtra("hotel",hotel);

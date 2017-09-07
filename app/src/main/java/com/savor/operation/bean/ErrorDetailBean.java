@@ -14,6 +14,7 @@ public class ErrorDetailBean implements Serializable {
     private String hotel_info;
     private String small_palt_info;
     private String box_info;
+    private String hotel_name;
 
     public String getDetail_id() {
         return detail_id;
@@ -55,6 +56,15 @@ public class ErrorDetailBean implements Serializable {
         this.box_info = box_info;
     }
 
+
+    public String getHotel_name() {
+        return hotel_name;
+    }
+
+    public void setHotel_name(String hotel_name) {
+        this.hotel_name = hotel_name;
+    }
+
     @Override
     public String toString() {
         return "ErrorDetailBean{" +
@@ -63,35 +73,7 @@ public class ErrorDetailBean implements Serializable {
                 ", hotel_info='" + hotel_info + '\'' +
                 ", small_palt_info='" + small_palt_info + '\'' +
                 ", box_info='" + box_info + '\'' +
+                ", hotel_name='" + hotel_name + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ErrorDetailBean)) return false;
-
-        ErrorDetailBean that = (ErrorDetailBean) o;
-
-        if (detail_id != null ? !detail_id.equals(that.detail_id) : that.detail_id != null)
-            return false;
-        if (hotel_id != null ? !hotel_id.equals(that.hotel_id) : that.hotel_id != null)
-            return false;
-        if (hotel_info != null ? !hotel_info.equals(that.hotel_info) : that.hotel_info != null)
-            return false;
-        if (small_palt_info != null ? !small_palt_info.equals(that.small_palt_info) : that.small_palt_info != null)
-            return false;
-        return box_info != null ? box_info.equals(that.box_info) : that.box_info == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = detail_id != null ? detail_id.hashCode() : 0;
-        result = 31 * result + (hotel_id != null ? hotel_id.hashCode() : 0);
-        result = 31 * result + (hotel_info != null ? hotel_info.hashCode() : 0);
-        result = 31 * result + (small_palt_info != null ? small_palt_info.hashCode() : 0);
-        result = 31 * result + (box_info != null ? box_info.hashCode() : 0);
-        return result;
     }
 }
