@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.savor.operation.bean.ErrorDetail;
 import com.savor.operation.bean.ErrorDetailBean;
 import com.savor.operation.bean.ErrorReport;
 import com.savor.operation.bean.ErrorReportBean;
+import com.savor.operation.bean.Hotel;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
 
@@ -201,6 +203,22 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
             isUp = false;
             // istop = false;
             getData();
+        }
+    };
+
+    AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            ErrorDetailBean item = (ErrorDetailBean)parent.getItemAtPosition(position);
+            Hotel hotel = new Hotel();
+            hotel.setId(item.getHotel_id());
+            if (item!=null){
+                Intent intent = new Intent();
+                intent.putExtra("hotel",hotel);
+                intent.setClass(AbnormalityInfoActivity.this,HotelPositionInfoAcitivty.class);
+                startActivity(intent);
+            }
         }
     };
 }
