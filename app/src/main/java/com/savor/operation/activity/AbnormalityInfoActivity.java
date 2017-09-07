@@ -146,6 +146,7 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
         back.setOnClickListener(this);
         mPullRefreshListView.setOnRefreshListener(onRefreshListener);
         mPullRefreshListView.setOnLastItemVisibleListener(onLastItemVisibleListener);
+        mPullRefreshListView.setOnItemClickListener(itemClickListener);
         mPullRefreshListView.onLoadComplete(true,false);
     }
 
