@@ -6,11 +6,18 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
+import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
+import com.common.api.widget.pulltorefresh.library.PullToRefreshExpandableListView;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
+import com.savor.operation.adapter.ErrorReportListAdapter;
+import com.savor.operation.adapter.MaintenanceRecordAdapter;
 import com.savor.operation.adapter.SpinnerAdapter;
 import com.savor.operation.bean.ErrorReport;
 import com.savor.operation.bean.ErrorReportBean;
+import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.RepairRecordList;
+import com.savor.operation.bean.RepairRecordListBean;
 import com.savor.operation.bean.UserBean;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
@@ -28,8 +35,15 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
     private Spinner spinner;
     private RelativeLayout back;
     private PullToRefreshListView mPullRefreshListView;
-    private List<UserBean> list = new ArrayList<UserBean>();
+    private List<UserBean> userlist = new ArrayList<UserBean>();
     private SpinnerAdapter spinnerAdapter;
+    private MaintenanceRecordAdapter mAdapter;
+    private int page = 1;
+    private String id = "0";
+    private ErrorReport errorReport;
+    private List<RepairRecordListBean> list = new ArrayList<RepairRecordListBean>();
+    private boolean isUp = true;
+    private String userid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,36 +53,57 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
         setViews();
         setListeners();
         getData();
+        getRepairRecordList();
     }
 
     private void getData(){
         AppApi.getAllRepairUser(this,this);
 
     }
+
+    private void getRepairRecordList(){
+        AppApi.getRepairRecordList(this,userid,page,this);
+    }
     @Override
     public void getViews() {
+        LoginResponse loginResponse = mSession.getLoginResponse();
+        userid = loginResponse.getUserid();
         spinner = (Spinner) findViewById(R.id.spinner);
         back = (RelativeLayout) findViewById(R.id.back);
+        mPullRefreshListView  = (PullToRefreshListView)findViewById(R.id.listview);
     }
 
     @Override
     public void setViews() {
-
+        mAdapter = new MaintenanceRecordAdapter(context);
+        mPullRefreshListView.setAdapter(mAdapter);
     }
 
     @Override
     public void setListeners() {
         back.setOnClickListener(this);
+        mPullRefreshListView.setOnRefreshListener(onRefreshListener);
+        mPullRefreshListView.setOnLastItemVisibleListener(onLastItemVisibleListener);
+        mPullRefreshListView.onLoadComplete(true,false);
     }
 
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
-       // mPullRefreshListView.onRefreshComplete();
+        mPullRefreshListView.onRefreshComplete();
         switch (method) {
             case POST_REPAIR_USER_JSON:
                 if(obj instanceof List) {
                     List<UserBean> hotelList = (List<UserBean>) obj;
                     initSpinner(hotelList);
+                }
+                break;
+            case POST_REPAIR_RECORD_LIST_JSON:
+                if(obj instanceof RepairRecordList) {
+                    RepairRecordList repairRecordList = (RepairRecordList) obj;
+                    if (repairRecordList != null) {
+                        List<RepairRecordListBean> list = repairRecordList.getList();
+                        handleVodList(list);
+                    }
                 }
                 break;
 
@@ -111,7 +146,61 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
             spinner.setAdapter(spinnerAdapter);
         }
     }
-    @Override
+    private void handleVodList(List<RepairRecordListBean> mList) {
+
+        if (mList != null && mList.size() > 0) {
+            if (isUp) {
+                list.clear();
+                mAdapter.clear();
+                mPullRefreshListView.onLoadComplete(true, false);
+
+            } else {
+                mPullRefreshListView.onLoadComplete(true, false);
+            }
+            // id = mList.get(mList.size()-1).getId();
+            page++;
+            list.addAll(mList);
+            mAdapter.setData(list,isUp);
+            //int haveNext = 0;
+           // haveNext = errorReport.getIsNextPage();
+
+            if (mList.size() < 15) {
+                mPullRefreshListView.onLoadComplete(false, false);
+            } else {
+                mPullRefreshListView.onLoadComplete(true, false);
+            }
+        } else {
+            if (list != null && list.size() > 0) {
+                mAdapter.clear();
+            }
+//            mProgressLayout.loadSuccess();
+//            empty_la.setVisibility(View.VISIBLE);
+//            mPullRefreshListView.setVisibility(View.GONE);
+
+            mPullRefreshListView.onLoadComplete(false, true);
+        }
+
+    }
+
+    PullToRefreshBase.OnRefreshListener onRefreshListener = new PullToRefreshBase.OnRefreshListener() {
+        @Override
+        public void onRefresh(PullToRefreshBase refreshView) {
+            page = 1;
+            isUp = true;
+            // istop = true;
+            getRepairRecordList();
+        }
+    };
+
+    PullToRefreshBase.OnLastItemVisibleListener onLastItemVisibleListener = new PullToRefreshBase.OnLastItemVisibleListener() {
+        @Override
+        public void onLastItemVisible() {
+            isUp = false;
+            // istop = false;
+            getRepairRecordList();
+        }
+    };
+        @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.back:
