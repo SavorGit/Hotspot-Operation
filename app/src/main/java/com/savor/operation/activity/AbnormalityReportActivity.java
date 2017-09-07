@@ -1,8 +1,10 @@
 package com.savor.operation.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
@@ -53,7 +55,12 @@ public class AbnormalityReportActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back:
+                finish();
+                break;
 
+        }
     }
 
     @Override
@@ -92,6 +99,7 @@ public class AbnormalityReportActivity extends BaseActivity implements View.OnCl
         mPullRefreshListView.setOnRefreshListener(onRefreshListener);
         mPullRefreshListView.setOnLastItemVisibleListener(onLastItemVisibleListener);
         mPullRefreshListView.onLoadComplete(true,false);
+        mPullRefreshListView.setOnItemClickListener(itemClickListener);
     }
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
@@ -176,5 +184,19 @@ public class AbnormalityReportActivity extends BaseActivity implements View.OnCl
 
 
     }
+
+    AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            ErrorReportBean item = (ErrorReportBean)parent.getItemAtPosition(position);
+            if (item!=null){
+                Intent intent = new Intent();
+                intent.putExtra("errorreport",item);
+                intent.setClass(AbnormalityReportActivity.this,AbnormalityInfoActivity.class);
+                startActivity(intent);
+            }
+        }
+    };
 
 }
