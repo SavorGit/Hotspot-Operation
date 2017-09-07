@@ -2,14 +2,25 @@ package com.savor.operation;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 
 import com.common.api.utils.LogUtils;
+import com.google.gson.Gson;
+import com.savor.operation.activity.AbnormalityInfoActivity;
+import com.savor.operation.activity.AbnormalityReportActivity;
+import com.savor.operation.activity.LoginActivity;
+import com.savor.operation.activity.MainActivity;
+import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.PushErrorBean;
 import com.savor.operation.core.Session;
+import com.savor.operation.utils.ActivitiesManager;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
+
+import java.util.Map;
 
 /**
  * 全局application
@@ -69,10 +80,30 @@ public class SavorApplication extends Application {
             @Override
             public void dealWithCustomAction(Context context, UMessage msg) {
                 // 点击收到推送，友盟埋点
-//                Map<String,String> custom = msg.extra;
-//                boolean isRunning = ActivitiesManager.getInstance().contains(MainActivity.class);
-//                String type = custom.get("type");
-//                String params = custom.get("params");
+                Map<String,String> custom = msg.extra;
+                String type = custom.get("type");
+                String params = custom.get("params");
+                if("1".equals(type)) {
+                    PushErrorBean pushErrorBean = new Gson().fromJson(params, PushErrorBean.class);
+                    Session session = Session.get(context);
+                    LoginResponse loginResponse = session.getLoginResponse();
+                    boolean isRunning = ActivitiesManager.getInstance().contains(MainActivity.class);
+                    if(loginResponse!=null) {
+                        if(!isRunning) {
+                            Intent intent = new Intent(context, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                        Intent intent = new Intent(context, AbnormalityInfoActivity.class);
+                        intent.putExtra("error_id",pushErrorBean.getError_id());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(context, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                }
 
 
             }

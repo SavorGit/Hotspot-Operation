@@ -3,6 +3,7 @@ package com.savor.operation.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * 酒店版位详细信息(mac)
  */
-public class HotelMacInfoActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener{
+public class HotelMacInfoActivity extends BaseActivity implements PullToRefreshBase.OnRefreshListener, View.OnClickListener {
 
     private Hotel mHotel;
     private View headerView;
@@ -47,6 +48,7 @@ public class HotelMacInfoActivity extends BaseActivity implements PullToRefreshB
     private TextView mSPId;
     private TextView mWifiPwdTv;
     private TextView mTitleTv;
+    private ImageView mBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +74,7 @@ public class HotelMacInfoActivity extends BaseActivity implements PullToRefreshB
     @Override
     public void getViews() {
         mTitleTv = (TextView) findViewById(R.id.tv_center);
+        mBackBtn = (ImageView) findViewById(R.id.iv_left);
 
         mRefreshListView = (PullToRefreshListView) findViewById(R.id.wl_listview );
 
@@ -111,6 +114,7 @@ public class HotelMacInfoActivity extends BaseActivity implements PullToRefreshB
     @Override
     public void setListeners() {
         mRefreshListView.setOnRefreshListener(this);
+        mBackBtn.setOnClickListener(this);
     }
 
     private void init(HotelMacInfo hotelMacInfo) {
@@ -183,5 +187,14 @@ public class HotelMacInfoActivity extends BaseActivity implements PullToRefreshB
     @Override
     public void onRefresh(PullToRefreshBase refreshView) {
         getData();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_left:
+                finish();
+                break;
+        }
     }
 }

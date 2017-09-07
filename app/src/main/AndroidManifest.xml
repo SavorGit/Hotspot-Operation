@@ -59,9 +59,10 @@
             android:value="${UMENG_CHANNEL_VALUE}" />
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="3c7df71a0b6ea4ed2a615903dab9dd9b" />
+            android:value="e903fceae381b42402bbcb971a6b8442" />
 
         <activity
+            android:launchMode="singleTask"
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden">
