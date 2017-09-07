@@ -31,6 +31,7 @@ import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.HotelListResponse;
 import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.RepairRecord;
 import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.UserBean;
 

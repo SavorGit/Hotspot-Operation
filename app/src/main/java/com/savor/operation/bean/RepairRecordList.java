@@ -10,6 +10,8 @@ import java.util.List;
 public class RepairRecordList implements Serializable {
     private static final long serialVersionUID = -1;
     private List<RepairRecordListBean> list;
+    private int isNextPage;
+
 
     public List<RepairRecordListBean> getList() {
         return list;
@@ -19,10 +21,19 @@ public class RepairRecordList implements Serializable {
         this.list = list;
     }
 
+    public int getIsNextPage() {
+        return isNextPage;
+    }
+
+    public void setIsNextPage(int isNextPage) {
+        this.isNextPage = isNextPage;
+    }
+
     @Override
     public String toString() {
         return "RepairRecordList{" +
                 "list=" + list +
+                ", isNextPage=" + isNextPage +
                 '}';
     }
 }
