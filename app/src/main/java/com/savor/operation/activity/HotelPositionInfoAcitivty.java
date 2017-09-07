@@ -10,18 +10,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.common.api.utils.DensityUtil;
+import com.common.api.widget.MultiDialog;
 import com.savor.operation.R;
 import com.savor.operation.adapter.HotelPositionAdapter;
+import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.Hotel;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.widget.FixDialog;
 
 import java.util.List;
 
 /**
  * 酒楼版位信息
  */
-public class HotelPositionInfoAcitivty extends BaseActivity {
+public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPositionAdapter.OnFixBtnClickListener {
 
     private ListView mPostionListView;
     private ImageView mBackBtn;
@@ -36,6 +39,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity {
     private ImageView mSpState;
     private ImageView mLastXintiaoIV;
     private TextView mPositionDesc;
+    private DamageConfig damageConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,12 @@ public class HotelPositionInfoAcitivty extends BaseActivity {
         setListeners();
 
         getData();
+        getDamageInfo();
+
+    }
+
+    private void getDamageInfo() {
+        AppApi.getDamageConfig(this,this);
     }
 
     private void getData() {
@@ -73,6 +83,8 @@ public class HotelPositionInfoAcitivty extends BaseActivity {
         mSpState = (ImageView) mHeaderView.findViewById(R.id.iv_sp_state);
         mLastXintiaoIV = (ImageView) mHeaderView.findViewById(R.id.iv_last_xintiao);
         mPositionDesc = (TextView) mHeaderView.findViewById(R.id.tv_position_desc);
+
+        damageConfig = mSession.getDamageConfig();
     }
 
     @Override
@@ -101,7 +113,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity {
 
     @Override
     public void setListeners() {
-
+        mHotelPositionAdapter.setOnFixBtnClickListener(this);
     }
 
     @Override
@@ -111,6 +123,15 @@ public class HotelPositionInfoAcitivty extends BaseActivity {
                 if(obj instanceof FixHistoryResponse) {
                     FixHistoryResponse fixHistoryResponse = (FixHistoryResponse) obj;
                     initSmallPlatfromInfo(fixHistoryResponse);
+                }
+                break;
+            case POST_DAMAGE_CONFIG_JSON:
+                if(obj instanceof DamageConfig) {
+                    damageConfig = (DamageConfig) obj;
+                    List<DamageConfig.DamageInfo> list = damageConfig.getList();
+                    if(list!=null&&list.size()>0) {
+                        mSession.setDamageConfig(damageConfig);
+                    }
                 }
                 break;
         }
@@ -150,5 +171,15 @@ public class HotelPositionInfoAcitivty extends BaseActivity {
             List<FixHistoryResponse.ListBean.BoxInfoBean> box_info = list.getBox_info();
             mHotelPositionAdapter.setData(box_info);
         }
+    }
+
+    @Override
+    public void onFixBtnClick(int position, FixHistoryResponse.ListBean.BoxInfoBean boxInfoBean) {
+        new FixDialog(this, new FixDialog.OnSubmitBtnClickListener() {
+            @Override
+            public void onSubmitClick(boolean isResolve, String damageDesc, String comment) {
+
+            }
+        }).show();
     }
 }

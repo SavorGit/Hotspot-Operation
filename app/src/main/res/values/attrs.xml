@@ -29,4 +29,8 @@
             <enum name="wrap_content" value="1"/>
         </attr>
     </declare-styleable>
+
+    <string-array name="damage">
+        <item>故障说明与维修记录</item>
+    </string-array>
 </resources>

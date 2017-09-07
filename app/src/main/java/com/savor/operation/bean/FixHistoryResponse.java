@@ -60,7 +60,7 @@ public class FixHistoryResponse implements Serializable {
 
         @Override
         public String toString() {
-            return "ListBean{" +
+            return "DamageInfo{" +
                     "version=" + version +
                     ", banwei='" + banwei + '\'' +
                     ", box_info=" + box_info +

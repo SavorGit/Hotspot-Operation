@@ -23,6 +23,7 @@ import com.common.api.utils.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.ErrorDetail;
 import com.savor.operation.bean.ErrorReport;
 import com.savor.operation.bean.FixHistoryResponse;
@@ -258,6 +259,9 @@ public class ApiResponseFactory {
                 break;
             case POST_FIX_HISTORY_JSON:
                 result = gson.fromJson(info, FixHistoryResponse.class);
+                break;
+            case POST_DAMAGE_CONFIG_JSON:
+                result = gson.fromJson(info, DamageConfig.class);
                 break;
             default:
                 break;

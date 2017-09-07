@@ -27,6 +27,7 @@ public class HotelPositionAdapter extends BaseAdapter {
 
     private final Context mContext;
     private List<FixHistoryResponse.ListBean.BoxInfoBean> data;
+    private OnFixBtnClickListener mOnFixBtnClickListener;
 
     public HotelPositionAdapter(Context context) {
         this.mContext = context;
@@ -53,7 +54,7 @@ public class HotelPositionAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if(convertView == null) {
             holder = new ViewHolder();
@@ -62,6 +63,8 @@ public class HotelPositionAdapter extends BaseAdapter {
             holder.tv_box_info = (TextView) convertView.findViewById(R.id.tv_box_info);
             holder.tv_last_xintiao = (TextView) convertView.findViewById(R.id.tv_last_xintiao);
             holder.tv_last_log = (TextView) convertView.findViewById(R.id.tv_last_log);
+            holder.tv_hint = (TextView) convertView.findViewById(R.id.tv_hint);
+            holder.tv_fix = (TextView) convertView.findViewById(R.id.tv_fix);
             holder.tv_box_status = (ImageView) convertView.findViewById(R.id.tv_box_status);
             holder.divider = convertView.findViewById(R.id.divider);
             convertView.setTag(holder);
@@ -69,7 +72,7 @@ public class HotelPositionAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        FixHistoryResponse.ListBean.BoxInfoBean boxInfoBean = (FixHistoryResponse.ListBean.BoxInfoBean) getItem(position);
+        final FixHistoryResponse.ListBean.BoxInfoBean boxInfoBean = (FixHistoryResponse.ListBean.BoxInfoBean) getItem(position);
         List<String> repair_record = boxInfoBean.getRepair_record();
 
         holder.tv_box_info.setText(boxInfoBean.getRname()+" "+boxInfoBean.getMac()+" "+boxInfoBean.getBoxname());
@@ -98,6 +101,21 @@ public class HotelPositionAdapter extends BaseAdapter {
 
         adapter.setData(repair_record);
 
+        if(repair_record==null||repair_record.size() == 0) {
+            holder.tv_hint.setVisibility(View.INVISIBLE);
+        }else {
+            holder.tv_hint.setVisibility(View.VISIBLE);
+        }
+
+        holder.tv_fix.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mOnFixBtnClickListener!=null) {
+                    mOnFixBtnClickListener.onFixBtnClick(position,boxInfoBean);
+                }
+            }
+        });
+
         return convertView;
     }
 
@@ -106,42 +124,18 @@ public class HotelPositionAdapter extends BaseAdapter {
         public View divider;
         public TextView tv_box_info;
         public TextView tv_last_log;
+        public TextView tv_fix;
         public TextView tv_last_xintiao;
         public ImageView tv_box_status;
+        public TextView tv_hint;
     }
 
-//    @Override
-//    public PositionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        return new PositionHolder(LayoutInflater.from(mContext).inflate(R.layout.item_hotel_position,parent,false));
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(PositionHolder holder, int position) {
-//        TvBoxFixHistoryAdapter adapter = new TvBoxFixHistoryAdapter(mContext);
-//        LinearLayoutManager manager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
-//        holder.rlv_fix_history.setLayoutManager(manager);
-//       holder.rlv_fix_history.setAdapter(adapter);
-//        int itemCount = getItemCount();
-//        if(itemCount == 0 || position == itemCount -1) {
-//            holder.divider.setVisibility(View.GONE);
-//        }else {
-//            holder.divider.setVisibility(View.VISIBLE);
-//        }
-//    }
-//
-//    @Override
-//    public int getItemCount() {
-//        return 3;
-//    }
-//
-//    public class PositionHolder extends RecyclerView.ViewHolder {
-//        public RecyclerView rlv_fix_history;
-//        public View divider;
-//
-//        public PositionHolder(View itemView) {
-//            super(itemView);
-//            rlv_fix_history = (RecyclerView) itemView.findViewById(R.id.rlv_fix_history);
-//            divider = itemView.findViewById(R.id.divider);
-//        }
-//    }
+    public interface OnFixBtnClickListener {
+        void onFixBtnClick(int position,FixHistoryResponse.ListBean.BoxInfoBean boxInfoBean);
+    }
+
+    public void setOnFixBtnClickListener(OnFixBtnClickListener listener) {
+        this.mOnFixBtnClickListener = listener;
+    }
+
 }

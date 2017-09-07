@@ -189,7 +189,15 @@ public class AppApi {
         new AppServiceOk(context, Action.POST_FIX_HISTORY_JSON, handler, params).post();
     }
 
-
+    /**
+     * 酒店损坏配置表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getDamageConfig(Context context, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        new AppServiceOk(context, Action.POST_DAMAGE_CONFIG_JSON, handler, params).post();
+    }
 
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";
