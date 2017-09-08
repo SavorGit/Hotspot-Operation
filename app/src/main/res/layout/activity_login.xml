@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:src="@drawable/operation"
+            android:src="@drawable/ic_launcher"
             android:layout_width="50dp"
             android:layout_height="50dp" />
         <TextView

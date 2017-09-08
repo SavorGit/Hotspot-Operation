@@ -160,7 +160,6 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
 
                         LoginResponse loginResponse = mSession.getLoginResponse();
                         String userid = loginResponse.getUserid();
-
                         AppApi.submitDamage(HotelPositionInfoAcitivty.this,fixHistoryResponse.getList().getVersion().getSmall_mac(),
                                 hotel.getId(),comment,sb.toString(),state+"", 1+"",userid,HotelPositionInfoAcitivty.this);
 
@@ -179,6 +178,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
                 break;
             case POST_FIX_HISTORY_JSON:
                 if(obj instanceof FixHistoryResponse) {
+                    mPostionListView.setVisibility(View.VISIBLE);
                     fixHistoryResponse = (FixHistoryResponse) obj;
                     initSmallPlatfromInfo(fixHistoryResponse);
                 }
@@ -191,6 +191,16 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
                         mSession.setDamageConfig(damageConfig);
                     }
                 }
+                break;
+        }
+    }
+
+    @Override
+    public void onError(AppApi.Action method, Object obj) {
+        super.onError(method, obj);
+        switch (method) {
+            case POST_FIX_HISTORY_JSON:
+                mPostionListView.setVisibility(View.GONE);
                 break;
         }
     }
