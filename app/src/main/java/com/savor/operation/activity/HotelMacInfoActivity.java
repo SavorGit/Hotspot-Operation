@@ -2,6 +2,7 @@ package com.savor.operation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -127,30 +128,34 @@ public class HotelMacInfoActivity extends BaseActivity implements PullToRefreshB
         List<HotelMacInfo.MacInfo.HotelInfoBean> hotel_info = list.getHotel_info();
         if(hotel_info!=null&&hotel_info.size()>0) {
             HotelMacInfo.MacInfo.HotelInfoBean hotelInfoBean = hotel_info.get(0);
-            mHotelNameTv.setText("酒店名称："+hotelInfoBean.getHotel_name());
-            mHotelAddressTv.setText("酒店地址："+hotelInfoBean.getHotel_addr());
-            mHotelBelongsTv.setText("所属区域："+hotelInfoBean.getArea_name());
-            mIfImportantTv.setText("是否重点："+hotelInfoBean.getIs_key());
-            mHotelLevelTv.setText("酒店级别："+hotelInfoBean.getLevel());
-            mChangeDescTv.setText("变更说明："+hotelInfoBean.getState_change_reason());
-            mInstallDateTv.setText("安装日期："+hotelInfoBean.getInstall_date());
-            mHotelStateTv.setText("酒楼状态："+hotelInfoBean.getHotel_state());
-            mHotelContantTv.setText("酒店联系人："+hotelInfoBean.getContractor());
-            mBoxTypeTv.setText("机顶盒类型："+hotelInfoBean.getHotel_box_type());
-            mPreservePersonTv.setText("合作维护人："+hotelInfoBean.getMaintainer());
-            mSpAddressTv.setText("小平台存放位置："+hotelInfoBean.getServer_location());
-            mPlaneTv.setText("座机："+hotelInfoBean.getTel());
-            mSPId.setText("小平台远程ID："+hotelInfoBean.getRemote_id());
-            mTelePhoneTv.setText("手机："+hotelInfoBean.getMobile());
-            mOperationPersonTv.setText("技术运维人："+hotelInfoBean.getTech_maintainer());
-            mSpMacTv.setText("小平台mac地址："+hotelInfoBean.getMac_addr());
-            mWifiPwdTv.setText("酒楼wifi密码："+hotelInfoBean.getHotel_wifi_pas());
-            mHotelLocationTv.setText("酒楼位置坐标："+hotelInfoBean.getGps());
-            mHotelWifiNameTv.setText("酒楼wifi名称："+hotelInfoBean.getHotel_wifi());
-            mProgramTv.setText("节目单："+hotelInfoBean.getMenu_name());
+            mHotelNameTv.setText("酒店名称："+formatStr(hotelInfoBean.getHotel_name()));
+            mHotelAddressTv.setText("酒店地址："+formatStr(hotelInfoBean.getHotel_addr()));
+            mHotelBelongsTv.setText("所属区域："+formatStr(hotelInfoBean.getArea_name()));
+            mIfImportantTv.setText("是否重点："+formatStr(hotelInfoBean.getIs_key()));
+            mHotelLevelTv.setText("酒店级别："+formatStr(hotelInfoBean.getLevel()));
+            mChangeDescTv.setText("变更说明："+formatStr(hotelInfoBean.getState_change_reason()));
+            mInstallDateTv.setText("安装日期："+formatStr(hotelInfoBean.getInstall_date()));
+            mHotelStateTv.setText("酒楼状态："+formatStr(hotelInfoBean.getHotel_state()));
+            mHotelContantTv.setText("酒店联系人："+formatStr(hotelInfoBean.getContractor()));
+            mBoxTypeTv.setText("机顶盒类型："+formatStr(hotelInfoBean.getHotel_box_type()));
+            mPreservePersonTv.setText("合作维护人："+formatStr(hotelInfoBean.getMaintainer()));
+            mSpAddressTv.setText("小平台存放位置："+formatStr(hotelInfoBean.getServer_location()));
+            mPlaneTv.setText("座机："+formatStr(hotelInfoBean.getTel()));
+            mSPId.setText("小平台远程ID："+formatStr(hotelInfoBean.getRemote_id()));
+            mTelePhoneTv.setText("手机："+formatStr(hotelInfoBean.getMobile()));
+            mOperationPersonTv.setText("技术运维人："+formatStr(hotelInfoBean.getTech_maintainer()));
+            mSpMacTv.setText("小平台mac地址："+formatStr(hotelInfoBean.getMac_addr()));
+            mWifiPwdTv.setText("酒楼wifi密码："+formatStr(hotelInfoBean.getHotel_wifi_pas()));
+            mHotelLocationTv.setText("酒楼位置坐标："+formatStr(hotelInfoBean.getGps()));
+            mHotelWifiNameTv.setText("酒楼wifi名称："+formatStr(hotelInfoBean.getHotel_wifi()));
+            mProgramTv.setText("节目单："+formatStr(hotelInfoBean.getMenu_name()));
             mPositionInfoTv.setText("版位信息（包间："+hotelInfoBean.getRoom_num()+" 机顶盒"+hotelInfoBean.getBox_num()+" 电视："+hotelInfoBean.getTv_num()+"）");
 
         }
+    }
+
+    public String formatStr(String str) {
+        return TextUtils.isEmpty(str)?"":str;
     }
 
     private void initMacList(HotelMacInfo hotelMacInfo) {

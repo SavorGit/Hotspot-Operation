@@ -168,7 +168,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     String remark = indexInfo.getRemark();
                     mRemarkTv.setText(remark);
                     LoginResponse loginResponse = mSession.getLoginResponse();
-                    mUserNmaeTv.setText("登录账号："+loginResponse.getUsername());
+                    mUserNmaeTv.setText("登录账号："+loginResponse.getNickname());
                 }
                 break;
             case POST_UPGRADE_JSON:
