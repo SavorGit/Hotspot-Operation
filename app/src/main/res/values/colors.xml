@@ -37,7 +37,7 @@
     <color name="actionsheet_gray">#8F8F8F</color>
     <color name="shadow">#CC222222</color>
     <color name="color_B3000000">#B3000000</color>
-    <string name="confirm_exit_app">再按一次退出热点儿</string>
+    <string name="confirm_exit_app">再按一次退出热点儿-运维端</string>
     <color name="color_text_refresh_list_hint">#E5ffebc3</color>
     <color name="color_app_bg">#f5f5f5</color>
     <color name="color_refresh_text">#888888</color>

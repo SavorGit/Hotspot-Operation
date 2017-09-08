@@ -2,7 +2,9 @@ package com.savor.operation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Process;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private EditText mAccountEt;
     private EditText mPwdEt;
     private Button mLoginBtn;
+    private long exitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,25 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
+
         super.onError(method, obj);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                ShowMessage.showToast(this,getString(R.string.confirm_exit_app));
+                exitTime = System.currentTimeMillis();
+            } else {
+                exitApp();
+            }
+        }
+        return true;
+    }
+
+    private void exitApp() {
+        Process.killProcess(android.os.Process.myPid());
     }
 }
