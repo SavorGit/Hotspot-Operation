@@ -101,6 +101,7 @@ public class FixHistoryResponse implements Serializable {
             private LastSmallBean last_small;
             private String new_small;
             private String small_mac;
+            private List<BoxInfoBean.RepaireInfo> repair_record;
 
             @Override
             public String toString() {
@@ -109,6 +110,7 @@ public class FixHistoryResponse implements Serializable {
                         ", last_small=" + last_small +
                         ", new_small='" + new_small + '\'' +
                         ", small_mac='" + small_mac + '\'' +
+                        ", repair_record=" + repair_record +
                         '}';
             }
 
@@ -125,7 +127,9 @@ public class FixHistoryResponse implements Serializable {
                     return false;
                 if (new_small != null ? !new_small.equals(that.new_small) : that.new_small != null)
                     return false;
-                return small_mac != null ? small_mac.equals(that.small_mac) : that.small_mac == null;
+                if (small_mac != null ? !small_mac.equals(that.small_mac) : that.small_mac != null)
+                    return false;
+                return repair_record != null ? repair_record.equals(that.repair_record) : that.repair_record == null;
 
             }
 
@@ -135,6 +139,7 @@ public class FixHistoryResponse implements Serializable {
                 result = 31 * result + (last_small != null ? last_small.hashCode() : 0);
                 result = 31 * result + (new_small != null ? new_small.hashCode() : 0);
                 result = 31 * result + (small_mac != null ? small_mac.hashCode() : 0);
+                result = 31 * result + (repair_record != null ? repair_record.hashCode() : 0);
                 return result;
             }
 
@@ -168,6 +173,14 @@ public class FixHistoryResponse implements Serializable {
 
             public void setSmall_mac(String small_mac) {
                 this.small_mac = small_mac;
+            }
+
+            public List<BoxInfoBean.RepaireInfo> getRepair_record() {
+                return repair_record;
+            }
+
+            public void setRepair_record(List<BoxInfoBean.RepaireInfo> repair_record) {
+                this.repair_record = repair_record;
             }
 
             public  class LastHeartTimeBean implements Serializable{
