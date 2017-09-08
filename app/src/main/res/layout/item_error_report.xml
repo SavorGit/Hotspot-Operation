@@ -12,7 +12,7 @@
         android:padding="4dp"
         android:text="截止到09-05 14点，共有55家酒楼(54家酒楼异常,52个小平台失联超过15小时,602个机顶盒失联超过15小时)"
         android:textSize="15sp"
-        android:textColor="@color/black"
+        android:textColor="@color/color_text_info"
         android:layout_marginTop="3dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="12dp"
@@ -31,7 +31,7 @@
         android:textSize="15sp"
         android:layout_marginTop="4dp"
         android:text="2017-09-05 14:01:00"
-        android:textColor="@color/black"/>
+        android:textColor="@color/color_text_info"/>
 
     <ImageView
         android:layout_width="wrap_content"
