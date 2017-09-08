@@ -16,7 +16,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="6dp"
         android:textSize="15sp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/color_text_info"/>
     <TextView
         android:id="@+id/small_palt_info"
         android:layout_below="@id/hotel_info"
@@ -29,7 +29,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="6dp"
         android:textSize="15sp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/color_text_info"/>
     <TextView
         android:id="@+id/box_info"
         android:layout_below="@id/small_palt_info"
@@ -42,7 +42,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="6dp"
         android:textSize="15sp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/color_text_info"/>
 
     <ImageView
         android:layout_width="wrap_content"
