@@ -34,7 +34,9 @@
         android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme">
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".activity.MaintenanceRecordActivity"
             android:configChanges="orientation|screenSize"
