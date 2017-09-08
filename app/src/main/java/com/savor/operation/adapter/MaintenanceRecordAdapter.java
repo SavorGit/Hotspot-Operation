@@ -78,7 +78,7 @@ public class MaintenanceRecordAdapter extends BaseAdapter {
 
         RepairRecordListBean item = (RepairRecordListBean) getItem(position);
         holder.date.setText(item.getDatetime());
-        holder.hotle_name.setText(item.getHotel_name());
+        holder.hotle_name.setText(item.getHotel_name()+"  维修记录");
         List<RepairListBean> repair_list = item.getRepair_list();
         if (repair_list != null && repair_list.size()>0) {
             holder.msg_la.removeAllViews();
