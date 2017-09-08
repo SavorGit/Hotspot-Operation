@@ -118,21 +118,22 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
     public void onError(AppApi.Action method, Object obj) {
         super.onError(method,obj);
         mPullRefreshListView.onRefreshComplete();
+        mPullRefreshListView.setVisibility(View.GONE);
         switch (method) {
             case POST_ERROR_REPORT_LIST_JSON:
 
 
-                if (obj instanceof ResponseErrorMessage){
-                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
-                    String statusCode = String.valueOf(errorMessage.getCode());
-                    if (AppApi.ERROR_TIMEOUT.equals(statusCode)){
-//                        mProgressLayout.loadFailure("数据加载超时");
-//                        showRefreshHintAnimation("数据加载超时");
-                    }else if (AppApi.ERROR_NETWORK_FAILED.equals(statusCode)){
-//                        mProgressLayout.loadFailure("网络异常，点击重试");
-//                        showRefreshHintAnimation("无法连接到网络,请检查网络设置");
-                    }
-                }
+//                if (obj instanceof ResponseErrorMessage){
+//                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
+//                    String statusCode = String.valueOf(errorMessage.getCode());
+//                    if (AppApi.ERROR_TIMEOUT.equals(statusCode)){
+////                        mProgressLayout.loadFailure("数据加载超时");
+////                        showRefreshHintAnimation("数据加载超时");
+//                    }else if (AppApi.ERROR_NETWORK_FAILED.equals(statusCode)){
+////                        mProgressLayout.loadFailure("网络异常，点击重试");
+////                        showRefreshHintAnimation("无法连接到网络,请检查网络设置");
+//                    }
+//                }
 
 
                 break;
