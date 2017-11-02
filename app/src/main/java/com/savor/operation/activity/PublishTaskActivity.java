@@ -1,5 +1,6 @@
 package com.savor.operation.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,9 +55,13 @@ public class PublishTaskActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.ll_setup:
                 // 安装与验收
+                intent = new Intent(mContext,TaskActivity.class);
+                intent.putExtra("type", SavorMainActivity.ActionType.SEARCH_HOTEL);
+                mContext.startActivity(intent);
                 break;
             case R.id.ll_info_check:
                 // 信息监测

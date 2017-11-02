@@ -3,12 +3,12 @@
     android:shape="rectangle" >
 
     <gradient
-        android:centerColor="#ff00ff00"
-        android:endColor="#ff0000ff"
-        android:startColor="#ffff0000"
+        android:centerColor="@color/grid_item_divider"
+        android:endColor="@color/grid_item_divider"
+        android:startColor="@color/grid_item_divider"
         android:type="linear" />
-    <size android:height="4dp"
-        android:width="4dp"
+    <size android:height="15dp"
+        android:width="15dp"
         />
 
 </shape>
