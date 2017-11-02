@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#202020</color>
+    <color name="colorPrimary">#00b7f5</color>
+    <color name="colorPrimaryDark">#00b7f5</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="title_bg">#F2F2F2</color>
@@ -65,4 +65,7 @@
     <color name="color_575757">#575757</color>
     <color name="color_eee8e0">#eee8e0</color>
     <color name="color_red_light">#ff6a2f</color>
+    <color name="grid_item_divider">#EAEAEA</color>
+    <color name="grid_item_selected">#F7F7F7</color>
+
 </resources>

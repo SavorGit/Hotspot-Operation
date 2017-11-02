@@ -34,9 +34,9 @@
         android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme">
-        <activity android:name=".activity.MainActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MaintenanceRecordActivity"
             android:configChanges="orientation|screenSize"
@@ -64,8 +64,8 @@
             android:value="e903fceae381b42402bbcb971a6b8442" />
 
         <activity
-            android:launchMode="singleTask"
             android:name=".activity.LoginActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
@@ -74,15 +74,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SearchActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.HotelPositionInfoAcitivty"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.HotelMacInfoActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HotelPositionInfoAcitivty"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HotelMacInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SavorMainActivity"></activity>
     </application>
 
 </manifest>
