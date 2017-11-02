@@ -1,18 +1,21 @@
 package com.savor.operation.activity;
 
 import android.app.LauncherActivity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.common.api.utils.DensityUtil;
 import com.savor.operation.R;
 import com.savor.operation.adapter.ActionListAdapter;
 import com.savor.operation.bean.ActionListItem;
+import com.savor.operation.widget.CommonDialog;
 import com.savor.operation.widget.DividerGridItemDecoration;
 import com.savor.operation.widget.DividerItemDecoration;
 import com.savor.operation.widget.decoration.SpacesItemDecoration;
@@ -21,12 +24,15 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SavorMainActivity extends BaseActivity {
+public class SavorMainActivity extends BaseActivity implements View.OnClickListener {
 
     private static final int GRID_ROW_COUNT = 2;
     private TextView mCityTv;
     private TextView mSearchTv;
     private RecyclerView mItemRlv;
+    private TextView mUserInfoTv;
+    private TextView mExitBtn;
+
 
     /**
      * 首页功能分类类型
@@ -66,6 +72,8 @@ public class SavorMainActivity extends BaseActivity {
         mCityTv = (TextView) findViewById(R.id.tv_city);
         mSearchTv = (TextView) findViewById(R.id.tv_search);
         mItemRlv = (RecyclerView) findViewById(R.id.rlv_items);
+        mUserInfoTv = (TextView) findViewById(R.id.tv_user_info);
+        mExitBtn = (TextView) findViewById(R.id.tv_exit);
     }
 
     @Override
@@ -114,6 +122,29 @@ public class SavorMainActivity extends BaseActivity {
 
     @Override
     public void setListeners() {
+        mExitBtn.setOnClickListener(this);
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_exit:
+                new CommonDialog(this, "是否要注销当前登录账号", new CommonDialog.OnConfirmListener() {
+                    @Override
+                    public void onConfirm() {
+                        mSession.setLoginResponse(null);
+                        Intent intent = new Intent(SavorMainActivity.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, new CommonDialog.OnCancelListener() {
+                    @Override
+                    public void onCancel() {
+
+                    }
+                },"确定").show();
+                break;
+        }
     }
 }

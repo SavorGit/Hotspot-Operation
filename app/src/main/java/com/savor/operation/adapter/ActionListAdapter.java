@@ -1,14 +1,17 @@
 package com.savor.operation.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.savor.operation.R;
+import com.savor.operation.activity.PublishTaskActivity;
 import com.savor.operation.activity.SavorMainActivity;
 import com.savor.operation.bean.ActionListItem;
 
@@ -38,13 +41,45 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
     }
 
     @Override
-    public void onBindViewHolder(ActionHolder holder, int position) {
+    public void onBindViewHolder(final ActionHolder holder, int position) {
         ActionListItem actionListItem = mData.get(position);
-        int num = actionListItem.getNum();
+        final int num = actionListItem.getNum();
 
-        SavorMainActivity.ActionType type = actionListItem.getType();
+        final SavorMainActivity.ActionType type = actionListItem.getType();
         int imageId = -1;
         String desc = "";
+        initViews(holder, num, type, imageId, desc);
+
+
+        holder.rl_parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                switch (type) {
+                    case PUBLISH_TASK:
+                        intent = new Intent(mContext, PublishTaskActivity.class);
+                        mContext.startActivity(intent);
+                        break;
+                    case TASK_LIST:
+                        break;
+                    case SYSTEM_STATUS:
+                        break;
+                    case EXCEPTION_REPORT:
+                        break;
+                    case FIX_HISTORY:
+                        break;
+                    case BIND_BOX:
+                        break;
+                    case MY_TASK:
+                        break;
+                    case SEARCH_HOTEL:
+                        break;
+                }
+            }
+        });
+    }
+
+    private void initViews(ActionHolder holder, int num, SavorMainActivity.ActionType type, int imageId, String desc) {
         switch (type) {
             case PUBLISH_TASK:
                 imageId = R.drawable.ico_publish_task;
@@ -85,7 +120,6 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
         }
         holder.iv_image.setImageResource(imageId);
         holder.tv_desc.setText(desc);
-
     }
 
     @Override
@@ -97,11 +131,13 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
         public ImageView iv_image;
         public TextView tv_desc;
         public TextView tv_num;
+        public RelativeLayout rl_parent;
         public ActionHolder(View itemView) {
             super(itemView);
             iv_image = (ImageView) itemView.findViewById(R.id.iv_image);
             tv_desc = (TextView) itemView.findViewById(R.id.tv_desc);
             tv_num = (TextView) itemView.findViewById(R.id.tv_num);
+            rl_parent = (RelativeLayout) itemView.findViewById(R.id.rl_parent);
         }
     }
 }

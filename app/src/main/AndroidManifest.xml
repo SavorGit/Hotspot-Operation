@@ -67,6 +67,7 @@
             android:name=".activity.LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
+            android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -83,7 +84,9 @@
         <activity
             android:name=".activity.HotelMacInfoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.SavorMainActivity"></activity>
+        <activity android:name=".activity.SavorMainActivity" />
+        <activity android:name=".activity.PublishTaskActivity" />
+        <activity android:name=".activity.TaskActivity"></activity>
     </application>
 
 </manifest>
