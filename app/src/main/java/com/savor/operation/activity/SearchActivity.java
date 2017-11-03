@@ -20,6 +20,7 @@ import com.savor.operation.adapter.SearchHotelListAdapter;
 import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.HotelListResponse;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.enums.SearchHotelOpType;
 import com.savor.operation.widget.DividerItemDecoration;
 
 import java.util.List;
@@ -30,15 +31,23 @@ public class SearchActivity extends BaseActivity implements SearchHotelListAdapt
     private RecyclerView mHotelListView;
     private SearchHotelListAdapter mAdapter;
     private ImageView mBackBtn;
+    private SearchHotelOpType type;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        handleIntent();
         getViews();
         setViews();
         setListeners();
+    }
+
+    private void handleIntent() {
+        Intent intent = getIntent();
+        type = (SearchHotelOpType) intent.getSerializableExtra("type");
     }
 
     @Override
@@ -54,7 +63,6 @@ public class SearchActivity extends BaseActivity implements SearchHotelListAdapt
         mHotelListView.setLayoutManager(manager);
         mAdapter = new SearchHotelListAdapter(this);
         mHotelListView.setAdapter(mAdapter);
-//        mHotelListView.addItemDecoration(new DividerItemDecoration(mContext,DividerItemDecoration.VERTICAL_LIST));
     }
 
     @Override
@@ -79,9 +87,17 @@ public class SearchActivity extends BaseActivity implements SearchHotelListAdapt
 
     @Override
     public void onHotelClick(Hotel hotel) {
-        Intent intent = new Intent(this,HotelPositionInfoAcitivty.class);
-        intent.putExtra("hotel",hotel);
-        startActivity(intent);
+        Intent intent;
+        if(type == SearchHotelOpType.PUBLIS_TASK) {
+             intent = new Intent();
+             intent.putExtra("hotel",hotel);
+             setResult(TaskActivity.RESULT_CODE_SEARCH,intent);
+             finish();
+        }else {
+            intent = new Intent(this,HotelPositionInfoAcitivty.class);
+            intent.putExtra("hotel",hotel);
+            startActivity(intent);
+        }
     }
 
     @Override

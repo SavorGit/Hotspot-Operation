@@ -15,6 +15,7 @@ android {
         versionCode 2017090501
         versionName "1.0"
 
+        flavorDimensions "versionCode"
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaoredian"]
         ndk {
             abiFilters 'armeabi', 'x86', 'mips'
@@ -108,7 +109,7 @@ android {
         jumboMode = false
 //        javaMaxHeapSize "4g"
     }
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '26.0.2'
 
     sourceSets {
         main {
@@ -128,6 +129,9 @@ android {
         }
     }
 }
+
+
+
 
 
 

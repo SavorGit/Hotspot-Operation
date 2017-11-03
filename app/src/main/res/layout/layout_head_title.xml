@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/title_bg"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:id="@+id/ll_head">
 
@@ -26,7 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:padding="8dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:gravity="center_vertical"
             android:layout_centerVertical="true"
             android:src="@drawable/back"
@@ -38,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textStyle="bold"
-            android:textColor="@color/title_text_color"
+            android:textColor="@color/white"
             android:textSize="16sp" />
 
         <TextView

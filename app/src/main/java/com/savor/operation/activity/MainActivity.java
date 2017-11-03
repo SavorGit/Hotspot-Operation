@@ -9,10 +9,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Process;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RemoteViews;
@@ -55,6 +58,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private NotificationManager manager;
     private Notification notif;
     private final int NOTIFY_DOWNLOAD_FILE=10001;
+    private long exitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,6 +164,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method) {
             case POST_INDEX_JSON:
+                if(isFinishing())
+                    return;
                 if(obj instanceof IndexInfo) {
                     ShowMessage.showToast(this,"数据获取成功");
                     IndexInfo indexInfo = (IndexInfo) obj;
@@ -172,6 +178,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case POST_UPGRADE_JSON:
+                if(isFinishing())
+                    return;
                 if (obj instanceof UpgradeInfo) {
                     upGradeInfo = (UpgradeInfo) obj;
                     if (upGradeInfo != null) {
@@ -180,6 +188,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case TEST_DOWNLOAD_JSON:
+                if(isFinishing())
+                    return;
                 if (obj instanceof FileDownProgress){
                     FileDownProgress fs = (FileDownProgress) obj;
                     long now = fs.getNow();
@@ -226,6 +236,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+
+                if ((System.currentTimeMillis() - exitTime) > 2000) {
+                    ShowMessage.showToast(this,getString(R.string.confirm_exit_app));
+                    exitTime = System.currentTimeMillis();
+                } else {
+                    exitApp();
+                }
+        }
+        return true;
+    }
+
+    private void exitApp() {
+        Process.killProcess(android.os.Process.myPid());
     }
 
     @Override

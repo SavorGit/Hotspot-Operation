@@ -6,8 +6,8 @@
     android:orientation="vertical"
     tools:context="com.savor.operation.activity.MainActivity">
     <LinearLayout
-        android:orientation="vertical"
         android:layout_weight="1"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
@@ -16,7 +16,7 @@
             <TextView
                 android:hint="@string/search_hotel"
                 android:id="@+id/tv_search"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/bg_edittext"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
@@ -24,8 +24,8 @@
                 android:layout_height="wrap_content" />
             <LinearLayout
                 android:gravity="center"
-                android:layout_marginTop="70dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="30dp"
                 android:layout_below="@id/tv_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -51,7 +51,7 @@
             android:layout_margin="15dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -104,7 +104,8 @@
         android:background="@color/color_575757"
         android:layout_width="match_parent"
         android:layout_height="1dp"/>
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:gravity="center_vertical"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -116,6 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <Button
+            android:layout_marginLeft="20dp"
             android:id="@+id/btn_exit"
             android:padding="10dp"
             android:textColor="@color/white"
@@ -125,11 +127,11 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp" />
         <TextView
+            android:layout_weight="1"
             android:id="@+id/tv_version"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
+            android:gravity="right"
             tools:text="运维端"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
