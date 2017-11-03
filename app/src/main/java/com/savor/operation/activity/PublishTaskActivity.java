@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.savor.operation.R;
 
+import java.io.Serializable;
+
 public class PublishTaskActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView mBackBtn;
@@ -19,6 +21,17 @@ public class PublishTaskActivity extends BaseActivity implements View.OnClickLis
     private LinearLayout mInfoCheckLayout;
     private LinearLayout mNetworkRemouldLayout;
     private LinearLayout mFixLayout;
+
+    public enum TaskType implements Serializable{
+        /**安装与验收*/
+        SETUP_AND_CHECK,
+        /**信息监测*/
+        INFO_CHECK,
+        /**网络改造*/
+        NETWORK_REMOULD,
+        /**维修*/
+        FIX,
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +64,9 @@ public class PublishTaskActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void setListeners() {
         mSetupLayout.setOnClickListener(this);
+        mInfoCheckLayout.setOnClickListener(this);
+        mNetworkRemouldLayout.setOnClickListener(this);
+        mFixLayout.setOnClickListener(this);
     }
 
     @Override
@@ -60,17 +76,26 @@ public class PublishTaskActivity extends BaseActivity implements View.OnClickLis
             case R.id.ll_setup:
                 // 安装与验收
                 intent = new Intent(mContext,TaskActivity.class);
-                intent.putExtra("type", SavorMainActivity.ActionType.SEARCH_HOTEL);
+                intent.putExtra("type", TaskType.SETUP_AND_CHECK);
                 mContext.startActivity(intent);
                 break;
             case R.id.ll_info_check:
                 // 信息监测
+                intent = new Intent(mContext,TaskActivity.class);
+                intent.putExtra("type", TaskType.INFO_CHECK);
+                mContext.startActivity(intent);
                 break;
             case R.id.ll_network_remould:
                 // 网络改造
+                intent = new Intent(mContext,TaskActivity.class);
+                intent.putExtra("type", TaskType.NETWORK_REMOULD);
+                mContext.startActivity(intent);
                 break;
             case R.id.ll_fix:
                 // 维修
+                intent = new Intent(mContext,TaskActivity.class);
+                intent.putExtra("type", TaskType.FIX);
+                mContext.startActivity(intent);
                 break;
         }
     }

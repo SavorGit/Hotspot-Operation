@@ -175,6 +175,7 @@
         </RadioGroup>
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/rl_num"
         android:padding="15dp"
         android:background="@color/white"
         android:layout_width="match_parent"

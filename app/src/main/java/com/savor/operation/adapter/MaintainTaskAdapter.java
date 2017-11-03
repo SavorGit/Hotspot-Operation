@@ -28,7 +28,7 @@ public class MaintainTaskAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 0;
+        return mData==null?0:mData.size();
     }
 
     @Override
