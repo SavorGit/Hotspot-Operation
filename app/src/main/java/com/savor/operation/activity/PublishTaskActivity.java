@@ -63,6 +63,7 @@ public class PublishTaskActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void setListeners() {
+        mBackBtn.setOnClickListener(this);
         mSetupLayout.setOnClickListener(this);
         mInfoCheckLayout.setOnClickListener(this);
         mNetworkRemouldLayout.setOnClickListener(this);
@@ -73,6 +74,9 @@ public class PublishTaskActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+            case R.id.iv_left:
+                finish();
+                break;
             case R.id.ll_setup:
                 // 安装与验收
                 intent = new Intent(mContext,TaskActivity.class);

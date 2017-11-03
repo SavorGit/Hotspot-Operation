@@ -13,7 +13,9 @@ import android.widget.TextView;
 import com.savor.operation.R;
 import com.savor.operation.activity.PublishTaskActivity;
 import com.savor.operation.activity.SavorMainActivity;
+import com.savor.operation.activity.SearchActivity;
 import com.savor.operation.bean.ActionListItem;
+import com.savor.operation.enums.FunctionType;
 
 import java.util.List;
 
@@ -45,7 +47,7 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
         ActionListItem actionListItem = mData.get(position);
         final int num = actionListItem.getNum();
 
-        final SavorMainActivity.ActionType type = actionListItem.getType();
+        final FunctionType type = actionListItem.getType();
         int imageId = -1;
         String desc = "";
         initViews(holder, num, type, imageId, desc);
@@ -73,13 +75,15 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                     case MY_TASK:
                         break;
                     case SEARCH_HOTEL:
+                        intent = new Intent(mContext, SearchActivity.class);
+                        mContext.startActivity(intent);
                         break;
                 }
             }
         });
     }
 
-    private void initViews(ActionHolder holder, int num, SavorMainActivity.ActionType type, int imageId, String desc) {
+    private void initViews(ActionHolder holder, int num, FunctionType type, int imageId, String desc) {
         switch (type) {
             case PUBLISH_TASK:
                 imageId = R.drawable.ico_publish_task;

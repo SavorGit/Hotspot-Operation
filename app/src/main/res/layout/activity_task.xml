@@ -10,6 +10,7 @@
         layout="@layout/layout_head_title"
         />
     <ListView
+        android:background="@color/grid_item_divider"
         android:id="@+id/lv_task_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

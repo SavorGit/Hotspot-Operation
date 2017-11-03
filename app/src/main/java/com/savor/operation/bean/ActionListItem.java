@@ -1,6 +1,7 @@
 package com.savor.operation.bean;
 
 import com.savor.operation.activity.SavorMainActivity;
+import com.savor.operation.enums.FunctionType;
 
 import java.io.Serializable;
 
@@ -9,7 +10,7 @@ import java.io.Serializable;
  */
 
 public class ActionListItem implements Serializable {
-    private SavorMainActivity.ActionType type;
+    private FunctionType type;
     private int num;
 
     @Override
@@ -38,11 +39,11 @@ public class ActionListItem implements Serializable {
         return result;
     }
 
-    public SavorMainActivity.ActionType getType() {
+    public FunctionType getType() {
         return type;
     }
 
-    public void setType(SavorMainActivity.ActionType type) {
+    public void setType(FunctionType type) {
         this.type = type;
     }
 

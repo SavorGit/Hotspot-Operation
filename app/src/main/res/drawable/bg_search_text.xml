@@ -11,10 +11,10 @@
     <corners
         android:radius="5dp"
         />
-    <stroke
-        android:color="#2b3851"
-        android:width="0.5dp"
-        />
+    <!--<stroke-->
+        <!--android:color="#2b3851"-->
+        <!--android:width="0.1dp"-->
+        <!--/>-->
     <solid
         android:color="#00a8e0"
         />

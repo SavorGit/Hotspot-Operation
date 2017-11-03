@@ -2,13 +2,17 @@ package com.savor.operation.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.savor.operation.R;
 import com.savor.operation.adapter.MaintainTaskAdapter;
+import com.savor.operation.bean.Hotel;
+import com.savor.operation.enums.SearchHotelOpType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +22,19 @@ import java.util.List;
  */
 public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
+    public static final int REQUEST_CODE_SEARCH = 0x1;
+    public static final int RESULT_CODE_SEARCH = 0x2;
     private ListView mTaskLv;
     private View mHeadView;
     private ImageView mBackBtn;
     private PublishTaskActivity.TaskType actionType;
     private RelativeLayout mNumLayout;
+    private TextView mAddTv;
+    private TextView mReduceTv;
+    private TextView mBoxNumTv;
+    private RelativeLayout mSearchLayout;
+    private Hotel hotel;
+    private TextView mHotelNameTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +64,12 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private void initHeaderView() {
         mHeadView = View.inflate(this,R.layout.header_view_task,null);
         mNumLayout = (RelativeLayout) mHeadView.findViewById(R.id.rl_num);
+        mAddTv = (TextView) mHeadView.findViewById(R.id.tv_add);
+        mReduceTv = (TextView) mHeadView.findViewById(R.id.tv_reduce);
+        mBoxNumTv = (TextView) mHeadView.findViewById(R.id.tv_box_num);
+        mHotelNameTv = (TextView) mHeadView.findViewById(R.id.tv_select_hotel);
+        mSearchLayout = (RelativeLayout) mHeadView.findViewById(R.id.rl_select_hotel);
+
         if(actionType == PublishTaskActivity.TaskType.INFO_CHECK||actionType == PublishTaskActivity.TaskType.NETWORK_REMOULD) {
             mNumLayout.setVisibility(View.GONE);
         }
@@ -76,14 +94,63 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void setListeners() {
         mBackBtn.setOnClickListener(this);
+        mAddTv.setOnClickListener(this);
+        mReduceTv.setOnClickListener(this);
+        mSearchLayout.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        String num;
+        Intent intent;
         switch (v.getId()) {
+            case R.id.rl_select_hotel:
+                intent = new Intent(this,SearchActivity.class);
+                intent.putExtra("type", SearchHotelOpType.PUBLIS_TASK);
+                startActivityForResult(intent,REQUEST_CODE_SEARCH);
+                break;
+            case R.id.tv_add:
+                num = mBoxNumTv.getText().toString();
+                try{
+                    int boxNum = Integer.valueOf(num);
+                    boxNum+=1;
+                    mBoxNumTv.setText(String.valueOf(boxNum));
+                }catch (Exception e){
+                    mBoxNumTv.setText("0");
+                }
+                break;
+            case R.id.tv_reduce:
+                num = mBoxNumTv.getText().toString();
+                try{
+                    int boxNum = Integer.valueOf(num);
+                    boxNum-=1;
+                    if(boxNum<0) {
+                        boxNum = 0;
+                    }
+                    mBoxNumTv.setText(String.valueOf(boxNum));
+                }catch (Exception e){
+                    mBoxNumTv.setText("0");
+                }
+                break;
             case R.id.iv_left:
                 finish();
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_SEARCH &&resultCode == RESULT_CODE_SEARCH) {
+            if(data!=null) {
+                hotel = (Hotel) data.getSerializableExtra("hotel");
+                if(hotel!=null) {
+                    String name = hotel.getName();
+                    if(!TextUtils.isEmpty(name)) {
+                        mHotelNameTv.setText(name);
+                    }
+                }
+            }
         }
     }
 }
