@@ -59,6 +59,8 @@ public class AppApi {
         POST_UPGRADE_JSON,
         /**获取酒店版位详细信息（mac地址等）*/
         POST_HOTEL_MACINFO_JSON,
+        /**任务类型*/
+        POST_TASK_TYPE_JSON,
     }
 
     /**
@@ -82,6 +84,7 @@ public class AppApi {
             put(Action.POST_SUBMIT_DAMAGE_JSON, formatPhpUrl("Opclient/Box/InsertBoxDamage"));
             put(Action.POST_UPGRADE_JSON, formatPhpUrl("Opclient/Version/index"));
             put(Action.POST_HOTEL_MACINFO_JSON, formatPhpUrl("Opclient/Hotel/getHotelMacInfoById"));
+            put(Action.POST_TASK_TYPE_JSON, formatPhpUrl("Opclient11/Basedata/getTaskTypeList"));
         }
     };
 
@@ -258,6 +261,16 @@ public class AppApi {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("hotel_id",hotel_id);
         new AppServiceOk(context, Action.POST_HOTEL_MACINFO_JSON, handler, params).post();
+    }
+
+    /**
+     * 提交保修记录
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getTaskList(Context context, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        new AppServiceOk(context, Action.POST_TASK_TYPE_JSON, handler, params).post();
     }
 
     // 超时（网络）异常

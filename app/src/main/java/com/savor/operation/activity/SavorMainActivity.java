@@ -91,6 +91,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         getViews();
         setViews();
         setListeners();
+//        getTaskList();
     }
 
     @Override
