@@ -64,7 +64,6 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void getViews() {
-        mEmergcyRG = (RadioGroup) findViewById(R.id.rg_emergcy);
 
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         mTaskLv = (ListView) findViewById(R.id.lv_task_list);
@@ -88,6 +87,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         mContactEt = (EditText) mHeadView.findViewById(R.id.et_contact);
         mPhoneEt = (EditText) mHeadView.findViewById(R.id.et_phone);
         mAddressEt = (EditText) mHeadView.findViewById(R.id.et_address);
+        mEmergcyRG = (RadioGroup) mHeadView.findViewById(R.id.rg_emergcy);
 
         if(actionType == PublishTaskActivity.TaskType.INFO_CHECK||actionType == PublishTaskActivity.TaskType.NETWORK_REMOULD) {
             mNumLayout.setVisibility(View.GONE);

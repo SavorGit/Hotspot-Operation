@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.common.api.utils.DensityUtil;
+import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.adapter.TaskListAdapter;
 import com.savor.operation.bean.Task;
@@ -102,6 +103,15 @@ public class PublishTaskActivity extends BaseActivity implements View.OnClickLis
                     List<Task> tasks = (List<Task>) obj;
                     mAdapter.setData(tasks);
                 }
+                break;
+        }
+    }
+
+    @Override
+    public void onError(AppApi.Action method, Object obj) {
+        switch (method) {
+            case POST_TASK_TYPE_JSON:
+                ShowMessage.showToast(this,"请求失败");
                 break;
         }
     }

@@ -28,7 +28,6 @@
             android:layout_alignParentRight="true"
             android:drawablePadding="10dp"
             android:drawableRight="@drawable/arraw_right"
-            android:text="俏江南（东方广场）"
             android:textColor="@color/title_text_color"
             android:textSize="16sp" />
     </RelativeLayout>
@@ -45,6 +44,8 @@
         android:padding="15dp">
 
         <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="联系人"
@@ -52,8 +53,10 @@
             android:textSize="16sp" />
 
         <EditText
+            android:gravity="right"
+            android:layout_toRightOf="@id/tv_hint"
             android:id="@+id/et_contact"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="李师傅"
@@ -73,6 +76,8 @@
         android:padding="15dp">
 
         <TextView
+            android:layout_centerVertical="true"
+            android:id="@+id/tv_phone_hint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="联系电话"
@@ -80,8 +85,10 @@
             android:textSize="16sp" />
 
         <EditText
+            android:gravity="right"
+            android:layout_toRightOf="@id/tv_phone_hint"
             android:id="@+id/et_phone"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:textColor="@color/title_text_color"
@@ -116,7 +123,7 @@
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@id/tv_hint_address"
             android:gravity="right"
-            android:text="北京市东城区王府北京市东城区王府井大街新东安广场A123    "
+            android:text=""
             android:textColor="@color/title_text_color"
             android:textSize="16sp" />
     </RelativeLayout>

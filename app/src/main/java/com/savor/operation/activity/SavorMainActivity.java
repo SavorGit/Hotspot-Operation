@@ -176,6 +176,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
                     @Override
                     public void onConfirm() {
                         mSession.setLoginResponse(null);
+                        mSession.setAccount(null);
                         Intent intent = new Intent(SavorMainActivity.this, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
