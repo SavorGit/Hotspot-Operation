@@ -212,6 +212,7 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
 //            empty_la.setVisibility(View.VISIBLE);
 //            mPullRefreshListView.setVisibility(View.GONE);
 
+
             mPullRefreshListView.onLoadComplete(false, true);
         }
 
