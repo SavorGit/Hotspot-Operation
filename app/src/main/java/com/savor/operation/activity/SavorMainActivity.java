@@ -1,6 +1,8 @@
 package com.savor.operation.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +13,9 @@ import com.common.api.utils.DensityUtil;
 import com.savor.operation.R;
 import com.savor.operation.adapter.ActionListAdapter;
 import com.savor.operation.bean.ActionListItem;
+import com.savor.operation.bean.City;
+import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.SkillList;
 import com.savor.operation.enums.FunctionType;
 import com.savor.operation.widget.CommonDialog;
 import com.savor.operation.widget.decoration.SpacesItemDecoration;
@@ -18,6 +23,9 @@ import com.savor.operation.widget.decoration.SpacesItemDecoration;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.savor.operation.activity.CityListActivity.REQUEST_CODE_CITY;
+import static com.savor.operation.activity.CityListActivity.RESULT_CODE_CITY;
 
 public class SavorMainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -50,6 +58,27 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void setViews() {
+        // 初始化城市信息
+        LoginResponse loginResponse = mSession.getLoginResponse();
+        SkillList skill_list = loginResponse.getSkill_list();
+        List<City> manage_city = skill_list.getManage_city();
+        if(manage_city!=null&&manage_city.size()>0) {
+            City city = manage_city.get(0);
+            if(manage_city.size()>1) {
+                Drawable drawable = getResources().getDrawable(R.drawable.ico_arraw_down_normal);
+                mCityTv.setCompoundDrawablesWithIntrinsicBounds(null,null,drawable,null);
+                mCityTv.setOnClickListener(this);
+            }else {
+                mCityTv.setOnClickListener(null);
+                mCityTv.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
+            }
+            mCityTv.setText(city.getRegion_name());
+        }else {
+            mCityTv.setOnClickListener(null);
+            mCityTv.setCompoundDrawables(null,null,null,null);
+        }
+
+        // 功能列表
         GridLayoutManager manager = new GridLayoutManager(this,GRID_ROW_COUNT);
         manager.setOrientation(GridLayoutManager.VERTICAL);
         ActionListAdapter mAdapter = new ActionListAdapter(this);
@@ -96,12 +125,17 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
     public void setListeners() {
         mExitBtn.setOnClickListener(this);
         mSearchTv.setOnClickListener(this);
+//        mCityTv.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+            case R.id.tv_city:
+                intent = new Intent(this,CityListActivity.class);
+                startActivityForResult(intent,REQUEST_CODE_CITY);
+                break;
             case R.id.tv_search:
                 intent = new Intent(this,SearchActivity.class);
                 startActivity(intent);
@@ -123,6 +157,24 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
                     }
                 },"确定").show();
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_CITY&&resultCode == RESULT_CODE_CITY) {
+            LoginResponse loginResponse = mSession.getLoginResponse();
+            SkillList skill_list = loginResponse.getSkill_list();
+            if(skill_list!=null) {
+                List<City> manage_city = skill_list.getManage_city();
+                for(City city:manage_city) {
+                    if(city.isSelect()) {
+                        mCityTv.setText(city.getRegion_name());
+                        break;
+                    }
+                }
+            }
         }
     }
 }

@@ -10,7 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.savor.operation.R;
-import com.savor.operation.adapter.MaintainTaskAdapter;
+import com.savor.operation.adapter.FixTaskListAdapter;
+import com.savor.operation.bean.FixTask;
 import com.savor.operation.bean.Hotel;
 import com.savor.operation.enums.SearchHotelOpType;
 
@@ -77,13 +78,17 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void setViews() {
-        List<String> list = new ArrayList<>();
+        List<FixTask> list = new ArrayList<>();
         for(int i = 0;i<10;i++) {
-            list.add(i+"");
+            FixTask fixTask = new FixTask();
+            fixTask.setBoxName("V00"+i);
+            fixTask.setExceptioinDes("HDMI线损坏");
+            fixTask.setUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509690252876&di=34072403ccc622dbd89479c144c95b63&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F13%2F56%2F04%2F69758PICVPU_1024.jpg");
+            list.add(fixTask);
         }
 
 
-        MaintainTaskAdapter mTaskAdapter = new MaintainTaskAdapter(this);
+        FixTaskListAdapter mTaskAdapter = new FixTaskListAdapter(this);
         mTaskLv.setAdapter(mTaskAdapter);
         mTaskLv.addHeaderView(mHeadView);
         if(actionType == PublishTaskActivity.TaskType.FIX) {

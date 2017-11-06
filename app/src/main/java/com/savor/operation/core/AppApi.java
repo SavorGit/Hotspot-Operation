@@ -70,7 +70,7 @@ public class AppApi {
         {
             put(Action.TEST_GET_JSON, "https://www.baidu.com/");
             put(Action.TEST_GET_JSON, "https://www.baidu.com/");
-            put(Action.POST_LOGIN_JSON, formatPhpUrl("Opclient/login/doLogin"));
+            put(Action.POST_LOGIN_JSON, formatPhpUrl("Opclient11/login/doLogin"));
             put(Action.POST_INDEX_JSON, formatPhpUrl("Opclient/index/index"));
             put(Action.POST_REPAIR_USER_JSON, formatPhpUrl("Opclient/Box/getAllRepairUser"));
             put(Action.POST_SEARCH_HOTEL_JSON, formatPhpUrl("Opclient/hotel/searchHotel"));
