@@ -274,6 +274,9 @@ public class ApiResponseFactory {
                 result = gson.fromJson(info, new TypeToken<List<Task>>() {
                 }.getType());
                 break;
+            case POST_PUBLISH_JSON:
+                result = info;
+                break;
             default:
                 break;
         }
