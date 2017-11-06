@@ -27,13 +27,12 @@ import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.ErrorDetail;
 import com.savor.operation.bean.ErrorReport;
 import com.savor.operation.bean.FixHistoryResponse;
-import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.HotelListResponse;
 import com.savor.operation.bean.HotelMacInfo;
 import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoginResponse;
-import com.savor.operation.bean.RepairRecord;
 import com.savor.operation.bean.RepairRecordList;
+import com.savor.operation.bean.Task;
 import com.savor.operation.bean.UserBean;
 
 import org.json.JSONArray;
@@ -270,6 +269,10 @@ public class ApiResponseFactory {
                 break;
             case POST_HOTEL_MACINFO_JSON:
                 result = gson.fromJson(info, HotelMacInfo.class);
+                break;
+            case POST_TASK_TYPE_JSON:
+                result = gson.fromJson(info, new TypeToken<List<Task>>() {
+                }.getType());
                 break;
             default:
                 break;

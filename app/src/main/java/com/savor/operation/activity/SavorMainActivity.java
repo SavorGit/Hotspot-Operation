@@ -1,6 +1,8 @@
 package com.savor.operation.activity;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,13 +13,21 @@ import com.common.api.utils.DensityUtil;
 import com.savor.operation.R;
 import com.savor.operation.adapter.ActionListAdapter;
 import com.savor.operation.bean.ActionListItem;
+import com.savor.operation.bean.City;
+import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.RoleInfo;
+import com.savor.operation.bean.SkillList;
 import com.savor.operation.enums.FunctionType;
+import com.savor.operation.utils.log.ActionType;
 import com.savor.operation.widget.CommonDialog;
 import com.savor.operation.widget.decoration.SpacesItemDecoration;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.savor.operation.activity.CityListActivity.REQUEST_CODE_CITY;
+import static com.savor.operation.activity.CityListActivity.RESULT_CODE_CITY;
 
 public class SavorMainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -27,7 +37,51 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
     private RecyclerView mItemRlv;
     private TextView mUserInfoTv;
     private TextView mExitBtn;
+    /**发布者*/
+    public static final List<ActionListItem> PUBLISH_TEMS = new ArrayList<ActionListItem>(){
+        {
+            add(new ActionListItem(FunctionType.PUBLISH_TASK,0));
+            add(new ActionListItem(FunctionType.TASK_LIST,0));
+            add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
+            add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
+            add(new ActionListItem(FunctionType.FIX_HISTORY,0));
+        }
+    };
+    /**
+     * 执行者
+     */
+    public static final List<ActionListItem> PERFORM_ITEMS = new ArrayList<ActionListItem>(){
+        {
+            add(new ActionListItem(FunctionType.MY_TASK,0));
+            add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
+            add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
+            add(new ActionListItem(FunctionType.FIX_HISTORY,0));
+            add(new ActionListItem(FunctionType.BIND_BOX,0));
+        }
+    };
+    /**
+     * 指派者
+     */
+    public static final List<ActionListItem> APPOINTER_ITEMS = new ArrayList<ActionListItem>(){
+        {
+            add(new ActionListItem(FunctionType.TASK_LIST,0));
+            add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
+            add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
+            add(new ActionListItem(FunctionType.FIX_HISTORY,0));
+        }
+    };
 
+    /**
+     * 查看者
+     */
+    public static final List<ActionListItem> LOOK_ITEMS = new ArrayList<ActionListItem>(){
+        {
+            add(new ActionListItem(FunctionType.TASK_LIST,0));
+            add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
+            add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
+            add(new ActionListItem(FunctionType.FIX_HISTORY,0));
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +91,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         getViews();
         setViews();
         setListeners();
+//        getTaskList();
     }
 
     @Override
@@ -50,6 +105,27 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void setViews() {
+        // 初始化城市信息
+        LoginResponse loginResponse = mSession.getLoginResponse();
+        SkillList skill_list = loginResponse.getSkill_list();
+        List<City> manage_city = skill_list.getManage_city();
+        if(manage_city!=null&&manage_city.size()>0) {
+            City city = manage_city.get(0);
+            if(manage_city.size()>1) {
+                Drawable drawable = getResources().getDrawable(R.drawable.ico_arraw_down_normal);
+                mCityTv.setCompoundDrawablesWithIntrinsicBounds(null,null,drawable,null);
+                mCityTv.setOnClickListener(this);
+            }else {
+                mCityTv.setOnClickListener(null);
+                mCityTv.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
+            }
+            mCityTv.setText(city.getRegion_name());
+        }else {
+            mCityTv.setOnClickListener(null);
+            mCityTv.setCompoundDrawables(null,null,null,null);
+        }
+
+        // 功能列表
         GridLayoutManager manager = new GridLayoutManager(this,GRID_ROW_COUNT);
         manager.setOrientation(GridLayoutManager.VERTICAL);
         ActionListAdapter mAdapter = new ActionListAdapter(this);
@@ -60,48 +136,37 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         int topBottom = DensityUtil.dip2px(this,2);
 
         mItemRlv.addItemDecoration(new SpacesItemDecoration(leftRight, topBottom, getResources().getColor(R.color.grid_item_divider)));
-//        mItemRlv.addItemDecoration(new DividerGridItemDecoration(this));
 
-        List<ActionListItem> list = new ArrayList<>();
-        ActionListItem publishTask = new ActionListItem();
-        publishTask.setType(FunctionType.PUBLISH_TASK);
-
-        ActionListItem taskList = new ActionListItem();
-        taskList.setType(FunctionType.TASK_LIST);
-        taskList.setNum(3);
-
-        ActionListItem systemStatus = new ActionListItem();
-        systemStatus.setType(FunctionType.SYSTEM_STATUS);
-
-        ActionListItem excReport = new ActionListItem();
-        excReport.setType(FunctionType.EXCEPTION_REPORT);
-
-        ActionListItem fixHistory = new ActionListItem();
-        fixHistory.setType(FunctionType.FIX_HISTORY);
-
-        ActionListItem bindBox = new ActionListItem();
-        bindBox.setType(FunctionType.BIND_BOX);
-
-        list.add(publishTask);
-        list.add(taskList);
-        list.add(systemStatus);
-        list.add(excReport);
-        list.add(fixHistory);
-        list.add(bindBox);
-
-        mAdapter.setData(list);
+        if(skill_list!=null) {
+            RoleInfo role_info = skill_list.getRole_info();
+            String id = role_info.getId();
+            if("1".equals(id)) {
+                mAdapter.setData(PUBLISH_TEMS);
+            }else if("2".equals(id)) {
+                mAdapter.setData(APPOINTER_ITEMS);
+            }else if("3".equals(id)) {
+                mAdapter.setData(PERFORM_ITEMS);
+            }else if("4".equals(id)) {
+                mAdapter.setData(LOOK_ITEMS);
+            }
+        }
     }
 
     @Override
     public void setListeners() {
         mExitBtn.setOnClickListener(this);
         mSearchTv.setOnClickListener(this);
+//        mCityTv.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         Intent intent;
         switch (v.getId()) {
+            case R.id.tv_city:
+                intent = new Intent(this,CityListActivity.class);
+                startActivityForResult(intent,REQUEST_CODE_CITY);
+                break;
             case R.id.tv_search:
                 intent = new Intent(this,SearchActivity.class);
                 startActivity(intent);
@@ -123,6 +188,24 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
                     }
                 },"确定").show();
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_CITY&&resultCode == RESULT_CODE_CITY) {
+            LoginResponse loginResponse = mSession.getLoginResponse();
+            SkillList skill_list = loginResponse.getSkill_list();
+            if(skill_list!=null) {
+                List<City> manage_city = skill_list.getManage_city();
+                for(City city:manage_city) {
+                    if(city.isSelect()) {
+                        mCityTv.setText(city.getRegion_name());
+                        break;
+                    }
+                }
+            }
         }
     }
 }
