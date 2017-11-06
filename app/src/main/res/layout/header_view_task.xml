@@ -51,8 +51,8 @@
             android:textColor="@color/title_text_color"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_contact"
+        <EditText
+            android:id="@+id/et_contact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -79,8 +79,8 @@
             android:textColor="@color/title_text_color"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_phone"
+        <EditText
+            android:id="@+id/et_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -101,6 +101,7 @@
         android:padding="15dp">
 
         <TextView
+            android:layout_centerVertical="true"
             android:id="@+id/tv_hint_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -108,8 +109,8 @@
             android:textColor="@color/title_text_color"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_address"
+        <EditText
+            android:id="@+id/et_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -141,6 +142,7 @@
             android:textSize="16sp" />
 
         <RadioGroup
+            android:id="@+id/rg_emergcy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

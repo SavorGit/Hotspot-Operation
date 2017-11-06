@@ -61,6 +61,8 @@ public class AppApi {
         POST_HOTEL_MACINFO_JSON,
         /**任务类型*/
         POST_TASK_TYPE_JSON,
+        /**发布*/
+        POST_PUBLISH_JSON,
     }
 
     /**
@@ -85,6 +87,7 @@ public class AppApi {
             put(Action.POST_UPGRADE_JSON, formatPhpUrl("Opclient/Version/index"));
             put(Action.POST_HOTEL_MACINFO_JSON, formatPhpUrl("Opclient/Hotel/getHotelMacInfoById"));
             put(Action.POST_TASK_TYPE_JSON, formatPhpUrl("Opclient11/Basedata/getTaskTypeList"));
+            put(Action.POST_PUBLISH_JSON, formatPhpUrl("Opclient11/Task/pubTask"));
         }
     };
 
@@ -271,6 +274,28 @@ public class AppApi {
     public static void getTaskList(Context context, ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         new AppServiceOk(context, Action.POST_TASK_TYPE_JSON, handler, params).post();
+    }
+
+    /**
+     * 发布任务
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void publishTask(Context context, String addr,String contractor,String hotel_id,
+                                   String mobile,String publish_user_id,String repair_info,
+                                   String task_emerge,String task_type,
+                                   String tv_nums,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("addr",tv_nums);
+        params.put("contractor",contractor);
+        params.put("hotel_id",hotel_id);
+        params.put("mobile",mobile);
+        params.put("publish_user_id",publish_user_id);
+        params.put("repair_info",repair_info);
+        params.put("task_emerge",task_emerge);
+        params.put("task_type",task_type);
+        params.put("tv_nums",tv_nums);
+        new AppServiceOk(context, Action.POST_PUBLISH_JSON, handler, params).post();
     }
 
     // 超时（网络）异常

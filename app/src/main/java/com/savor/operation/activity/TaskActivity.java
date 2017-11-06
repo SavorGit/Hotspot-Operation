@@ -4,15 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.adapter.FixTaskListAdapter;
 import com.savor.operation.bean.FixTask;
 import com.savor.operation.bean.Hotel;
+import com.savor.operation.core.AppApi;
 import com.savor.operation.enums.SearchHotelOpType;
 
 import java.util.ArrayList;
@@ -36,6 +40,11 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private RelativeLayout mSearchLayout;
     private Hotel hotel;
     private TextView mHotelNameTv;
+    private TextView mRightTv;
+    private EditText mContactEt;
+    private EditText mPhoneEt;
+    private TextView mAddressEt;
+    private RadioGroup mEmergcyRG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +64,20 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void getViews() {
+        mEmergcyRG = (RadioGroup) findViewById(R.id.rg_emergcy);
+
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         mTaskLv = (ListView) findViewById(R.id.lv_task_list);
+        mRightTv = (TextView) findViewById(R.id.tv_right);
 
         initHeaderView();
 
     }
 
     private void initHeaderView() {
+        mRightTv.setVisibility(View.VISIBLE);
+        mRightTv.setText("发布");
+
         mHeadView = View.inflate(this,R.layout.header_view_task,null);
         mNumLayout = (RelativeLayout) mHeadView.findViewById(R.id.rl_num);
         mAddTv = (TextView) mHeadView.findViewById(R.id.tv_add);
@@ -70,10 +85,15 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         mBoxNumTv = (TextView) mHeadView.findViewById(R.id.tv_box_num);
         mHotelNameTv = (TextView) mHeadView.findViewById(R.id.tv_select_hotel);
         mSearchLayout = (RelativeLayout) mHeadView.findViewById(R.id.rl_select_hotel);
+        mContactEt = (EditText) mHeadView.findViewById(R.id.et_contact);
+        mPhoneEt = (EditText) mHeadView.findViewById(R.id.et_phone);
+        mAddressEt = (EditText) mHeadView.findViewById(R.id.et_address);
 
         if(actionType == PublishTaskActivity.TaskType.INFO_CHECK||actionType == PublishTaskActivity.TaskType.NETWORK_REMOULD) {
             mNumLayout.setVisibility(View.GONE);
         }
+
+
     }
 
     @Override
@@ -102,6 +122,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         mAddTv.setOnClickListener(this);
         mReduceTv.setOnClickListener(this);
         mSearchLayout.setOnClickListener(this);
+        mRightTv.setOnClickListener(this);
     }
 
     @Override
@@ -109,6 +130,9 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         String num;
         Intent intent;
         switch (v.getId()) {
+            case R.id.tv_right:
+                publish();
+                break;
             case R.id.rl_select_hotel:
                 intent = new Intent(this,SearchActivity.class);
                 intent.putExtra("type", SearchHotelOpType.PUBLIS_TASK);
@@ -141,6 +165,55 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 finish();
                 break;
         }
+    }
+
+    private void publish() {
+        String address = mAddressEt.getText().toString();
+        String contact = mContactEt.getText().toString();
+        String phone = mPhoneEt.getText().toString();
+
+        String hotelId = "";
+        if(hotel!=null) {
+            hotelId = hotel.getId();
+        }
+
+        String publish_user_id = mSession.getLoginResponse().getUserid();
+
+        int checkedRadioButtonId = mEmergcyRG.getCheckedRadioButtonId();
+        String task_emerge = "";
+        if(checkedRadioButtonId == R.id.rb_exigence) {
+            task_emerge = "2";
+        }else if(checkedRadioButtonId == R.id.rb_normal) {
+            task_emerge = "3";
+        }
+    /**3，信息监测 4，网络改造 6，安装与验收 7，维修*/
+        String task_type = "";
+        switch (actionType) {
+            case FIX:
+                task_emerge = "7";
+                break;
+            case INFO_CHECK:
+                task_emerge = "3";
+                break;
+            case NETWORK_REMOULD:
+                task_emerge = "4";
+                break;
+            case SETUP_AND_CHECK:
+                task_emerge = "6";
+                break;
+        }
+
+        String tv_nums = "";
+        if(actionType == PublishTaskActivity.TaskType.SETUP_AND_CHECK||actionType == PublishTaskActivity.TaskType.FIX) {
+            tv_nums = mBoxNumTv.getText().toString();
+        }
+
+        // 校验必须的参数
+        if(TextUtils.isEmpty(hotelId)) {
+            ShowMessage.showToast(this,"请选择酒楼");
+        }
+
+        AppApi.publishTask(this,address,contact,hotelId,phone,publish_user_id,"",task_emerge,task_type,tv_nums,this);
     }
 
     @Override
