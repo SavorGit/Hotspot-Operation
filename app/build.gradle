@@ -13,7 +13,7 @@ android {
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
         versionCode 2017090501
-        versionName "1.0"
+        versionName "1.1"
 
         flavorDimensions "versionCode"
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaoredian"]

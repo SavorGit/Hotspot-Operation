@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.common.api.utils.AppUtils;
 import com.common.api.utils.DensityUtil;
 import com.savor.operation.R;
 import com.savor.operation.adapter.ActionListAdapter;
@@ -124,6 +125,11 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
             mCityTv.setOnClickListener(null);
             mCityTv.setCompoundDrawables(null,null,null,null);
         }
+
+        // 用户信息
+        String nickname = loginResponse.getNickname();
+        String appVersion = AppUtils.getAppVersion(this);
+        mUserInfoTv.setText("运维端"+appVersion+"--登录账号："+nickname);
 
         // 功能列表
         GridLayoutManager manager = new GridLayoutManager(this,GRID_ROW_COUNT);

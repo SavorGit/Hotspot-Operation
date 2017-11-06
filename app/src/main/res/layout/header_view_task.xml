@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="李师傅"
+            tools:text="李师傅"
             android:textColor="@color/title_text_color"
             android:textSize="16sp" />
     </RelativeLayout>
