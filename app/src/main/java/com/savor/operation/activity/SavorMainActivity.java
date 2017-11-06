@@ -15,8 +15,10 @@ import com.savor.operation.adapter.ActionListAdapter;
 import com.savor.operation.bean.ActionListItem;
 import com.savor.operation.bean.City;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.RoleInfo;
 import com.savor.operation.bean.SkillList;
 import com.savor.operation.enums.FunctionType;
+import com.savor.operation.utils.log.ActionType;
 import com.savor.operation.widget.CommonDialog;
 import com.savor.operation.widget.decoration.SpacesItemDecoration;
 
@@ -35,7 +37,51 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
     private RecyclerView mItemRlv;
     private TextView mUserInfoTv;
     private TextView mExitBtn;
+    /**发布者*/
+    public static final List<ActionListItem> PUBLISH_TEMS = new ArrayList<ActionListItem>(){
+        {
+            add(new ActionListItem(FunctionType.PUBLISH_TASK,0));
+            add(new ActionListItem(FunctionType.TASK_LIST,0));
+            add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
+            add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
+            add(new ActionListItem(FunctionType.FIX_HISTORY,0));
+        }
+    };
+    /**
+     * 执行者
+     */
+    public static final List<ActionListItem> PERFORM_ITEMS = new ArrayList<ActionListItem>(){
+        {
+            add(new ActionListItem(FunctionType.MY_TASK,0));
+            add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
+            add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
+            add(new ActionListItem(FunctionType.FIX_HISTORY,0));
+            add(new ActionListItem(FunctionType.BIND_BOX,0));
+        }
+    };
+    /**
+     * 指派者
+     */
+    public static final List<ActionListItem> APPOINTER_ITEMS = new ArrayList<ActionListItem>(){
+        {
+            add(new ActionListItem(FunctionType.TASK_LIST,0));
+            add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
+            add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
+            add(new ActionListItem(FunctionType.FIX_HISTORY,0));
+        }
+    };
 
+    /**
+     * 查看者
+     */
+    public static final List<ActionListItem> LOOK_ITEMS = new ArrayList<ActionListItem>(){
+        {
+            add(new ActionListItem(FunctionType.TASK_LIST,0));
+            add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
+            add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
+            add(new ActionListItem(FunctionType.FIX_HISTORY,0));
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,36 +135,20 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         int topBottom = DensityUtil.dip2px(this,2);
 
         mItemRlv.addItemDecoration(new SpacesItemDecoration(leftRight, topBottom, getResources().getColor(R.color.grid_item_divider)));
-//        mItemRlv.addItemDecoration(new DividerGridItemDecoration(this));
 
-        List<ActionListItem> list = new ArrayList<>();
-        ActionListItem publishTask = new ActionListItem();
-        publishTask.setType(FunctionType.PUBLISH_TASK);
-
-        ActionListItem taskList = new ActionListItem();
-        taskList.setType(FunctionType.TASK_LIST);
-        taskList.setNum(3);
-
-        ActionListItem systemStatus = new ActionListItem();
-        systemStatus.setType(FunctionType.SYSTEM_STATUS);
-
-        ActionListItem excReport = new ActionListItem();
-        excReport.setType(FunctionType.EXCEPTION_REPORT);
-
-        ActionListItem fixHistory = new ActionListItem();
-        fixHistory.setType(FunctionType.FIX_HISTORY);
-
-        ActionListItem bindBox = new ActionListItem();
-        bindBox.setType(FunctionType.BIND_BOX);
-
-        list.add(publishTask);
-        list.add(taskList);
-        list.add(systemStatus);
-        list.add(excReport);
-        list.add(fixHistory);
-        list.add(bindBox);
-
-        mAdapter.setData(list);
+        if(skill_list!=null) {
+            RoleInfo role_info = skill_list.getRole_info();
+            String id = role_info.getId();
+            if("1".equals(id)) {
+                mAdapter.setData(PUBLISH_TEMS);
+            }else if("2".equals(id)) {
+                mAdapter.setData(APPOINTER_ITEMS);
+            }else if("3".equals(id)) {
+                mAdapter.setData(PERFORM_ITEMS);
+            }else if("4".equals(id)) {
+                mAdapter.setData(LOOK_ITEMS);
+            }
+        }
     }
 
     @Override

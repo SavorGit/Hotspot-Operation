@@ -8,6 +8,7 @@ import java.io.Serializable;
  */
 
 public class RoleInfo implements Serializable {
+    /**1:发布者 2：指派着 3：执行者 4：查看*/
     private String id;
     private String name;
 

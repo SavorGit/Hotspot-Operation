@@ -6,11 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.common.api.utils.DensityUtil;
 import com.savor.operation.R;
 import com.savor.operation.adapter.CityListAdapter;
 import com.savor.operation.bean.City;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.SkillList;
+import com.savor.operation.widget.decoration.SpacesItemDecoration;
 
 import java.util.List;
 
@@ -46,6 +48,10 @@ public class CityListActivity extends BaseActivity implements View.OnClickListen
             List<City> manage_city = skill_list.getManage_city();
             adapter.setData(manage_city);
         }
+        //添加ItemDecoration，item之间的间隔
+        int leftRight = DensityUtil.dip2px(this,2);
+        int topBottom = DensityUtil.dip2px(this,2);
+        mCityListView.addItemDecoration(new SpacesItemDecoration(leftRight, topBottom, getResources().getColor(R.color.grid_item_divider)));
     }
 
     @Override

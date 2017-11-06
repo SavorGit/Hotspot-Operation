@@ -13,6 +13,12 @@ public class ActionListItem implements Serializable {
     private FunctionType type;
     private int num;
 
+    public ActionListItem () {}
+
+    public ActionListItem (FunctionType type,int num) {
+        this.type = type;
+        this.num = num;
+    }
     @Override
     public String toString() {
         return "ActionListItem{" +
