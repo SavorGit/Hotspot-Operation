@@ -8,10 +8,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.common.api.utils.DensityUtil;
 import com.savor.operation.R;
 import com.savor.operation.adapter.TaskListAdapter;
 import com.savor.operation.bean.Task;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.widget.decoration.SpacesItemDecoration;
 
 import java.io.Serializable;
 import java.util.List;
@@ -61,6 +63,12 @@ public class PublishTaskActivity extends BaseActivity implements View.OnClickLis
 
         mAdapter = new TaskListAdapter(this);
         mTaskListView.setAdapter(mAdapter);
+
+        //添加ItemDecoration，item之间的间隔
+        int leftRight = DensityUtil.dip2px(this,2);
+        int topBottom = DensityUtil.dip2px(this,2);
+
+        mTaskListView.addItemDecoration(new SpacesItemDecoration(leftRight, topBottom, getResources().getColor(R.color.grid_item_divider)));
     }
 
     @Override
