@@ -63,6 +63,8 @@ public class AppApi {
         POST_TASK_TYPE_JSON,
         /**发布*/
         POST_PUBLISH_JSON,
+        /**版位列表*/
+        POST_BOX_LIST_JSON,
     }
 
     /**
@@ -88,6 +90,7 @@ public class AppApi {
             put(Action.POST_HOTEL_MACINFO_JSON, formatPhpUrl("Opclient/Hotel/getHotelMacInfoById"));
             put(Action.POST_TASK_TYPE_JSON, formatPhpUrl("Opclient11/Basedata/getTaskTypeList"));
             put(Action.POST_PUBLISH_JSON, formatPhpUrl("Opclient11/Task/pubTask"));
+            put(Action.POST_BOX_LIST_JSON, formatPhpUrl("Opclient11/Box/getBoxList"));
         }
     };
 
@@ -296,6 +299,17 @@ public class AppApi {
         params.put("task_type",task_type);
         params.put("tv_nums",tv_nums);
         new AppServiceOk(context, Action.POST_PUBLISH_JSON, handler, params).post();
+    }
+
+    /**
+     * 提交保修记录
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getBoxList(Context context, String hotel_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("hotel_id",hotel_id);
+        new AppServiceOk(context, Action.POST_BOX_LIST_JSON, handler, params).post();
     }
 
     // 超时（网络）异常

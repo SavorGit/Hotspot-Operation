@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/tv_boxname"
             android:layout_alignParentRight="true"
             android:text="V01"
             android:textColor="@color/title_text_color"

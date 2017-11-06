@@ -215,7 +215,7 @@
             <TextView
                 android:id="@+id/tv_box_num"
                 android:padding="10dp"
-                android:text="10"
+                android:text="0"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="@color/title_text_color"

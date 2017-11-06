@@ -14,8 +14,9 @@ import android.widget.TextView;
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.adapter.FixTaskListAdapter;
-import com.savor.operation.bean.FixTask;
+import com.savor.operation.bean.BoxInfo;
 import com.savor.operation.bean.Hotel;
+import com.savor.operation.bean.RepairInfo;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.enums.SearchHotelOpType;
 
@@ -45,6 +46,9 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private EditText mPhoneEt;
     private TextView mAddressEt;
     private RadioGroup mEmergcyRG;
+    private  List<RepairInfo> boxList = new ArrayList<>();
+    private FixTaskListAdapter mTaskAdapter;
+    private List<BoxInfo> mBoxList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,22 +102,12 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void setViews() {
-        List<FixTask> list = new ArrayList<>();
-        for(int i = 0;i<10;i++) {
-            FixTask fixTask = new FixTask();
-            fixTask.setBoxName("V00"+i);
-            fixTask.setExceptioinDes("HDMI线损坏");
-            fixTask.setUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509690252876&di=34072403ccc622dbd89479c144c95b63&imgtype=0&src=http%3A%2F%2Fpic.58pic.com%2F58pic%2F13%2F56%2F04%2F69758PICVPU_1024.jpg");
-            list.add(fixTask);
-        }
+        boxList.clear();
 
-
-        FixTaskListAdapter mTaskAdapter = new FixTaskListAdapter(this);
+        mTaskAdapter = new FixTaskListAdapter(this);
+        mTaskAdapter.setData(boxList);
         mTaskLv.setAdapter(mTaskAdapter);
         mTaskLv.addHeaderView(mHeadView);
-        if(actionType == PublishTaskActivity.TaskType.FIX) {
-            mTaskAdapter.setData(list);
-        }
     }
 
     @Override
@@ -139,6 +133,15 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 startActivityForResult(intent,REQUEST_CODE_SEARCH);
                 break;
             case R.id.tv_add:
+                String hotelId = "";
+                if(hotel!=null) {
+                    hotelId = hotel.getId();
+                }
+                if(TextUtils.isEmpty(hotelId)) {
+                    ShowMessage.showToast(this,"请选择酒楼");
+                    return;
+                }
+
                 num = mBoxNumTv.getText().toString();
                 try{
                     int boxNum = Integer.valueOf(num);
@@ -147,6 +150,10 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 }catch (Exception e){
                     mBoxNumTv.setText("0");
                 }
+                RepairInfo repairInfo = new RepairInfo();
+                repairInfo.setBoxInfoList(mBoxList);
+                boxList.add(0,repairInfo);
+                mTaskAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_reduce:
                 num = mBoxNumTv.getText().toString();
@@ -159,6 +166,12 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                     mBoxNumTv.setText(String.valueOf(boxNum));
                 }catch (Exception e){
                     mBoxNumTv.setText("0");
+                }
+                if(boxList.size()>0) {
+                    boxList.remove(0);
+                    mTaskAdapter.notifyDataSetChanged();
+                }else {
+                    boxList.clear();
                 }
                 break;
             case R.id.iv_left:
@@ -190,16 +203,16 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         String task_type = "";
         switch (actionType) {
             case FIX:
-                task_emerge = "7";
+                task_type = "7";
                 break;
             case INFO_CHECK:
-                task_emerge = "3";
+                task_type = "3";
                 break;
             case NETWORK_REMOULD:
-                task_emerge = "4";
+                task_type = "4";
                 break;
             case SETUP_AND_CHECK:
-                task_emerge = "6";
+                task_type = "6";
                 break;
         }
 
@@ -211,6 +224,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         // 校验必须的参数
         if(TextUtils.isEmpty(hotelId)) {
             ShowMessage.showToast(this,"请选择酒楼");
+            return;
         }
 
         AppApi.publishTask(this,address,contact,hotelId,phone,publish_user_id,"",task_emerge,task_type,tv_nums,this);
@@ -224,11 +238,32 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 hotel = (Hotel) data.getSerializableExtra("hotel");
                 if(hotel!=null) {
                     String name = hotel.getName();
+                    String id = hotel.getId();
                     if(!TextUtils.isEmpty(name)) {
                         mHotelNameTv.setText(name);
                     }
+
+                    if(!TextUtils.isEmpty(id)) {
+                        AppApi.getBoxList(this,id,this);
+                    }
                 }
             }
+        }
+    }
+
+    @Override
+    public void onSuccess(AppApi.Action method, Object obj) {
+        super.onSuccess(method, obj);
+        switch (method) {
+            case POST_BOX_LIST_JSON:
+                if(obj instanceof List) {
+                    mBoxList = (List<BoxInfo>) obj;
+                }
+                break;
+            case POST_PUBLISH_JSON:
+                ShowMessage.showToast(this,"发布成功");
+                finish();
+                break;
         }
     }
 }
