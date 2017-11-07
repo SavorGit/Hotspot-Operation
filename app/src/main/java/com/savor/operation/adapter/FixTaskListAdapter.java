@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.common.api.utils.FileUtils;
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.SavorApplication;
@@ -33,6 +34,7 @@ import java.util.List;
 
 public class FixTaskListAdapter extends BaseAdapter {
     public static final int TAKE_PHOTO_REQUEST = 0x1;
+    public static final int REQUEST_CODE_IMAGE = 0x2;
     private final Activity mContext;
     private List<RepairInfo> mData;
     private int currentTakePhonePos;
@@ -47,9 +49,38 @@ public class FixTaskListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    /**
+     * 拍照以后更新图片路径到实体类中
+     */
     public void updataPhotoPath() {
-        mData.get(currentTakePhonePos).setFault_img_url(currentImagePath);
-        notifyDataSetChanged();
+        if(mData!=null && mData.size()>=currentTakePhonePos) {
+            mData.get(currentTakePhonePos).setFault_img_url(currentImagePath);
+            notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * 更新图片路径
+     */
+    public void updateImagePath(String path) {
+        if(mData!=null && mData.size()>=currentTakePhonePos) {
+
+            String cachePath = ((SavorApplication)mContext.getApplication()).imagePath;
+            File dir = new File(cachePath);
+            if(!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String box_id = mData.get(currentTakePhonePos).getBox_id();
+            long timeMillis = System.currentTimeMillis();
+            String key = box_id+"_"+timeMillis+".jpg";
+            String copyPath = dir.getAbsolutePath()+File.separator+key;
+
+            File sFile = new File(path);
+            FileUtils.copyFile(sFile, copyPath);
+            mData.get(currentTakePhonePos).setFault_img_url(copyPath);
+            notifyDataSetChanged();
+        }
     }
 
 
@@ -90,34 +121,14 @@ public class FixTaskListAdapter extends BaseAdapter {
         holder.tv_select_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(repairInfo.getBox_id())) {
-                    ShowMessage.showToast(mContext,"请选择版位");
-                    return;
-                }
-                new ChoosePicDialog(mContext, new ChoosePicDialog.OnTakePhotoBtnClickListener() {
-                    @Override
-                    public void onTakePhotoClick() {
-                        currentTakePhonePos = position;
-                        String cacheDir = ((SavorApplication) mContext.getApplication()).imagePath;
-                        File cachePath = new File(cacheDir);
-                        if(!cachePath.exists()) {
-                            cachePath.mkdirs();
-                        }
-                        currentImagePath = cacheDir+ File.separator+repairInfo.getBox_id()+"_"+System.currentTimeMillis()+".jpg";
-                        File file = new File(currentImagePath);
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        Uri imageUri = Uri.fromFile(file);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-                        mContext.startActivityForResult(intent, TAKE_PHOTO_REQUEST);
-                    }
-                },
-                new ChoosePicDialog.OnAlbumBtnClickListener() {
-                    @Override
-                    public void onAlbumBtnClick() {
+                takePhoto(repairInfo, position);
+            }
+        });
 
-                    }
-                }
-                ).show();
+        holder.iv_exce_pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takePhoto(repairInfo,position);
             }
         });
 
@@ -160,6 +171,40 @@ public class FixTaskListAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    private void takePhoto(final RepairInfo repairInfo, final int position) {
+        if(TextUtils.isEmpty(repairInfo.getBox_id())) {
+            ShowMessage.showToast(mContext,"请选择版位");
+            return;
+        }
+        new ChoosePicDialog(mContext, new ChoosePicDialog.OnTakePhotoBtnClickListener() {
+            @Override
+            public void onTakePhotoClick() {
+                currentTakePhonePos = position;
+                String cacheDir = ((SavorApplication) mContext.getApplication()).imagePath;
+                File cachePath = new File(cacheDir);
+                if(!cachePath.exists()) {
+                    cachePath.mkdirs();
+                }
+                currentImagePath = cacheDir+ File.separator+repairInfo.getBox_id()+"_"+System.currentTimeMillis()+".jpg";
+                File file = new File(currentImagePath);
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Uri imageUri = Uri.fromFile(file);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
+                mContext.startActivityForResult(intent, TAKE_PHOTO_REQUEST);
+            }
+        },
+        new ChoosePicDialog.OnAlbumBtnClickListener() {
+            @Override
+            public void onAlbumBtnClick() {
+                currentTakePhonePos = position;
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                mContext.startActivityForResult(intent, REQUEST_CODE_IMAGE);
+            }
+        }
+        ).show();
     }
 
     public class ViewHolder {

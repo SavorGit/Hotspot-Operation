@@ -12,14 +12,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.common.api.utils.FileUtils;
 import com.common.api.utils.ShowMessage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.savor.operation.R;
+import com.savor.operation.SavorApplication;
 import com.savor.operation.adapter.FixTaskListAdapter;
 import com.savor.operation.bean.BoxInfo;
 import com.savor.operation.bean.Hotel;
@@ -27,9 +30,11 @@ import com.savor.operation.bean.RepairInfo;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.enums.SearchHotelOpType;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.savor.operation.adapter.FixTaskListAdapter.REQUEST_CODE_IMAGE;
 import static com.savor.operation.adapter.FixTaskListAdapter.TAKE_PHOTO_REQUEST;
 
 /**
@@ -58,6 +63,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private List<RepairInfo> boxList = new ArrayList<>();
     private FixTaskListAdapter mTaskAdapter;
     private List<BoxInfo> mBoxList;
+    private ProgressBar mloadingPb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +83,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void getViews() {
-
+        mloadingPb = (ProgressBar) findViewById(R.id.pb_loading);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         mTaskLv = (ListView) findViewById(R.id.lv_task_list);
         mRightTv = (TextView) findViewById(R.id.tv_right);
@@ -190,6 +196,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void publish() {
+
         String address = mAddressEt.getText().toString();
         String contact = mContactEt.getText().toString();
         String phone = mPhoneEt.getText().toString();
@@ -241,7 +248,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
             ShowMessage.showToast(this, "请选择酒楼");
             return;
         }
-
+        mloadingPb.setVisibility(View.VISIBLE);
         AppApi.publishTask(this, address, contact, hotelId, phone, publish_user_id, repair_info, task_emerge, task_type, tv_nums, this);
     }
 
@@ -265,6 +272,15 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
             }
         } else if (requestCode == TAKE_PHOTO_REQUEST && resultCode == Activity.RESULT_OK) {
             mTaskAdapter.updataPhotoPath();
+        }else if (requestCode == REQUEST_CODE_IMAGE&&resultCode == Activity.RESULT_OK && data != null) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumns = {MediaStore.Images.Media.DATA};
+            Cursor c = getContentResolver().query(selectedImage, filePathColumns, null, null, null);
+            c.moveToFirst();
+            int columnIndex = c.getColumnIndex(filePathColumns[0]);
+            String imagePath = c.getString(columnIndex);
+
+            mTaskAdapter.updateImagePath(imagePath);
         }
 
     }
@@ -279,8 +295,19 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case POST_PUBLISH_JSON:
+                mloadingPb.setVisibility(View.GONE);
                 ShowMessage.showToast(this, "发布成功");
                 finish();
+                break;
+        }
+    }
+
+    @Override
+    public void onError(AppApi.Action method, Object obj) {
+        super.onError(method,obj);
+        switch (method) {
+            case POST_PUBLISH_JSON:
+                mloadingPb.setVisibility(View.GONE);
                 break;
         }
     }

@@ -101,8 +101,8 @@
                 android:src="@drawable/kong_mrjz"
                 android:id="@+id/iv_exce_pic"
                 android:layout_alignParentRight="true"
-                android:layout_width="100dp"
-                android:layout_height="100dp"/>
+                android:layout_width="80dp"
+                android:layout_height="80dp"/>
         </RelativeLayout>
 
     </RelativeLayout>
