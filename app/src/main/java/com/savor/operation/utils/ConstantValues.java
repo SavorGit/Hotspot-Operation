@@ -11,8 +11,8 @@ public class ConstantValues {
     public static final String LOG_CHECKWIFI_PREFIX = "savor:pro checkWifi";
     //阿里oss配置参数
     /** endpoint是阿里云 OSS 服务在各个区域的地址*/
-//    public static final String ENDPOINT = "http://devp.oss.littlehotspot.com/";
-    public static final String ENDPOINT = "http://oss.littlehotspot.com/";
+    public static final String ENDPOINT = "http://devp.oss.littlehotspot.com/";
+//    public static final String ENDPOINT = "http://oss.littlehotspot.com/";
     /**阿里oss需要的keyid*/
     public static final String ACCESS_KEY_ID = "LTAIl7SuyV5LOrxT";
     /**阿里oss需要的key secret*/

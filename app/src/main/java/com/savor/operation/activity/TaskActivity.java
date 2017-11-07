@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,6 +18,12 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.OSSClient;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.common.api.utils.FileUtils;
 import com.common.api.utils.ShowMessage;
 import com.google.gson.Gson;
@@ -30,9 +37,13 @@ import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.RepairInfo;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.enums.SearchHotelOpType;
+import com.savor.operation.utils.ConstantValues;
+import com.savor.operation.utils.OSSClientUtil;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.savor.operation.adapter.FixTaskListAdapter.REQUEST_CODE_IMAGE;
@@ -274,7 +285,43 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
 
         mloadingPb.setVisibility(View.VISIBLE);
+        if(isHasUploadPic(infos)) {
+//            ShowMessage.showToast(this,"开始上传图片");
+            uploadPic(infos);
+        }
         AppApi.publishTask(this, address, contact, hotelId, phone, publish_user_id, repair_info, task_emerge, task_type, tv_nums, this);
+    }
+
+    private void uploadPic(List<RepairInfo> infos) {
+        for(int i = 0 ;i<infos.size();i++) {
+            RepairInfo repairInfo = infos.get(i);
+            if(!TextUtils.isEmpty(repairInfo.getFault_img_url())) {
+                OSSClient ossClient = OSSClientUtil.getInstance().getOSSClient(this);
+                String imagePath = repairInfo.getFault_img_url();
+                File file = new File(imagePath);
+                Date date = new Date(System.currentTimeMillis());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+                String dateStr = simpleDateFormat.format(date);
+                final String objectKey = "log/resource/operation/mobile/"+dateStr+"/"+file.getName();
+                // 构造上传请求
+                PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
+                try {
+                    ossClient.putObject(put);
+                    String imageUrl = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
+                    repairInfo.setFault_img_url(imageUrl);
+                }catch (Exception e) {}
+            }
+        }
+    }
+
+    private boolean isHasUploadPic(List<RepairInfo> infos) {
+        for(int i = 0;i<infos.size();i++) {
+            RepairInfo repairInfo = infos.get(i);
+            if(!TextUtils.isEmpty(repairInfo.getFault_img_url())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
