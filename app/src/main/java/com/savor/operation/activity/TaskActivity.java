@@ -207,6 +207,22 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
             hotelId = hotel.getId();
         }
 
+        // 校验必须的参数
+        if (TextUtils.isEmpty(hotelId)) {
+            ShowMessage.showToast(this, "请选择酒楼");
+            return;
+        }
+
+        // 校验如果某一个没选择版位不允许发布
+        List<RepairInfo> infos = mTaskAdapter.getData();
+        for(RepairInfo repairInfo : infos) {
+            String box_id = repairInfo.getBox_id();
+            if(TextUtils.isEmpty(box_id)) {
+                ShowMessage.showToast(this,"请选择版位");
+                return;
+            }
+        }
+
         String publish_user_id = mSession.getLoginResponse().getUserid();
 
         int checkedRadioButtonId = mEmergcyRG.getCheckedRadioButtonId();
@@ -256,11 +272,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
             tv_nums = mBoxNumTv.getText().toString();
         }
 
-        // 校验必须的参数
-        if (TextUtils.isEmpty(hotelId)) {
-            ShowMessage.showToast(this, "请选择酒楼");
-            return;
-        }
+
         mloadingPb.setVisibility(View.VISIBLE);
         AppApi.publishTask(this, address, contact, hotelId, phone, publish_user_id, repair_info, task_emerge, task_type, tv_nums, this);
     }

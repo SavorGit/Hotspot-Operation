@@ -7,9 +7,9 @@ import java.io.Serializable;
  */
 
 public class BaseBoxInfo implements Serializable {
-    private String box_id;
-    private String fault_desc;
-    private String fault_img_url;
+    private String box_id = "";
+    private String fault_desc = "";
+    private String fault_img_url = "";
 
     @Override
     public String toString() {
