@@ -1,7 +1,12 @@
 package com.savor.operation.activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.common.api.utils.ShowMessage;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.savor.operation.R;
 import com.savor.operation.adapter.FixTaskListAdapter;
 import com.savor.operation.bean.BoxInfo;
@@ -22,6 +29,8 @@ import com.savor.operation.enums.SearchHotelOpType;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.savor.operation.adapter.FixTaskListAdapter.TAKE_PHOTO_REQUEST;
 
 /**
  * 任务详情页面（公共页面）
@@ -46,7 +55,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private EditText mPhoneEt;
     private TextView mAddressEt;
     private RadioGroup mEmergcyRG;
-    private  List<RepairInfo> boxList = new ArrayList<>();
+    private List<RepairInfo> boxList = new ArrayList<>();
     private FixTaskListAdapter mTaskAdapter;
     private List<BoxInfo> mBoxList;
 
@@ -81,7 +90,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         mRightTv.setVisibility(View.VISIBLE);
         mRightTv.setText("发布");
 
-        mHeadView = View.inflate(this,R.layout.header_view_task,null);
+        mHeadView = View.inflate(this, R.layout.header_view_task, null);
         mNumLayout = (RelativeLayout) mHeadView.findViewById(R.id.rl_num);
         mAddTv = (TextView) mHeadView.findViewById(R.id.tv_add);
         mReduceTv = (TextView) mHeadView.findViewById(R.id.tv_reduce);
@@ -93,7 +102,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         mAddressEt = (EditText) mHeadView.findViewById(R.id.et_address);
         mEmergcyRG = (RadioGroup) mHeadView.findViewById(R.id.rg_emergcy);
 
-        if(actionType == PublishTaskActivity.TaskType.INFO_CHECK||actionType == PublishTaskActivity.TaskType.NETWORK_REMOULD) {
+        if (actionType == PublishTaskActivity.TaskType.INFO_CHECK || actionType == PublishTaskActivity.TaskType.NETWORK_REMOULD) {
             mNumLayout.setVisibility(View.GONE);
         }
 
@@ -128,49 +137,49 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 publish();
                 break;
             case R.id.rl_select_hotel:
-                intent = new Intent(this,SearchActivity.class);
+                intent = new Intent(this, SearchActivity.class);
                 intent.putExtra("type", SearchHotelOpType.PUBLIS_TASK);
-                startActivityForResult(intent,REQUEST_CODE_SEARCH);
+                startActivityForResult(intent, REQUEST_CODE_SEARCH);
                 break;
             case R.id.tv_add:
                 String hotelId = "";
-                if(hotel!=null) {
+                if (hotel != null) {
                     hotelId = hotel.getId();
                 }
-                if(TextUtils.isEmpty(hotelId)) {
-                    ShowMessage.showToast(this,"请选择酒楼");
+                if (TextUtils.isEmpty(hotelId)) {
+                    ShowMessage.showToast(this, "请选择酒楼");
                     return;
                 }
 
                 num = mBoxNumTv.getText().toString();
-                try{
+                try {
                     int boxNum = Integer.valueOf(num);
-                    boxNum+=1;
+                    boxNum += 1;
                     mBoxNumTv.setText(String.valueOf(boxNum));
-                }catch (Exception e){
+                } catch (Exception e) {
                     mBoxNumTv.setText("0");
                 }
                 RepairInfo repairInfo = new RepairInfo();
                 repairInfo.setBoxInfoList(mBoxList);
-                boxList.add(0,repairInfo);
+                boxList.add(0, repairInfo);
                 mTaskAdapter.notifyDataSetChanged();
                 break;
             case R.id.tv_reduce:
                 num = mBoxNumTv.getText().toString();
-                try{
+                try {
                     int boxNum = Integer.valueOf(num);
-                    boxNum-=1;
-                    if(boxNum<0) {
+                    boxNum -= 1;
+                    if (boxNum < 0) {
                         boxNum = 0;
                     }
                     mBoxNumTv.setText(String.valueOf(boxNum));
-                }catch (Exception e){
+                } catch (Exception e) {
                     mBoxNumTv.setText("0");
                 }
-                if(boxList.size()>0) {
+                if (boxList.size() > 0) {
                     boxList.remove(0);
                     mTaskAdapter.notifyDataSetChanged();
-                }else {
+                } else {
                     boxList.clear();
                 }
                 break;
@@ -186,7 +195,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         String phone = mPhoneEt.getText().toString();
 
         String hotelId = "";
-        if(hotel!=null) {
+        if (hotel != null) {
             hotelId = hotel.getId();
         }
 
@@ -194,16 +203,22 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
         int checkedRadioButtonId = mEmergcyRG.getCheckedRadioButtonId();
         String task_emerge = "";
-        if(checkedRadioButtonId == R.id.rb_exigence) {
+        if (checkedRadioButtonId == R.id.rb_exigence) {
             task_emerge = "2";
-        }else if(checkedRadioButtonId == R.id.rb_normal) {
+        } else if (checkedRadioButtonId == R.id.rb_normal) {
             task_emerge = "3";
         }
-    /**3，信息监测 4，网络改造 6，安装与验收 7，维修*/
+
+        String repair_info = "";
+
+        /**3，信息监测 4，网络改造 6，安装与验收 7，维修*/
         String task_type = "";
         switch (actionType) {
             case FIX:
                 task_type = "7";
+                Gson gson = new Gson();
+                repair_info = gson.toJson(boxList, new TypeToken<List<RepairInfo>>() {
+                }.getType());
                 break;
             case INFO_CHECK:
                 task_type = "3";
@@ -217,38 +232,41 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         }
 
         String tv_nums = "";
-        if(actionType == PublishTaskActivity.TaskType.SETUP_AND_CHECK||actionType == PublishTaskActivity.TaskType.FIX) {
+        if (actionType == PublishTaskActivity.TaskType.SETUP_AND_CHECK || actionType == PublishTaskActivity.TaskType.FIX) {
             tv_nums = mBoxNumTv.getText().toString();
         }
 
         // 校验必须的参数
-        if(TextUtils.isEmpty(hotelId)) {
-            ShowMessage.showToast(this,"请选择酒楼");
+        if (TextUtils.isEmpty(hotelId)) {
+            ShowMessage.showToast(this, "请选择酒楼");
             return;
         }
 
-        AppApi.publishTask(this,address,contact,hotelId,phone,publish_user_id,"",task_emerge,task_type,tv_nums,this);
+        AppApi.publishTask(this, address, contact, hotelId, phone, publish_user_id, repair_info, task_emerge, task_type, tv_nums, this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CODE_SEARCH &&resultCode == RESULT_CODE_SEARCH) {
-            if(data!=null) {
+        if (requestCode == REQUEST_CODE_SEARCH && resultCode == RESULT_CODE_SEARCH) {
+            if (data != null) {
                 hotel = (Hotel) data.getSerializableExtra("hotel");
-                if(hotel!=null) {
+                if (hotel != null) {
                     String name = hotel.getName();
                     String id = hotel.getId();
-                    if(!TextUtils.isEmpty(name)) {
+                    if (!TextUtils.isEmpty(name)) {
                         mHotelNameTv.setText(name);
                     }
 
-                    if(!TextUtils.isEmpty(id)) {
-                        AppApi.getBoxList(this,id,this);
+                    if (!TextUtils.isEmpty(id)) {
+                        AppApi.getBoxList(this, id, this);
                     }
                 }
             }
+        } else if (requestCode == TAKE_PHOTO_REQUEST && resultCode == Activity.RESULT_OK) {
+            mTaskAdapter.updataPhotoPath();
         }
+
     }
 
     @Override
@@ -256,12 +274,12 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         super.onSuccess(method, obj);
         switch (method) {
             case POST_BOX_LIST_JSON:
-                if(obj instanceof List) {
+                if (obj instanceof List) {
                     mBoxList = (List<BoxInfo>) obj;
                 }
                 break;
             case POST_PUBLISH_JSON:
-                ShowMessage.showToast(this,"发布成功");
+                ShowMessage.showToast(this, "发布成功");
                 finish();
                 break;
         }

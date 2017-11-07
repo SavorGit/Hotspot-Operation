@@ -1,82 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:id="@+id/rl_box_layout"
-        android:background="@color/white"
-        android:padding="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dp">
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="版位名称"
             android:textColor="@color/title_text_color"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="16sp" />
+
         <TextView
             android:id="@+id/tv_boxname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="V01"
             android:textColor="@color/title_text_color"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="16sp" />
     </RelativeLayout>
+
     <View
-        android:background="@color/grid_item_divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:background="@color/grid_item_divider" />
 
     <RelativeLayout
-        android:background="@color/white"
-        android:padding="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dp">
+
         <TextView
+            android:id="@+id/tv_exce_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:text="故障现象"
             android:textColor="@color/title_text_color"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
+            android:textSize="16sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="HDMI线损坏"
+            android:layout_toRightOf="@id/tv_exce_hint"
+            android:gravity="right"
+            android:hint="输入故障原因"
             android:textColor="@color/title_text_color"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="16sp" />
     </RelativeLayout>
+
     <View
-        android:background="@color/grid_item_divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:background="@color/grid_item_divider" />
 
     <RelativeLayout
-        android:background="@color/white"
-        android:padding="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="15dp">
+
         <TextView
+            android:id="@+id/tv_pic_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="故障照片"
             android:textColor="@color/title_text_color"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_select_pic"
-            android:padding="10dp"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="＋"
-            android:textColor="@color/title_text_color"
-            android:textSize="36sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_toRightOf="@id/tv_pic_hint">
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_select_pic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="＋"
+                android:textColor="@color/title_text_color"
+                android:textSize="36sp" />
+            <ImageView
+                android:visibility="gone"
+                android:scaleType="centerCrop"
+                android:src="@drawable/kong_mrjz"
+                android:id="@+id/iv_exce_pic"
+                android:layout_alignParentRight="true"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+        </RelativeLayout>
+
     </RelativeLayout>
+
     <View
-        android:background="@color/grid_item_divider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:background="@color/grid_item_divider" />
 </LinearLayout>
