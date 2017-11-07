@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.TextureView;
@@ -76,6 +77,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private FixTaskListAdapter mTaskAdapter;
     private List<BoxInfo> mBoxList;
     private ProgressBar mloadingPb;
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,9 +152,41 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         String num;
         Intent intent;
+        String hotelId = "";
         switch (v.getId()) {
             case R.id.tv_right:
-                publish();
+                if (hotel != null) {
+                    hotelId = hotel.getId();
+                }
+
+                // 校验必须的参数
+                if (TextUtils.isEmpty(hotelId)) {
+                    ShowMessage.showToast(this, "请选择酒楼");
+                    return;
+                }
+
+                // 校验如果某一个没选择版位不允许发布
+                List<RepairInfo> infos = mTaskAdapter.getData();
+                for(RepairInfo repairInfo : infos) {
+                    String box_id = repairInfo.getBox_id();
+                    if(TextUtils.isEmpty(box_id)) {
+                        ShowMessage.showToast(this,"请选择版位");
+                        return;
+                    }
+                }
+
+                List<RepairInfo> data = mTaskAdapter.getData();
+                if(data!=null&&data.size()>0) {
+                    if(isHasUploadPic(data)) {
+                        mloadingPb.setVisibility(View.VISIBLE);
+                        uploadPic(data,0);
+                    }else {
+                        publish();
+                    }
+                }else {
+                    publish();
+                }
+
                 break;
             case R.id.rl_select_hotel:
                 intent = new Intent(this, SearchActivity.class);
@@ -160,7 +194,6 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 startActivityForResult(intent, REQUEST_CODE_SEARCH);
                 break;
             case R.id.tv_add:
-                String hotelId = "";
                 if (hotel != null) {
                     hotelId = hotel.getId();
                 }
@@ -218,22 +251,6 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
             hotelId = hotel.getId();
         }
 
-        // 校验必须的参数
-        if (TextUtils.isEmpty(hotelId)) {
-            ShowMessage.showToast(this, "请选择酒楼");
-            return;
-        }
-
-        // 校验如果某一个没选择版位不允许发布
-        List<RepairInfo> infos = mTaskAdapter.getData();
-        for(RepairInfo repairInfo : infos) {
-            String box_id = repairInfo.getBox_id();
-            if(TextUtils.isEmpty(box_id)) {
-                ShowMessage.showToast(this,"请选择版位");
-                return;
-            }
-        }
-
         String publish_user_id = mSession.getLoginResponse().getUserid();
 
         int checkedRadioButtonId = mEmergcyRG.getCheckedRadioButtonId();
@@ -284,33 +301,57 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         }
 
 
-        mloadingPb.setVisibility(View.VISIBLE);
-        if(isHasUploadPic(infos)) {
-//            ShowMessage.showToast(this,"开始上传图片");
-            uploadPic(infos);
-        }
         AppApi.publishTask(this, address, contact, hotelId, phone, publish_user_id, repair_info, task_emerge, task_type, tv_nums, this);
     }
 
-    private void uploadPic(List<RepairInfo> infos) {
-        for(int i = 0 ;i<infos.size();i++) {
-            RepairInfo repairInfo = infos.get(i);
-            if(!TextUtils.isEmpty(repairInfo.getFault_img_url())) {
-                OSSClient ossClient = OSSClientUtil.getInstance().getOSSClient(this);
-                String imagePath = repairInfo.getFault_img_url();
-                File file = new File(imagePath);
-                Date date = new Date(System.currentTimeMillis());
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-                String dateStr = simpleDateFormat.format(date);
-                final String objectKey = "log/resource/operation/mobile/"+dateStr+"/"+file.getName();
-                // 构造上传请求
-                PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
-                try {
-                    ossClient.putObject(put);
-                    String imageUrl = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
-                    repairInfo.setFault_img_url(imageUrl);
-                }catch (Exception e) {}
-            }
+    private void uploadPic(final List<RepairInfo> infos, final int startPos) {
+        final RepairInfo repairInfo = infos.get(startPos);
+        if(!TextUtils.isEmpty(repairInfo.getFault_img_url())) {
+            final OSSClient ossClient = OSSClientUtil.getInstance().getOSSClient(this);
+            String imagePath = repairInfo.getFault_img_url();
+            File file = new File(imagePath);
+            Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            String dateStr = simpleDateFormat.format(date);
+            final String objectKey = "log/resource/operation/mobile/"+dateStr+"/"+file.getName();
+            // 构造上传请求
+            PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
+            try {
+                ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+                    @Override
+                    public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
+                        String imageUrl = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
+                        repairInfo.setFault_img_url(imageUrl);
+                        int nextPos = startPos+1;
+                        if(nextPos<infos.size()) {
+                            uploadPic(infos,nextPos);
+                        }else {
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    publish();
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
+                        int nextPos = startPos+1;
+                        if(nextPos<infos.size()) {
+                            uploadPic(infos,nextPos);
+                        }else {
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    publish();
+                                }
+                            });
+                        }
+                    }
+                });
+
+            }catch (Exception e) {}
         }
     }
 
