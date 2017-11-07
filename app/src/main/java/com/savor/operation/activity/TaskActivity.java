@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import com.savor.operation.R;
 import com.savor.operation.SavorApplication;
 import com.savor.operation.adapter.FixTaskListAdapter;
+import com.savor.operation.bean.BaseBoxInfo;
 import com.savor.operation.bean.BoxInfo;
 import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.RepairInfo;
@@ -223,9 +224,21 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         switch (actionType) {
             case FIX:
                 task_type = "7";
-                Gson gson = new Gson();
-                repair_info = gson.toJson(boxList, new TypeToken<List<RepairInfo>>() {
-                }.getType());
+                List<BaseBoxInfo> boxInfos = new ArrayList<>();
+                List<RepairInfo> data = mTaskAdapter.getData();
+                if(data!=null&&data.size()>0) {
+                    for(int i = 0;i<data.size();i++) {
+                        RepairInfo repairInfo = data.get(i);
+                        BaseBoxInfo boxInfo = new BaseBoxInfo();
+                        boxInfo.setBox_id(repairInfo.getBox_id());
+                        boxInfo.setFault_desc(repairInfo.getFault_desc());
+                        boxInfo.setFault_img_url(repairInfo.getFault_img_url());
+                        boxInfos.add(boxInfo);
+                    }
+                    Gson gson = new Gson();
+                    repair_info = gson.toJson(boxInfos, new TypeToken<List<BaseBoxInfo>>() {
+                    }.getType());
+                }
                 break;
             case INFO_CHECK:
                 task_type = "3";

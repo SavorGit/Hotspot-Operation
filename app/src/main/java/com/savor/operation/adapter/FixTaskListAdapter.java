@@ -49,11 +49,15 @@ public class FixTaskListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public List<RepairInfo> getData() {
+        return mData;
+    }
+
     /**
      * 拍照以后更新图片路径到实体类中
      */
     public void updataPhotoPath() {
-        if(mData!=null && mData.size()>=currentTakePhonePos) {
+        if(mData!=null && mData.size()>0) {
             mData.get(currentTakePhonePos).setFault_img_url(currentImagePath);
             notifyDataSetChanged();
         }
