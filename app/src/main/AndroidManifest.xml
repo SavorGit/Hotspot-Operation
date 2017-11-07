@@ -84,18 +84,19 @@
         <activity
             android:name=".activity.HotelMacInfoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.SavorMainActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.PublishTaskActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.TaskActivity"
-            android:screenOrientation="portrait"
-            />
-
-        <activity android:name=".activity.CityListActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".activity.SavorMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PublishTaskActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TaskActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CityListActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.SystemStatusActivity"></activity>
     </application>
 
 </manifest>

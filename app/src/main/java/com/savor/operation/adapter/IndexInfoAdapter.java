@@ -2,11 +2,13 @@ package com.savor.operation.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.common.api.utils.DensityUtil;
+import com.savor.operation.R;
 
 import java.util.List;
 
@@ -39,6 +41,10 @@ public class IndexInfoAdapter extends RecyclerView.Adapter<IndexInfoAdapter.Inde
     public void onBindViewHolder(IndexHolder holder, int position) {
         String content = mData.get(position);
         holder.textView.setText(content);
+        int padding15 = DensityUtil.dip2px(mContext, 15);
+        int padding10 = DensityUtil.dip2px(mContext, 10);
+        holder.textView.setPadding(padding15,padding10,padding15,padding10);
+        holder.textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimensionPixelSize(R.dimen.text_size));
     }
 
     @Override

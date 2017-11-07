@@ -24,4 +24,5 @@
         android:layout_height="40dp"
         android:indeterminateDrawable="@drawable/base_loading_large_anim"
         android:indeterminateBehavior="repeat"/>
+
 </RelativeLayout>

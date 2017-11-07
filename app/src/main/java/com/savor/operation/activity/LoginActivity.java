@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
@@ -26,6 +27,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private long exitTime;
     private String account;
     private String pwd;
+    private ProgressBar mLoadingPb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void getViews() {
+        mLoadingPb = (ProgressBar) findViewById(R.id.pb_loading);
+
         mAccountEt = (EditText) findViewById(R.id.et_account);
         mPwdEt = (EditText) findViewById(R.id.et_password);
         mLoginBtn = (Button) findViewById(R.id.btn_login);
@@ -82,6 +86,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             return;
         }
 
+        mLoadingPb.setVisibility(View.VISIBLE);
         AppApi.login(this, account, pwd,this);
 
     }
@@ -91,6 +96,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         switch (method) {
             case POST_LOGIN_JSON:
                 if(obj instanceof LoginResponse) {
+                    mLoadingPb.setVisibility(View.GONE);
                     ShowMessage.showToast(this,getString(R.string.login_success));
                     LoginResponse loginResponse = (LoginResponse) obj;
                     mSession.setLoginResponse(loginResponse);
@@ -109,6 +115,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onError(AppApi.Action method, Object obj) {
         switch (method) {
             case POST_LOGIN_JSON:
+                mLoadingPb.setVisibility(View.GONE);
                 ShowMessage.showToast(this,"登录失败");
                 break;
         }
