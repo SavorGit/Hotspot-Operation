@@ -8,9 +8,8 @@ import com.common.api.utils.AppUtils;
 import com.common.api.utils.LogUtils;
 import com.google.gson.Gson;
 import com.savor.operation.activity.AbnormalityInfoActivity;
-import com.savor.operation.activity.AbnormalityReportActivity;
 import com.savor.operation.activity.LoginActivity;
-import com.savor.operation.activity.MainActivity;
+import com.savor.operation.activity.SavorMainActivity;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.PushErrorBean;
 import com.savor.operation.core.Session;
@@ -90,10 +89,10 @@ public class SavorApplication extends Application {
                     PushErrorBean pushErrorBean = new Gson().fromJson(params, PushErrorBean.class);
                     Session session = Session.get(context);
                     LoginResponse loginResponse = session.getLoginResponse();
-                    boolean isRunning = ActivitiesManager.getInstance().contains(MainActivity.class);
+                    boolean isRunning = ActivitiesManager.getInstance().contains(SavorMainActivity.class);
                     if(loginResponse!=null) {
                         if(!isRunning) {
-                            Intent intent = new Intent(context, MainActivity.class);
+                            Intent intent = new Intent(context, SavorMainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         }
