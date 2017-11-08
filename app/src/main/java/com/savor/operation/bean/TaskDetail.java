@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by admin on 2017/11/6.
+ * Created by bushlee on 2017/11/6.
  */
 
 public class TaskDetail implements Serializable {
