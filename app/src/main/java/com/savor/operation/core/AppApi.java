@@ -65,6 +65,15 @@ public class AppApi {
         POST_PUBLISH_JSON,
         /**版位列表*/
         POST_BOX_LIST_JSON,
+        /**查看者任务列表*/
+        POST_VIEW_TASK_LIST_JSON,
+        /**指派者任务列表*/
+        POST_APPOINT_TASK_LIST_JSON,
+        /**执行者任务列表*/
+        POST_EXE_TASK_LIST_JSON,
+        /**发布者任务列表*/
+        POST_PUB_TASK_LIST_JSON,
+
     }
 
     /**
@@ -91,6 +100,11 @@ public class AppApi {
             put(Action.POST_TASK_TYPE_JSON, formatPhpUrl("Opclient11/Basedata/getTaskTypeList"));
             put(Action.POST_PUBLISH_JSON, formatPhpUrl("Opclient11/Task/pubTask"));
             put(Action.POST_BOX_LIST_JSON, formatPhpUrl("Opclient11/Box/getBoxList"));
+
+            put(Action.POST_VIEW_TASK_LIST_JSON, formatPhpUrl("Opclient11/Task/viewTaskList"));
+            put(Action.POST_APPOINT_TASK_LIST_JSON, formatPhpUrl("Opclient11/task/appointTaskList"));
+            put(Action.POST_EXE_TASK_LIST_JSON, formatPhpUrl("Opclient11/Task/exeTaskList"));
+            put(Action.POST_PUB_TASK_LIST_JSON, formatPhpUrl("Opclient11/task/pubTaskList"));
         }
     };
 
@@ -301,6 +315,54 @@ public class AppApi {
         new AppServiceOk(context, Action.POST_PUBLISH_JSON, handler, params).post();
     }
 
+    /**
+     * 查看者任务列表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getviewTaskList(Context context, String page,String state,String user_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("page",page);
+        params.put("state",state);
+        params.put("user_id",user_id);
+        new AppServiceOk(context, Action.POST_VIEW_TASK_LIST_JSON, handler, params).post();
+    }
+
+    /**
+     * 指派者任务列表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getAppointTaskList(Context context, String page,String state,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("page",page);
+        params.put("state",state);
+        new AppServiceOk(context, Action.POST_APPOINT_TASK_LIST_JSON, handler, params).post();
+    }
+    /**
+     * 执行者任务列表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getExeTaskList(Context context, String page,String state,String user_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("page",page);
+        params.put("state",state);
+        params.put("user_id",user_id);
+        new AppServiceOk(context, Action.POST_EXE_TASK_LIST_JSON, handler, params).post();
+    }
+    /**
+     * 发布者任务列表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getPubTaskList(Context context, String page,String state,String user_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("page",page);
+        params.put("state",state);
+        params.put("user_id",user_id);
+        new AppServiceOk(context, Action.POST_PUB_TASK_LIST_JSON, handler, params).post();
+    }
     /**
      * 提交保修记录
      * @param context 上下文
