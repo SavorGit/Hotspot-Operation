@@ -111,7 +111,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         SkillList skill_list = loginResponse.getSkill_list();
         List<City> manage_city = skill_list.getManage_city();
         if(manage_city!=null&&manage_city.size()>0) {
-            City city = manage_city.get(0);
+            City city = getSelectCity(manage_city);
             if(manage_city.size()>1) {
                 Drawable drawable = getResources().getDrawable(R.drawable.ico_arraw_down_normal);
                 mCityTv.setCompoundDrawablesWithIntrinsicBounds(null,null,drawable,null);
@@ -156,6 +156,14 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
                 mAdapter.setData(LOOK_ITEMS);
             }
         }
+    }
+
+    private City getSelectCity(List<City> manage_city) {
+        for(City city : manage_city) {
+            if(city.isSelect())
+                return city;
+        }
+        return null;
     }
 
     @Override

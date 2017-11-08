@@ -13,8 +13,12 @@ import android.widget.ProgressBar;
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.bean.Account;
+import com.savor.operation.bean.City;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.SkillList;
 import com.savor.operation.core.AppApi;
+
+import java.util.List;
 
 /**
  * @author hezd
@@ -99,6 +103,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     mLoadingPb.setVisibility(View.GONE);
                     ShowMessage.showToast(this,getString(R.string.login_success));
                     LoginResponse loginResponse = (LoginResponse) obj;
+                    SkillList skill_list = loginResponse.getSkill_list();
+                    if(skill_list!=null) {
+                        List<City> manage_city = skill_list.getManage_city();
+                        if(manage_city!=null&&manage_city.size()>0) {
+                            manage_city.get(0).setSelect(true);
+                        }
+                    }
                     mSession.setLoginResponse(loginResponse);
                     Account acc = new Account();
                     acc.setAccount(this.account);
