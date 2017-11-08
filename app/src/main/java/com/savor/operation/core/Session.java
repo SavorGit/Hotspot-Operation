@@ -37,6 +37,7 @@ import com.common.api.utils.AppUtils;
 import com.common.api.utils.LogUtils;
 import com.common.api.utils.Pair;
 import com.common.api.utils.SaveFileData;
+import com.savor.operation.bean.Account;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.utils.STIDUtil;
@@ -69,6 +70,7 @@ public class Session {
     private static final String P_APP_PLATFORM_URL = "pref.savor.platformurl";
     /**登录后返回用户信息*/
     private static final String P_APP_LOGIN_RESPONSE = "pref.savor.login";
+    private static final String P_APP_ACCOUNT = "pref.savor.account";
     /**是否显示引导图*/
     private static final String P_APP_IS_SHOW_GUIDE = "version_v1.0";
 
@@ -168,6 +170,7 @@ public class Session {
     /**登录成功返回信息*/
     private LoginResponse loginResponse;
     private DamageConfig damageConfig;
+    private Account account;
 
     private Session(Context context) {
 
@@ -229,6 +232,7 @@ public class Session {
     }
 
     private void readSettings() {
+        account = (Account) getObj(P_APP_ACCOUNT);
         damageConfig = (DamageConfig) getObj(P_APP_DAMAGE_CONFIG);
         loginResponse = (LoginResponse) getObj(P_APP_LOGIN_RESPONSE);
         deviceid = STIDUtil.getDeviceId(mContext);
@@ -514,5 +518,14 @@ public class Session {
 
     public LoginResponse getLoginResponse() {
         return this.loginResponse;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+        setObj(P_APP_ACCOUNT,account);
+    }
+
+    public Account getAccount() {
+        return account;
     }
 }

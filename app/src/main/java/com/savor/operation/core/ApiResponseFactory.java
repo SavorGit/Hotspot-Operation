@@ -23,6 +23,7 @@ import com.common.api.utils.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.savor.operation.bean.BoxInfo;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.ErrorDetail;
 import com.savor.operation.bean.ErrorReport;
@@ -276,6 +277,10 @@ public class ApiResponseFactory {
                 break;
             case POST_PUBLISH_JSON:
                 result = info;
+                break;
+            case POST_BOX_LIST_JSON:
+                result = gson.fromJson(info, new TypeToken<List<BoxInfo>>() {
+                }.getType());
                 break;
             default:
                 break;

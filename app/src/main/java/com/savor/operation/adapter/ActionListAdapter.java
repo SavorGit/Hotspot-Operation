@@ -14,6 +14,7 @@ import com.savor.operation.R;
 import com.savor.operation.activity.PublishTaskActivity;
 import com.savor.operation.activity.SavorMainActivity;
 import com.savor.operation.activity.SearchActivity;
+import com.savor.operation.activity.SystemStatusActivity;
 import com.savor.operation.bean.ActionListItem;
 import com.savor.operation.enums.FunctionType;
 
@@ -65,6 +66,8 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                     case TASK_LIST:
                         break;
                     case SYSTEM_STATUS:
+                        intent = new Intent(mContext, SystemStatusActivity.class);
+                        mContext.startActivity(intent);
                         break;
                     case EXCEPTION_REPORT:
                         break;

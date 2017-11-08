@@ -8,9 +8,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
+import com.savor.operation.bean.Account;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.core.AppApi;
 
@@ -23,6 +25,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private EditText mPwdEt;
     private Button mLoginBtn;
     private long exitTime;
+    private String account;
+    private String pwd;
+    private ProgressBar mLoadingPb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void getViews() {
+        mLoadingPb = (ProgressBar) findViewById(R.id.pb_loading);
+
         mAccountEt = (EditText) findViewById(R.id.et_account);
         mPwdEt = (EditText) findViewById(R.id.et_password);
         mLoginBtn = (Button) findViewById(R.id.btn_login);
@@ -43,9 +50,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void setViews() {
-        LoginResponse loginResponse = mSession.getLoginResponse();
-        if(loginResponse !=null) {
-            startMainActivity();
+        Account account = mSession.getAccount();
+        if(account!=null&&!TextUtils.isEmpty(account.getAccount())&&!TextUtils.isEmpty(account.getPwd())) {
+            mPwdEt.setText(account.getPwd());
+            mAccountEt.setText(account.getAccount());
+            login();
         }
     }
 
@@ -70,14 +79,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void login() {
-        String account = mAccountEt.getText().toString();
-        String pwd = mPwdEt.getText().toString();
+        account = mAccountEt.getText().toString();
+        pwd = mPwdEt.getText().toString();
         if(TextUtils.isEmpty(account)||TextUtils.isEmpty(pwd)) {
             ShowMessage.showToast(this,"请输入账号和密码进行登录");
             return;
         }
 
-        AppApi.login(this,account,pwd,this);
+        mLoadingPb.setVisibility(View.VISIBLE);
+        AppApi.login(this, account, pwd,this);
 
     }
 
@@ -86,9 +96,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         switch (method) {
             case POST_LOGIN_JSON:
                 if(obj instanceof LoginResponse) {
+                    mLoadingPb.setVisibility(View.GONE);
                     ShowMessage.showToast(this,getString(R.string.login_success));
                     LoginResponse loginResponse = (LoginResponse) obj;
                     mSession.setLoginResponse(loginResponse);
+                    Account acc = new Account();
+                    acc.setAccount(this.account);
+                    acc.setPwd(this.pwd);
+                    mSession.setAccount(acc);
                     startMainActivity();
                 }
                 break;
@@ -98,8 +113,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
-
-        super.onError(method, obj);
+        switch (method) {
+            case POST_LOGIN_JSON:
+                mLoadingPb.setVisibility(View.GONE);
+                ShowMessage.showToast(this,"登录失败");
+                break;
+        }
     }
 
     @Override

@@ -39,6 +39,8 @@ public class CityListActivity extends BaseActivity implements View.OnClickListen
         mCityListView = (RecyclerView) findViewById(R.id.rlv_city_list);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
+        mCityListView.setLayoutManager(manager);
+
 
         CityListAdapter adapter = new CityListAdapter(this);
         mCityListView.setAdapter(adapter);

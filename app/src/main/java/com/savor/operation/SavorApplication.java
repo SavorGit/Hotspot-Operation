@@ -4,12 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
+import com.common.api.utils.AppUtils;
 import com.common.api.utils.LogUtils;
 import com.google.gson.Gson;
 import com.savor.operation.activity.AbnormalityInfoActivity;
-import com.savor.operation.activity.AbnormalityReportActivity;
 import com.savor.operation.activity.LoginActivity;
-import com.savor.operation.activity.MainActivity;
+import com.savor.operation.activity.SavorMainActivity;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.PushErrorBean;
 import com.savor.operation.core.Session;
@@ -20,6 +20,7 @@ import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
 
+import java.io.File;
 import java.util.Map;
 
 /**
@@ -30,6 +31,7 @@ import java.util.Map;
 public class SavorApplication extends Application {
 
     private static SavorApplication mInstance;
+    public String imagePath;
 
 
     public static SavorApplication getInstance() {
@@ -47,7 +49,7 @@ public class SavorApplication extends Application {
         mInstance = this;
 
         initUmengPush();
-
+        initCacheFile();
 //        Debug.stopMethodTracing();
     }
 
@@ -87,10 +89,10 @@ public class SavorApplication extends Application {
                     PushErrorBean pushErrorBean = new Gson().fromJson(params, PushErrorBean.class);
                     Session session = Session.get(context);
                     LoginResponse loginResponse = session.getLoginResponse();
-                    boolean isRunning = ActivitiesManager.getInstance().contains(MainActivity.class);
+                    boolean isRunning = ActivitiesManager.getInstance().contains(SavorMainActivity.class);
                     if(loginResponse!=null) {
                         if(!isRunning) {
-                            Intent intent = new Intent(context, MainActivity.class);
+                            Intent intent = new Intent(context, SavorMainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
                         }
@@ -122,4 +124,9 @@ public class SavorApplication extends Application {
         mPushAgent.setDebugMode(false);
     }
 
+
+    private void initCacheFile() {
+        String cachePath = AppUtils.getSDCardPath()+"savor"+ File.separator;
+        imagePath = cachePath+File.separator+"operations"+File.separator+"cache";
+    }
 }

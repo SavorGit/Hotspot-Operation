@@ -59,7 +59,7 @@
             android:textColor="#333333"
             android:textSize="15sp"
             android:layout_centerVertical="true"
-            android:text="运维端1.1--登录账号：诚通"
+            tools:text="运维端1.1--登录账号：诚通"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
