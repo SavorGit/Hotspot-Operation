@@ -165,13 +165,15 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                     return;
                 }
 
-                // 校验如果某一个没选择版位不允许发布
-                List<RepairInfo> infos = mTaskAdapter.getData();
-                for(RepairInfo repairInfo : infos) {
-                    String box_id = repairInfo.getBox_id();
-                    if(TextUtils.isEmpty(box_id)) {
-                        ShowMessage.showToast(this,"请选择版位");
-                        return;
+                if(actionType == PublishTaskActivity.TaskType.FIX) {
+                    // 校验如果某一个没选择版位不允许发布
+                    List<RepairInfo> infos = mTaskAdapter.getData();
+                    for(RepairInfo repairInfo : infos) {
+                        String box_id = repairInfo.getBox_id();
+                        if(TextUtils.isEmpty(box_id)) {
+                            ShowMessage.showToast(this,"请选择版位");
+                            return;
+                        }
                     }
                 }
 
@@ -210,10 +212,13 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 } catch (Exception e) {
                     mBoxNumTv.setText("0");
                 }
-                RepairInfo repairInfo = new RepairInfo();
-                repairInfo.setBoxInfoList(mBoxList);
-                boxList.add(0, repairInfo);
-                mTaskAdapter.notifyDataSetChanged();
+
+                if(actionType == PublishTaskActivity.TaskType.FIX) {
+                    RepairInfo repairInfo = new RepairInfo();
+                    repairInfo.setBoxInfoList(mBoxList);
+                    boxList.add(0, repairInfo);
+                    mTaskAdapter.notifyDataSetChanged();
+                }
                 break;
             case R.id.tv_reduce:
                 num = mBoxNumTv.getText().toString();
