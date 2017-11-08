@@ -58,6 +58,6 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
 
     @Override
     public void onSSDPReceivedListener(String address, String boxAddress, int hotelId, int roomId) {
-        
+
     }
 }
