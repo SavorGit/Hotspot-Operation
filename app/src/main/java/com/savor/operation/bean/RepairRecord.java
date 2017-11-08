@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by admin on 2017/9/7.
+ * Created by bushlee on 2017/9/7.
  */
 
 public class RepairRecord implements Serializable {

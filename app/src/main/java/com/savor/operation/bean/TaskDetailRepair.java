@@ -3,7 +3,7 @@ package com.savor.operation.bean;
 import java.io.Serializable;
 
 /**
- * Created by admin on 2017/11/6.
+ * Created by bushlee on 2017/11/6.
  */
 
 public class TaskDetailRepair implements Serializable {
