@@ -38,6 +38,10 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
         notifyDataSetChanged();
     }
 
+    public List<ActionListItem> getData() {
+        return mData;
+    }
+
     @Override
     public ActionHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ActionHolder(LayoutInflater.from(mContext).inflate(R.layout.item_action_list,parent,false));

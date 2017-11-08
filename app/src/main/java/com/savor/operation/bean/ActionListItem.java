@@ -1,6 +1,5 @@
 package com.savor.operation.bean;
 
-import com.savor.operation.activity.SavorMainActivity;
 import com.savor.operation.enums.FunctionType;
 
 import java.io.Serializable;
