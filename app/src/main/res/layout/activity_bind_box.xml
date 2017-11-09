@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_app_bg"
     tools:context="com.savor.operation.activity.BindBoxActivity">
     <LinearLayout
         android:orientation="vertical"
@@ -13,6 +14,7 @@
             layout="@layout/layout_head_title"
             />
         <ListView
+            android:listSelector="@android:color/transparent"
             android:id="@+id/lv_bind_box"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
