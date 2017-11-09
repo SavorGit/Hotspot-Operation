@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.savor.operation.ssdp" >
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <application>
+
+        <service android:name="com.savor.operation.ssdp.SSDPService">
+            <intent-filter>
+                <action android:name="com.savor.operation.ssdp.action.SERVICE" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

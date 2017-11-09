@@ -16,7 +16,7 @@ public class Task implements Serializable {
      */
 
     private String bref;
-    /**3，信息监测 4，网络改造 6，安装与验收 7，维修*/
+    /**1，信息监测 8，网络改造 2，安装与验收 4，维修*/
     private int type_id;
     private String type_name;
 

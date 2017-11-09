@@ -27,13 +27,13 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskHo
     private List<Task> mTaskList;
 
     /**信息检测*/
-    public static final int TYPE_INFO_CHECK = 3;
+    public static final int TYPE_INFO_CHECK = 1;
     /**网络改造*/
-    public static final int TYPE_NETWORK_REMOULD = 4;
+    public static final int TYPE_NETWORK_REMOULD = 8;
     /**安装与验收*/
-    public static final int TYPE_SETUP_CHECK = 6;
+    public static final int TYPE_SETUP_CHECK = 2;
     /**维修*/
-    public static final int TYPE_FIX = 7;
+    public static final int TYPE_FIX = 4;
 
 
     public TaskListAdapter(Context context) {

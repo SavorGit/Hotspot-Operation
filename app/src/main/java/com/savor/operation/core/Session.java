@@ -171,6 +171,8 @@ public class Session {
     private LoginResponse loginResponse;
     private DamageConfig damageConfig;
     private Account account;
+    private String hotelId;
+    private int roomId;
 
     private Session(Context context) {
 
@@ -527,5 +529,21 @@ public class Session {
 
     public Account getAccount() {
         return account;
+    }
+
+    public void setHotelId(String hotelId) {
+        this.hotelId = hotelId;
+    }
+
+    public String getHotelId() {
+        return hotelId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
+    }
+
+    public int getRoomId() {
+        return roomId;
     }
 }

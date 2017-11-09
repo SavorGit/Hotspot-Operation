@@ -96,7 +96,8 @@
         <activity
             android:name=".activity.CityListActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.SystemStatusActivity"></activity>
+        <activity android:name=".activity.SystemStatusActivity" />
+        <activity android:name=".activity.BindBoxActivity"></activity>
     </application>
 
 </manifest>

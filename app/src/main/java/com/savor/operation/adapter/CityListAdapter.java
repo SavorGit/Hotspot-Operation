@@ -48,6 +48,9 @@ public class CityListAdapter extends RecyclerView.Adapter<CityListAdapter.CityHo
         holder.rl_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for(City cty: mCityList) {
+                    cty.setSelect(false);
+                }
                 city.setSelect(true);
                 mContext.setResult(RESULT_CODE_CITY);
                 mContext.finish();

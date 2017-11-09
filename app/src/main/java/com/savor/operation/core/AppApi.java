@@ -65,6 +65,8 @@ public class AppApi {
         POST_PUBLISH_JSON,
         /**版位列表*/
         POST_BOX_LIST_JSON,
+        /**获取任务数量*/
+        POST_TASK_NUM_JSON,
         /**查看者任务列表*/
         POST_VIEW_TASK_LIST_JSON,
         /**指派者任务列表*/
@@ -100,6 +102,7 @@ public class AppApi {
             put(Action.POST_TASK_TYPE_JSON, formatPhpUrl("Opclient11/Basedata/getTaskTypeList"));
             put(Action.POST_PUBLISH_JSON, formatPhpUrl("Opclient11/Task/pubTask"));
             put(Action.POST_BOX_LIST_JSON, formatPhpUrl("Opclient11/Box/getBoxList"));
+            put(Action.POST_TASK_NUM_JSON, formatPhpUrl("Opclient11/Task/countTaskNums"));
 
             put(Action.POST_VIEW_TASK_LIST_JSON, formatPhpUrl("Opclient11/Task/viewTaskList"));
             put(Action.POST_APPOINT_TASK_LIST_JSON, formatPhpUrl("Opclient11/task/appointTaskList"));
@@ -373,6 +376,19 @@ public class AppApi {
         params.put("hotel_id",hotel_id);
         new AppServiceOk(context, Action.POST_BOX_LIST_JSON, handler, params).post();
     }
+
+    /**
+     * 提交保修记录
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getTaskNum(Context context, String area_id,String user_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("area_id",area_id);
+        params.put("user_id",user_id);
+        new AppServiceOk(context, Action.POST_TASK_NUM_JSON, handler, params).post();
+    }
+
 
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";

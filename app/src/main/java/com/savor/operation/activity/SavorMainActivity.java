@@ -18,6 +18,8 @@ import com.savor.operation.bean.City;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.RoleInfo;
 import com.savor.operation.bean.SkillList;
+import com.savor.operation.bean.TaskNum;
+import com.savor.operation.core.AppApi;
 import com.savor.operation.enums.FunctionType;
 import com.savor.operation.utils.log.ActionType;
 import com.savor.operation.widget.CommonDialog;
@@ -83,6 +85,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
             add(new ActionListItem(FunctionType.FIX_HISTORY,0));
         }
     };
+    private ActionListAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +95,25 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         getViews();
         setViews();
         setListeners();
-//        getTaskList();
+
+    }
+
+    private void getData() {
+        LoginResponse loginResponse = mSession.getLoginResponse();
+        SkillList skill_list = loginResponse.getSkill_list();
+        String userid = loginResponse.getUserid();
+        List<City> manage_city = skill_list.getManage_city();
+        String id = getCityId(manage_city);
+        AppApi.getTaskNum(this,id,userid,this);
+    }
+
+    private String getCityId(List<City> manage_city) {
+        for(City city: manage_city) {
+            if(city.isSelect()) {
+                return city.getId();
+            }
+        }
+        return null;
     }
 
     @Override
@@ -111,7 +132,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         SkillList skill_list = loginResponse.getSkill_list();
         List<City> manage_city = skill_list.getManage_city();
         if(manage_city!=null&&manage_city.size()>0) {
-            City city = manage_city.get(0);
+            City city = getSelectCity(manage_city);
             if(manage_city.size()>1) {
                 Drawable drawable = getResources().getDrawable(R.drawable.ico_arraw_down_normal);
                 mCityTv.setCompoundDrawablesWithIntrinsicBounds(null,null,drawable,null);
@@ -134,7 +155,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         // 功能列表
         GridLayoutManager manager = new GridLayoutManager(this,GRID_ROW_COUNT);
         manager.setOrientation(GridLayoutManager.VERTICAL);
-        ActionListAdapter mAdapter = new ActionListAdapter(this);
+        mAdapter = new ActionListAdapter(this);
         mItemRlv.setLayoutManager(manager);
         mItemRlv.setAdapter(mAdapter);
         //添加ItemDecoration，item之间的间隔
@@ -150,12 +171,22 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
                 mAdapter.setData(PUBLISH_TEMS);
             }else if("2".equals(id)) {
                 mAdapter.setData(APPOINTER_ITEMS);
+                getData();
             }else if("3".equals(id)) {
                 mAdapter.setData(PERFORM_ITEMS);
+                getData();
             }else if("4".equals(id)) {
                 mAdapter.setData(LOOK_ITEMS);
             }
         }
+    }
+
+    private City getSelectCity(List<City> manage_city) {
+        for(City city : manage_city) {
+            if(city.isSelect())
+                return city;
+        }
+        return null;
     }
 
     @Override
@@ -213,6 +244,32 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
                     }
                 }
             }
+        }
+    }
+
+    @Override
+    public void onSuccess(AppApi.Action method, Object obj) {
+        super.onSuccess(method, obj);
+        switch (method) {
+            case POST_TASK_NUM_JSON:
+                if(obj instanceof TaskNum) {
+                    TaskNum taskNum = (TaskNum) obj;
+                    String nums = taskNum.getNums();
+                    int num = 0;
+                    try {
+                        num = Integer.valueOf(nums);
+                    }catch (Exception e){}
+                    List<ActionListItem> data = mAdapter.getData();
+                    for(ActionListItem item : data) {
+                        FunctionType type = item.getType();
+                        if(type == FunctionType.MY_TASK) {
+                            item.setNum(num);
+                            break;
+                        }
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+                break;
         }
     }
 }
