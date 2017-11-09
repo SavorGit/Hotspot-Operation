@@ -4,9 +4,16 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Hotspot-Operation.iml" filepath="$PROJECT_DIR$/Hotspot-Operation.iml" />
       <module fileurl="file://$PROJECT_DIR$/Pushlib/Pushlib.iml" filepath="$PROJECT_DIR$/Pushlib/Pushlib.iml" />
+<<<<<<< HEAD
+      <module fileurl="file://$PROJECT_DIR$/SSDP-lib/SSDP-lib.iml" filepath="$PROJECT_DIR$/SSDP-lib/SSDP-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common-library/common-library.iml" filepath="$PROJECT_DIR$/common-library/common-library.iml" />
+      <module fileurl="file://E:\Android\source\Hotspot-Operation\SSDP-lib\ssdplib.iml" filepath="E:\Android\source\Hotspot-Operation\SSDP-lib\ssdplib.iml" />
+=======
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/common-library/common-library.iml" filepath="$PROJECT_DIR$/common-library/common-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/SSDP-lib/ssdplib.iml" filepath="$PROJECT_DIR$/SSDP-lib/ssdplib.iml" />
+>>>>>>> 1899e6c4a7820c5f8993146503e06167ba6583d3
     </modules>
   </component>
 </project>

@@ -34,6 +34,7 @@ public class SSDPService extends IntentService {
 
     private static final String TYPE_LABEL_PREFIX = "Savor-Type:";
     private static final String ID_ROOM_ID_PREFIX = "Savor-Room-ID:";
+    private static final String ID_BOX_MAC_PREFIX = "Savor-Box-MAC";
     private static final String BOX_IP_LABEL_PREFIX = "Savor-Box-HOST:";
     private static final String IP_LABEL_PREFIX = "Savor-HOST:";
     private static final String COMMAND_PORT_LABEL_PREFIX = "Savor-Port-Command:";
@@ -76,6 +77,7 @@ public class SSDPService extends IntentService {
             String type = null;
             String address = null;
             String boxAddress = null;
+            String boxMac = null;
             int roomId = 0;
             int hotelId = 0;
             int nettyPort = -1, commandPort = 8080, downloadPort = -1;
@@ -90,13 +92,14 @@ public class SSDPService extends IntentService {
                     // 解析并保存小平台信息到Session
                     type = parseStringMetadata(msgReceived, TYPE_LABEL_PREFIX);
                     address = parseStringMetadata(msgReceived, IP_LABEL_PREFIX);
+                    boxMac = parseStringMetadata(msgReceived, ID_BOX_MAC_PREFIX);
                     hotelId = parseIntMetadata(msgReceived, ID_HOTEL_ID_LABLE_PREFIX);
                     roomId = parseIntMetadata(msgReceived, ID_ROOM_ID_PREFIX);
                 }
 
-                if(hotelId>0&&roomId>0) {
+                if(hotelId>0&&roomId>0&&!TextUtils.isEmpty(boxMac)) {
                     if(mListener!=null) {
-                        mListener.onSSDPReceivedListener(address,boxAddress,hotelId,roomId);
+                        mListener.onSSDPReceivedListener(address,boxAddress,hotelId,roomId,boxMac);
                         isLooping = false;
                     }
                 }
@@ -164,7 +167,7 @@ public class SSDPService extends IntentService {
     }
 
     public interface OnSSDPReceivedListener {
-        void onSSDPReceivedListener(String address ,String boxAddress ,int hotelId,int roomId);
+        void onSSDPReceivedListener(String address ,String boxAddress ,int hotelId,int roomId,String boxMac);
     }
 
     @Nullable

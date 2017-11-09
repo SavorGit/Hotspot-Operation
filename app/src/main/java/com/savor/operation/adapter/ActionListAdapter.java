@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.savor.operation.R;
+import com.savor.operation.activity.BindBoxActivity;
 import com.savor.operation.activity.PublishTaskActivity;
 import com.savor.operation.activity.SavorMainActivity;
 import com.savor.operation.activity.SearchActivity;
@@ -78,6 +79,8 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                     case FIX_HISTORY:
                         break;
                     case BIND_BOX:
+                        intent = new Intent(mContext, BindBoxActivity.class);
+                        mContext.startActivity(intent);
                         break;
                     case MY_TASK:
                         break;
