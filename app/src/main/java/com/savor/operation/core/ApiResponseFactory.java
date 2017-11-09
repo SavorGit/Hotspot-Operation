@@ -32,6 +32,7 @@ import com.savor.operation.bean.HotelListResponse;
 import com.savor.operation.bean.HotelMacInfo;
 import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.Task;
 import com.savor.operation.bean.TaskNum;
@@ -292,7 +293,7 @@ public class ApiResponseFactory {
             case POST_APPOINT_TASK_LIST_JSON:
             case POST_EXE_TASK_LIST_JSON:
             case POST_PUB_TASK_LIST_JSON:
-                result = gson.fromJson(info, new TypeToken<List<TaskListBean>>() {
+                result = gson.fromJson(info, new TypeToken<List<MissionTaskListBean>>() {
                 }.getType());
                 break;
             default:

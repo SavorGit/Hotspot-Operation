@@ -23,6 +23,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/level_state"
             android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/corner_view"
             android:text="一般"
             android:textSize="15sp"/>
 
@@ -34,6 +37,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:text="版位数量：10"
+            android:textColor="@color/title_text_color"
             android:textSize="15sp"/>
 
     </RelativeLayout>
@@ -58,6 +62,13 @@
             android:layout_marginTop="16dp"
             android:layout_marginLeft="10dp"
             android:textSize="28dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:background="@drawable/corner_remote_view"
             android:text="维"/>
         <TextView
             android:id="@+id/hotel_name"
@@ -67,6 +78,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:textColor="@color/title_text_color"
             android:textSize="16dp"
             android:text="酒楼名称"/>
         <TextView
@@ -78,7 +90,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:textSize="14dp"
-            android:text="执行指派时间"/>
+            android:textColor="#888888"
+            android:text=""/>
         <TextView
             android:id="@+id/release_time"
             android:layout_width="wrap_content"
@@ -87,8 +100,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:textColor="#888888"
             android:textSize="16dp"
-            android:text="发布时间"/>
+            android:text=""/>
         <TextView
             android:id="@+id/execute_time"
             android:layout_width="wrap_content"
@@ -97,8 +111,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
+            android:textColor="#888888"
             android:textSize="16dp"
-            android:text="指派时间"/>
+            android:text=""/>
         <TextView
             android:id="@+id/complete_time"
             android:layout_width="wrap_content"
@@ -106,9 +121,10 @@
             android:layout_below="@id/execute_time"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
+            android:textColor="#888888"
             android:layout_marginLeft="10dp"
             android:textSize="16dp"
-            android:text="完成时间"/>
+            android:text=""/>
 
     </RelativeLayout>
 

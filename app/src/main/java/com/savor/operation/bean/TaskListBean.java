@@ -11,7 +11,7 @@ public class TaskListBean implements Serializable {
     private  String id;
     private  String task_type;
     private  String state;
-    private  String  region_name;
+    private  String region_name;
     private  String task_emerge;
     private  String tv_nums;
     private  String hotel_name;
