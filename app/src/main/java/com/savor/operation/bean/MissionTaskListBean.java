@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by bushlee on 2017/11/6.
  */
 
-public class ExeTaskListBean extends TaskListBean implements Serializable {
+public class MissionTaskListBean extends TaskListBean implements Serializable {
     private static final long serialVersionUID = -1;
     private  String appoint_time;
     private  String appoint_user_id;
