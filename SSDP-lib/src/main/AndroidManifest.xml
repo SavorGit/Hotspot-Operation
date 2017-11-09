@@ -3,7 +3,9 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
     <application>
 
-        <service android:name="com.savor.operation.ssdp.SSDPService">
+        <service android:name="com.savor.operation.ssdp.SSDPService"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="com.savor.operation.ssdp.action.SERVICE" />
             </intent-filter>

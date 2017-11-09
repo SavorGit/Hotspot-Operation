@@ -75,7 +75,8 @@ public class AppApi {
         POST_EXE_TASK_LIST_JSON,
         /**发布者任务列表*/
         POST_PUB_TASK_LIST_JSON,
-
+        /**获取需要绑定到包间的版位*/
+        POST_ROOM_BOX_JSON,
     }
 
     /**
@@ -108,6 +109,7 @@ public class AppApi {
             put(Action.POST_APPOINT_TASK_LIST_JSON, formatPhpUrl("Opclient11/task/appointTaskList"));
             put(Action.POST_EXE_TASK_LIST_JSON, formatPhpUrl("Opclient11/Task/exeTaskList"));
             put(Action.POST_PUB_TASK_LIST_JSON, formatPhpUrl("Opclient11/task/pubTaskList"));
+            put(Action.POST_ROOM_BOX_JSON, formatPhpUrl("Opclient11/Bindbox/getBoxList"));
         }
     };
 
@@ -389,6 +391,18 @@ public class AppApi {
         new AppServiceOk(context, Action.POST_TASK_NUM_JSON, handler, params).post();
     }
 
+
+    /**
+     * 获取需要绑定到包间的版位
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getRoomBoxList(Context context, String hotel_id,String room_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("hotel_id",hotel_id);
+        params.put("room_id",room_id);
+        new AppServiceOk(context, Action.POST_ROOM_BOX_JSON, handler, params).post();
+    }
 
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";

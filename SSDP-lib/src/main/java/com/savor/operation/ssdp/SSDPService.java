@@ -8,6 +8,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -43,6 +44,7 @@ public class SSDPService extends IntentService {
     private static final int CLOSE_SERVICE = 0x1;
     private static final int CLOSE_FIRSTUSE_SERVICE = 0x2;
 
+    private SSDPBinder binder = new SSDPBinder();
 
     private MulticastSocket mSocketReceive;
 
@@ -56,6 +58,7 @@ public class SSDPService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Log.d("savor","handleIntent");
         startReceive();
     }
 
@@ -173,7 +176,7 @@ public class SSDPService extends IntentService {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return new SSDPBinder();
+        return binder;
     }
 
     public class SSDPBinder extends Binder {
