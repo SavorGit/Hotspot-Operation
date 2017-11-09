@@ -23,6 +23,7 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
 
         }
     };
+    private Intent mSSDPBindIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,8 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
     }
 
     private void bindSSDPService() {
-        Intent intent = new Intent("com.savor.operation.ssdp.action.SERVICE");
-        bindService(intent,mConn,BIND_AUTO_CREATE);
+        mSSDPBindIntent = new Intent("com.savor.operation.ssdp.action.SERVICE");
+        bindService(mSSDPBindIntent,mConn,BIND_AUTO_CREATE);
     }
 
     @Override
@@ -57,7 +58,14 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
     }
 
     @Override
-    public void onSSDPReceivedListener(String address, String boxAddress, int hotelId, int roomId) {
+    public void onSSDPReceivedListener(String address, String boxAddress, int hotelId, int roomId,String boxMac) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(mConn);
+        stopService(mSSDPBindIntent);
     }
 }
