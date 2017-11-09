@@ -1,18 +1,13 @@
 package com.savor.operation.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.TextView;
 
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
@@ -24,16 +19,15 @@ import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 查看者任务列表
+ * 执行者任务列表
  * Created by bushlee on 2017/7/4.
  */
 
-public class MissionFragment extends BaseFragment implements ApiRequestListener,
+public class ExeMissionFragment extends BaseFragment implements ApiRequestListener,
         PullToRefreshListView.NetworkUnavailableOnClick ,
         AbsListView.OnScrollListener{
     private static final String TAG = "WealthLifeFragment";
@@ -49,8 +43,8 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
     public String getFragmentName() {
         return TAG;
     }
-    public static MissionFragment getInstance(int type) {
-        MissionFragment missionFragment = new MissionFragment();
+    public static ExeMissionFragment getInstance(int type) {
+        ExeMissionFragment missionFragment = new ExeMissionFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("type",type);
         missionFragment.setArguments(bundle);
@@ -96,7 +90,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
 
     }
 
-    PullToRefreshBase.OnRefreshListener onRefreshListener = new PullToRefreshBase.OnRefreshListener() {
+    OnRefreshListener onRefreshListener = new OnRefreshListener() {
         @Override
         public void onRefresh(PullToRefreshBase refreshView) {
             page = 0;
@@ -105,7 +99,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
         }
     };
 
-    PullToRefreshBase.OnLastItemVisibleListener onLastItemVisibleListener = new PullToRefreshBase.OnLastItemVisibleListener() {
+    OnLastItemVisibleListener onLastItemVisibleListener = new OnLastItemVisibleListener() {
         @Override
         public void onLastItemVisible() {
             isUp = false;
@@ -128,7 +122,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
     }
 
     private void getData(){
-        AppApi.getviewTaskList(context,page,state,mSession.getLoginResponse().getUserid(),this);
+        AppApi.getExeTaskList(context,page,state,mSession.getLoginResponse().getUserid(),this);
     }
 
     @Override
