@@ -302,6 +302,9 @@ public class ApiResponseFactory {
                 result = gson.fromJson(info, new TypeToken<BindBoxList>() {
                 }.getType());
                 break;
+            case POST_BIND_BOX_JSON:
+                result = info;
+                break;
             default:
                 break;
         }

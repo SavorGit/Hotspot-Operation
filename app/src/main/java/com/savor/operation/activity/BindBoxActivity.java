@@ -26,7 +26,7 @@ import com.savor.operation.utils.WifiUtil;
 
 import java.util.List;
 
-public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPReceivedListener, View.OnClickListener {
+public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPReceivedListener, View.OnClickListener, BindBoxAdapter.OnBindBtnClickListener {
 
     private ServiceConnection mConn = new ServiceConnection() {
         @Override
@@ -53,6 +53,9 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
     private View heaerView;
     private BindBoxAdapter mBindAdapter;
     private BindBoxList boxList;
+    private int mHotelId;
+    private int mRoomId;
+    private String mBoxMAc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,10 +122,15 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
         mBackBtn.setOnClickListener(this);
 
         mRightTv.setOnClickListener(this);
+
+        mBindAdapter.setOnBindBtnClickListener(this);
     }
 
     @Override
     public void onSSDPReceivedListener(String address, String boxAddress, final int hotelId, final int roomId, final String boxMac) {
+        this.mHotelId = hotelId;
+        this.mRoomId = roomId;
+        this.mBoxMAc = boxMac;
         mBindBoxListView.post(new Runnable() {
             @Override
             public void run() {
@@ -156,6 +164,9 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
     public void onSuccess(AppApi.Action method, Object obj) {
         super.onSuccess(method, obj);
         switch (method) {
+            case POST_BIND_BOX_JSON:
+                ShowMessage.showToast(this,"绑定成功");
+                break;
             case POST_ROOM_BOX_JSON:
                 if(obj instanceof BindBoxList) {
                     boxList = (BindBoxList) obj;
@@ -170,4 +181,11 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
                 break;
         }
     }
+
+    @Override
+    public void onBindBtnClick(BindBoxListBean bindBoxListBean) {
+        AppApi.bindBox(this,String.valueOf(mHotelId),bindBoxListBean.getBox_id(),bindBoxListBean.getBox_mac(),String.valueOf(mRoomId),this);
+    }
+
+
 }

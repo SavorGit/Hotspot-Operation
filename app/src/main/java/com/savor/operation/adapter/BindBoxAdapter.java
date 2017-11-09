@@ -22,6 +22,7 @@ public class BindBoxAdapter extends BaseAdapter {
 
     private final Context mContext;
     private List<BindBoxListBean> mData;
+    private OnBindBtnClickListener mListener;
 
     public BindBoxAdapter(Context context) {
         this.mContext = context;
@@ -58,12 +59,13 @@ public class BindBoxAdapter extends BaseAdapter {
             holder.tv_room = (TextView) convertView.findViewById(R.id.tv_room);
             holder.tv_box_name = (TextView) convertView.findViewById(R.id.tv_box_name);
             holder.tv_mac = (TextView) convertView.findViewById(R.id.tv_mac);
+            holder.tv_bind = (TextView) convertView.findViewById(R.id.tv_bind);
             convertView.setTag(holder);
         }else {
             holder = (BindBoxHolder) convertView.getTag();
         }
 
-        BindBoxListBean bindBoxListBean = (BindBoxListBean) getItem(position);
+        final BindBoxListBean bindBoxListBean = (BindBoxListBean) getItem(position);
         String room_name = bindBoxListBean.getRoom_name();
         String box_name = bindBoxListBean.getBox_name();
         String tv_brand = bindBoxListBean.getTv_brand();
@@ -75,6 +77,16 @@ public class BindBoxAdapter extends BaseAdapter {
         holder.tv_name.setText("电视名称："+tv_brand);
         holder.tv_box_name.setText("机顶盒名称："+box_name);
         holder.tv_mac.setText("MAC地址："+box_mac);
+
+        holder.tv_bind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener!=null) {
+                    mListener.onBindBtnClick(bindBoxListBean);
+                }
+            }
+        });
+
         return convertView;
     }
 
@@ -84,5 +96,14 @@ public class BindBoxAdapter extends BaseAdapter {
         public TextView tv_room;
         public TextView tv_box_name;
         public TextView tv_mac;
+        public TextView tv_bind;
+    }
+
+    public void setOnBindBtnClickListener(OnBindBtnClickListener listener) {
+        this.mListener = listener;
+    }
+
+    public interface OnBindBtnClickListener {
+        void onBindBtnClick(BindBoxListBean bindBoxListBean);
     }
 }
