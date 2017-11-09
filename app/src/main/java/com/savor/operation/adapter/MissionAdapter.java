@@ -92,7 +92,42 @@ public class MissionAdapter extends BaseAdapter {
         holder.screen_num.setText("版位数量 ："+item.getTv_nums());
         holder.mold.setText(item.getTask_type_desc());
         holder.hotel_name.setText(item.getHotel_name());
-        holder.release_execute_time.setText(item.getHotel_name());
+        String appoint_exe_time = item.getAppoint_exe_time();
+        if (!TextUtils.isEmpty(appoint_exe_time)) {
+            holder.release_execute_time.setVisibility(View.VISIBLE);
+            holder.release_execute_time.setText("执行指派时间:"+appoint_exe_time+"("+item.getExeuser()+")");
+        }else {
+            holder.release_execute_time.setVisibility(View.GONE);
+            holder.release_execute_time.setText("");
+        }
+
+
+        String create_time = item.getCreate_time();
+        if (!TextUtils.isEmpty(create_time)) {
+            holder.release_time.setVisibility(View.VISIBLE);
+            holder.release_time.setText("发布时间:"+create_time+"("+item.getPublish_user()+")");
+        }else {
+            holder.release_time.setVisibility(View.GONE);
+            holder.release_time.setText("");
+        }
+
+        String appoint_time = item.getAppoint_time();
+        if (!TextUtils.isEmpty(appoint_time)) {
+            holder.execute_time.setVisibility(View.VISIBLE);
+            holder.execute_time.setText("指派时间:"+appoint_time+"("+item.getAppoint_user()+")");
+        }else {
+            holder.execute_time.setVisibility(View.GONE);
+            holder.execute_time.setText("");
+        }
+
+        String complete_time = item.getComplete_time();
+        if (!TextUtils.isEmpty(complete_time)) {
+            holder.complete_time.setVisibility(View.VISIBLE);
+            holder.complete_time.setText("完成时间"+complete_time+"("+item.getExeuser()+")");
+        }else {
+            holder.complete_time.setVisibility(View.GONE);
+            holder.complete_time.setText("");
+        }
 
         return convertView;
     }

@@ -91,7 +91,7 @@
             android:layout_marginLeft="10dp"
             android:textSize="14dp"
             android:textColor="#888888"
-            android:text="执行指派时间"/>
+            android:text=""/>
         <TextView
             android:id="@+id/release_time"
             android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
             android:layout_marginLeft="10dp"
             android:textColor="#888888"
             android:textSize="16dp"
-            android:text="发布时间"/>
+            android:text=""/>
         <TextView
             android:id="@+id/execute_time"
             android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
             android:layout_marginLeft="10dp"
             android:textColor="#888888"
             android:textSize="16dp"
-            android:text="指派时间"/>
+            android:text=""/>
         <TextView
             android:id="@+id/complete_time"
             android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
             android:textColor="#888888"
             android:layout_marginLeft="10dp"
             android:textSize="16dp"
-            android:text="完成时间"/>
+            android:text=""/>
 
     </RelativeLayout>
 
