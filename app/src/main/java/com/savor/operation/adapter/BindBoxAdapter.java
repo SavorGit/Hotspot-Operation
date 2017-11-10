@@ -33,6 +33,10 @@ public class BindBoxAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public List<BindBoxListBean> getData() {
+        return mData;
+    }
+
     @Override
     public int getCount() {
         return mData == null? 0:mData.size();

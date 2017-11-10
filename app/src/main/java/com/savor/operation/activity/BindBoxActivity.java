@@ -2,7 +2,10 @@ package com.savor.operation.activity;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -22,6 +25,7 @@ import com.savor.operation.adapter.BindBoxAdapter;
 import com.savor.operation.bean.BindBoxList;
 import com.savor.operation.bean.BindBoxListBean;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.receiver.NetworkConnectChangedReceiver;
 import com.savor.operation.ssdp.SSDPService;
 import com.savor.operation.utils.WifiUtil;
 
@@ -29,7 +33,7 @@ import java.util.List;
 
 public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPReceivedListener, View.OnClickListener, BindBoxAdapter.OnBindBtnClickListener {
 
-    private static final int MSG_CHECK_SSDP = 0x1;
+    private static final int MSG_CHECK_SSDP = 100;
     private ServiceConnection mConn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -64,16 +68,41 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
+                case WifiManager.WIFI_STATE_ENABLED:
+                    String wifiName = WifiUtil.getWifiName(BindBoxActivity.this);
+                    mWifiTv.setText("当前Wifi："+wifiName);
+                    mLoadFailedLayout.setVisibility(View.GONE);
+                    initSSDP();
+                    break;
+                case WifiManager.WIFI_STATE_DISABLED:
+                    stopSSDPService();
+                    reset();
+                    break;
                 case MSG_CHECK_SSDP:
                     if(mRoomId == 0||mHotelId==0 || TextUtils.isEmpty(mBoxMAc)) {
                         showLoadFailedLayout();
+                        stopSSDPService();
                     }
                     break;
             }
         }
     };
 
+    private void reset() {
+        mHoltelTv.setText("当前酒楼：");
+        mWifiTv.setText("当前Wifi：");
+        mBoxMacTv.setText("当前机顶盒Mac：");
+        if(boxList!=null) {
+            List<BindBoxListBean> data = mBindAdapter.getData();
+            data.clear();
+            mBindAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private NetworkConnectChangedReceiver mChangedReceiver;
+
     private void showLoadFailedLayout() {
+        mLoadingPb.setVisibility(View.GONE);
         mLoadFailedLayout.setVisibility(View.VISIBLE);
     }
 
@@ -86,12 +115,16 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
         setViews();
         setListeners();
 
-        if(WifiUtil.checkWifiState(this)) {
+    }
+
+    private void initSSDP() {
+//        if(WifiUtil.checkWifiState(this)) {
+            mLoadingPb.setVisibility(View.VISIBLE);
             bindSSDPService();
             checkSSDPDelayed();
-        }else {
-            ShowMessage.showToast(this,"请连接wifi后继续操作");
-        }
+//        }else {
+//            ShowMessage.showToast(this,"请连接wifi后继续操作");
+//        }
     }
 
     private void checkSSDPDelayed() {
@@ -103,6 +136,34 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
         mSSDPBindIntent.setAction("com.savor.operation.ssdp.action.SERVICE");
         bindService(mSSDPBindIntent,mConn,BIND_AUTO_CREATE);
         startService(mSSDPBindIntent);
+    }
+
+    public void registerNetWorkReceiver() {
+        if(mChangedReceiver==null)
+            mChangedReceiver = new NetworkConnectChangedReceiver(mHandler);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        mContext.registerReceiver(mChangedReceiver, filter);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerNetWorkReceiver();
+        if(!WifiUtil.checkWifiState(this)) {
+            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if(mChangedReceiver!=null) {
+            unregisterReceiver(mChangedReceiver);
+        }
+        stopSSDPService();
     }
 
     @Override
@@ -161,12 +222,13 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
         this.mHotelId = hotelId;
         this.mRoomId = roomId;
         this.mBoxMAc = boxMac;
-        mLoadFailedLayout.setVisibility(View.GONE);
+
         mHandler.removeMessages(MSG_CHECK_SSDP);
         mHandler.removeCallbacksAndMessages(null);
         mHandler.post(new Runnable() {
             @Override
             public void run() {
+                mLoadFailedLayout.setVisibility(View.GONE);
                 mBoxMacTv.setText("当前机顶盒MAC："+boxMac);
                 String wifiName = WifiUtil.getWifiName(BindBoxActivity.this);
                 mWifiTv.setText("当前Wifi："+wifiName);
@@ -184,19 +246,40 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
     }
 
     private void stopSSDPService() {
-        if(mConn!=null) {
-            unbindService(mConn);
-            mConn = null;
-        }
-        if(mSSDPBindIntent!=null) {
-            stopService(mSSDPBindIntent);
-            mSSDPBindIntent = null;
-        }
+        try {
+            if(mConn!=null) {
+                unbindService(mConn);
+            }
+            if(mSSDPBindIntent!=null) {
+                stopService(mSSDPBindIntent);
+                mSSDPBindIntent = null;
+            }
+        }catch (Exception e){}
+
+        mRoomId = 0;
+        mHotelId = 0;
+        mBoxMAc = null;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_right:
+                if(!WifiUtil.checkWifiState(this)) {
+                    ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
+                    return;
+                }
+                mLoadFailedLayout.setVisibility(View.GONE);
+                stopSSDPService();
+                reset();
+                mLoadingPb.setVisibility(View.VISIBLE);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        initSSDP();
+                    }
+                },1000);
+                break;
             case R.id.iv_left:
                 finish();
                 break;
