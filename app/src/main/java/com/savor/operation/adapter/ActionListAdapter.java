@@ -11,7 +11,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.savor.operation.R;
+import com.savor.operation.activity.AbnormalityReportActivity;
 import com.savor.operation.activity.BindBoxActivity;
+import com.savor.operation.activity.MaintenanceRecordActivity;
 import com.savor.operation.activity.MissionListActivity;
 import com.savor.operation.activity.PublishTaskActivity;
 import com.savor.operation.activity.SavorMainActivity;
@@ -78,8 +80,12 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                         mContext.startActivity(intent);
                         break;
                     case EXCEPTION_REPORT:
+                        intent = new Intent(mContext, AbnormalityReportActivity.class);
+                        mContext.startActivity(intent);
                         break;
                     case FIX_HISTORY:
+                        intent = new Intent(mContext, MaintenanceRecordActivity.class);
+                        mContext.startActivity(intent);
                         break;
                     case BIND_BOX:
                         intent = new Intent(mContext, BindBoxActivity.class);
