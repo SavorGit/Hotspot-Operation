@@ -318,7 +318,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
             Date date = new Date(System.currentTimeMillis());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
             String dateStr = simpleDateFormat.format(date);
-            final String objectKey = "log/resource/operation/mobile/"+dateStr+"/"+file.getName();
+            final String objectKey = "log/resource/operation/mobile/box/"+dateStr+"/"+file.getName();
             // 构造上传请求
             PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
             try {
