@@ -44,7 +44,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
     private int state;
     private List<MissionTaskListBean> listItems = new ArrayList<>();
     private int page = 1;
-    private boolean isUp = true;
+    private boolean isUp = false;
     @Override
     public String getFragmentName() {
         return TAG;
@@ -178,7 +178,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
             listItems.addAll(mList);
             missionAdapter.setData(listItems);
 
-            if (mList!=null && mList.size()<20) {
+            if (mList!=null && mList.size()<15) {
                 pullToRefreshListView.onLoadComplete(false,false);
             }else {
                 page++;
