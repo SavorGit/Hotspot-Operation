@@ -128,7 +128,7 @@ public class HotelMacInfoActivity extends BaseActivity implements PullToRefreshB
         List<HotelMacInfo.MacInfo.HotelInfoBean> hotel_info = list.getHotel_info();
         if(hotel_info!=null&&hotel_info.size()>0) {
             HotelMacInfo.MacInfo.HotelInfoBean hotelInfoBean = hotel_info.get(0);
-            mHotelNameTv.setText("酒店名称："+formatStr(hotelInfoBean.getHotel_name()));
+            mHotelNameTv.setText("酒店名称："+formatStr(hotelInfoBean.getHotel_name())+"  酒店id："+formatStr(hotelInfoBean.getHotel_id()));
             mHotelAddressTv.setText("酒店地址："+formatStr(hotelInfoBean.getHotel_addr()));
             mHotelBelongsTv.setText("所属区域："+formatStr(hotelInfoBean.getArea_name()));
             mIfImportantTv.setText("是否重点："+formatStr(hotelInfoBean.getIs_key()));
