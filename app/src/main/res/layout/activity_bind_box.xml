@@ -13,11 +13,17 @@
         <include
             layout="@layout/layout_head_title"
             />
+        <include
+            android:visibility="gone"
+            android:id="@+id/rl_load_failed"
+            layout="@layout/layout_ssdp_load_failed"
+            />
         <ListView
             android:listSelector="@android:color/transparent"
             android:id="@+id/lv_bind_box"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
     </LinearLayout>
 
     <ProgressBar

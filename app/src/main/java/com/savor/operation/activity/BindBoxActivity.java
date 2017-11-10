@@ -4,8 +4,10 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
-import android.support.v7.widget.RecyclerView;
+import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -13,7 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.common.api.utils.AppUtils;
 import com.common.api.utils.DensityUtil;
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
@@ -28,6 +29,7 @@ import java.util.List;
 
 public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPReceivedListener, View.OnClickListener, BindBoxAdapter.OnBindBtnClickListener {
 
+    private static final int MSG_CHECK_SSDP = 0x1;
     private ServiceConnection mConn = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -56,6 +58,24 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
     private int mHotelId;
     private int mRoomId;
     private String mBoxMAc;
+    private RelativeLayout mLoadFailedLayout;
+
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_CHECK_SSDP:
+                    if(mRoomId == 0||mHotelId==0 || TextUtils.isEmpty(mBoxMAc)) {
+                        showLoadFailedLayout();
+                    }
+                    break;
+            }
+        }
+    };
+
+    private void showLoadFailedLayout() {
+        mLoadFailedLayout.setVisibility(View.VISIBLE);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +86,16 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
         setViews();
         setListeners();
 
-        bindSSDPService();
+        if(WifiUtil.checkWifiState(this)) {
+            bindSSDPService();
+            checkSSDPDelayed();
+        }else {
+            ShowMessage.showToast(this,"请连接wifi后继续操作");
+        }
+    }
+
+    private void checkSSDPDelayed() {
+        mHandler.sendEmptyMessageDelayed(MSG_CHECK_SSDP,10*1000);
     }
 
     private void bindSSDPService() {
@@ -78,6 +107,7 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
 
     @Override
     public void getViews() {
+        mLoadFailedLayout = (RelativeLayout) findViewById(R.id.rl_load_failed);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         mCenterTv = (TextView) findViewById(R.id.tv_center);
         mRightTv = (TextView) findViewById(R.id.tv_right);
@@ -131,7 +161,10 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
         this.mHotelId = hotelId;
         this.mRoomId = roomId;
         this.mBoxMAc = boxMac;
-        mBindBoxListView.post(new Runnable() {
+        mLoadFailedLayout.setVisibility(View.GONE);
+        mHandler.removeMessages(MSG_CHECK_SSDP);
+        mHandler.removeCallbacksAndMessages(null);
+        mHandler.post(new Runnable() {
             @Override
             public void run() {
                 mBoxMacTv.setText("当前机顶盒MAC："+boxMac);
@@ -147,8 +180,18 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbindService(mConn);
-        stopService(mSSDPBindIntent);
+        stopSSDPService();
+    }
+
+    private void stopSSDPService() {
+        if(mConn!=null) {
+            unbindService(mConn);
+            mConn = null;
+        }
+        if(mSSDPBindIntent!=null) {
+            stopService(mSSDPBindIntent);
+            mSSDPBindIntent = null;
+        }
     }
 
     @Override
