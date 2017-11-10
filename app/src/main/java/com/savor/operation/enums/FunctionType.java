@@ -10,7 +10,7 @@ import java.io.Serializable;
 public enum FunctionType implements Serializable {
     /**发布任务*/
     PUBLISH_TASK,
-    /**任务列表*/
+    /**观察者任务列表*/
     TASK_LIST,
     /**系统状态*/
     SYSTEM_STATUS,
@@ -24,4 +24,8 @@ public enum FunctionType implements Serializable {
     MY_TASK,
     /**绑定版位*/
     BIND_BOX,
+    /**指派者任务列表*/
+    APPOINT_TASK_LIST,
+    /**发布者任务列表*/
+    PUB_TASK_LIST,
 }

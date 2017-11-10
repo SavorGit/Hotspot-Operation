@@ -44,7 +44,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
     public static final List<ActionListItem> PUBLISH_TEMS = new ArrayList<ActionListItem>(){
         {
             add(new ActionListItem(FunctionType.PUBLISH_TASK,0));
-            add(new ActionListItem(FunctionType.TASK_LIST,0));
+            add(new ActionListItem(FunctionType.PUB_TASK_LIST,0));
             add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
             add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
             add(new ActionListItem(FunctionType.FIX_HISTORY,0));
@@ -67,7 +67,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
      */
     public static final List<ActionListItem> APPOINTER_ITEMS = new ArrayList<ActionListItem>(){
         {
-            add(new ActionListItem(FunctionType.TASK_LIST,0));
+            add(new ActionListItem(FunctionType.APPOINT_TASK_LIST,0));
             add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
             add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
             add(new ActionListItem(FunctionType.FIX_HISTORY,0));
