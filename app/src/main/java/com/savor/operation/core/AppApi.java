@@ -77,6 +77,8 @@ public class AppApi {
         POST_PUB_TASK_LIST_JSON,
         /**获取需要绑定到包间的版位*/
         POST_ROOM_BOX_JSON,
+        /**绑定机顶盒*/
+        POST_BIND_BOX_JSON,
     }
 
     /**
@@ -110,6 +112,7 @@ public class AppApi {
             put(Action.POST_EXE_TASK_LIST_JSON, formatPhpUrl("Opclient11/Task/exeTaskList"));
             put(Action.POST_PUB_TASK_LIST_JSON, formatPhpUrl("Opclient11/task/pubTaskList"));
             put(Action.POST_ROOM_BOX_JSON, formatPhpUrl("Opclient11/Bindbox/getBoxList"));
+            put(Action.POST_BIND_BOX_JSON, formatPhpUrl("Opclient11/Bindbox/bindBox"));
         }
     };
 
@@ -402,6 +405,20 @@ public class AppApi {
         params.put("hotel_id",hotel_id);
         params.put("room_id",room_id);
         new AppServiceOk(context, Action.POST_ROOM_BOX_JSON, handler, params).post();
+    }
+
+    /**
+     * 提交绑定机顶盒
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void bindBox(Context context, String hotel_id,String box_id,String new_mac,String room_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("hotel_id",hotel_id);
+        params.put("room_id",room_id);
+        params.put("box_id",box_id);
+        params.put("new_mac",new_mac);
+        new AppServiceOk(context, Action.POST_BIND_BOX_JSON, handler, params).post();
     }
 
     // 超时（网络）异常
