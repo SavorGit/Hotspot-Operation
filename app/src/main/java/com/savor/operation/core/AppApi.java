@@ -328,7 +328,7 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void getviewTaskList(Context context, String page,String state,String user_id,ApiRequestListener handler) {
+    public static void getviewTaskList(Context context, int page,int state,String user_id,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("page",page);
         params.put("state",state);
@@ -341,7 +341,7 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void getAppointTaskList(Context context, String page,String state,ApiRequestListener handler) {
+    public static void getAppointTaskList(Context context, int page,String state,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("page",page);
         params.put("state",state);
@@ -352,7 +352,7 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void getExeTaskList(Context context, String page,String state,String user_id,ApiRequestListener handler) {
+    public static void getExeTaskList(Context context, int page,String state,String user_id,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("page",page);
         params.put("state",state);
@@ -364,7 +364,7 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void getPubTaskList(Context context, String page,String state,String user_id,ApiRequestListener handler) {
+    public static void getPubTaskList(Context context, int page,String state,String user_id,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("page",page);
         params.put("state",state);

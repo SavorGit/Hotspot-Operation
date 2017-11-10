@@ -1,18 +1,13 @@
 package com.savor.operation.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.TextView;
 
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
@@ -24,7 +19,6 @@ import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +27,7 @@ import java.util.List;
  * Created by bushlee on 2017/7/4.
  */
 
-public class MissionFragment extends BaseFragment implements ApiRequestListener,
+public class PubMissionFragment extends BaseFragment implements ApiRequestListener,
         PullToRefreshListView.NetworkUnavailableOnClick ,
         AbsListView.OnScrollListener{
     private static final String TAG = "WealthLifeFragment";
@@ -41,7 +35,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
     private int category_id=0;
     private PullToRefreshListView pullToRefreshListView;
     private MissionAdapter missionAdapter=null;
-    private int state;
+    private String state;
     private List<MissionTaskListBean> listItems = new ArrayList<>();
     private int page = 1;
     private boolean isUp = true;
@@ -49,8 +43,8 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
     public String getFragmentName() {
         return TAG;
     }
-    public static MissionFragment getInstance(int type) {
-        MissionFragment missionFragment = new MissionFragment();
+    public static PubMissionFragment getInstance(int type) {
+        PubMissionFragment missionFragment = new PubMissionFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("type",type);
         missionFragment.setArguments(bundle);
@@ -66,7 +60,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
         super.onViewCreated(view, savedInstanceState);
         context = getContext();
         Bundle argument = getArguments();
-        state = argument.getInt("type");
+        state = (String) argument.get("type");
         initViews(view);
         setViews();
 
@@ -96,7 +90,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
 
     }
 
-    PullToRefreshBase.OnRefreshListener onRefreshListener = new PullToRefreshBase.OnRefreshListener() {
+    OnRefreshListener onRefreshListener = new OnRefreshListener() {
         @Override
         public void onRefresh(PullToRefreshBase refreshView) {
             page = 0;
@@ -105,7 +99,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
         }
     };
 
-    PullToRefreshBase.OnLastItemVisibleListener onLastItemVisibleListener = new PullToRefreshBase.OnLastItemVisibleListener() {
+    OnLastItemVisibleListener onLastItemVisibleListener = new OnLastItemVisibleListener() {
         @Override
         public void onLastItemVisible() {
             isUp = false;

@@ -1,2 +1,2 @@
-include ':app', ':Pushlib', ':SSDP-lib'
+include ':app', ':Pushlib', ':SSDP-lib', ':pager-indicator-lib'
 include ':common-library'
