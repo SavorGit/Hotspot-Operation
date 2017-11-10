@@ -19,17 +19,18 @@ import com.gxz.PagerSlidingTabStrip;
 import com.savor.operation.R;
 import com.savor.operation.adapter.CategoryPagerAdapter;
 import com.savor.operation.core.Session;
+import com.savor.operation.fragment.AppointMissionFragment;
 import com.savor.operation.fragment.MissionFragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
+ * 指派者任务列表
  * Created by bushlee on 2017/11/5.
  */
 
-public class MissionListActivity extends AppCompatActivity
+public class AppointMissionListActivity extends AppCompatActivity
         implements View.OnClickListener{
 
     private Toolbar mToolBar;
@@ -100,10 +101,10 @@ public class MissionListActivity extends AppCompatActivity
         mTitleList.add("待处理");
         mTitleList.add("已完成");
 
-        mFragmentList.add(MissionFragment.getInstance(0));
-        mFragmentList.add(MissionFragment.getInstance(1));
-        mFragmentList.add(MissionFragment.getInstance(2));
-        mFragmentList.add(MissionFragment.getInstance(4));
+        mFragmentList.add(AppointMissionFragment.getInstance(0));
+        mFragmentList.add(AppointMissionFragment.getInstance(1));
+        mFragmentList.add(AppointMissionFragment.getInstance(2));
+        mFragmentList.add(AppointMissionFragment.getInstance(4));
 
 
 //        Bundle bundle = new Bundle();

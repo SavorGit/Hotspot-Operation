@@ -35,10 +35,10 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
     private int category_id=0;
     private PullToRefreshListView pullToRefreshListView;
     private MissionAdapter missionAdapter=null;
-    private String state;
+    private int state;
     private List<MissionTaskListBean> listItems = new ArrayList<>();
     private int page = 1;
-    private boolean isUp = true;
+    private boolean isUp = false;
     @Override
     public String getFragmentName() {
         return TAG;
@@ -60,7 +60,7 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
         super.onViewCreated(view, savedInstanceState);
         context = getContext();
         Bundle argument = getArguments();
-        state = (String) argument.get("type");
+        state = argument.getInt("type");
         initViews(view);
         setViews();
 
