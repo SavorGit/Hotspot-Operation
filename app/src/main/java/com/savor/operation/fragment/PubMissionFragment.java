@@ -9,6 +9,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
@@ -18,6 +19,7 @@ import com.savor.operation.adapter.MissionAdapter;
 import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.core.ResponseErrorMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +37,10 @@ public class PubMissionFragment extends BaseFragment implements ApiRequestListen
     private int category_id=0;
     private PullToRefreshListView pullToRefreshListView;
     private MissionAdapter missionAdapter=null;
-    private String state;
+    private int state;
     private List<MissionTaskListBean> listItems = new ArrayList<>();
     private int page = 1;
-    private boolean isUp = true;
+    private boolean isUp = false;
     @Override
     public String getFragmentName() {
         return TAG;
@@ -60,7 +62,7 @@ public class PubMissionFragment extends BaseFragment implements ApiRequestListen
         super.onViewCreated(view, savedInstanceState);
         context = getContext();
         Bundle argument = getArguments();
-        state = (String) argument.get("type");
+        state = argument.getInt("type");
         initViews(view);
         setViews();
 
@@ -144,6 +146,7 @@ public class PubMissionFragment extends BaseFragment implements ApiRequestListen
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method){
             case POST_VIEW_TASK_LIST_JSON:
+                pullToRefreshListView.onRefreshComplete();
                 if (obj instanceof List<?>){
                     List<MissionTaskListBean> mlist = (List<MissionTaskListBean>) obj;
                     handleWealthData(mlist);
@@ -156,6 +159,21 @@ public class PubMissionFragment extends BaseFragment implements ApiRequestListen
 
     }
 
+    @Override
+    public void onError(AppApi.Action method, Object obj) {
+
+        switch (method){
+            case POST_VIEW_TASK_LIST_JSON:
+                pullToRefreshListView.onRefreshComplete();
+                if (obj instanceof ResponseErrorMessage){
+                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
+                    String statusCode = String.valueOf(errorMessage.getCode());
+                    ShowMessage.showToast(context,errorMessage.getMessage());
+                }
+
+                break;
+        }
+    }
     private void handleWealthData(List<MissionTaskListBean> mList){
 
         if (mList != null && mList.size() > 0) {
@@ -172,7 +190,7 @@ public class PubMissionFragment extends BaseFragment implements ApiRequestListen
             listItems.addAll(mList);
             missionAdapter.setData(listItems);
 
-            if (mList!=null && mList.size()<20) {
+            if (mList!=null && mList.size()<15) {
                 pullToRefreshListView.onLoadComplete(false,false);
             }else {
                 page++;

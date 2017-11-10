@@ -12,9 +12,12 @@ import android.widget.TextView;
 
 import com.savor.operation.R;
 import com.savor.operation.activity.AbnormalityReportActivity;
+import com.savor.operation.activity.AppointMissionListActivity;
 import com.savor.operation.activity.BindBoxActivity;
+import com.savor.operation.activity.ExeMissionListActivity;
 import com.savor.operation.activity.MaintenanceRecordActivity;
 import com.savor.operation.activity.MissionListActivity;
+import com.savor.operation.activity.PubMissionListActivity;
 import com.savor.operation.activity.PublishTaskActivity;
 import com.savor.operation.activity.SavorMainActivity;
 import com.savor.operation.activity.SearchActivity;
@@ -92,11 +95,23 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                         mContext.startActivity(intent);
                         break;
                     case MY_TASK:
+                        intent = new Intent(mContext, ExeMissionListActivity.class);
+                        mContext.startActivity(intent);
                         break;
                     case SEARCH_HOTEL:
                         intent = new Intent(mContext, SearchActivity.class);
                         mContext.startActivity(intent);
                         break;
+                    case APPOINT_TASK_LIST:
+                        intent = new Intent(mContext, AppointMissionListActivity.class);
+                        mContext.startActivity(intent);
+                        break;
+                    case PUB_TASK_LIST:
+                        intent = new Intent(mContext, PubMissionListActivity.class);
+                        mContext.startActivity(intent);
+                        break;
+
+
                 }
             }
         });
