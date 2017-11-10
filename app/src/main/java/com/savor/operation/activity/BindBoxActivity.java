@@ -155,6 +155,7 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
     @Override
     protected void onStart() {
         super.onStart();
+        reset();
         registerNetWorkReceiver();
         if(!WifiUtil.checkWifiState(this)) {
             ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
