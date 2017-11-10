@@ -95,6 +95,7 @@ public class HotelMacInfo implements Serializable {
              * tv_num : 61
              */
 
+            private String hotel_id;
             private String hotel_name;
             private String hotel_addr;
             private String is_key;
@@ -119,6 +120,128 @@ public class HotelMacInfo implements Serializable {
             private int room_num;
             private int box_num;
             private String tv_num;
+
+            @Override
+            public String toString() {
+                return "HotelInfoBean{" +
+                        "hotel_id='" + hotel_id + '\'' +
+                        ", hotel_name='" + hotel_name + '\'' +
+                        ", hotel_addr='" + hotel_addr + '\'' +
+                        ", is_key='" + is_key + '\'' +
+                        ", level='" + level + '\'' +
+                        ", state_change_reason='" + state_change_reason + '\'' +
+                        ", install_date='" + install_date + '\'' +
+                        ", hotel_state='" + hotel_state + '\'' +
+                        ", contractor='" + contractor + '\'' +
+                        ", hotel_box_type='" + hotel_box_type + '\'' +
+                        ", maintainer='" + maintainer + '\'' +
+                        ", tel='" + tel + '\'' +
+                        ", mobile='" + mobile + '\'' +
+                        ", remote_id='" + remote_id + '\'' +
+                        ", tech_maintainer='" + tech_maintainer + '\'' +
+                        ", hotel_wifi_pas='" + hotel_wifi_pas + '\'' +
+                        ", hotel_wifi='" + hotel_wifi + '\'' +
+                        ", gps='" + gps + '\'' +
+                        ", area_name='" + area_name + '\'' +
+                        ", mac_addr='" + mac_addr + '\'' +
+                        ", server_location='" + server_location + '\'' +
+                        ", menu_name='" + menu_name + '\'' +
+                        ", room_num=" + room_num +
+                        ", box_num=" + box_num +
+                        ", tv_num='" + tv_num + '\'' +
+                        '}';
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+
+                HotelInfoBean that = (HotelInfoBean) o;
+
+                if (room_num != that.room_num) return false;
+                if (box_num != that.box_num) return false;
+                if (hotel_id != null ? !hotel_id.equals(that.hotel_id) : that.hotel_id != null)
+                    return false;
+                if (hotel_name != null ? !hotel_name.equals(that.hotel_name) : that.hotel_name != null)
+                    return false;
+                if (hotel_addr != null ? !hotel_addr.equals(that.hotel_addr) : that.hotel_addr != null)
+                    return false;
+                if (is_key != null ? !is_key.equals(that.is_key) : that.is_key != null)
+                    return false;
+                if (level != null ? !level.equals(that.level) : that.level != null) return false;
+                if (state_change_reason != null ? !state_change_reason.equals(that.state_change_reason) : that.state_change_reason != null)
+                    return false;
+                if (install_date != null ? !install_date.equals(that.install_date) : that.install_date != null)
+                    return false;
+                if (hotel_state != null ? !hotel_state.equals(that.hotel_state) : that.hotel_state != null)
+                    return false;
+                if (contractor != null ? !contractor.equals(that.contractor) : that.contractor != null)
+                    return false;
+                if (hotel_box_type != null ? !hotel_box_type.equals(that.hotel_box_type) : that.hotel_box_type != null)
+                    return false;
+                if (maintainer != null ? !maintainer.equals(that.maintainer) : that.maintainer != null)
+                    return false;
+                if (tel != null ? !tel.equals(that.tel) : that.tel != null) return false;
+                if (mobile != null ? !mobile.equals(that.mobile) : that.mobile != null)
+                    return false;
+                if (remote_id != null ? !remote_id.equals(that.remote_id) : that.remote_id != null)
+                    return false;
+                if (tech_maintainer != null ? !tech_maintainer.equals(that.tech_maintainer) : that.tech_maintainer != null)
+                    return false;
+                if (hotel_wifi_pas != null ? !hotel_wifi_pas.equals(that.hotel_wifi_pas) : that.hotel_wifi_pas != null)
+                    return false;
+                if (hotel_wifi != null ? !hotel_wifi.equals(that.hotel_wifi) : that.hotel_wifi != null)
+                    return false;
+                if (gps != null ? !gps.equals(that.gps) : that.gps != null) return false;
+                if (area_name != null ? !area_name.equals(that.area_name) : that.area_name != null)
+                    return false;
+                if (mac_addr != null ? !mac_addr.equals(that.mac_addr) : that.mac_addr != null)
+                    return false;
+                if (server_location != null ? !server_location.equals(that.server_location) : that.server_location != null)
+                    return false;
+                if (menu_name != null ? !menu_name.equals(that.menu_name) : that.menu_name != null)
+                    return false;
+                return tv_num != null ? tv_num.equals(that.tv_num) : that.tv_num == null;
+            }
+
+            @Override
+            public int hashCode() {
+                int result = hotel_id != null ? hotel_id.hashCode() : 0;
+                result = 31 * result + (hotel_name != null ? hotel_name.hashCode() : 0);
+                result = 31 * result + (hotel_addr != null ? hotel_addr.hashCode() : 0);
+                result = 31 * result + (is_key != null ? is_key.hashCode() : 0);
+                result = 31 * result + (level != null ? level.hashCode() : 0);
+                result = 31 * result + (state_change_reason != null ? state_change_reason.hashCode() : 0);
+                result = 31 * result + (install_date != null ? install_date.hashCode() : 0);
+                result = 31 * result + (hotel_state != null ? hotel_state.hashCode() : 0);
+                result = 31 * result + (contractor != null ? contractor.hashCode() : 0);
+                result = 31 * result + (hotel_box_type != null ? hotel_box_type.hashCode() : 0);
+                result = 31 * result + (maintainer != null ? maintainer.hashCode() : 0);
+                result = 31 * result + (tel != null ? tel.hashCode() : 0);
+                result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
+                result = 31 * result + (remote_id != null ? remote_id.hashCode() : 0);
+                result = 31 * result + (tech_maintainer != null ? tech_maintainer.hashCode() : 0);
+                result = 31 * result + (hotel_wifi_pas != null ? hotel_wifi_pas.hashCode() : 0);
+                result = 31 * result + (hotel_wifi != null ? hotel_wifi.hashCode() : 0);
+                result = 31 * result + (gps != null ? gps.hashCode() : 0);
+                result = 31 * result + (area_name != null ? area_name.hashCode() : 0);
+                result = 31 * result + (mac_addr != null ? mac_addr.hashCode() : 0);
+                result = 31 * result + (server_location != null ? server_location.hashCode() : 0);
+                result = 31 * result + (menu_name != null ? menu_name.hashCode() : 0);
+                result = 31 * result + room_num;
+                result = 31 * result + box_num;
+                result = 31 * result + (tv_num != null ? tv_num.hashCode() : 0);
+                return result;
+            }
+
+            public String getHotel_id() {
+                return hotel_id;
+            }
+
+            public void setHotel_id(String hotel_id) {
+                this.hotel_id = hotel_id;
+            }
 
             public String getHotel_name() {
                 return hotel_name;
@@ -310,117 +433,6 @@ public class HotelMacInfo implements Serializable {
 
             public void setTv_num(String tv_num) {
                 this.tv_num = tv_num;
-            }
-
-            @Override
-            public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
-
-                HotelInfoBean that = (HotelInfoBean) o;
-
-                if (room_num != that.room_num) return false;
-                if (box_num != that.box_num) return false;
-                if (hotel_name != null ? !hotel_name.equals(that.hotel_name) : that.hotel_name != null)
-                    return false;
-                if (hotel_addr != null ? !hotel_addr.equals(that.hotel_addr) : that.hotel_addr != null)
-                    return false;
-                if (is_key != null ? !is_key.equals(that.is_key) : that.is_key != null)
-                    return false;
-                if (level != null ? !level.equals(that.level) : that.level != null) return false;
-                if (state_change_reason != null ? !state_change_reason.equals(that.state_change_reason) : that.state_change_reason != null)
-                    return false;
-                if (install_date != null ? !install_date.equals(that.install_date) : that.install_date != null)
-                    return false;
-                if (hotel_state != null ? !hotel_state.equals(that.hotel_state) : that.hotel_state != null)
-                    return false;
-                if (contractor != null ? !contractor.equals(that.contractor) : that.contractor != null)
-                    return false;
-                if (hotel_box_type != null ? !hotel_box_type.equals(that.hotel_box_type) : that.hotel_box_type != null)
-                    return false;
-                if (maintainer != null ? !maintainer.equals(that.maintainer) : that.maintainer != null)
-                    return false;
-                if (tel != null ? !tel.equals(that.tel) : that.tel != null) return false;
-                if (mobile != null ? !mobile.equals(that.mobile) : that.mobile != null)
-                    return false;
-                if (remote_id != null ? !remote_id.equals(that.remote_id) : that.remote_id != null)
-                    return false;
-                if (tech_maintainer != null ? !tech_maintainer.equals(that.tech_maintainer) : that.tech_maintainer != null)
-                    return false;
-                if (hotel_wifi_pas != null ? !hotel_wifi_pas.equals(that.hotel_wifi_pas) : that.hotel_wifi_pas != null)
-                    return false;
-                if (hotel_wifi != null ? !hotel_wifi.equals(that.hotel_wifi) : that.hotel_wifi != null)
-                    return false;
-                if (gps != null ? !gps.equals(that.gps) : that.gps != null) return false;
-                if (area_name != null ? !area_name.equals(that.area_name) : that.area_name != null)
-                    return false;
-                if (mac_addr != null ? !mac_addr.equals(that.mac_addr) : that.mac_addr != null)
-                    return false;
-                if (server_location != null ? !server_location.equals(that.server_location) : that.server_location != null)
-                    return false;
-                if (menu_name != null ? !menu_name.equals(that.menu_name) : that.menu_name != null)
-                    return false;
-                return tv_num != null ? tv_num.equals(that.tv_num) : that.tv_num == null;
-
-            }
-
-            @Override
-            public int hashCode() {
-                int result = hotel_name != null ? hotel_name.hashCode() : 0;
-                result = 31 * result + (hotel_addr != null ? hotel_addr.hashCode() : 0);
-                result = 31 * result + (is_key != null ? is_key.hashCode() : 0);
-                result = 31 * result + (level != null ? level.hashCode() : 0);
-                result = 31 * result + (state_change_reason != null ? state_change_reason.hashCode() : 0);
-                result = 31 * result + (install_date != null ? install_date.hashCode() : 0);
-                result = 31 * result + (hotel_state != null ? hotel_state.hashCode() : 0);
-                result = 31 * result + (contractor != null ? contractor.hashCode() : 0);
-                result = 31 * result + (hotel_box_type != null ? hotel_box_type.hashCode() : 0);
-                result = 31 * result + (maintainer != null ? maintainer.hashCode() : 0);
-                result = 31 * result + (tel != null ? tel.hashCode() : 0);
-                result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
-                result = 31 * result + (remote_id != null ? remote_id.hashCode() : 0);
-                result = 31 * result + (tech_maintainer != null ? tech_maintainer.hashCode() : 0);
-                result = 31 * result + (hotel_wifi_pas != null ? hotel_wifi_pas.hashCode() : 0);
-                result = 31 * result + (hotel_wifi != null ? hotel_wifi.hashCode() : 0);
-                result = 31 * result + (gps != null ? gps.hashCode() : 0);
-                result = 31 * result + (area_name != null ? area_name.hashCode() : 0);
-                result = 31 * result + (mac_addr != null ? mac_addr.hashCode() : 0);
-                result = 31 * result + (server_location != null ? server_location.hashCode() : 0);
-                result = 31 * result + (menu_name != null ? menu_name.hashCode() : 0);
-                result = 31 * result + room_num;
-                result = 31 * result + box_num;
-                result = 31 * result + (tv_num != null ? tv_num.hashCode() : 0);
-                return result;
-            }
-
-            @Override
-            public String toString() {
-                return "HotelInfoBean{" +
-                        "hotel_name='" + hotel_name + '\'' +
-                        ", hotel_addr='" + hotel_addr + '\'' +
-                        ", is_key='" + is_key + '\'' +
-                        ", level='" + level + '\'' +
-                        ", state_change_reason='" + state_change_reason + '\'' +
-                        ", install_date='" + install_date + '\'' +
-                        ", hotel_state='" + hotel_state + '\'' +
-                        ", contractor='" + contractor + '\'' +
-                        ", hotel_box_type='" + hotel_box_type + '\'' +
-                        ", maintainer='" + maintainer + '\'' +
-                        ", tel='" + tel + '\'' +
-                        ", mobile='" + mobile + '\'' +
-                        ", remote_id='" + remote_id + '\'' +
-                        ", tech_maintainer='" + tech_maintainer + '\'' +
-                        ", hotel_wifi_pas='" + hotel_wifi_pas + '\'' +
-                        ", hotel_wifi='" + hotel_wifi + '\'' +
-                        ", gps='" + gps + '\'' +
-                        ", area_name='" + area_name + '\'' +
-                        ", mac_addr='" + mac_addr + '\'' +
-                        ", server_location='" + server_location + '\'' +
-                        ", menu_name='" + menu_name + '\'' +
-                        ", room_num=" + room_num +
-                        ", box_num=" + box_num +
-                        ", tv_num='" + tv_num + '\'' +
-                        '}';
             }
         }
 
