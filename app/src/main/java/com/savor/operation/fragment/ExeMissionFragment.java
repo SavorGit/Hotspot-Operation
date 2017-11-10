@@ -35,7 +35,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
     private int category_id=0;
     private PullToRefreshListView pullToRefreshListView;
     private MissionAdapter missionAdapter=null;
-    private String state;
+    private int state;
     private List<MissionTaskListBean> listItems = new ArrayList<>();
     private int page = 1;
     private boolean isUp = true;
@@ -60,7 +60,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
         super.onViewCreated(view, savedInstanceState);
         context = getContext();
         Bundle argument = getArguments();
-        state = (String) argument.get("type");
+        state = argument.getInt("type");
         initViews(view);
         setViews();
 

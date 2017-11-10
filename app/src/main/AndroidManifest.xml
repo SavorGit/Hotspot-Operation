@@ -103,6 +103,10 @@
             android:name=".activity.AppointMissionListActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activity.ExeMissionListActivity"
+            android:screenOrientation="portrait" />
+
         <activity android:name=".activity.SystemStatusActivity"
             android:screenOrientation="portrait"
             />
