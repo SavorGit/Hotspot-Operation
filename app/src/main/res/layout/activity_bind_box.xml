@@ -1,9 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_app_bg"
     tools:context="com.savor.operation.activity.BindBoxActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include
+            layout="@layout/layout_head_title"
+            />
+        <ListView
+            android:listSelector="@android:color/transparent"
+            android:id="@+id/lv_bind_box"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <ProgressBar
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        android:id="@+id/pb_loading"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:indeterminateDrawable="@drawable/base_loading_large_anim"
+        android:indeterminateBehavior="repeat"/>
+</RelativeLayout>

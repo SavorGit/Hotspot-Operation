@@ -23,6 +23,8 @@ import com.common.api.utils.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.savor.operation.bean.BindBoxList;
+import com.savor.operation.bean.BindBoxListBean;
 import com.savor.operation.bean.BoxInfo;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.ErrorDetail;
@@ -294,6 +296,10 @@ public class ApiResponseFactory {
             case POST_EXE_TASK_LIST_JSON:
             case POST_PUB_TASK_LIST_JSON:
                 result = gson.fromJson(info, new TypeToken<List<MissionTaskListBean>>() {
+                }.getType());
+                break;
+            case POST_ROOM_BOX_JSON:
+                result = gson.fromJson(info, new TypeToken<BindBoxList>() {
                 }.getType());
                 break;
             default:
