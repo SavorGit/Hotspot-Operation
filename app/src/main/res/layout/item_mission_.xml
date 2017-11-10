@@ -2,11 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff">
     <RelativeLayout
         android:layout_alignParentTop="true"
         android:id="@+id/state_info_layout"
         android:layout_width="match_parent"
+        android:background="#ffffff"
         android:layout_height="45dp">
         <TextView
             android:layout_width="wrap_content"
@@ -50,24 +52,26 @@
         />
     <RelativeLayout
         android:layout_below="@id/line"
+        android:background="#ffffff"
         android:id="@+id/mission_info_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp">
         <TextView
             android:id="@+id/mold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="10dp"
-            android:textSize="28dp"
+            android:textSize="17dp"
             android:gravity="center"
             android:textColor="@color/white"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:background="@drawable/corner_remote_view"
             android:text="维"/>
         <TextView
@@ -86,9 +90,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/hotel_name"
+            android:layout_toRightOf="@id/mold"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="24dp"
             android:textSize="14dp"
             android:textColor="#888888"
             android:text=""/>
@@ -99,9 +104,10 @@
             android:layout_below="@id/release_execute_time"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/mold"
+            android:layout_marginLeft="24dp"
             android:textColor="#888888"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:text=""/>
         <TextView
             android:id="@+id/execute_time"
@@ -110,9 +116,10 @@
             android:layout_below="@id/release_time"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/mold"
+            android:layout_marginLeft="24dp"
             android:textColor="#888888"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:text=""/>
         <TextView
             android:id="@+id/complete_time"
@@ -122,8 +129,9 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:textColor="#888888"
-            android:layout_marginLeft="10dp"
-            android:textSize="16dp"
+            android:layout_toRightOf="@id/mold"
+            android:layout_marginLeft="24dp"
+            android:textSize="14dp"
             android:text=""/>
 
     </RelativeLayout>
