@@ -38,7 +38,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
     private int state;
     private List<MissionTaskListBean> listItems = new ArrayList<>();
     private int page = 1;
-    private boolean isUp = true;
+    private boolean isUp = false;
     @Override
     public String getFragmentName() {
         return TAG;
@@ -144,6 +144,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method){
             case POST_VIEW_TASK_LIST_JSON:
+                pullToRefreshListView.onRefreshComplete();
                 if (obj instanceof List<?>){
                     List<MissionTaskListBean> mlist = (List<MissionTaskListBean>) obj;
                     handleWealthData(mlist);
@@ -172,7 +173,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
             listItems.addAll(mList);
             missionAdapter.setData(listItems);
 
-            if (mList!=null && mList.size()<20) {
+            if (mList!=null && mList.size()<15) {
                 pullToRefreshListView.onLoadComplete(false,false);
             }else {
                 page++;
