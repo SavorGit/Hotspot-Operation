@@ -100,8 +100,12 @@
             android:name=".activity.MissionListActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.SystemStatusActivity" />
-        <activity android:name=".activity.BindBoxActivity"></activity>
+        <activity android:name=".activity.SystemStatusActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".activity.BindBoxActivity"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>
