@@ -96,9 +96,9 @@ public class MissionListActivity extends AppCompatActivity
     private void initIndicator() {
 
         mTitleList.add("全部");
-        mTitleList.add("");
-        mTitleList.add("生活");
-        mTitleList.add("专题");
+        mTitleList.add("待指派");
+        mTitleList.add("待处理");
+        mTitleList.add("已完成");
 
         mFragmentList.add(MissionFragment.getInstance(0));
         mFragmentList.add(MissionFragment.getInstance(1));
@@ -106,8 +106,8 @@ public class MissionListActivity extends AppCompatActivity
         mFragmentList.add(MissionFragment.getInstance(3));
 
 
-        Bundle bundle = new Bundle();
-        bundle.putString("title", "专题");
+//        Bundle bundle = new Bundle();
+//        bundle.putString("title", "专题");
         mPagerAdapter = new CategoryPagerAdapter(getSupportFragmentManager());
         mPagerAdapter.setData(mFragmentList,mTitleList);
         mViewPager.setAdapter(mPagerAdapter);
