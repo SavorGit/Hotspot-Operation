@@ -112,7 +112,7 @@ public class MissionListActivity extends AppCompatActivity
         mPagerAdapter.setData(mFragmentList,mTitleList);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setViewPager(mViewPager);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(4);
     }
 
     private void setListeners(){
@@ -135,7 +135,7 @@ public class MissionListActivity extends AppCompatActivity
                 }
 
                 Fragment fragment = mFragmentList.get(position);
-                mShareBtn.setVisibility(View.GONE);
+               // mShareBtn.setVisibility(View.GONE);
 
             }
 

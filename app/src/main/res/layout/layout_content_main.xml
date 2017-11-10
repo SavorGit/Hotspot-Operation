@@ -13,7 +13,7 @@
     <RelativeLayout
         android:id="@+id/rl_indicator"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
+        android:layout_height="45dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:gravity="center">
