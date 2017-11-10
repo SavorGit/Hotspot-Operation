@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.savor.operation.R;
 import com.savor.operation.activity.BindBoxActivity;
+import com.savor.operation.activity.MissionListActivity;
 import com.savor.operation.activity.PublishTaskActivity;
 import com.savor.operation.activity.SavorMainActivity;
 import com.savor.operation.activity.SearchActivity;
@@ -69,6 +70,8 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                         mContext.startActivity(intent);
                         break;
                     case TASK_LIST:
+                        intent = new Intent(mContext, MissionListActivity.class);
+                        mContext.startActivity(intent);
                         break;
                     case SYSTEM_STATUS:
                         intent = new Intent(mContext, SystemStatusActivity.class);

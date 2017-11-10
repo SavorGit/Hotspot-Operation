@@ -122,7 +122,7 @@ public class PubMissionFragment extends BaseFragment implements ApiRequestListen
     }
 
     private void getData(){
-        AppApi.getviewTaskList(context,page,state,mSession.getLoginResponse().getUserid(),this);
+        AppApi.getPubTaskList(context,page,state,mSession.getLoginResponse().getUserid(),this);
     }
 
     @Override
