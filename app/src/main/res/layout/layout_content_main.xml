@@ -10,11 +10,15 @@
     tools:context="com.savor.operation.activity.MissionListActivity"
     tools:showIn="@layout/app_bar_hotspot_main">
 
+    <include
+        android:id="@+id/top"
+        layout="@layout/layout_head_title"/>
+    />
     <RelativeLayout
         android:id="@+id/rl_indicator"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/top"
         android:layout_centerHorizontal="true"
         android:gravity="center">
         <ImageView

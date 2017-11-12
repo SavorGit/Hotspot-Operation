@@ -47,7 +47,8 @@ public class MissionListActivity extends AppCompatActivity
     private CoordinatorLayout mParentLayout;
     private TextView mCategoryNameLabel;
     private CategoryPagerAdapter mPagerAdapter;
-
+    private TextView tv_center;
+    private ImageView iv_left;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +63,11 @@ public class MissionListActivity extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.iv_left:
+                finish();
+                break;
+        }
     }
 
 
@@ -73,13 +78,15 @@ public class MissionListActivity extends AppCompatActivity
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mTabLayout = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.pager);
-
+        iv_left = (ImageView) findViewById(R.id.iv_left);
+        tv_center = (TextView) findViewById(R.id.tv_center);
         mParentLayout = (CoordinatorLayout) findViewById(R.id.parent_layout);
         mCategoryNameLabel = (TextView) findViewById(R.id.tv_category_name);
 
     }
 
     public void setViews() {
+        tv_center.setText("任务详情");
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         mActionBarDrawerToggle = new ActionBarDrawerToggle(
@@ -116,6 +123,7 @@ public class MissionListActivity extends AppCompatActivity
     }
 
     private void setListeners(){
+        iv_left.setOnClickListener(this);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

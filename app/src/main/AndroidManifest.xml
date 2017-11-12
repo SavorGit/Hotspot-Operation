@@ -119,6 +119,11 @@
         <activity android:name=".activity.TaskDetailActivity"
             android:screenOrientation="portrait"
             ></activity>
+        <activity android:name=".activity.ExeTaskDetailActivity"
+            android:screenOrientation="portrait"
+            ></activity>
+
+
 
     </application>
 
