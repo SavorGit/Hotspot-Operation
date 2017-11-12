@@ -4,8 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
+    <include
+        android:id="@+id/top"
+        layout="@layout/layout_head_title"/>
+    />
     <RelativeLayout
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/top"
         android:id="@+id/state_info_layout"
         android:layout_width="match_parent"
         android:background="#ffffff"
