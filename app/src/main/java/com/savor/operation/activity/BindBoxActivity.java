@@ -31,6 +31,10 @@ import com.savor.operation.utils.WifiUtil;
 
 import java.util.List;
 
+/**
+ * 绑定版位
+ * @author hezd
+ */
 public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPReceivedListener, View.OnClickListener, BindBoxAdapter.OnBindBtnClickListener {
 
     private static final int MSG_CHECK_SSDP = 100;
@@ -151,6 +155,7 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
     @Override
     protected void onStart() {
         super.onStart();
+        reset();
         registerNetWorkReceiver();
         if(!WifiUtil.checkWifiState(this)) {
             ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
