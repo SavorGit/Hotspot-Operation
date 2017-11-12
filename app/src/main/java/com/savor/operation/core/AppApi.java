@@ -79,6 +79,8 @@ public class AppApi {
         POST_ROOM_BOX_JSON,
         /**绑定机顶盒*/
         POST_BIND_BOX_JSON,
+        /**任务详情*/
+        POST_TASK_DETAIL_JSON,
     }
 
     /**
@@ -113,6 +115,8 @@ public class AppApi {
             put(Action.POST_PUB_TASK_LIST_JSON, formatPhpUrl("Opclient11/task/pubTaskList"));
             put(Action.POST_ROOM_BOX_JSON, formatPhpUrl("Opclient11/Bindbox/getBoxList"));
             put(Action.POST_BIND_BOX_JSON, formatPhpUrl("Opclient11/Bindbox/bindBox"));
+            put(Action.POST_TASK_DETAIL_JSON, formatPhpUrl("Opclient11/task/taskDetail"));
+
         }
     };
 
@@ -420,6 +424,18 @@ public class AppApi {
         params.put("new_mac",new_mac);
         new AppServiceOk(context, Action.POST_BIND_BOX_JSON, handler, params).post();
     }
+
+    /**
+     * 任务详情
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void taskDetail(Context context, String task_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("task_id",task_id);
+        new AppServiceOk(context, Action.POST_TASK_DETAIL_JSON, handler, params).post();
+    }
+
 
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";

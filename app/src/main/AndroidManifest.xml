@@ -116,6 +116,10 @@
         <activity android:name=".activity.BindBoxActivity"
             android:screenOrientation="portrait"
             ></activity>
+        <activity android:name=".activity.TaskDetailActivity"
+            android:screenOrientation="portrait"
+            ></activity>
+
     </application>
 
 </manifest>
