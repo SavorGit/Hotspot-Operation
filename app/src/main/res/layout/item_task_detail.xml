@@ -14,7 +14,7 @@
         android:layout_marginLeft="12dp"
         android:textSize="15sp"
         android:textColor="#333333"
-        android:text="版位名称：V001"
+        android:text=""
         />
     <TextView
         android:id="@+id/desc"
@@ -26,7 +26,7 @@
         android:layout_marginLeft="12dp"
         android:textSize="15sp"
         android:textColor="#333333"
-        android:text="故障现象：HDMI损坏"
+        android:text=""
         />
     <TextView
         android:id="@+id/imge_la"
@@ -45,9 +45,10 @@
         android:layout_width="150dp"
         android:layout_height="85dp"
         android:layout_below="@id/desc"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="22dp"
         android:layout_toRightOf="@id/imge_la"
         android:layout_marginLeft="10dp"
+        android:scaleType="fitXY"
         android:layout_marginBottom="25dp"/>
 
 

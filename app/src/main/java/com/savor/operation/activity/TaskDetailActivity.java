@@ -5,12 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
+import com.savor.operation.adapter.RepairAdapter;
 import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.bean.TaskDetail;
+import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 
@@ -26,16 +29,20 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     private Context context;
     private PullToRefreshListView mPullRefreshListView;
     private String id;
-    public TextView plan_state;
-    public TextView level_state;
-    public TextView screen_num;
-    public TextView mold;
-    public TextView hotel_name;
-    public TextView release_execute_time;
-    public TextView release_time;
-    public TextView execute_time;
-    public TextView complete_time;
+    private TextView plan_state;
+    private TextView level_state;
+    private TextView screen_num;
+    private TextView mold;
+    private TextView hotel_name;
+    private TextView add;
+    private TextView release_time;
+    private TextView execute_time;
+    private TextView complete_time;
+    private TextView contact;
+    private TextView tv_center;
+    private ImageView iv_left;
     private TaskDetail taskDetail;
+    private RepairAdapter repairAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,25 +69,33 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         screen_num = (TextView) findViewById(R.id.screen_num);
         mold = (TextView) findViewById(R.id.mold);
         hotel_name = (TextView) findViewById(R.id.hotel_name);
-        release_execute_time = (TextView) findViewById(R.id.release_execute_time);
+        add = (TextView) findViewById(R.id.add);
         release_time = (TextView) findViewById(R.id.release_time);
         execute_time = (TextView) findViewById(R.id.execute_time);
         complete_time = (TextView) findViewById(R.id.complete_time);
+        contact = (TextView) findViewById(R.id.contact);
         mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.wl_listview);
+        iv_left = (ImageView) findViewById(R.id.iv_left);
+        tv_center = (TextView) findViewById(R.id.tv_center);
     }
 
     @Override
     public void setViews() {
-
+        tv_center.setText("任务详情");
     }
 
     @Override
     public void setListeners() {
+        iv_left.setOnClickListener(this);
 
     }
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.iv_left:
+                finish();
+                break;
+        }
     }
 
     private void getData(){
@@ -116,16 +131,17 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
             screen_num.setText("版位数量 ："+taskDetail.getTv_nums());
             mold.setText(taskDetail.getTask_type_desc());
             hotel_name.setText(taskDetail.getHotel_name());
+            add.setText(taskDetail.getHotel_address());
 //            String appoint_exe_time = taskDetail.getAppoint_exe_time();
 //            if (!TextUtils.isEmpty(appoint_exe_time)) {
 //                release_execute_time.setVisibility(View.VISIBLE);
 //                release_execute_time.setText("执行指派时间:"+appoint_exe_time+"("+taskDetail.getExeuser()+")");
 //            }else {
-                release_execute_time.setVisibility(View.GONE);
-                release_execute_time.setText("");
+//                release_execute_time.setVisibility(View.GONE);
+//                release_execute_time.setText("");
  //           }
 
-
+            contact.setText("联系人："+taskDetail.getHotel_linkman());
             String create_time = taskDetail.getCreate_time();
             if (!TextUtils.isEmpty(create_time)) {
                 release_time.setVisibility(View.VISIBLE);
@@ -152,6 +168,16 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 complete_time.setVisibility(View.GONE);
                 complete_time.setText("");
             }
+
+            List<TaskDetailRepair> repair_list = taskDetail.getRepair_list();
+            if (repair_list != null && repair_list.size()>0) {
+                screen_num.setText("版位数量 ："+repair_list.size());
+                repairAdapter = new RepairAdapter(context);
+                mPullRefreshListView.setAdapter(repairAdapter);
+                repairAdapter.setData(repair_list);
+                mPullRefreshListView.onLoadComplete(false,false);
+            }
+
         }
 
     }

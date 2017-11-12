@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="#f5f5f5">
     <include
         android:id="@+id/top"
         layout="@layout/layout_head_title"/>
@@ -89,7 +89,7 @@
             android:textSize="16dp"
             android:text="酒楼名称"/>
         <TextView
-            android:id="@+id/release_execute_time"
+            android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/hotel_name"
@@ -104,7 +104,7 @@
             android:id="@+id/release_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/release_execute_time"
+            android:layout_below="@id/add"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/mold"
@@ -150,6 +150,7 @@
         android:id="@+id/contact_la"
         android:layout_below="@id/line2"
         android:layout_width="match_parent"
+        android:background="#ffffff"
         android:layout_height="50dp">
         <TextView
             android:id="@+id/contact"
