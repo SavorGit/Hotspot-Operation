@@ -46,6 +46,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         getViews();
         setViews();
         setListeners();
+        getData();
     }
 
     private void handleIntent() {
@@ -82,10 +83,13 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
 
     }
 
+    private void getData(){
+        AppApi.taskDetail(context,id,this);
+    }
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method){
-            case POST_VIEW_TASK_LIST_JSON:
+            case POST_TASK_DETAIL_JSON:
                 mPullRefreshListView.onRefreshComplete();
                 if (obj instanceof TaskDetail){
                     taskDetail = (TaskDetail)obj;
@@ -143,7 +147,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
             String complete_timeStr = taskDetail.getComplete_time();
             if (!TextUtils.isEmpty(complete_timeStr)) {
                 complete_time.setVisibility(View.VISIBLE);
-                complete_time.setText("完成时间"+complete_time+"("+taskDetail.getExeuser()+")");
+                complete_time.setText("完成时间"+complete_timeStr+"("+taskDetail.getExeuser()+")");
             }else {
                 complete_time.setVisibility(View.GONE);
                 complete_time.setText("");

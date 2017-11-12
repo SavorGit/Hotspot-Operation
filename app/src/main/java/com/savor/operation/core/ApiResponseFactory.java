@@ -37,6 +37,7 @@ import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.Task;
+import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskNum;
 import com.savor.operation.bean.TaskListBean;
 import com.savor.operation.bean.UserBean;
@@ -304,6 +305,10 @@ public class ApiResponseFactory {
                 break;
             case POST_BIND_BOX_JSON:
                 result = info;
+                break;
+            case POST_TASK_DETAIL_JSON:
+                result = gson.fromJson(info, new TypeToken<TaskDetail>() {
+                }.getType());
                 break;
             default:
                 break;
