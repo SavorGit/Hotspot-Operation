@@ -310,6 +310,10 @@ public class ApiResponseFactory {
                 result = gson.fromJson(info, new TypeToken<TaskDetail>() {
                 }.getType());
                 break;
+            case POST_REFUSE_TASK_JSON:
+                result = "success";
+                break;
+
             default:
                 break;
         }

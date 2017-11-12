@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
 import com.savor.operation.adapter.RepairAdapter;
@@ -16,6 +18,10 @@ import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.core.ResponseErrorMessage;
+import com.savor.operation.interfaces.RefuseCallBack;
+import com.savor.operation.widget.RefuseDialog;
+import com.savor.operation.widget.UpgradeDialog;
 
 import java.util.List;
 
@@ -24,7 +30,7 @@ import java.util.List;
  * Created by bushlee on 2017/11/12.
  */
 
-public class TaskDetailActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener {
+public class TaskDetailActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener,RefuseCallBack {
 
     private Context context;
     private PullToRefreshListView mPullRefreshListView;
@@ -43,6 +49,10 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     private ImageView iv_left;
     private TaskDetail taskDetail;
     private RepairAdapter repairAdapter;
+    private RefuseDialog refuseDialog;
+    private RelativeLayout btn_la;
+    private TextView refused;
+    private TextView assign;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +87,9 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.wl_listview);
         iv_left = (ImageView) findViewById(R.id.iv_left);
         tv_center = (TextView) findViewById(R.id.tv_center);
+        btn_la = (RelativeLayout) findViewById(R.id.btn_la);;
+        refused = (TextView) findViewById(R.id.refused);
+        assign = (TextView) findViewById(R.id.assign);
     }
 
     @Override
@@ -87,6 +100,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     public void setListeners() {
         iv_left.setOnClickListener(this);
+        refused.setOnClickListener(this);
 
     }
     @Override
@@ -94,6 +108,9 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.iv_left:
                 finish();
+                break;
+            case R.id.refused:
+                initRefuse();
                 break;
         }
     }
@@ -110,13 +127,32 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                     taskDetail = (TaskDetail)obj;
                     initView();
                 }
-
-
+                break;
+            case POST_REFUSE_TASK_JSON:
+                if (refuseDialog != null) {
+                    refuseDialog.dismiss();
+                }
                 break;
         }
 
     }
 
+    @Override
+    public void onError(AppApi.Action method, Object obj) {
+        if (obj instanceof ResponseErrorMessage){
+            ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
+            String statusCode = String.valueOf(errorMessage.getCode());
+            ShowMessage.showToast(context,errorMessage.getMessage());
+        }
+        switch (method){
+            case POST_REFUSE_TASK_JSON:
+                if (refuseDialog != null) {
+                    refuseDialog.dismiss();
+                }
+
+                break;
+        }
+    }
     private void initView(){
         if (taskDetail != null){
            plan_state.setText(taskDetail.getState()+"("+taskDetail.getRegion_name()+")");
@@ -180,5 +216,17 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
 
         }
 
+    }
+
+    private void initRefuse(){
+        refuseDialog = new RefuseDialog(
+                mContext,
+                this
+        );
+        refuseDialog.show();
+    }
+    @Override
+    public void toRefuse(String info) {
+        AppApi.refuseTask(context,info,mSession.getLoginResponse().getUserid(),id,this);
     }
 }

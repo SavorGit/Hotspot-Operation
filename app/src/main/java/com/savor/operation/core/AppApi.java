@@ -81,6 +81,8 @@ public class AppApi {
         POST_BIND_BOX_JSON,
         /**任务详情*/
         POST_TASK_DETAIL_JSON,
+        /**拒绝任务*/
+        POST_REFUSE_TASK_JSON,
     }
 
     /**
@@ -116,6 +118,8 @@ public class AppApi {
             put(Action.POST_ROOM_BOX_JSON, formatPhpUrl("Opclient11/Bindbox/getBoxList"));
             put(Action.POST_BIND_BOX_JSON, formatPhpUrl("Opclient11/Bindbox/bindBox"));
             put(Action.POST_TASK_DETAIL_JSON, formatPhpUrl("Opclient11/task/taskDetail"));
+            put(Action.POST_REFUSE_TASK_JSON, formatPhpUrl("Opclient11/task/refuseTask"));
+
 
         }
     };
@@ -436,6 +440,19 @@ public class AppApi {
         new AppServiceOk(context, Action.POST_TASK_DETAIL_JSON, handler, params).post();
     }
 
+
+    /**
+     * 拒绝任务
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void refuseTask(Context context, String refuse_desc ,String task_id,String user_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("refuse_desc",refuse_desc);
+        params.put("task_id",task_id);
+        params.put("user_id",user_id);
+        new AppServiceOk(context, Action.POST_REFUSE_TASK_JSON, handler, params).post();
+    }
 
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";
