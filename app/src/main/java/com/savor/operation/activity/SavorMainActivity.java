@@ -452,4 +452,9 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         // notif.defaults = Notification.DEFAULT_ALL;
         manager.notify(NOTIFY_DOWNLOAD_FILE, notif);
     }
+
+    @Override
+    public void onError(AppApi.Action method, Object obj) {
+        
+    }
 }
