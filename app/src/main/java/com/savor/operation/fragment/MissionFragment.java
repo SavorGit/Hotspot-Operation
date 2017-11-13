@@ -19,6 +19,7 @@ import com.common.api.widget.pulltorefresh.library.PullToRefreshBase.OnLastItemV
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
+import com.savor.operation.activity.SeekTaskDetailActivity;
 import com.savor.operation.activity.TaskDetailActivity;
 import com.savor.operation.adapter.MissionAdapter;
 import com.savor.operation.bean.MissionTaskListBean;
@@ -88,7 +89,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             MissionTaskListBean item = (MissionTaskListBean)parent.getItemAtPosition(position);
-            Intent intent = new Intent(context, TaskDetailActivity.class);
+            Intent intent = new Intent(context, SeekTaskDetailActivity.class);
             intent.putExtra("id",item.getId());
             startActivity(intent);
 
