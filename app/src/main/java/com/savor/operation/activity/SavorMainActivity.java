@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.TimePickerView;
 import com.common.api.http.callback.FileDownProgress;
 import com.common.api.utils.AppUtils;
 import com.common.api.utils.DensityUtil;
@@ -41,7 +42,10 @@ import com.savor.operation.widget.decoration.SpacesItemDecoration;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -117,7 +121,23 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         setViews();
         setListeners();
         upgrade();
+        testDatePicker();
+    }
 
+    private void testDatePicker() {
+        TimePickerView timePickerView = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                String time = getTime(date);
+                ShowMessage.showToast(SavorMainActivity.this,time);
+            }
+        }).setType(new boolean[]{true, true, true, false, false, false}).isCenterLabel(false).build();
+        timePickerView.show();
+    }
+
+    private String getTime(Date date) {//可根据需要自行截取数据显示
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        return format.format(date);
     }
 
     private void getData() {
