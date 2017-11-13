@@ -455,6 +455,6 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
-        
+
     }
 }
