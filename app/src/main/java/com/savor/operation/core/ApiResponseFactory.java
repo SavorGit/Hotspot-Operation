@@ -29,6 +29,7 @@ import com.savor.operation.bean.BoxInfo;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.ErrorDetail;
 import com.savor.operation.bean.ErrorReport;
+import com.savor.operation.bean.ExecutorInfo;
 import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.HotelListResponse;
 import com.savor.operation.bean.HotelMacInfo;
@@ -313,6 +314,11 @@ public class ApiResponseFactory {
             case POST_REFUSE_TASK_JSON:
                 result = "success";
                 break;
+            case POST_EXE_INFO_JSON:
+                result = gson.fromJson(info, new TypeToken<ExecutorInfo>() {
+                }.getType());
+                break;
+
 
             default:
                 break;

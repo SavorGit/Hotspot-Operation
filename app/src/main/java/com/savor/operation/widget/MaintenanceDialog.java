@@ -36,7 +36,7 @@ import static com.savor.operation.adapter.FixTaskListAdapter.TAKE_PHOTO_REQUEST;
 
 /**
  * 自定义AlertDialog
- * Created by luminita on 16/11/21.
+ * Created by bushlee on 16/11/21.
  */
 public class MaintenanceDialog implements OnClickListener {
     private Context context;

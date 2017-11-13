@@ -83,6 +83,9 @@ public class AppApi {
         POST_TASK_DETAIL_JSON,
         /**拒绝任务*/
         POST_REFUSE_TASK_JSON,
+        /**获取执行者按钮点击信息*/
+        POST_EXE_INFO_JSON,
+
     }
 
     /**
@@ -119,6 +122,7 @@ public class AppApi {
             put(Action.POST_BIND_BOX_JSON, formatPhpUrl("Opclient11/Bindbox/bindBox"));
             put(Action.POST_TASK_DETAIL_JSON, formatPhpUrl("Opclient11/task/taskDetail"));
             put(Action.POST_REFUSE_TASK_JSON, formatPhpUrl("Opclient11/task/refuseTask"));
+            put(Action.POST_EXE_INFO_JSON, formatPhpUrl("Opclient11/Mission/getexecutorInfo"));
 
 
         }
@@ -452,6 +456,19 @@ public class AppApi {
         params.put("task_id",task_id);
         params.put("user_id",user_id);
         new AppServiceOk(context, Action.POST_REFUSE_TASK_JSON, handler, params).post();
+    }
+
+    /**
+     * 获取执行者按钮点击信息
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getExecutorInfo(Context context, String task_type ,String task_id,String user_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("task_type",task_type);
+        params.put("task_id",task_id);
+        params.put("user_id",user_id);
+        new AppServiceOk(context, Action.POST_EXE_INFO_JSON, handler, params).post();
     }
 
     // 超时（网络）异常
