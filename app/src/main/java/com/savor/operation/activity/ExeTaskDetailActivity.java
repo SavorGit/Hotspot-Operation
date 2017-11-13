@@ -27,6 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import com.savor.operation.R;
 import com.savor.operation.adapter.RepairAdapter;
 import com.savor.operation.bean.BaseBoxInfo;
+import com.savor.operation.bean.DetectBean;
 import com.savor.operation.bean.ExecutorInfo;
 import com.savor.operation.bean.ExecutorInfoBean;
 import com.savor.operation.bean.Hotel;
@@ -40,6 +41,7 @@ import com.savor.operation.interfaces.MaintenanceCallBack;
 import com.savor.operation.interfaces.RefuseCallBack;
 import com.savor.operation.utils.ConstantValues;
 import com.savor.operation.utils.OSSClientUtil;
+import com.savor.operation.widget.DetectDialog;
 import com.savor.operation.widget.MaintenanceDialog;
 import com.savor.operation.widget.RefuseDialog;
 
@@ -84,6 +86,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private ExecutorInfo executorInfo;
     private List<ExecutorInfoBean> elist;
     private MaintenanceDialog maintenanceDialog;
+    private DetectDialog detectDialog;
     //private String  urls ="";
     private String box_id;
     private String state;
@@ -147,8 +150,18 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.assign:
+                if ("1".equals(task_type_id)) {//信息检测
+                    detect();
+                }else if ("2".equals(task_type_id)){//安装验收
+
+                }else if ("4".equals(task_type_id)) {//维修
+                    maintenance();
+                }else if ("8".equals(task_type_id)) {//网络改造
+
+
+                }
                 //initRefuse();
-                maintenance();
+
                 break;
         }
     }
@@ -285,6 +298,17 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         maintenanceDialog.show();
     }
 
+    private void detect(){
+        detectDialog = new DetectDialog(
+                mContext,
+                taskDetail.getHotel_id(),
+                ExeTaskDetailActivity.this,
+                this
+        );
+        maintenanceDialog.show();
+    }
+
+
     @Override
     public void toMaintenance(String box,String re,String st, List<String> urlss) {
         urls.clear();
@@ -301,14 +325,21 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         AppApi.reportMission(context, box_id ,remark, repair_info,state
                 ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
     }
+    private void detectPublish( List<DetectBean> des) {
+        Gson gson = new Gson();
+        String  repair_info = gson.toJson(des, new TypeToken<List<DetectBean>>() {
+        }.getType());
+        AppApi.reportMission(context, "" ,"", repair_info,""
+                ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
+    }
     @Override
     public void toInstallation() {
 
     }
 
     @Override
-    public void toTransform() {
-
+    public void toTransform(List<DetectBean> urls) {
+        hotelUploadPic(urls , 0);
     }
 
     @Override
@@ -320,7 +351,17 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
          if (requestCode == TAKE_PHOTO_REQUEST && resultCode == Activity.RESULT_OK) {
-             maintenanceDialog.updataPhotoPath();
+             if ("1".equals(task_type_id)) {//信息检测
+
+             }else if ("2".equals(task_type_id)){//安装验收
+
+             }else if ("4".equals(task_type_id)) {//维修
+                 maintenanceDialog.updataPhotoPath();
+             }else if ("8".equals(task_type_id)) {//网络改造
+                 detectDialog.updataPhotoPath();
+
+             }
+
         }else if (requestCode == REQUEST_CODE_IMAGE&&resultCode == Activity.RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
             String[] filePathColumns = {MediaStore.Images.Media.DATA};
@@ -328,8 +369,16 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             c.moveToFirst();
             int columnIndex = c.getColumnIndex(filePathColumns[0]);
             String imagePath = c.getString(columnIndex);
+             if ("1".equals(task_type_id)) {//信息检测
 
-             maintenanceDialog.updateImagePath(imagePath);
+             }else if ("2".equals(task_type_id)){//安装验收
+
+             }else if ("4".equals(task_type_id)) {//维修
+                 maintenanceDialog.updateImagePath(imagePath);
+             }else if ("8".equals(task_type_id)) {//网络改造
+                 detectDialog.updateImagePath(imagePath);
+             }
+
         }
 
     }
@@ -378,6 +427,61 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                                 @Override
                                 public void run() {
                                     publish();
+                                }
+                            });
+                        }
+                    }
+                });
+
+            }catch (Exception e) {}
+        }
+    }
+
+    private void hotelUploadPic(final List<DetectBean> des , final int startPos) {
+        final DetectBean detectBean = des.get(startPos);
+        if(!TextUtils.isEmpty(detectBean.getImg())) {
+            final OSSClient ossClient = OSSClientUtil.getInstance().getOSSClient(this);
+            String imagePath = detectBean.getImg();
+            File file = new File(imagePath);
+            Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            String dateStr = simpleDateFormat.format(date);
+            final String objectKey = "log/resource/operation/mobile/hotel/"+dateStr+"/"+file.getName();
+            // 构造上传请求
+            PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
+            try {
+                ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+                    @Override
+                    public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
+                        String imageUrl = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
+                        //urls.add(imageUrl);
+                        detectBean.setImg(imageUrl);
+                        // urls = urls+imageUrl+",";
+                        //repairInfo.setFault_img_url(imageUrl);
+
+                        int nextPos = startPos+1;
+                        if(nextPos<des.size()) {
+                            hotelUploadPic(des,nextPos);
+                        }else {
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    detectPublish(des);
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
+                        int nextPos = startPos+1;
+                        if(nextPos<des.size()) {
+                            hotelUploadPic(des,nextPos);
+                        }else {
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    detectPublish(des);
                                 }
                             });
                         }

@@ -1,5 +1,7 @@
 package com.savor.operation.interfaces;
 
+import com.savor.operation.bean.DetectBean;
+
 import java.util.List;
 
 /**
@@ -20,7 +22,7 @@ public interface MaintenanceCallBack {
     /**
      * 提交改造任务
      */
-    void toTransform();
+    void toTransform(List<DetectBean> urls);
     /**
      * 提交检测任务
      */
