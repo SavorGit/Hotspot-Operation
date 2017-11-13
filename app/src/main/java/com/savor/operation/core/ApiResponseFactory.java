@@ -29,6 +29,7 @@ import com.savor.operation.bean.BoxInfo;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.ErrorDetail;
 import com.savor.operation.bean.ErrorReport;
+import com.savor.operation.bean.ExeUserList;
 import com.savor.operation.bean.ExecutorInfo;
 import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.HotelListResponse;
@@ -321,6 +322,14 @@ public class ApiResponseFactory {
             case POST_REPORT_MISSION_JSON:
                 result = "success";
                 break;
+            case POST_EXE_USER_LIST_JSON:
+                result = gson.fromJson(info, new TypeToken<List<ExeUserList>>() {
+                }.getType());
+                break;
+            case POST_APPOIN_TASK_JSON:
+                result = "success";
+                break;
+
 
             default:
                 break;

@@ -89,6 +89,8 @@ public class AppApi {
         POST_REPORT_MISSION_JSON,
         /**获取任务的执行者列表*/
         POST_EXE_USER_LIST_JSON,
+        /**指派任务*/
+        POST_APPOIN_TASK_JSON,
 
 
     }
@@ -130,6 +132,7 @@ public class AppApi {
             put(Action.POST_EXE_INFO_JSON, formatPhpUrl("Opclient11/Mission/getexecutorInfo"));
             put(Action.POST_REPORT_MISSION_JSON, formatPhpUrl("Opclient11/Mission/reportMission"));
             put(Action.POST_EXE_USER_LIST_JSON, formatPhpUrl("Opclient11/Task/getExeUserList"));
+            put(Action.POST_APPOIN_TASK_JSON, formatPhpUrl("Opclient11/Task/appointTask"));
 
 
 
@@ -509,6 +512,23 @@ public class AppApi {
         params.put("task_id",task_id);
         new AppServiceOk(context, Action.POST_EXE_USER_LIST_JSON, handler, params).post();
     }
+
+    /**
+     * 指派任务
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void appointTask(Context context, String appoint_exe_time ,String appoint_user_id,String exe_user_id,String task_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("appoint_exe_time",appoint_exe_time);
+        params.put("appoint_user_id",appoint_user_id);
+        params.put("exe_user_id",exe_user_id);
+        params.put("task_id",task_id);
+        new AppServiceOk(context, Action.POST_APPOIN_TASK_JSON, handler, params).post();
+    }
+
+
+
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";
     // 业务异常
