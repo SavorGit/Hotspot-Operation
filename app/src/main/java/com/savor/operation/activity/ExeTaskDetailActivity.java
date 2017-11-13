@@ -13,12 +13,15 @@ import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
 import com.savor.operation.adapter.RepairAdapter;
+import com.savor.operation.bean.ExecutorInfo;
+import com.savor.operation.bean.ExecutorInfoBean;
 import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.interfaces.RefuseCallBack;
+import com.savor.operation.widget.MaintenanceDialog;
 import com.savor.operation.widget.RefuseDialog;
 
 import java.util.List;
@@ -51,6 +54,10 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private RelativeLayout btn_la;
     private TextView assign;
     private List<TaskDetailRepair> repair_list;
+    private String task_type_id;
+    private ExecutorInfo executorInfo;
+    private List<ExecutorInfoBean> elist;
+    private MaintenanceDialog maintenanceDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,12 +116,16 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.assign:
                 //initRefuse();
+                maintenance();
                 break;
         }
     }
 
     private void getData(){
         AppApi.taskDetail(context,id,this);
+    }
+    private void getExecutorInfo(){
+        AppApi.getExecutorInfo(context,task_type_id,id,mSession.getLoginResponse().getUserid(),this);
     }
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
@@ -124,6 +135,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 if (obj instanceof TaskDetail){
                     taskDetail = (TaskDetail)obj;
                     initView();
+                    getExecutorInfo();
                 }
                 break;
             case POST_REFUSE_TASK_JSON:
@@ -131,6 +143,16 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                     refuseDialog.dismiss();
                 }
                 break;
+            case POST_EXE_INFO_JSON:
+                if (obj instanceof ExecutorInfo){
+                    executorInfo = (ExecutorInfo)obj;
+                    if (executorInfo != null) {
+                        elist = executorInfo.getList();
+                    }
+                }
+
+                break;
+
         }
 
     }
@@ -153,7 +175,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
     private void initView(){
         if (taskDetail != null){
-           plan_state.setText(taskDetail.getState()+"("+taskDetail.getRegion_name()+")");
+            task_type_id = taskDetail.getTask_type_id();
+            plan_state.setText(taskDetail.getState()+"("+taskDetail.getRegion_name()+")");
             String task_emerge_id = taskDetail.getTask_emerge_id();
             if ("2".equals(task_emerge_id)) {
                 level_state.setVisibility(View.VISIBLE);
@@ -216,5 +239,14 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
     }
 
+    private void maintenance(){
+        maintenanceDialog = new MaintenanceDialog(
+                mContext,
+                elist,
+                ExeTaskDetailActivity.this
+
+        );
+        refuseDialog.show();
+    }
 
 }

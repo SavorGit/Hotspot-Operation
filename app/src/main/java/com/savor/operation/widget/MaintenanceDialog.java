@@ -24,6 +24,9 @@ import android.widget.TextView;
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.SavorApplication;
+import com.savor.operation.adapter.ExeSpinnerAdapter;
+import com.savor.operation.adapter.SpinnerAdapter;
+import com.savor.operation.bean.ExecutorInfoBean;
 import com.savor.operation.bean.RepairInfo;
 import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.interfaces.RefuseCallBack;
@@ -64,6 +67,8 @@ public class MaintenanceDialog implements OnClickListener {
     private int currentTakePhonePos;
     private String currentImagePath;
     private Activity activity;
+    private List<ExecutorInfoBean> elist;
+    private ExeSpinnerAdapter spinnerAdapter;
 
     public MaintenanceDialog(Context context) {
         this.context = context;
@@ -80,6 +85,14 @@ public class MaintenanceDialog implements OnClickListener {
         builder();
     }
 
+    public MaintenanceDialog(Context context, List<ExecutorInfoBean> elist , Activity activity){
+        this.context = context;
+        mInflater = LayoutInflater.from(context);
+        this.callBack = callBack;
+        this.elist = elist;
+        this.activity = activity;
+        builder();
+    }
     public MaintenanceDialog builder() {
         view = LayoutInflater.from(context).inflate(R.layout.maintenance_dialog_layout, null);
         ev_info = (EditText) view.findViewById(R.id.ev_info);
@@ -104,6 +117,8 @@ public class MaintenanceDialog implements OnClickListener {
         dialog.setCancelable(true);// 不可以用“返回键”取消
 //        lLayout_bg.setLayoutParams(new FrameLayout.LayoutParams((int) (
 //                display.getWidth() * 0.85), LayoutParams.WRAP_CONTENT));
+        spinnerAdapter = new ExeSpinnerAdapter(context,elist);
+        spinner.setAdapter(spinnerAdapter);
         setListeners();
         return this;
     }
