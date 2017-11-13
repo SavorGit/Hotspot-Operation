@@ -85,6 +85,8 @@ public class AppApi {
         POST_REFUSE_TASK_JSON,
         /**获取执行者按钮点击信息*/
         POST_EXE_INFO_JSON,
+        /**执行者提交任务*/
+        POST_REPORT_MISSION_JSON,
 
     }
 
@@ -123,6 +125,7 @@ public class AppApi {
             put(Action.POST_TASK_DETAIL_JSON, formatPhpUrl("Opclient11/task/taskDetail"));
             put(Action.POST_REFUSE_TASK_JSON, formatPhpUrl("Opclient11/task/refuseTask"));
             put(Action.POST_EXE_INFO_JSON, formatPhpUrl("Opclient11/Mission/getexecutorInfo"));
+            put(Action.POST_REPORT_MISSION_JSON, formatPhpUrl("Opclient11/Mission/reportMission"));
 
 
         }
@@ -471,6 +474,23 @@ public class AppApi {
         new AppServiceOk(context, Action.POST_EXE_INFO_JSON, handler, params).post();
     }
 
+    /**
+     * 执行者提交任务
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void reportMission(Context context, String box_id ,String remark,String repair_img,String state
+            ,String task_id,String task_type,String user_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("box_id",box_id);
+        params.put("remark",remark);
+        params.put("repair_img",repair_img);
+        params.put("state",state);
+        params.put("task_id",task_id);
+        params.put("task_type",task_type);
+        params.put("user_id",user_id);
+        new AppServiceOk(context, Action.POST_REPORT_MISSION_JSON, handler, params).post();
+    }
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";
     // 业务异常

@@ -318,7 +318,9 @@ public class ApiResponseFactory {
                 result = gson.fromJson(info, new TypeToken<ExecutorInfo>() {
                 }.getType());
                 break;
-
+            case POST_REPORT_MISSION_JSON:
+                result = "success";
+                break;
 
             default:
                 break;

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,8 +20,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.common.api.utils.FileUtils;
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.SavorApplication;
@@ -29,9 +33,12 @@ import com.savor.operation.adapter.SpinnerAdapter;
 import com.savor.operation.bean.ExecutorInfoBean;
 import com.savor.operation.bean.RepairInfo;
 import com.savor.operation.bean.TaskDetailRepair;
+import com.savor.operation.bean.UserBean;
+import com.savor.operation.interfaces.MaintenanceCallBack;
 import com.savor.operation.interfaces.RefuseCallBack;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.savor.operation.adapter.FixTaskListAdapter.REQUEST_CODE_IMAGE;
@@ -53,7 +60,8 @@ public class MaintenanceDialog implements OnClickListener {
     private LinearLayout msg_la;
     private TextView submit;
     private TextView cancel;
-    private RefuseCallBack callBack;
+    //private RefuseCallBack callBack;
+    private MaintenanceCallBack callBack;
     private TextView tv_select_pic3;
     private TextView tv_select_pic2;
     private TextView tv_select_pic1;
@@ -69,7 +77,12 @@ public class MaintenanceDialog implements OnClickListener {
     private Activity activity;
     private List<ExecutorInfoBean> elist;
     private ExeSpinnerAdapter spinnerAdapter;
-
+    private ExecutorInfoBean currentExecutorInfoBean;
+    private int currentpos;
+    private ImageView[] ims = {iv_exce_pic1,iv_exce_pic2,iv_exce_pic1};
+    private  List<String> urls = new ArrayList<String>();
+    private String box_id;
+    private String state;
     public MaintenanceDialog(Context context) {
         this.context = context;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -81,11 +94,11 @@ public class MaintenanceDialog implements OnClickListener {
     public MaintenanceDialog(Context context, List<TaskDetailRepair> repair_list , RefuseCallBack callBack){
         this.context = context;
         mInflater = LayoutInflater.from(context);
-        this.callBack = callBack;
+        //this.callBack = callBack;
         builder();
     }
 
-    public MaintenanceDialog(Context context, List<ExecutorInfoBean> elist , Activity activity){
+    public MaintenanceDialog(Context context, List<ExecutorInfoBean> elist , Activity activity,MaintenanceCallBack callBack){
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         display = windowManager.getDefaultDisplay();
         this.context = context;
@@ -111,6 +124,10 @@ public class MaintenanceDialog implements OnClickListener {
         tv_select_pic2 = (TextView) view.findViewById(R.id.tv_select_pic2);
         tv_select_pic3 = (TextView) view.findViewById(R.id.tv_select_pic3);
 
+        urls.add("");
+        urls.add("");
+        urls.add("");
+
         if (dialog == null) {
             dialog = new Dialog(context, R.style.AlertDialogStyle);
         }
@@ -127,6 +144,12 @@ public class MaintenanceDialog implements OnClickListener {
 
     public void setListeners() {
         submit.setOnClickListener(this);
+        iv_exce_pic1.setOnClickListener(this);
+        iv_exce_pic2.setOnClickListener(this);
+        iv_exce_pic3.setOnClickListener(this);
+        tv_select_pic1.setOnClickListener(this);
+        tv_select_pic2.setOnClickListener(this);
+        tv_select_pic3.setOnClickListener(this);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
              @Override
              public void onCheckedChanged(RadioGroup arg0, int arg1) {
@@ -135,10 +158,32 @@ public class MaintenanceDialog implements OnClickListener {
                               int radioButtonId = arg0.getCheckedRadioButtonId();
                               //根据ID获取RadioButton的实例
                                 RadioButton rb = (RadioButton)view.findViewById(radioButtonId);
+                 if ("已解决".equals(rb.getText().toString())) {
+                     state = "1";
+                 }else {
+                     state = "2";
+                 }
+                              //  state = rb.getText().toString();
                                //更新文本内容，以符合选中项
                               //tv.setText("您的性别是：" + rb.getText());
                            }
          });
+
+        spinner.setSelection(0);
+        spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                // TODO Auto-generated method stub
+                /* 将所选mySpinner 的值带入myTextView 中*/
+                currentExecutorInfoBean = (ExecutorInfoBean)spinnerAdapter.getItem(arg2);
+                box_id = currentExecutorInfoBean.getBox_id();
+               // currentpos = arg2;
+                arg0.setVisibility(View.VISIBLE);
+            }
+            public void onNothingSelected(AdapterView<?> arg0) {
+                currentExecutorInfoBean = (ExecutorInfoBean)spinnerAdapter.getItem(0);
+                currentpos = 0;
+            }
+        });
     }
 
 
@@ -157,14 +202,36 @@ public class MaintenanceDialog implements OnClickListener {
 
     @Override
     public void onClick(View view) {
-        //callBack.toRefuse(ev_info.getText().toString());
+        switch (view.getId()){
+            case R.id.iv_exce_pic1:
+            case R.id.tv_select_pic1:
+                currentTakePhonePos = 0;
+                takePhoto(currentExecutorInfoBean,currentTakePhonePos);
+                break;
+            case R.id.iv_exce_pic2:
+            case R.id.tv_select_pic2:
+                currentTakePhonePos = 1;
+                takePhoto(currentExecutorInfoBean,currentTakePhonePos);
+                break;
+            case R.id.iv_exce_pic3:
+            case R.id.tv_select_pic3:
+                currentTakePhonePos = 2;
+                takePhoto(currentExecutorInfoBean,currentTakePhonePos);
+                break;
+            case R.id.submit:
+                if (TextUtils.isEmpty(state)) {
+                    state = "2";
+                }
+                callBack.toMaintenance(box_id,ev_info.getText().toString(),state,urls);
+                break;
+        }
     }
 
-    private void takePhoto(final RepairInfo repairInfo, final int position) {
-        if(TextUtils.isEmpty(repairInfo.getBox_id())) {
-            ShowMessage.showToast(context,"请选择版位");
-            return;
-        }
+    private void takePhoto(final ExecutorInfoBean repairInfo, final int position) {
+//        if(TextUtils.isEmpty(repairInfo.getBox_id())) {
+//            ShowMessage.showToast(context,"请选择版位");
+//            return;
+//        }
         new ChoosePicDialog(context, new ChoosePicDialog.OnTakePhotoBtnClickListener() {
             @Override
             public void onTakePhotoClick() {
@@ -192,5 +259,113 @@ public class MaintenanceDialog implements OnClickListener {
                     }
                 }
         ).show();
+    }
+
+    /**
+     * 更新图片路径
+     */
+    public void updateImagePath(String path) {
+        if(elist!=null && elist.size()>=currentTakePhonePos) {
+
+            String cachePath = ((SavorApplication)activity.getApplication()).imagePath;
+            File dir = new File(cachePath);
+            if(!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            String box_id = currentExecutorInfoBean.getBox_id();
+            long timeMillis = System.currentTimeMillis();
+            String key = box_id+"_"+timeMillis+".jpg";
+            String copyPath = dir.getAbsolutePath()+File.separator+key;
+
+            File sFile = new File(path);
+            FileUtils.copyFile(sFile, copyPath);
+            //Glide.with(context).load(copyPath).into(iv_exce_pic1);
+
+            switch(currentTakePhonePos){
+                case 0:
+                    if(!TextUtils.isEmpty(copyPath)) {
+
+
+                        iv_exce_pic1.setVisibility(View.VISIBLE);
+                        Glide.with(context).load(copyPath).into(iv_exce_pic1);
+                    }else {
+                        tv_select_pic1.setVisibility(View.GONE);
+                    }
+                    break;
+                case 1:
+                    if(!TextUtils.isEmpty(copyPath)) {
+                        iv_exce_pic2.setVisibility(View.VISIBLE);
+                        Glide.with(context).load(copyPath).into(iv_exce_pic2);
+                    }else {
+                        tv_select_pic2.setVisibility(View.GONE);
+                    }
+                    break;
+                case 2:
+                    if(!TextUtils.isEmpty(copyPath)) {
+                        iv_exce_pic3.setVisibility(View.VISIBLE);
+                        Glide.with(context).load(copyPath).into(iv_exce_pic3);
+                    }else {
+                        tv_select_pic3.setVisibility(View.GONE);
+                    }
+                    break;
+            }
+            urls.set(currentTakePhonePos ,copyPath);
+//            if(!TextUtils.isEmpty(copyPath)) {
+//                iv_exce_pic1.setVisibility(View.VISIBLE);
+//                Glide.with(context).load(copyPath).into(iv_exce_pic1);
+//            }else {
+//                tv_select_pic1.setVisibility(View.GONE);
+//            }
+//            elist.get(currentTakePhonePos).setFault_img_url(copyPath);
+//            notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * 拍照以后更新图片路径到实体类中
+     */
+    public void updataPhotoPath() {
+        if(elist!=null && elist.size()>0) {
+//            mData.get(currentTakePhonePos).setFault_img_url(currentImagePath);
+//            notifyDataSetChanged();
+//            FileUtils.copyFile(sFile, copyPath);
+//            Glide.with(context).load(copyPath).into(ims[currentpos]);
+//            if(!TextUtils.isEmpty(currentImagePath)) {
+//                iv_exce_pic1.setVisibility(View.VISIBLE);
+//                Glide.with(context).load(currentImagePath).into(iv_exce_pic1);
+//            }else {
+//                tv_select_pic1.setVisibility(View.GONE);
+//            }
+
+            switch(currentTakePhonePos){
+                case 0:
+                    if(!TextUtils.isEmpty(currentImagePath)) {
+                        iv_exce_pic1.setVisibility(View.VISIBLE);
+                        Glide.with(context).load(currentImagePath).into(iv_exce_pic1);
+                    }else {
+                        tv_select_pic1.setVisibility(View.GONE);
+                    }
+                    break;
+                case 1:
+                    if(!TextUtils.isEmpty(currentImagePath)) {
+                        iv_exce_pic2.setVisibility(View.VISIBLE);
+                        Glide.with(context).load(currentImagePath).into(iv_exce_pic2);
+                    }else {
+                        tv_select_pic2.setVisibility(View.GONE);
+                    }
+                    break;
+                case 2:
+                    if(!TextUtils.isEmpty(currentImagePath)) {
+                        iv_exce_pic3.setVisibility(View.VISIBLE);
+                        Glide.with(context).load(currentImagePath).into(iv_exce_pic3);
+                    }else {
+                        tv_select_pic3.setVisibility(View.GONE);
+                    }
+                    break;
+            }
+
+            urls.set(currentTakePhonePos ,currentImagePath);
+        }
     }
 }

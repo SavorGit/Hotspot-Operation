@@ -1,37 +1,63 @@
 package com.savor.operation.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.OSSClient;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.savor.operation.R;
 import com.savor.operation.adapter.RepairAdapter;
+import com.savor.operation.bean.BaseBoxInfo;
 import com.savor.operation.bean.ExecutorInfo;
 import com.savor.operation.bean.ExecutorInfoBean;
+import com.savor.operation.bean.Hotel;
+import com.savor.operation.bean.RepairInfo;
 import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
+import com.savor.operation.interfaces.MaintenanceCallBack;
 import com.savor.operation.interfaces.RefuseCallBack;
+import com.savor.operation.utils.ConstantValues;
+import com.savor.operation.utils.OSSClientUtil;
 import com.savor.operation.widget.MaintenanceDialog;
 import com.savor.operation.widget.RefuseDialog;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import static com.savor.operation.adapter.FixTaskListAdapter.REQUEST_CODE_IMAGE;
+import static com.savor.operation.adapter.FixTaskListAdapter.TAKE_PHOTO_REQUEST;
 
 /**
  * 执行者任务详情
  * Created by bushlee on 2017/11/12.
  */
 
-public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener{
+public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener,MaintenanceCallBack {
 
     private Context context;
     private PullToRefreshListView mPullRefreshListView;
@@ -58,6 +84,12 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private ExecutorInfo executorInfo;
     private List<ExecutorInfoBean> elist;
     private MaintenanceDialog maintenanceDialog;
+    //private String  urls ="";
+    private String box_id;
+    private String state;
+    private String remark;
+    private Handler mHandler = new Handler();
+    private  List<String> urls = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +184,10 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 }
 
                 break;
+            case POST_REPORT_MISSION_JSON:
+                finish();
+                break;
+
 
         }
 
@@ -243,10 +279,123 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         maintenanceDialog = new MaintenanceDialog(
                 mContext,
                 elist,
-                ExeTaskDetailActivity.this
-
+                ExeTaskDetailActivity.this,
+                this
         );
         maintenanceDialog.show();
+    }
+
+    @Override
+    public void toMaintenance(String box,String re,String st, List<String> urlss) {
+        urls.clear();
+        box_id = box;
+        state = st;
+        remark = re;
+        uploadPic(urlss, 0);
+    }
+
+    private void publish() {
+        Gson gson = new Gson();
+        String  repair_info = gson.toJson(urls, new TypeToken<List<String>>() {
+        }.getType());
+        AppApi.reportMission(context, box_id ,remark, repair_info,state
+                ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
+    }
+    @Override
+    public void toInstallation() {
+
+    }
+
+    @Override
+    public void toTransform() {
+
+    }
+
+    @Override
+    public void toDetect() {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+         if (requestCode == TAKE_PHOTO_REQUEST && resultCode == Activity.RESULT_OK) {
+             maintenanceDialog.updataPhotoPath();
+        }else if (requestCode == REQUEST_CODE_IMAGE&&resultCode == Activity.RESULT_OK && data != null) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumns = {MediaStore.Images.Media.DATA};
+            Cursor c = getContentResolver().query(selectedImage, filePathColumns, null, null, null);
+            c.moveToFirst();
+            int columnIndex = c.getColumnIndex(filePathColumns[0]);
+            String imagePath = c.getString(columnIndex);
+
+             maintenanceDialog.updateImagePath(imagePath);
+        }
+
+    }
+
+    private void uploadPic(final List<String> infos, final int startPos) {
+        final String url = infos.get(startPos);
+        if(!TextUtils.isEmpty(url)) {
+            final OSSClient ossClient = OSSClientUtil.getInstance().getOSSClient(this);
+            String imagePath = url;
+            File file = new File(imagePath);
+            Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            String dateStr = simpleDateFormat.format(date);
+            final String objectKey = "log/resource/operation/mobile/box/"+dateStr+"/"+file.getName();
+            // 构造上传请求
+            PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
+            try {
+                ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+                    @Override
+                    public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
+                        String imageUrl = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
+                        urls.add(imageUrl);
+                       // urls = urls+imageUrl+",";
+                        //repairInfo.setFault_img_url(imageUrl);
+
+                        int nextPos = startPos+1;
+                        if(nextPos<infos.size()) {
+                            uploadPic(infos,nextPos);
+                        }else {
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    publish();
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
+                        int nextPos = startPos+1;
+                        if(nextPos<infos.size()) {
+                            uploadPic(infos,nextPos);
+                        }else {
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    publish();
+                                }
+                            });
+                        }
+                    }
+                });
+
+            }catch (Exception e) {}
+        }
+    }
+
+    private boolean isHasUploadPic(List<RepairInfo> infos) {
+        for(int i = 0;i<infos.size();i++) {
+            RepairInfo repairInfo = infos.get(i);
+            if(!TextUtils.isEmpty(repairInfo.getFault_img_url())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
