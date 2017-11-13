@@ -86,6 +86,8 @@ public class MaintenanceDialog implements OnClickListener {
     }
 
     public MaintenanceDialog(Context context, List<ExecutorInfoBean> elist , Activity activity){
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        display = windowManager.getDefaultDisplay();
         this.context = context;
         mInflater = LayoutInflater.from(context);
         this.callBack = callBack;
@@ -155,7 +157,7 @@ public class MaintenanceDialog implements OnClickListener {
 
     @Override
     public void onClick(View view) {
-        callBack.toRefuse(ev_info.getText().toString());
+        //callBack.toRefuse(ev_info.getText().toString());
     }
 
     private void takePhoto(final RepairInfo repairInfo, final int position) {

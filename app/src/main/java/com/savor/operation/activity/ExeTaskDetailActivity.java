@@ -62,7 +62,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mission_detail);
+        setContentView(R.layout.exe_mission_detail);
         context = this;
         handleIntent();
         getViews();
@@ -246,7 +246,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 ExeTaskDetailActivity.this
 
         );
-        refuseDialog.show();
+        maintenanceDialog.show();
     }
 
 }
