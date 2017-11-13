@@ -41,6 +41,7 @@ import com.savor.operation.interfaces.MaintenanceCallBack;
 import com.savor.operation.interfaces.RefuseCallBack;
 import com.savor.operation.utils.ConstantValues;
 import com.savor.operation.utils.OSSClientUtil;
+import com.savor.operation.widget.CheckDialog;
 import com.savor.operation.widget.DetectDialog;
 import com.savor.operation.widget.MaintenanceDialog;
 import com.savor.operation.widget.RefuseDialog;
@@ -87,10 +88,12 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private List<ExecutorInfoBean> elist;
     private MaintenanceDialog maintenanceDialog;
     private DetectDialog detectDialog;
+    private CheckDialog checkDialog;
     //private String  urls ="";
     private String box_id;
     private String state;
     private String remark;
+    private String checkUrl = "";
     private Handler mHandler = new Handler();
     private  List<String> urls = new ArrayList<String>();
 
@@ -305,7 +308,17 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 ExeTaskDetailActivity.this,
                 this
         );
-        maintenanceDialog.show();
+        detectDialog.show();
+    }
+
+    private void checkDetect(){
+        checkDialog = new CheckDialog(
+                mContext,
+                taskDetail.getHotel_id(),
+                ExeTaskDetailActivity.this,
+                this
+        );
+        checkDialog.show();
     }
 
 
@@ -332,6 +345,14 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         AppApi.reportMission(context, "" ,"", repair_info,""
                 ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
     }
+
+    private void checkPublish( String url) {
+        Gson gson = new Gson();
+        String  repair_info = gson.toJson(url, new TypeToken<String>() {
+        }.getType());
+        AppApi.reportMission(context, "" ,"", repair_info,""
+                ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
+    }
     @Override
     public void toInstallation() {
 
@@ -343,7 +364,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
-    public void toDetect() {
+    public void toDetect(String URL) {
 
     }
 
@@ -352,7 +373,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
          if (requestCode == TAKE_PHOTO_REQUEST && resultCode == Activity.RESULT_OK) {
              if ("1".equals(task_type_id)) {//信息检测
-
+                 checkDialog.updataPhotoPath();
              }else if ("2".equals(task_type_id)){//安装验收
 
              }else if ("4".equals(task_type_id)) {//维修
@@ -370,7 +391,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             int columnIndex = c.getColumnIndex(filePathColumns[0]);
             String imagePath = c.getString(columnIndex);
              if ("1".equals(task_type_id)) {//信息检测
-
+                 checkDialog.updateImagePath(imagePath);
              }else if ("2".equals(task_type_id)){//安装验收
 
              }else if ("4".equals(task_type_id)) {//维修
@@ -491,6 +512,50 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             }catch (Exception e) {}
         }
     }
+
+    private void hotelCheckUploadPic(final String URL) {
+        if(!TextUtils.isEmpty(URL)) {
+            final OSSClient ossClient = OSSClientUtil.getInstance().getOSSClient(this);
+            String imagePath = URL;
+            File file = new File(imagePath);
+            Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            String dateStr = simpleDateFormat.format(date);
+            final String objectKey = "log/resource/operation/mobile/hotel/"+dateStr+"/"+file.getName();
+            // 构造上传请求
+            PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
+            try {
+                ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+                    @Override
+                    public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
+                        String imageUrll = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
+                        checkUrl = imageUrll;
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    checkPublish(checkUrl);
+                                }
+                            });
+
+                    }
+
+                    @Override
+                    public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
+
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    checkPublish(checkUrl);
+                                }
+                            });
+                        }
+                });
+
+            }catch (Exception e) {}
+        }
+    }
+
+
 
     private boolean isHasUploadPic(List<RepairInfo> infos) {
         for(int i = 0;i<infos.size();i++) {

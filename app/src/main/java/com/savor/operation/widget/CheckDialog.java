@@ -51,19 +51,13 @@ public class CheckDialog implements OnClickListener {
     private MaintenanceCallBack callBack;
 
     private TextView tv_drawings;
-    private TextView tv_acceptance;
-
     private ImageView iv_drawings;
-    private ImageView iv_acceptance;
 
-    private List<TaskDetailRepair> repair_list;
-    private int currentTakePhonePos;
     private String currentImagePath;
     private Activity activity;
-    private int currentpos;
-    private  List<DetectBean> urls = new ArrayList<DetectBean>();
     private String hotel_id;
     private String currentType;
+    private String URL;
 
     public CheckDialog(Context context) {
         this.context = context;
@@ -94,12 +88,7 @@ public class CheckDialog implements OnClickListener {
         view = LayoutInflater.from(context).inflate(R.layout.maintenance_dialog_layout, null);
         submit = (TextView) view.findViewById(R.id.submit);
         iv_drawings = (ImageView) view.findViewById(R.id.iv_drawings);
-        iv_acceptance = (ImageView) view.findViewById(R.id.iv_acceptance);
         tv_drawings = (TextView) view.findViewById(R.id.tv_drawings);
-        tv_acceptance = (TextView) view.findViewById(R.id.tv_acceptance);
-        DetectBean obj = new DetectBean();
-        urls.add(obj);
-        urls.add(obj);
         if (dialog == null) {
             dialog = new Dialog(context, R.style.AlertDialogStyle);
         }
@@ -113,11 +102,7 @@ public class CheckDialog implements OnClickListener {
     public void setListeners() {
         submit.setOnClickListener(this);
         iv_drawings.setOnClickListener(this);
-        iv_acceptance.setOnClickListener(this);
         tv_drawings.setOnClickListener(this);
-        tv_acceptance.setOnClickListener(this);
-
-
     }
 
 
@@ -148,7 +133,7 @@ public class CheckDialog implements OnClickListener {
                 takePhoto();
                 break;
             case R.id.submit:
-                callBack.toTransform(urls);
+                callBack.toDetect(URL);
                 break;
         }
     }
@@ -207,29 +192,14 @@ public class CheckDialog implements OnClickListener {
             FileUtils.copyFile(sFile, copyPath);
             //Glide.with(context).load(copyPath).into(iv_exce_pic1);
 
-        if ("1".equals(currentType)) {
+
             if(!TextUtils.isEmpty(copyPath)) {
                 iv_drawings.setVisibility(View.VISIBLE);
                 Glide.with(context).load(copyPath).into(iv_drawings);
-                DetectBean detectBean = new DetectBean();
-                detectBean.setType(currentType);
-                detectBean.setImg(copyPath);
-                urls.set(0,detectBean);
             }else {
                 tv_drawings.setVisibility(View.GONE);
             }
-        }else if ("2".equals(currentType)) {
-            if(!TextUtils.isEmpty(copyPath)) {
-                iv_acceptance.setVisibility(View.VISIBLE);
-                Glide.with(context).load(copyPath).into(iv_acceptance);
-                DetectBean detectBean = new DetectBean();
-                detectBean.setType(currentType);
-                detectBean.setImg(copyPath);
-                urls.set(1,detectBean);
-            }else {
-                tv_acceptance.setVisibility(View.GONE);
-            }
-        }
+            URL = copyPath;
             //urls.set(currentTakePhonePos ,copyPath);
 
     }
@@ -238,34 +208,16 @@ public class CheckDialog implements OnClickListener {
      * 拍照以后更新图片路径到实体类中
      */
     public void updataPhotoPath() {
-        if ("1".equals(currentType)) {
+
             if(!TextUtils.isEmpty(currentImagePath)) {
                 iv_drawings.setVisibility(View.VISIBLE);
                 Glide.with(context).load(currentImagePath).into(iv_drawings);
-                DetectBean detectBean = new DetectBean();
-                detectBean.setType(currentType);
-                detectBean.setImg(currentImagePath);
-                urls.set(0,detectBean);
+
             }else {
                 tv_drawings.setVisibility(View.GONE);
             }
-        }else if ("2".equals(currentType)) {
-            if(!TextUtils.isEmpty(currentImagePath)) {
-                iv_acceptance.setVisibility(View.VISIBLE);
-                Glide.with(context).load(currentImagePath).into(iv_acceptance);
-                DetectBean detectBean = new DetectBean();
-                detectBean.setType(currentType);
-                detectBean.setImg(currentImagePath);
-                urls.set(1,detectBean);
-            }else {
-                tv_acceptance.setVisibility(View.GONE);
-            }
-        }
-//
-//        DetectBean detectBean = new DetectBean();
-//        detectBean.setType(currentType);
-//        detectBean.setImg(currentImagePath);
-//        urls.add(detectBean);
+
+        URL = currentImagePath;
 
     }
 }

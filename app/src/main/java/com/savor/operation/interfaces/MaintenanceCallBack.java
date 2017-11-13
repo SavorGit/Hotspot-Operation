@@ -26,7 +26,7 @@ public interface MaintenanceCallBack {
     /**
      * 提交检测任务
      */
-    void toDetect();
+    void toDetect(String URL);
 
    ;
 }
