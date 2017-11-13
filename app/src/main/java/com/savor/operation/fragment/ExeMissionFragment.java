@@ -17,6 +17,7 @@ import com.common.api.widget.pulltorefresh.library.PullToRefreshBase.OnRefreshLi
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
 import com.savor.operation.activity.ExeTaskDetailActivity;
+import com.savor.operation.activity.SeekTaskDetailActivity;
 import com.savor.operation.activity.TaskDetailActivity;
 import com.savor.operation.adapter.MissionAdapter;
 import com.savor.operation.bean.MissionTaskListBean;
@@ -85,11 +86,18 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            //MissionTaskListBean item = (MissionTaskListBean)parent.getItemAtPosition(position);
             MissionTaskListBean item = (MissionTaskListBean)parent.getItemAtPosition(position);
-            Intent intent = new Intent(context, ExeTaskDetailActivity.class);
-            intent.putExtra("id",item.getId());
-            startActivity(intent);
+            if (state == 4) {
+                Intent intent = new Intent(context, SeekTaskDetailActivity.class);
+                intent.putExtra("id",item.getId());
+                startActivity(intent);
+            }else {
+                Intent intent = new Intent(context, ExeTaskDetailActivity.class);
+                intent.putExtra("id",item.getId());
+                startActivity(intent);
+            }
+
+
 
         }
     };

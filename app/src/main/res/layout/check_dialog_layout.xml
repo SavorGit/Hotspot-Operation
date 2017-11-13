@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+
+
+    <RelativeLayout
+        android:layout_below="@id/ev_info"
+        android:id="@+id/ic_layout"
+        android:layout_width="match_parent"
+        android:layout_height="160dp">
+
+        <RelativeLayout
+            android:layout_alignParentTop="true"
+            android:id="@+id/drawings"
+            android:layout_width="180dp"
+            android:layout_height="90dp"
+            android:layout_marginTop="15sp"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:id="@+id/tv_drawings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="＋"
+                android:textColor="@color/title_text_color"
+                android:textSize="36sp" />
+            <ImageView
+                android:visibility="gone"
+                android:scaleType="centerCrop"
+                android:src="@drawable/kong_mrjz"
+                android:id="@+id/iv_drawings"
+                android:layout_alignParentRight="true"
+                android:layout_width="180dp"
+                android:layout_height="90dp"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/drawings_t"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="信息检测单"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/drawings"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/ic_layout"
+        android:id="@+id/btn_la"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/submit"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp"
+            android:layout_centerInParent="true"
+            android:text="提交"
+
+            android:background="@color/actionsheet_blue"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content" />
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

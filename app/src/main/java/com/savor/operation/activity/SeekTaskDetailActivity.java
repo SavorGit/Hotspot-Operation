@@ -13,7 +13,6 @@ import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
 import com.savor.operation.adapter.RepairAdapter;
-import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.core.ApiRequestListener;
@@ -21,16 +20,15 @@ import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.interfaces.RefuseCallBack;
 import com.savor.operation.widget.RefuseDialog;
-import com.savor.operation.widget.UpgradeDialog;
 
 import java.util.List;
 
 /**
- * 指派任务详情
+ * 查看者任务详情
  * Created by bushlee on 2017/11/12.
  */
 
-public class TaskDetailActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener,RefuseCallBack {
+public class SeekTaskDetailActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener,RefuseCallBack {
 
     private Context context;
     private PullToRefreshListView mPullRefreshListView;
@@ -57,7 +55,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mission_detail);
+        setContentView(R.layout.seek_mission_detail);
         context = this;
         handleIntent();
         getViews();
@@ -101,7 +99,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     public void setListeners() {
         iv_left.setOnClickListener(this);
         refused.setOnClickListener(this);
-        assign.setOnClickListener(this);
+
     }
     @Override
     public void onClick(View v) {
@@ -111,11 +109,6 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.refused:
                 initRefuse();
-                break;
-            case R.id.assign:
-                Intent intentp = new Intent(context, AppointActivity.class);
-                intentp.putExtra("taskDetail",taskDetail);
-                startActivityForResult(intentp,10);
                 break;
         }
     }

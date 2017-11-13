@@ -51,37 +51,10 @@
         android:layout_height="90dp">
 
         <RelativeLayout
-            android:id="@+id/pic1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
-
-            <TextView
-                android:layout_centerInParent="true"
-                android:id="@+id/tv_select_pic1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="＋"
-                android:textColor="@color/title_text_color"
-                android:textSize="36sp" />
-            <ImageView
-                android:visibility="gone"
-                android:scaleType="centerCrop"
-                android:src="@drawable/kong_mrjz"
-                android:id="@+id/iv_exce_pic1"
-                android:layout_alignParentRight="true"
-                android:layout_width="80dp"
-                android:layout_height="80dp"/>
-        </RelativeLayout>
-
-        <RelativeLayout
             android:id="@+id/pic2"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
-            android:layout_centerVertical="true">
+            android:layout_centerInParent="true">
 
             <TextView
                 android:layout_centerInParent="true"
@@ -106,8 +79,8 @@
             android:id="@+id/pic3"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
             android:layout_centerVertical="true">
 
             <TextView
@@ -129,6 +102,33 @@
                 android:layout_height="80dp"/>
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/pic1"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:id="@+id/tv_select_pic1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="＋"
+                android:textColor="@color/title_text_color"
+                android:textSize="36sp" />
+            <ImageView
+                android:visibility="gone"
+                android:scaleType="centerCrop"
+                android:src="@drawable/kong_mrjz"
+                android:id="@+id/iv_exce_pic1"
+                android:layout_alignParentRight="true"
+                android:layout_width="80dp"
+                android:layout_height="80dp"/>
+        </RelativeLayout>
+
     </RelativeLayout>
 
 
@@ -138,7 +138,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <TextView
-            android:id="@+id/cancel"
+            android:id="@+id/submit"
             android:textSize="15dp"
             android:textColor="@color/white"
             android:gravity="center"
@@ -154,7 +154,7 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/submit"
+            android:id="@+id/cancel"
             android:textSize="15dp"
             android:textColor="@color/white"
             android:gravity="center"
