@@ -29,9 +29,16 @@
         android:textColor="@color/title_text_color"
         android:textSize="16sp"
         android:text="任务详情"/>
+    <TextView
+        android:id="@+id/time"
+        android:layout_below="@id/info"
+        android:layout_width="match_parent"
+        android:gravity="center|left"
+        android:text="执行日期："
+        android:layout_height="45dp" />
 
     <RadioGroup
-        android:layout_below="@id/info"
+        android:layout_below="@id/time"
         android:layout_centerHorizontal="true"
         android:id="@+id/radioGroup"
         android:contentDescription="性别"
@@ -59,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="执行者数量"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:layout_marginLeft="15dp"/>
 
     <com.common.api.widget.pulltorefresh.library.PullToRefreshListView

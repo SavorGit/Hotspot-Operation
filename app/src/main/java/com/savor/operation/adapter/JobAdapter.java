@@ -28,9 +28,11 @@ public class JobAdapter extends BaseAdapter {
     private Context context;
     private List<ExeUserList> list = new ArrayList<ExeUserList>();
     private LayoutInflater mInflater;
-    public JobAdapter(Context context) {
+    private Appoint callback;
+    public JobAdapter(Context context,Appoint callback) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
+        this.callback = callback;
     }
 
     public void setData(List<ExeUserList> data) {
@@ -92,12 +94,34 @@ public class JobAdapter extends BaseAdapter {
                 holder.msg_la.addView(v);
             }
         }
+        holder.assign.setOnClickListener(new mStoreListener(item) );
 //        TaskDetailRepair item = (TaskDetailRepair) getItem(position);
 //        holder.name.setText("版位名称："+item.getBox_name());
 //        holder.desc.setText("故障现象："+item.getFault_desc());
 //        Glide.with(context).load(item.getFault_img_url()).into(holder.imge_la);
         return convertView;
     }
+
+    /**
+     * 单击收藏事件监听器
+     */
+    public class mStoreListener implements View.OnClickListener {
+        private ExeUserList itemVo;
+
+        public mStoreListener(ExeUserList vodAndTopicItemVo) {
+            this.itemVo = vodAndTopicItemVo;
+        }
+
+        @Override
+        public void onClick(View view) {
+            callback.appoint(itemVo);
+        }
+    }
+
+    public interface Appoint {
+        void appoint(ExeUserList itemVo);
+    }
+
 
     public class ViewHolder {
         public TextView name;

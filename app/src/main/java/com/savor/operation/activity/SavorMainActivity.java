@@ -121,7 +121,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         setViews();
         setListeners();
         upgrade();
-        testDatePicker();
+        //testDatePicker();
     }
 
     private void testDatePicker() {
