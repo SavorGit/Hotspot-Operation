@@ -123,6 +123,8 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                 imageId = R.drawable.ico_publish_task;
                 desc = "发布任务";
                 break;
+            case APPOINT_TASK_LIST:
+            case PUB_TASK_LIST:
             case TASK_LIST:
                 imageId = R.drawable.ico_task_list;
                 desc = "任务列表";
