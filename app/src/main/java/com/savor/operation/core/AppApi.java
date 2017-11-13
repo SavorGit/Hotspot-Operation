@@ -87,6 +87,9 @@ public class AppApi {
         POST_EXE_INFO_JSON,
         /**执行者提交任务*/
         POST_REPORT_MISSION_JSON,
+        /**获取任务的执行者列表*/
+        POST_EXE_USER_LIST_JSON,
+
 
     }
 
@@ -126,6 +129,8 @@ public class AppApi {
             put(Action.POST_REFUSE_TASK_JSON, formatPhpUrl("Opclient11/task/refuseTask"));
             put(Action.POST_EXE_INFO_JSON, formatPhpUrl("Opclient11/Mission/getexecutorInfo"));
             put(Action.POST_REPORT_MISSION_JSON, formatPhpUrl("Opclient11/Mission/reportMission"));
+            put(Action.POST_EXE_USER_LIST_JSON, formatPhpUrl("Opclient11/Task/getExeUserList"));
+
 
 
         }
@@ -490,6 +495,19 @@ public class AppApi {
         params.put("task_type",task_type);
         params.put("user_id",user_id);
         new AppServiceOk(context, Action.POST_REPORT_MISSION_JSON, handler, params).post();
+    }
+
+    /**
+     * 获取任务的执行者列表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getExeUserList(Context context, String exe_date ,String is_lead_install,String task_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("exe_date",exe_date);
+        params.put("is_lead_install",is_lead_install);
+        params.put("task_id",task_id);
+        new AppServiceOk(context, Action.POST_EXE_USER_LIST_JSON, handler, params).post();
     }
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";

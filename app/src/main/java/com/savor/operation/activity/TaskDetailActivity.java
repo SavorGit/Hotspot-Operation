@@ -101,7 +101,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     public void setListeners() {
         iv_left.setOnClickListener(this);
         refused.setOnClickListener(this);
-
+        assign.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -111,6 +111,11 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.refused:
                 initRefuse();
+                break;
+            case R.id.assign:
+                Intent intentp = new Intent(context, AppointActivity.class);
+                intentp.putExtra("taskDetail",taskDetail);
+                startActivityForResult(intentp,10);
                 break;
         }
     }
