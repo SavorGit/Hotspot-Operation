@@ -96,6 +96,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private String checkUrl = "";
     private Handler mHandler = new Handler();
     private  List<String> urls = new ArrayList<String>();
+    private TextView call;
+    private String  tnum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +134,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         tv_center = (TextView) findViewById(R.id.tv_center);
         btn_la = (RelativeLayout) findViewById(R.id.btn_la);;
         assign = (TextView) findViewById(R.id.assign);
+        call = (TextView) findViewById(R.id.call);
     }
 
     @Override
@@ -143,6 +146,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     public void setListeners() {
         iv_left.setOnClickListener(this);
         assign.setOnClickListener(this);
+        call.setOnClickListener(this);
 
     }
    // maintenance
@@ -164,6 +168,12 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 }
                 //initRefuse();
 
+                break;
+            case R.id.call:
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + tnum);
+                intent.setData(data);
+                startActivity(intent);
                 break;
         }
     }
@@ -256,7 +266,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 //                release_execute_time.setText("");
  //           }
 
-            contact.setText("联系人："+taskDetail.getHotel_linkman());
+            tnum = taskDetail.getHotel_linkman_tel();
+            contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
             String create_time = taskDetail.getCreate_time();
             if (!TextUtils.isEmpty(create_time)) {
                 release_time.setVisibility(View.VISIBLE);

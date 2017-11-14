@@ -2,6 +2,7 @@ package com.savor.operation.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -53,6 +54,8 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     private RelativeLayout btn_la;
     private TextView refused;
     private TextView assign;
+    private TextView call;
+    private String  tnum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +93,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         btn_la = (RelativeLayout) findViewById(R.id.btn_la);;
         refused = (TextView) findViewById(R.id.refused);
         assign = (TextView) findViewById(R.id.assign);
+        call = (TextView) findViewById(R.id.call);
     }
 
     @Override
@@ -102,6 +106,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         iv_left.setOnClickListener(this);
         refused.setOnClickListener(this);
         assign.setOnClickListener(this);
+        call.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -117,6 +122,14 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 intentp.putExtra("taskDetail",taskDetail);
                 startActivityForResult(intentp,10);
                 break;
+            case R.id.call:
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + tnum);
+                intent.setData(data);
+                startActivity(intent);
+                break;
+
+
         }
     }
 
@@ -190,7 +203,8 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
 //                release_execute_time.setText("");
  //           }
 
-            contact.setText("联系人："+taskDetail.getHotel_linkman());
+            tnum = taskDetail.getHotel_linkman_tel();
+            contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
             String create_time = taskDetail.getCreate_time();
             if (!TextUtils.isEmpty(create_time)) {
                 release_time.setVisibility(View.VISIBLE);
