@@ -154,14 +154,13 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case R.id.assign:
                 if ("1".equals(task_type_id)) {//信息检测
-                    detect();
+                    checkDetect();
                 }else if ("2".equals(task_type_id)){//安装验收
 
                 }else if ("4".equals(task_type_id)) {//维修
                     maintenance();
                 }else if ("8".equals(task_type_id)) {//网络改造
-
-
+                    detect();
                 }
                 //initRefuse();
 
@@ -237,7 +236,14 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 level_state.setVisibility(View.INVISIBLE);
             }
 
-            screen_num.setText("版位数量 ："+taskDetail.getTv_nums());
+            String tvNums = taskDetail.getTv_nums();
+            if (!TextUtils.isEmpty(tvNums)) {
+                screen_num.setVisibility(View.VISIBLE);
+                screen_num.setText("版位数量 ："+taskDetail.getTv_nums());
+            }else {
+                screen_num.setVisibility(View.GONE);
+                screen_num.setText("");
+            }
             mold.setText(taskDetail.getTask_type_desc());
             hotel_name.setText(taskDetail.getHotel_name());
             add.setText(taskDetail.getHotel_address());

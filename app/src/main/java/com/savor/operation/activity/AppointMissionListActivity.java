@@ -97,7 +97,7 @@ public class AppointMissionListActivity extends AppCompatActivity
         //getVersionCode()
         mFragmentList = new ArrayList<>();
         mTitleList = new ArrayList<>();
-        tv_center.setText("任务详情");
+        tv_center.setText("任务列表");
         initIndicator();
     }
     private void initIndicator() {

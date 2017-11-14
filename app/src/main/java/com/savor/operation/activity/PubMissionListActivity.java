@@ -87,7 +87,7 @@ public class PubMissionListActivity extends AppCompatActivity
     }
 
     public void setViews() {
-        tv_center.setText("任务详情");
+        tv_center.setText("任务列表");
         setSupportActionBar(mToolBar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         mActionBarDrawerToggle = new ActionBarDrawerToggle(
