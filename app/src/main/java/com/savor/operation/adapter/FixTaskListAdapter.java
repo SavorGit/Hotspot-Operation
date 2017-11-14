@@ -159,6 +159,15 @@ public class FixTaskListAdapter extends BaseAdapter {
                 alertBuilder.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int index) {
+                        for(int i =0;i<mData.size();i++) {
+                            RepairInfo rInfo = mData.get(i);
+                            if(i!=position) {
+                                if(items[index].equals(rInfo.getBox_name())) {
+                                    ShowMessage.showToast(mContext,"不能重复选择版位");
+                                    return;
+                                }
+                            }
+                        }
                         finalHolder.tv_boxname.setText(items[index]);
                         repairInfo.setBox_id(boxInfoList.get(index).getBox_id());
                         repairInfo.setBox_name(items[index]);

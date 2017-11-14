@@ -121,23 +121,28 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         setViews();
         setListeners();
         upgrade();
-        //testDatePicker();
     }
 
-    private void testDatePicker() {
-        TimePickerView timePickerView = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
-            @Override
-            public void onTimeSelect(Date date, View v) {
-                String time = getTime(date);
-                ShowMessage.showToast(SavorMainActivity.this,time);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LoginResponse loginResponse = mSession.getLoginResponse();
+        SkillList skill_list = loginResponse.getSkill_list();
+        if(skill_list!=null) {
+            RoleInfo role_info = skill_list.getRole_info();
+            String id = role_info.getId();
+            if("1".equals(id)) {
+                mAdapter.setData(PUBLISH_TEMS);
+            }else if("2".equals(id)) {
+                mAdapter.setData(APPOINTER_ITEMS);
+                getData();
+            }else if("3".equals(id)) {
+                mAdapter.setData(PERFORM_ITEMS);
+                getData();
+            }else if("4".equals(id)) {
+                mAdapter.setData(LOOK_ITEMS);
             }
-        }).setType(new boolean[]{true, true, true, false, false, false}).isCenterLabel(false).build();
-        timePickerView.show();
-    }
-
-    private String getTime(Date date) {//可根据需要自行截取数据显示
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        return format.format(date);
+        }
     }
 
     private void getData() {
@@ -206,21 +211,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
 
         mItemRlv.addItemDecoration(new SpacesItemDecoration(leftRight, topBottom, getResources().getColor(R.color.grid_item_divider)));
 
-        if(skill_list!=null) {
-            RoleInfo role_info = skill_list.getRole_info();
-            String id = role_info.getId();
-            if("1".equals(id)) {
-                mAdapter.setData(PUBLISH_TEMS);
-            }else if("2".equals(id)) {
-                mAdapter.setData(APPOINTER_ITEMS);
-                getData();
-            }else if("3".equals(id)) {
-                mAdapter.setData(PERFORM_ITEMS);
-                getData();
-            }else if("4".equals(id)) {
-                mAdapter.setData(LOOK_ITEMS);
-            }
-        }
+
     }
 
     private City getSelectCity(List<City> manage_city) {
@@ -305,7 +296,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
                     List<ActionListItem> data = mAdapter.getData();
                     for(ActionListItem item : data) {
                         FunctionType type = item.getType();
-                        if(type == FunctionType.MY_TASK) {
+                        if(type == FunctionType.MY_TASK||type==FunctionType.APPOINT_TASK_LIST) {
                             item.setNum(num);
                             break;
                         }
