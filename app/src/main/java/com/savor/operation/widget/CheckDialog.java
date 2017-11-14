@@ -85,7 +85,7 @@ public class CheckDialog implements OnClickListener {
         builder();
     }
     public CheckDialog builder() {
-        view = LayoutInflater.from(context).inflate(R.layout.maintenance_dialog_layout, null);
+        view = LayoutInflater.from(context).inflate(R.layout.check_dialog_layout, null);
         submit = (TextView) view.findViewById(R.id.submit);
         iv_drawings = (ImageView) view.findViewById(R.id.iv_drawings);
         tv_drawings = (TextView) view.findViewById(R.id.tv_drawings);

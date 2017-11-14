@@ -169,7 +169,15 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 level_state.setVisibility(View.INVISIBLE);
             }
 
-            screen_num.setText("版位数量 ："+taskDetail.getTv_nums());
+            String tvNums = taskDetail.getTv_nums();
+            if (!TextUtils.isEmpty(tvNums)) {
+                screen_num.setVisibility(View.VISIBLE);
+                screen_num.setText("版位数量 ："+taskDetail.getTv_nums());
+            }else {
+                screen_num.setVisibility(View.GONE);
+                screen_num.setText("");
+            }
+
             mold.setText(taskDetail.getTask_type_desc());
             hotel_name.setText(taskDetail.getHotel_name());
             add.setText(taskDetail.getHotel_address());
