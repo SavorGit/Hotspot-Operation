@@ -137,6 +137,13 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         mTaskAdapter.setData(boxList);
         mTaskLv.setAdapter(mTaskAdapter);
         mTaskLv.addHeaderView(mHeadView);
+
+        if(actionType == PublishTaskActivity.TaskType.FIX) {
+            RepairInfo repairInfo = new RepairInfo();
+            repairInfo.setBoxInfoList(mBoxList);
+            boxList.add(0, repairInfo);
+            mTaskAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -225,8 +232,8 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 try {
                     int boxNum = Integer.valueOf(num);
                     boxNum -= 1;
-                    if (boxNum < 0) {
-                        boxNum = 0;
+                    if (boxNum < 1) {
+                        boxNum = 1;
                     }
                     mBoxNumTv.setText(String.valueOf(boxNum));
                 } catch (Exception e) {
@@ -379,9 +386,17 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 if (hotel != null) {
                     String name = hotel.getName();
                     String id = hotel.getId();
+                    String contractor = hotel.getContractor();
+                    String mobile = hotel.getMobile();
+                    String addr = hotel.getAddr();
+
                     if (!TextUtils.isEmpty(name)) {
                         mHotelNameTv.setText(name);
                     }
+
+                    mContactEt.setText(contractor);
+                    mPhoneEt.setText(mobile);
+                    mAddressEt.setText(addr);
 
                     if (!TextUtils.isEmpty(id)) {
                         AppApi.getBoxList(this, id, this);
