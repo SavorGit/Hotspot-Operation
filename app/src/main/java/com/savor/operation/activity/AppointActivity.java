@@ -57,7 +57,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void getDetail(){
-        taskDetail = (TaskDetail) getIntent().getSerializableExtra("voditem");
+        taskDetail = (TaskDetail) getIntent().getSerializableExtra("taskDetail");
     }
 
 
@@ -73,6 +73,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void setViews() {
+        tv_center.setText("任务详情");
         jobAdapter = new JobAdapter(context,this);
         pullToRefreshListView.setAdapter(jobAdapter);
     }
@@ -80,11 +81,20 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void setListeners() {
         time.setOnClickListener(this);
+        iv_left.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        testDatePicker();
+        switch (view.getId()){
+            case R.id.time:
+                testDatePicker();
+                break;
+            case R.id.iv_left:
+                finish();
+                break;
+        }
+
     }
 
     private void testDatePicker() {
@@ -112,6 +122,11 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                 if(obj instanceof List) {
                     List<ExeUserList> tasks = (List<ExeUserList>) obj;
                     jobAdapter.setData(tasks);
+                }
+                break;
+            case POST_APPOIN_TASK_JSON:
+                if(obj instanceof List) {
+                    finish();
                 }
                 break;
         }
