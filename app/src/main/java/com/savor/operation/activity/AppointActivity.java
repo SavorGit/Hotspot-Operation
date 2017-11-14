@@ -73,6 +73,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void setViews() {
+        tv_center.setText("任务详情");
         jobAdapter = new JobAdapter(context,this);
         pullToRefreshListView.setAdapter(jobAdapter);
     }
@@ -80,11 +81,20 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void setListeners() {
         time.setOnClickListener(this);
+        iv_left.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        testDatePicker();
+        switch (view.getId()){
+            case R.id.time:
+                testDatePicker();
+                break;
+            case R.id.iv_left:
+                finish();
+                break;
+        }
+
     }
 
     private void testDatePicker() {
