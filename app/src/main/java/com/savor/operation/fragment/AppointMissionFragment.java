@@ -135,7 +135,7 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
     }
 
     private void getData(){
-        AppApi.getAppointTaskList(context,page,state,this);
+        AppApi.getAppointTaskList(context,page,state,mSession.getLoginResponse().getUserid(),this);
     }
 
     @Override

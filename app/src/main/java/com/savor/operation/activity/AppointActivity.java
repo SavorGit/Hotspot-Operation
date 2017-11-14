@@ -57,7 +57,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void getDetail(){
-        taskDetail = (TaskDetail) getIntent().getSerializableExtra("voditem");
+        taskDetail = (TaskDetail) getIntent().getSerializableExtra("taskDetail");
     }
 
 
@@ -112,6 +112,11 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                 if(obj instanceof List) {
                     List<ExeUserList> tasks = (List<ExeUserList>) obj;
                     jobAdapter.setData(tasks);
+                }
+                break;
+            case POST_APPOIN_TASK_JSON:
+                if(obj instanceof List) {
+                    finish();
                 }
                 break;
         }

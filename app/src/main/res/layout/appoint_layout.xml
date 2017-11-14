@@ -31,10 +31,11 @@
         android:text="任务详情"/>
     <TextView
         android:id="@+id/time"
+        android:layout_marginLeft="15dp"
         android:layout_below="@id/info"
         android:layout_width="match_parent"
         android:gravity="center|left"
-        android:text="执行日期："
+        android:text="执行日期：请选择"
         android:layout_height="45dp" />
 
     <RadioGroup
