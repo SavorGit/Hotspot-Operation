@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:background="#d7d7d7"
         android:layout_height="165dp"
+        android:hint="请输入拒绝原因（例如：已经与业务人员沟通，版位正常）"
         android:maxEms="100"
         android:layout_margin="15dp"/>
     <TextView
