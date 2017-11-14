@@ -17,8 +17,11 @@ import android.widget.TextView;
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.adapter.SearchHotelListAdapter;
+import com.savor.operation.bean.City;
 import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.HotelListResponse;
+import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.SkillList;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.enums.SearchHotelOpType;
 import com.savor.operation.widget.DividerItemDecoration;
@@ -74,8 +77,12 @@ public class SearchActivity extends BaseActivity implements SearchHotelListAdapt
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_SEARCH) {
                     String content = mSearchEt.getText().toString();
+                    LoginResponse loginResponse = mSession.getLoginResponse();
+                    SkillList skill_list = loginResponse.getSkill_list();
+                    List<City> manage_city = skill_list.getManage_city();
+                    City city = getSelectCity(manage_city);
                     if(!TextUtils.isEmpty(content)) {
-                        AppApi.searchHotel(SearchActivity.this,content,SearchActivity.this);
+                        AppApi.searchHotel(SearchActivity.this,content,city.getId(),SearchActivity.this);
                     }else {
                         ShowMessage.showToast(SearchActivity.this,"请输入酒楼名称");
                     }
@@ -83,6 +90,14 @@ public class SearchActivity extends BaseActivity implements SearchHotelListAdapt
                 return false;
             }
         });
+    }
+
+    private City getSelectCity(List<City> manage_city) {
+        for(City city:manage_city) {
+            if(city.isSelect())
+                return city;
+        }
+        return null;
     }
 
     @Override

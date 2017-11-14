@@ -107,7 +107,7 @@ public class AppApi {
             put(Action.POST_LOGIN_JSON, formatPhpUrl("Opclient11/login/doLogin"));
             put(Action.POST_INDEX_JSON, formatPhpUrl("Opclient/index/index"));
             put(Action.POST_REPAIR_USER_JSON, formatPhpUrl("Opclient/Box/getAllRepairUser"));
-            put(Action.POST_SEARCH_HOTEL_JSON, formatPhpUrl("Opclient/hotel/searchHotel"));
+            put(Action.POST_SEARCH_HOTEL_JSON, formatPhpUrl("Opclient11/Hotel/searchHotel"));
             put(Action.POST_ERROR_REPORT_LIST_JSON, formatPhpUrl("Opclient/ErrorReport/getList"));
             put(Action.POST_ERROR_REPORT_DETAIL_JSON, formatPhpUrl("Opclient/ErrorReport/getErrorDetail"));
             put(Action.POST_REPAIR_RECORD_LIST_JSON, formatPhpUrl("Opclient/Box/getRepairRecordListByUserid"));
@@ -219,9 +219,10 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void searchHotel(Context context, String hotel_name,ApiRequestListener handler) {
+    public static void searchHotel(Context context, String hotel_name,String area_id,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("hotel_name",hotel_name);
+        params.put("area_id",area_id);
         new AppServiceOk(context, Action.POST_SEARCH_HOTEL_JSON, handler, params).post();
     }
 

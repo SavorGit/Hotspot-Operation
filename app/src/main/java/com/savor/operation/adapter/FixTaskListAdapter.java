@@ -6,10 +6,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -113,6 +116,7 @@ public class FixTaskListAdapter extends BaseAdapter {
             holder.tv_boxname = (TextView) convertView.findViewById(R.id.tv_boxname);
             holder.iv_exce_pic = (ImageView) convertView.findViewById(R.id.iv_exce_pic);
             holder.rl_box_layout = (RelativeLayout) convertView.findViewById(R.id.rl_box_layout);
+            holder.et_exception_desc = (EditText) convertView.findViewById(R.id.et_exception_desc);
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder) convertView.getTag();
@@ -142,7 +146,10 @@ public class FixTaskListAdapter extends BaseAdapter {
         holder.rl_box_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if(boxInfoList==null||boxInfoList.size()==0) {
+                    ShowMessage.showToast(mContext,"获取版位失败");
+                    return;
+                }
                 final String[] items = new String[boxInfoList.size()];
                 for(int i = 0;i<boxInfoList.size();i++) {
                     items[i] = boxInfoList.get(i).getBox_name();
@@ -173,6 +180,29 @@ public class FixTaskListAdapter extends BaseAdapter {
         }else {
             holder.iv_exce_pic.setVisibility(View.GONE);
         }
+
+        // 故障描述
+        final ViewHolder finalHolder1 = holder;
+        holder.et_exception_desc.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String desc = finalHolder1.et_exception_desc.getText().toString();
+                repairInfo.setFault_desc(desc);
+            }
+        });
+
+        String fault_desc = repairInfo.getFault_desc();
+        holder.et_exception_desc.setText(TextUtils.isEmpty(fault_desc)?"":fault_desc);
 
         return convertView;
     }
@@ -216,5 +246,6 @@ public class FixTaskListAdapter extends BaseAdapter {
         public TextView tv_boxname;
         public ImageView iv_exce_pic;
         public RelativeLayout rl_box_layout;
+        public EditText et_exception_desc;
     }
 }
