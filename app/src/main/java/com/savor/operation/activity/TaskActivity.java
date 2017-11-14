@@ -212,8 +212,12 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 }
 
                 num = mBoxNumTv.getText().toString();
+
                 try {
                     int boxNum = Integer.valueOf(num);
+                    // 如果数量达到最大不可在操作
+                    if(boxNum>=mBoxList.size())
+                        return;
                     boxNum += 1;
                     mBoxNumTv.setText(String.valueOf(boxNum));
                 } catch (Exception e) {
@@ -223,7 +227,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 if(actionType == PublishTaskActivity.TaskType.FIX) {
                     RepairInfo repairInfo = new RepairInfo();
                     repairInfo.setBoxInfoList(mBoxList);
-                    boxList.add(0, repairInfo);
+                    boxList.add(repairInfo);
                     mTaskAdapter.notifyDataSetChanged();
                 }
                 break;
@@ -239,11 +243,9 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 } catch (Exception e) {
                     mBoxNumTv.setText("0");
                 }
-                if (boxList.size() > 0) {
-                    boxList.remove(0);
+                if (boxList.size() > 1) {
+                    boxList.remove(boxList.size()-1);
                     mTaskAdapter.notifyDataSetChanged();
-                } else {
-                    boxList.clear();
                 }
                 break;
             case R.id.iv_left:
@@ -425,7 +427,13 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
             case POST_BOX_LIST_JSON:
                 if (obj instanceof List) {
                     mBoxList = (List<BoxInfo>) obj;
+                    if(boxList!=null) {
+                        for(RepairInfo repairInfo:boxList) {
+                            repairInfo.setBoxInfoList(mBoxList);
+                        }
+                    }
                 }
+
                 break;
             case POST_PUBLISH_JSON:
                 mloadingPb.setVisibility(View.GONE);
