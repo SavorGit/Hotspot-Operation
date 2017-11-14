@@ -147,7 +147,7 @@ public class FixTaskListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if(boxInfoList==null||boxInfoList.size()==0) {
-                    ShowMessage.showToast(mContext,"获取版位失败");
+                    ShowMessage.showToast(mContext,"请选择酒楼");
                     return;
                 }
                 final String[] items = new String[boxInfoList.size()];
