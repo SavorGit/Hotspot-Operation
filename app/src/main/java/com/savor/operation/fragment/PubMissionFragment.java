@@ -151,7 +151,7 @@ public class PubMissionFragment extends BaseFragment implements ApiRequestListen
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method){
-            case POST_VIEW_TASK_LIST_JSON:
+            case POST_PUB_TASK_LIST_JSON:
                 pullToRefreshListView.onRefreshComplete();
                 if (obj instanceof List<?>){
                     List<MissionTaskListBean> mlist = (List<MissionTaskListBean>) obj;

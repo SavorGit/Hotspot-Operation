@@ -156,7 +156,7 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method){
-            case POST_VIEW_TASK_LIST_JSON:
+            case POST_APPOINT_TASK_LIST_JSON:
                 pullToRefreshListView.onRefreshComplete();
                 if (obj instanceof List<?>){
                     List<MissionTaskListBean> mlist = (List<MissionTaskListBean>) obj;
