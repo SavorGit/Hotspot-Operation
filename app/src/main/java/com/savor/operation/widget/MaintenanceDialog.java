@@ -123,7 +123,7 @@ public class MaintenanceDialog implements OnClickListener {
         tv_select_pic1 = (TextView) view.findViewById(R.id.tv_select_pic1);
         tv_select_pic2 = (TextView) view.findViewById(R.id.tv_select_pic2);
         tv_select_pic3 = (TextView) view.findViewById(R.id.tv_select_pic3);
-
+        cancel = (TextView) view.findViewById(R.id.cancel);
         urls.add("");
         urls.add("");
         urls.add("");
@@ -150,6 +150,7 @@ public class MaintenanceDialog implements OnClickListener {
         tv_select_pic1.setOnClickListener(this);
         tv_select_pic2.setOnClickListener(this);
         tv_select_pic3.setOnClickListener(this);
+        cancel.setOnClickListener(this);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
              @Override
              public void onCheckedChanged(RadioGroup arg0, int arg1) {
@@ -224,6 +225,11 @@ public class MaintenanceDialog implements OnClickListener {
                 }
                 callBack.toMaintenance(box_id,ev_info.getText().toString(),state,urls);
                 break;
+            case R.id.cancel:
+                dismiss();
+                break;
+
+
         }
     }
 
