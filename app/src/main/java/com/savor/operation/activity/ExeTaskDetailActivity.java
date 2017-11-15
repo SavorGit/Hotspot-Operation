@@ -398,7 +398,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void toDetect(String URL) {
-
+        hotelCheckUploadPic(URL);
     }
 
     @Override
