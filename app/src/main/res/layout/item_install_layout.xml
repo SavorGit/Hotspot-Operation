@@ -3,17 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
-    <LinearLayout
-        android:id="@+id/msg_la"
-        android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
-    </LinearLayout>
+    <ScrollView
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="55dp">
+        <LinearLayout
+            android:id="@+id/msg_la"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
+
     <RelativeLayout
-        android:layout_marginTop="15dp"
-        android:layout_below="@id/msg_la"
+       android:layout_alignParentBottom="true"
         android:id="@+id/btn_la"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -28,7 +35,6 @@
             android:paddingLeft="5dp"
             android:layout_centerInParent="true"
             android:text="提交"
-
             android:background="@color/actionsheet_blue"
             android:layout_width="70dp"
             android:layout_height="wrap_content" />

@@ -364,7 +364,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 ExeTaskDetailActivity.this,
                 this
         );
-        checkDialog.show();
+        installDialog.show();
     }
 
 
