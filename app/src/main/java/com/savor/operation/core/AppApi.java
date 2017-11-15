@@ -466,8 +466,9 @@ public class AppApi {
      * 拒绝任务
      * @param context 上下文
      * @param handler 接口回调
+     *
      */
-    public static void refuseTask(Context context, String refuse_desc ,String task_id,String user_id,ApiRequestListener handler) {
+    public static void refuseTask(Context context, String refuse_desc ,String user_id ,String task_id,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("refuse_desc",refuse_desc);
         params.put("task_id",task_id);
