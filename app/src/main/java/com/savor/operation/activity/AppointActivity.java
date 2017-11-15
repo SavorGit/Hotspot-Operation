@@ -45,10 +45,11 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.appoint_layout);
         context = this;
+        getDetail();
         getViews();
         setViews();
         setListeners();
-        getDetail();
+
         initView();
     }
 

@@ -237,6 +237,17 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private void initView(){
         if (taskDetail != null){
             task_type_id = taskDetail.getTask_type_id();
+
+            if ("1".equals(task_type_id)) {//信息检测
+                assign.setText("信息检测");
+            }else if ("2".equals(task_type_id)){//安装验收
+                assign.setText("安装验收");
+            }else if ("4".equals(task_type_id)) {//维修
+                assign.setText("维修");
+            }else if ("8".equals(task_type_id)) {//网络改造
+                assign.setText("网络改造");
+            }
+
             plan_state.setText(taskDetail.getState()+"("+taskDetail.getRegion_name()+")");
             String task_emerge_id = taskDetail.getTask_emerge_id();
             if ("2".equals(task_emerge_id)) {
@@ -257,15 +268,6 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             mold.setText(taskDetail.getTask_type_desc());
             hotel_name.setText(taskDetail.getHotel_name());
             add.setText(taskDetail.getHotel_address());
-//            String appoint_exe_time = taskDetail.getAppoint_exe_time();
-//            if (!TextUtils.isEmpty(appoint_exe_time)) {
-//                release_execute_time.setVisibility(View.VISIBLE);
-//                release_execute_time.setText("执行指派时间:"+appoint_exe_time+"("+taskDetail.getExeuser()+")");
-//            }else {
-//                release_execute_time.setVisibility(View.GONE);
-//                release_execute_time.setText("");
- //           }
-
             tnum = taskDetail.getHotel_linkman_tel();
             contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
             String create_time = taskDetail.getCreate_time();

@@ -20,7 +20,10 @@ import com.savor.operation.activity.ExeTaskDetailActivity;
 import com.savor.operation.activity.SeekTaskDetailActivity;
 import com.savor.operation.activity.TaskDetailActivity;
 import com.savor.operation.adapter.MissionAdapter;
+import com.savor.operation.bean.City;
+import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.MissionTaskListBean;
+import com.savor.operation.bean.SkillList;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
@@ -45,6 +48,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
     private List<MissionTaskListBean> listItems = new ArrayList<>();
     private int page = 1;
     private boolean isUp = false;
+    private City city;
     @Override
     public String getFragmentName() {
         return TAG;
@@ -87,7 +91,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             MissionTaskListBean item = (MissionTaskListBean)parent.getItemAtPosition(position);
-            String itemState = item.getState();
+            String itemState = item.getState_id();
 
             switch (state){
                 case 0:
@@ -149,11 +153,12 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
     }
 
     private void initDisplay(){
+        getCity();
         getData();
     }
 
     private void getData(){
-        AppApi.getExeTaskList(context,page,state,mSession.getLoginResponse().getUserid(),this);
+        AppApi.getExeTaskList(context,page,state,mSession.getLoginResponse().getUserid(),city.getId(),this);
     }
 
     @Override
@@ -232,5 +237,21 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
 
 
 
+    }
+
+    private void getCity(){
+        LoginResponse loginResponse = mSession.getLoginResponse();
+        SkillList skill_list = loginResponse.getSkill_list();
+        List<City> manage_city = skill_list.getManage_city();
+        if(manage_city!=null&&manage_city.size()>0) {
+            city = getSelectCity(manage_city);
+        }
+    }
+    private City getSelectCity(List<City> manage_city) {
+        for(City city : manage_city) {
+            if(city.isSelect())
+                return city;
+        }
+        return null;
     }
 }

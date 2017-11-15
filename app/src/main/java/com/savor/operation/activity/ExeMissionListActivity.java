@@ -18,6 +18,9 @@ import android.widget.TextView;
 import com.gxz.PagerSlidingTabStrip;
 import com.savor.operation.R;
 import com.savor.operation.adapter.CategoryPagerAdapter;
+import com.savor.operation.bean.City;
+import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.SkillList;
 import com.savor.operation.core.Session;
 import com.savor.operation.fragment.ExeMissionFragment;
 import com.savor.operation.fragment.MissionFragment;
@@ -152,4 +155,6 @@ public class ExeMissionListActivity extends AppCompatActivity
             }
         });
     }
+
+
 }

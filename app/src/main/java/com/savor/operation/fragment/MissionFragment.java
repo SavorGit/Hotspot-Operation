@@ -22,7 +22,10 @@ import com.savor.operation.R;
 import com.savor.operation.activity.SeekTaskDetailActivity;
 import com.savor.operation.activity.TaskDetailActivity;
 import com.savor.operation.adapter.MissionAdapter;
+import com.savor.operation.bean.City;
+import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.MissionTaskListBean;
+import com.savor.operation.bean.SkillList;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 
@@ -47,6 +50,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
     private List<MissionTaskListBean> listItems = new ArrayList<>();
     private int page = 1;
     private boolean isUp = false;
+    private City city;
     @Override
     public String getFragmentName() {
         return TAG;
@@ -128,11 +132,12 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
     }
 
     private void initDisplay(){
+        getCity();
         getData();
     }
 
     private void getData(){
-        AppApi.getviewTaskList(context,page,state,mSession.getLoginResponse().getUserid(),this);
+        AppApi.getviewTaskList(context,page,state,mSession.getLoginResponse().getUserid(),city.getId(),this);
     }
 
     @Override
@@ -194,7 +199,21 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
             pullToRefreshListView.onLoadComplete(false,true);
         }
 
+    }
 
-
+    private void getCity(){
+        LoginResponse loginResponse = mSession.getLoginResponse();
+        SkillList skill_list = loginResponse.getSkill_list();
+        List<City> manage_city = skill_list.getManage_city();
+        if(manage_city!=null&&manage_city.size()>0) {
+            city = getSelectCity(manage_city);
+        }
+    }
+    private City getSelectCity(List<City> manage_city) {
+        for(City city : manage_city) {
+            if(city.isSelect())
+                return city;
+        }
+        return null;
     }
 }

@@ -352,11 +352,12 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void getviewTaskList(Context context, int page,int state,String user_id,ApiRequestListener handler) {
+    public static void getviewTaskList(Context context, int page,int state,String user_id,String city_id,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("page",page);
         params.put("state",state);
         params.put("user_id",user_id);
+        params.put("city_id",city_id);
         new AppServiceOk(context, Action.POST_VIEW_TASK_LIST_JSON, handler, params).post();
     }
 
@@ -365,11 +366,12 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void getAppointTaskList(Context context, int page,int state,String user_id,ApiRequestListener handler) {
+    public static void getAppointTaskList(Context context, int page,int state,String user_id,String city_id,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("page",page);
         params.put("state",state);
         params.put("user_id",user_id);
+        params.put("city_id",city_id);
         new AppServiceOk(context, Action.POST_APPOINT_TASK_LIST_JSON, handler, params).post();
     }
     /**
@@ -377,11 +379,12 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void getExeTaskList(Context context, int page,int state,String user_id,ApiRequestListener handler) {
+    public static void getExeTaskList(Context context, int page,int state,String user_id,String city_id,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("page",page);
         params.put("state",state);
         params.put("user_id",user_id);
+        params.put("city_id",city_id);
         new AppServiceOk(context, Action.POST_EXE_TASK_LIST_JSON, handler, params).post();
     }
     /**
@@ -389,11 +392,12 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void getPubTaskList(Context context, int page,int state,String user_id,ApiRequestListener handler) {
+    public static void getPubTaskList(Context context, int page,int state,String user_id,String city_id,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("page",page);
         params.put("state",state);
         params.put("user_id",user_id);
+        params.put("city_id",city_id);
         new AppServiceOk(context, Action.POST_PUB_TASK_LIST_JSON, handler, params).post();
     }
     /**
