@@ -194,7 +194,19 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
  //           }
 
             tnum = taskDetail.getHotel_linkman_tel();
-            contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
+            String linkman = taskDetail.getHotel_linkman();
+
+            if (!TextUtils.isEmpty(linkman)) {
+                if (TextUtils.isEmpty(tnum)) {
+                    tnum = "";
+                }
+                contact.setVisibility(View.VISIBLE);
+                contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
+            }else {
+                contact.setVisibility(View.GONE);
+                //contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
+            }
+
             String create_time = taskDetail.getCreate_time();
             if (!TextUtils.isEmpty(create_time)) {
                 release_time.setVisibility(View.VISIBLE);
