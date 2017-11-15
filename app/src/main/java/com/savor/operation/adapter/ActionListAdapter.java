@@ -152,6 +152,10 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
             case MY_TASK:
                 imageId = R.drawable.ico_task_list;
                 desc = "我的任务";
+                if(num>0) {
+                    holder.tv_num.setVisibility(View.VISIBLE);
+                    holder.tv_num.setText(String.valueOf(num));
+                }
                 break;
             case SEARCH_HOTEL:
                 imageId = R.drawable.ico_publish_task;
