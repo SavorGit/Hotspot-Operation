@@ -86,15 +86,25 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             MissionTaskListBean item = (MissionTaskListBean)parent.getItemAtPosition(position);
+            String itemState = item.getState();
             if (state != 1) {
-                Intent intent = new Intent(context, SeekTaskDetailActivity.class);
-                intent.putExtra("id",item.getId());
-                startActivity(intent);
+                if (!"1".equals(itemState)) {
+                    Intent intent = new Intent(context, SeekTaskDetailActivity.class);
+                    intent.putExtra("id",item.getId());
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(context, TaskDetailActivity.class);
+                    intent.putExtra("id",item.getId());
+                    startActivity(intent);
+                }
+
             }else {
                 Intent intent = new Intent(context, TaskDetailActivity.class);
                 intent.putExtra("id",item.getId());
                 startActivity(intent);
             }
+
+
 
         }
     };

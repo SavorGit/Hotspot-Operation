@@ -40,10 +40,6 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     private JobAdapter jobAdapter;
     private String times;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +72,12 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         tv_center.setText("任务详情");
         jobAdapter = new JobAdapter(context,this);
         pullToRefreshListView.setAdapter(jobAdapter);
+        String task_type_id = taskDetail.getTask_type_id();
+        if ("".equals(task_type_id) ) {
+            radioGroup.setVisibility(View.GONE);
+        }else {
+            radioGroup.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -121,6 +123,9 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
             case POST_EXE_USER_LIST_JSON:
                 if(obj instanceof List) {
                     List<ExeUserList> tasks = (List<ExeUserList>) obj;
+                    if (jobAdapter!= null && jobAdapter.getCount()>0) {
+                        jobAdapter.clear();
+                    }
                     jobAdapter.setData(tasks);
                 }
                 break;

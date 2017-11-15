@@ -87,16 +87,31 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             MissionTaskListBean item = (MissionTaskListBean)parent.getItemAtPosition(position);
-            if (state == 4) {
-                Intent intent = new Intent(context, SeekTaskDetailActivity.class);
-                intent.putExtra("id",item.getId());
-                startActivity(intent);
-            }else {
-                Intent intent = new Intent(context, ExeTaskDetailActivity.class);
-                intent.putExtra("id",item.getId());
-                startActivity(intent);
-            }
+            String itemState = item.getState();
 
+            switch (state){
+                case 0:
+                    if (!"1".equals(itemState)) {
+                        Intent intent = new Intent(context, SeekTaskDetailActivity.class);
+                        intent.putExtra("id",item.getId());
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(context, ExeTaskDetailActivity.class);
+                        intent.putExtra("id",item.getId());
+                        startActivity(intent);
+                    }
+                    break;
+                case 2:
+                    Intent intent1 = new Intent(context, ExeTaskDetailActivity.class);
+                    intent1.putExtra("id",item.getId());
+                    startActivity(intent1);
+                    break;
+                case 4:
+                    Intent intent = new Intent(context, SeekTaskDetailActivity.class);
+                    intent.putExtra("id",item.getId());
+                    startActivity(intent);
+                    break;
+            }
 
 
         }

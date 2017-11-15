@@ -104,7 +104,7 @@ public class ExeMissionListActivity extends AppCompatActivity
     private void initIndicator() {
 
         mTitleList.add("全部");
-        mTitleList.add("待指派");
+        mTitleList.add("待处理");
         mTitleList.add("已完成");
 
         mFragmentList.add(ExeMissionFragment.getInstance(0));
