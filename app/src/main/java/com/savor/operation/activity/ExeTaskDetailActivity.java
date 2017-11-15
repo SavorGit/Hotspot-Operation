@@ -43,6 +43,7 @@ import com.savor.operation.utils.ConstantValues;
 import com.savor.operation.utils.OSSClientUtil;
 import com.savor.operation.widget.CheckDialog;
 import com.savor.operation.widget.DetectDialog;
+import com.savor.operation.widget.InstallDialog;
 import com.savor.operation.widget.MaintenanceDialog;
 import com.savor.operation.widget.RefuseDialog;
 
@@ -89,6 +90,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private MaintenanceDialog maintenanceDialog;
     private DetectDialog detectDialog;
     private CheckDialog checkDialog;
+    private InstallDialog installDialog;
     //private String  urls ="";
     private String box_id;
     private String state;
@@ -160,7 +162,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 if ("1".equals(task_type_id)) {//信息检测
                     checkDetect();
                 }else if ("2".equals(task_type_id)){//安装验收
-
+                    install();
                 }else if ("4".equals(task_type_id)) {//维修
                     maintenance();
                 }else if ("8".equals(task_type_id)) {//网络改造
@@ -354,6 +356,17 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         checkDialog.show();
     }
 
+    private void install(){
+        installDialog = new InstallDialog(
+                mContext,
+                taskDetail.getTv_nums(),
+                taskDetail.getHotel_id(),
+                ExeTaskDetailActivity.this,
+                this
+        );
+        checkDialog.show();
+    }
+
 
     @Override
     public void toMaintenance(String box,String re,String st, List<String> urlss) {
@@ -371,6 +384,15 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         AppApi.reportMission(context, box_id ,remark, repair_info,state
                 ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
     }
+
+    private void inStallpublish(List<String> infos) {
+        Gson gson = new Gson();
+        String  repair_info = gson.toJson(infos, new TypeToken<List<String>>() {
+        }.getType());
+        AppApi.reportMission(context, box_id ,remark, repair_info,state
+                ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
+    }
+
     private void detectPublish( List<DetectBean> des) {
         Gson gson = new Gson();
         String  repair_info = gson.toJson(des, new TypeToken<List<DetectBean>>() {
@@ -387,17 +409,19 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
     }
     @Override
-    public void toInstallation() {
-
+    public void toInstallation(List<String> urls) {
+        InstalluploadPic(urls,0);
     }
 
     @Override
     public void toTransform(List<DetectBean> urls) {
+
         hotelUploadPic(urls , 0);
     }
 
     @Override
     public void toDetect(String URL) {
+
         hotelCheckUploadPic(URL);
     }
 
@@ -408,7 +432,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
              if ("1".equals(task_type_id)) {//信息检测
                  checkDialog.updataPhotoPath();
              }else if ("2".equals(task_type_id)){//安装验收
-
+                 installDialog.updataPhotoPath();
              }else if ("4".equals(task_type_id)) {//维修
                  maintenanceDialog.updataPhotoPath();
              }else if ("8".equals(task_type_id)) {//网络改造
@@ -426,7 +450,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
              if ("1".equals(task_type_id)) {//信息检测
                  checkDialog.updateImagePath(imagePath);
              }else if ("2".equals(task_type_id)){//安装验收
-
+                 installDialog.updateImagePath(imagePath);
              }else if ("4".equals(task_type_id)) {//维修
                  maintenanceDialog.updateImagePath(imagePath);
              }else if ("8".equals(task_type_id)) {//网络改造
@@ -588,6 +612,59 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    private void InstalluploadPic(final List<String> infos, final int startPos) {
+        final String url = infos.get(startPos);
+        if(!TextUtils.isEmpty(url)) {
+            final OSSClient ossClient = OSSClientUtil.getInstance().getOSSClient(this);
+            String imagePath = url;
+            File file = new File(imagePath);
+            Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            String dateStr = simpleDateFormat.format(date);
+            final String objectKey = "log/resource/operation/mobile/hotel/"+dateStr+"/"+file.getName();
+            // 构造上传请求
+            PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
+            try {
+                ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+                    @Override
+                    public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
+                        String imageUrl = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
+                        urls.add(imageUrl);
+                        // urls = urls+imageUrl+",";
+                        //repairInfo.setFault_img_url(imageUrl);
+
+                        int nextPos = startPos+1;
+                        if(nextPos<infos.size()) {
+                            InstalluploadPic(infos,nextPos);
+                        }else {
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    inStallpublish(infos);
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
+                        int nextPos = startPos+1;
+                        if(nextPos<infos.size()) {
+                            InstalluploadPic(infos,nextPos);
+                        }else {
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    inStallpublish(infos);
+                                }
+                            });
+                        }
+                    }
+                });
+
+            }catch (Exception e) {}
+        }
+    }
 
 
     private boolean isHasUploadPic(List<RepairInfo> infos) {

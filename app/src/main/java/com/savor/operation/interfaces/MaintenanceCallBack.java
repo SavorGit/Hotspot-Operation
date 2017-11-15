@@ -18,7 +18,7 @@ public interface MaintenanceCallBack {
     /**
      * 提交安装任务
      */
-    void toInstallation();
+    void toInstallation(List<String> urls);
     /**
      * 提交改造任务
      */
