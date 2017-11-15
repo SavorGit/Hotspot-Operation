@@ -281,7 +281,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         String task_type = "";
         switch (actionType) {
             case FIX:
-                task_type = "7";
+                task_type = "4";
                 List<BaseBoxInfo> boxInfos = new ArrayList<>();
                 List<RepairInfo> data = mTaskAdapter.getData();
                 if(data!=null&&data.size()>0) {
@@ -299,13 +299,13 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 }
                 break;
             case INFO_CHECK:
-                task_type = "3";
+                task_type = "1";
                 break;
             case NETWORK_REMOULD:
-                task_type = "4";
+                task_type = "8";
                 break;
             case SETUP_AND_CHECK:
-                task_type = "6";
+                task_type = "2";
                 break;
         }
 
