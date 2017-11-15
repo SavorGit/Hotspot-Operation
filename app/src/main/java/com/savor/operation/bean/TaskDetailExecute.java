@@ -14,8 +14,8 @@ public class TaskDetailExecute implements Serializable {
     private String box_name;
     private String state;
     private String remark;
-    //private List<TaskDetailRepairImg> repair_img = new ArrayList<TaskDetailRepairImg>();
-    private List<String> repair_img = new ArrayList<String>();
+    private List<TaskDetailRepairImg> repair_img = new ArrayList<TaskDetailRepairImg>();
+   // private List<String> repair_img = new ArrayList<String>();
 
     private String repair_time;
 
@@ -51,11 +51,11 @@ public class TaskDetailExecute implements Serializable {
         this.remark = remark;
     }
 
-    public List<String> getRepair_img() {
+    public List<TaskDetailRepairImg> getRepair_img() {
         return repair_img;
     }
 
-    public void setRepair_img(List<String> repair_img) {
+    public void setRepair_img(List<TaskDetailRepairImg> repair_img) {
         this.repair_img = repair_img;
     }
 
