@@ -13,18 +13,18 @@
         android:layout_height="wrap_content"
         android:textColor="@color/title_text_color"
         android:textSize="16sp"
-        android:text="成通"/>
+        android:text=""/>
     <TextView
         android:id="@+id/job_la"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="45dp"
+        android:layout_toRightOf="@id/name"
+        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/title_text_color"
         android:textSize="16sp"
-        android:text="工作任务"/>
+        android:text=""/>
     <TextView
         android:id="@+id/assign"
         android:textSize="15dp"
