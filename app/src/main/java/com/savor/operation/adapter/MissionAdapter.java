@@ -89,7 +89,15 @@ public class MissionAdapter extends BaseAdapter {
             holder.level_state.setVisibility(View.INVISIBLE);
         }
 
-        holder.screen_num.setText("版位数量 ："+item.getTv_nums());
+        String tvNum = item.getTv_nums();
+        if (!TextUtils.isEmpty(tvNum)) {
+            holder.screen_num.setText("版位数量 ："+item.getTv_nums());
+            holder.screen_num.setVisibility(View.VISIBLE);
+        }else {
+            holder.screen_num.setText("版位数量 ："+item.getTv_nums());
+            holder.screen_num.setVisibility(View.GONE);
+        }
+
         holder.mold.setText(item.getTask_type_desc());
         holder.hotel_name.setText(item.getHotel_name());
         String appoint_exe_time = item.getAppoint_exe_time();
