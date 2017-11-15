@@ -131,9 +131,10 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                 }
                 break;
             case POST_APPOIN_TASK_JSON:
-                if(obj instanceof List) {
+               // if(obj instanceof List) {
                     finish();
-                }
+               ShowMessage.showToast(context,"指派成功");
+              //  }
                 break;
         }
     }
@@ -146,6 +147,6 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void appoint(ExeUserList itemVo) {
-        AppApi.appointTask(context,times,itemVo.getUser_id(),mSession.getLoginResponse().getUserid(),taskDetail.getId(),this);
+        AppApi.appointTask(context,times,mSession.getLoginResponse().getUserid(),itemVo.getUser_id(),taskDetail.getId(),this);
     }
 }
