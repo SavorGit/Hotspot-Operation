@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.savor.operation.R;
 import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.bean.TaskDetailRepair;
+import com.savor.operation.bean.TaskDetailRepairImg;
 import com.savor.operation.widget.ShowPicDialog;
 
 import java.util.ArrayList;
@@ -63,34 +65,60 @@ public class RepairAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         RepairAdapter.ViewHolder holder;
         if(convertView == null) {
-            convertView = View.inflate(context, R.layout.item_task_detail,null);
+            convertView = View.inflate(context, R.layout.item_task_completed_big_pic_detail,null);
             holder = new RepairAdapter.ViewHolder();
-            holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.desc = (TextView) convertView.findViewById(R.id.desc);
-            holder.imge_la = (ImageView) convertView.findViewById(R.id.image);
-
-
+            holder.la_a = (TextView) convertView.findViewById(R.id.la_a);
+            holder.img_a = (ImageView) convertView.findViewById(R.id.img_a);
+            holder.la_b = (TextView) convertView.findViewById(R.id.la_b);
+            holder.img_b = (ImageView) convertView.findViewById(R.id.img_b);
             convertView.setTag(holder);
         }else {
             holder = (RepairAdapter.ViewHolder) convertView.getTag();
         }
         final TaskDetailRepair item = (TaskDetailRepair) getItem(position);
-        holder.name.setText("版位名称："+item.getBox_name());
-        holder.desc.setText("故障现象："+item.getFault_desc());
-        Glide.with(context).load(item.getFault_img_url()).placeholder(R.drawable.kong_mrjz).into(holder.imge_la);
-        holder.imge_la.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new ShowPicDialog(context,item.getFault_img_url()).show();
+
+        List<TaskDetailRepairImg> repair_img = item.getRepair_img();
+        if (repair_img != null && repair_img.size()>0) {
+            if (repair_img.size() == 1) {
+                holder.la_a.setText("信息检测单");
+                Glide.with(context).load(repair_img.get(0).getImg()).placeholder(R.drawable.kong_mrjz).into(holder.img_a);
+                holder.la_a.setVisibility(View.VISIBLE);
+                holder.img_a.setVisibility(View.VISIBLE);
+
+                holder.la_b.setVisibility(View.GONE);
+                holder.img_b.setVisibility(View.GONE);
+            }else if (repair_img.size() == 2) {
+                holder.la_a.setVisibility(View.VISIBLE);
+                holder.img_a.setVisibility(View.VISIBLE);
+
+                holder.la_b.setVisibility(View.VISIBLE);
+                holder.img_b.setVisibility(View.VISIBLE);
+
+                holder.la_a.setText("改造设备图");
+                Glide.with(context).load(repair_img.get(0).getImg()).placeholder(R.drawable.kong_mrjz).into(holder.img_a);
+
+                holder.la_a.setText("网络改造检测单");
+                Glide.with(context).load(repair_img.get(1).getImg()).placeholder(R.drawable.kong_mrjz).into(holder.img_a);
             }
-        });
+        }
+//        Glide.with(context).load(item.getFault_img_url()).placeholder(R.drawable.kong_mrjz).into(holder.imge_la);
+//        holder.imge_la.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new ShowPicDialog(context,item.getFault_img_url()).show();
+//            }
+//        });
+
+
         return convertView;
     }
 
     public class ViewHolder {
-        public TextView name;
-        public TextView desc;
-        public ImageView imge_la;
+        public TextView time;
+        public TextView la_a;
+        public ImageView img_a;
+        public TextView la_b;
+        public ImageView img_b;
 
     }
 }

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.savor.operation.R;
-import com.savor.operation.bean.TaskDetailExecute;
 import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.bean.TaskDetailRepairImg;
 import com.savor.operation.widget.ShowPicDialog;
@@ -23,12 +22,12 @@ import java.util.List;
  * Created by bushlee on 2017/9/7.
  */
 
-public class MaintenanceRepairAdapter extends BaseAdapter {
+public class InstallRepairAdapter extends BaseAdapter {
 
     private Context context;
     private List<TaskDetailRepair> list = new ArrayList<TaskDetailRepair>();
     private LayoutInflater mInflater;
-    public MaintenanceRepairAdapter(Context context) {
+    public InstallRepairAdapter(Context context) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
     }
@@ -62,58 +61,38 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MaintenanceRepairAdapter.ViewHolder holder;
+        InstallRepairAdapter.ViewHolder holder;
         if(convertView == null) {
-            convertView = View.inflate(context, R.layout.item_task_completed_detail,null);
-            holder = new MaintenanceRepairAdapter.ViewHolder();
-            //holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.desc = (TextView) convertView.findViewById(R.id.desc);
+            convertView = View.inflate(context, R.layout.item_task_install_detail,null);
+            holder = new InstallRepairAdapter.ViewHolder();
             holder.box = (TextView) convertView.findViewById(R.id.box);
             holder.time = (TextView) convertView.findViewById(R.id.time);
-            holder.msg_la = (LinearLayout) convertView.findViewById(R.id.msg_la);
-            holder.fault_img = (ImageView) convertView.findViewById(R.id.fault_img);
+            holder.pic = (ImageView) convertView.findViewById(R.id.pic);
             holder.remark = (TextView) convertView.findViewById(R.id.remark);
-            holder.state = (TextView) convertView.findViewById(R.id.state);
             holder.user  = (TextView) convertView.findViewById(R.id.user);
             convertView.setTag(holder);
         }else {
-            holder = (MaintenanceRepairAdapter.ViewHolder) convertView.getTag();
+            holder = (InstallRepairAdapter.ViewHolder) convertView.getTag();
         }
         final TaskDetailRepair item = (TaskDetailRepair) getItem(position);
         holder.user.setText("执行人："+item.getUsername());
-        holder.desc.setText("故障现象："+item.getFault_desc());
-        holder.box.setText("维修版位："+item.getBox_name());
+        holder.box.setText("版位名称："+item.getBox_name());
         holder.time.setText("操作时间："+item.getRepair_time());
         holder.remark.setText("备注："+item.getRemark());
-        Glide.with(context).load(item.getFault_img_url()).into(holder.fault_img);
-        holder.fault_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new ShowPicDialog(context,item.getFault_img_url()).show();
-            }
-        });
 
-        String stateS = item.getState();
-        if ("1".equals(stateS)) {
-            holder.state.setText("已解决");
-        }else if("0".equals(stateS)){
-            holder.state.setText("未解决");
-        }
+
+
+
         List<TaskDetailRepairImg> repair_img = item.getRepair_img();
         if (repair_img != null && repair_img.size()>0) {
-         for (int i = 0; i < repair_img.size(); i++) {
-             final  TaskDetailRepairImg obj = repair_img.get(i);
-            View v = mInflater.inflate(R.layout.item_pic_layout, null);
-            final ImageView iv_exce_pic1 = (ImageView)v.findViewById(R.id.iv_exce_pic1);
-             iv_exce_pic1.setOnClickListener(new View.OnClickListener() {
+            final  TaskDetailRepairImg obj = repair_img.get(0);
+            Glide.with(context).load(obj.getImg()).into(holder.pic);
+            holder.pic.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new ShowPicDialog(context,obj.getImg()).show();
                 }
             });
-            //convertView = mInflater.inflate(R.layout.item_video, null);
-             holder.msg_la.addView(v);
-        }
         }
 
 
@@ -122,15 +101,12 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
     }
 
     public class ViewHolder {
-        public TextView name;
-        public TextView desc;
-        public TextView box;
-        public TextView time;
-        public LinearLayout msg_la;
-        public ImageView fault_img;
-        public TextView remark;
-        public TextView state;
         public TextView user;
+        public TextView box;
+        public TextView remark;
+        public TextView time;
+        public ImageView pic;
+
 
     }
 }
