@@ -81,6 +81,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private Handler mHandler = new Handler();
     private TextView mTitleTv;
     private Task mTask;
+    private int nextPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -203,6 +204,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 }
 
                 List<RepairInfo> data = mTaskAdapter.getData();
+                nextPos = 0;
                 if(data!=null&&data.size()>0) {
                     if(isHasUploadPic(data)) {
                         mloadingPb.setVisibility(View.VISIBLE);
@@ -356,9 +358,9 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                     public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
                         String imageUrl = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
                         repairInfo.setFault_img_url(imageUrl);
-                        int nextPos = startPos+1;
-                        if(nextPos<infos.size()) {
-                            uploadPic(infos,nextPos);
+                        nextPos = startPos+1;
+                        if(nextPos <infos.size()) {
+                            uploadPic(infos, nextPos);
                         }else {
                             mHandler.post(new Runnable() {
                                 @Override
@@ -386,6 +388,18 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 });
 
             }catch (Exception e) {}
+        }else {
+            nextPos = startPos+1;
+            if(nextPos<infos.size()) {
+                uploadPic(infos, nextPos);
+            }else {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        publish();
+                    }
+                });
+            }
         }
     }
 
