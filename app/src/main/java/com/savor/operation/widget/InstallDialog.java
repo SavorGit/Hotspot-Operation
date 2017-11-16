@@ -219,7 +219,7 @@ public class InstallDialog implements OnClickListener {
             //Glide.with(context).load(copyPath).into(iv_exce_pic1);
             if(!TextUtils.isEmpty(copyPath)) {
                 currentIv.setVisibility(View.VISIBLE);
-                Glide.with(context).load(copyPath).into(currentIv);
+                Glide.with(context).load(copyPath).placeholder(R.drawable.kong_mrjz).into(currentIv);
             }else {
                 currentTv.setVisibility(View.GONE);
             }
@@ -238,7 +238,7 @@ public class InstallDialog implements OnClickListener {
 
             if(!TextUtils.isEmpty(currentImagePath)) {
                 currentIv.setVisibility(View.VISIBLE);
-                Glide.with(context).load(currentImagePath).into(currentIv);
+                Glide.with(context).load(currentImagePath).placeholder(R.drawable.kong_mrjz).into(currentIv);
             }else {
                 currentTv.setVisibility(View.GONE);
             }

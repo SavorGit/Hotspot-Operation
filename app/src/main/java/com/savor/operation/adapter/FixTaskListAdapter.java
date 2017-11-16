@@ -185,13 +185,15 @@ public class FixTaskListAdapter extends BaseAdapter {
         String fault_img_url = repairInfo.getFault_img_url();
         if(!TextUtils.isEmpty(fault_img_url)) {
             holder.iv_exce_pic.setVisibility(View.VISIBLE);
-            Glide.with(mContext).load(fault_img_url).into(holder.iv_exce_pic);
+            Glide.with(mContext).load(fault_img_url).placeholder(R.drawable.kong_mrjz).into(holder.iv_exce_pic);
         }else {
             holder.iv_exce_pic.setVisibility(View.GONE);
         }
 
         // 故障描述
         final ViewHolder finalHolder1 = holder;
+        holder.et_exception_desc.setTag(new Integer(position));
+        final ViewHolder finalHolder2 = holder;
         holder.et_exception_desc.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -206,6 +208,8 @@ public class FixTaskListAdapter extends BaseAdapter {
             @Override
             public void afterTextChanged(Editable s) {
                 String desc = finalHolder1.et_exception_desc.getText().toString();
+                Integer pos = (Integer) finalHolder2.et_exception_desc.getTag();
+                final RepairInfo repairInfo = (RepairInfo) getItem(pos);
                 repairInfo.setFault_desc(desc);
             }
         });

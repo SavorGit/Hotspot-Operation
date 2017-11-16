@@ -218,7 +218,7 @@ public class DetectDialog implements OnClickListener {
         if ("1".equals(currentType)) {
             if(!TextUtils.isEmpty(copyPath)) {
                 iv_drawings.setVisibility(View.VISIBLE);
-                Glide.with(context).load(copyPath).into(iv_drawings);
+                Glide.with(context).load(copyPath).placeholder(R.drawable.kong_mrjz).into(iv_drawings);
                 DetectBean detectBean = new DetectBean();
                 detectBean.setType(currentType);
                 detectBean.setImg(copyPath);
@@ -229,7 +229,7 @@ public class DetectDialog implements OnClickListener {
         }else if ("2".equals(currentType)) {
             if(!TextUtils.isEmpty(copyPath)) {
                 iv_acceptance.setVisibility(View.VISIBLE);
-                Glide.with(context).load(copyPath).into(iv_acceptance);
+                Glide.with(context).load(copyPath).placeholder(R.drawable.kong_mrjz).into(iv_acceptance);
                 DetectBean detectBean = new DetectBean();
                 detectBean.setType(currentType);
                 detectBean.setImg(copyPath);
@@ -249,7 +249,7 @@ public class DetectDialog implements OnClickListener {
         if ("1".equals(currentType)) {
             if(!TextUtils.isEmpty(currentImagePath)) {
                 iv_drawings.setVisibility(View.VISIBLE);
-                Glide.with(context).load(currentImagePath).into(iv_drawings);
+                Glide.with(context).load(currentImagePath).placeholder(R.drawable.kong_mrjz).into(iv_drawings);
                 DetectBean detectBean = new DetectBean();
                 detectBean.setType(currentType);
                 detectBean.setImg(currentImagePath);
@@ -260,7 +260,7 @@ public class DetectDialog implements OnClickListener {
         }else if ("2".equals(currentType)) {
             if(!TextUtils.isEmpty(currentImagePath)) {
                 iv_acceptance.setVisibility(View.VISIBLE);
-                Glide.with(context).load(currentImagePath).into(iv_acceptance);
+                Glide.with(context).load(currentImagePath).placeholder(R.drawable.kong_mrjz).into(iv_acceptance);
                 DetectBean detectBean = new DetectBean();
                 detectBean.setType(currentType);
                 detectBean.setImg(currentImagePath);

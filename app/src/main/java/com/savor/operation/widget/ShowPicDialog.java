@@ -56,7 +56,7 @@ public class ShowPicDialog extends Dialog implements View.OnClickListener {
         ViewGroup.LayoutParams layoutParams = mImageView.getLayoutParams();
         layoutParams.width = DensityUtil.getScreenWidth(getContext());
         layoutParams.height = DensityUtil.dip2px(getContext(),200);
-        Glide.with(getContext()).load(mImageUrl).centerCrop().into(mImageView);
+        Glide.with(getContext()).load(mImageUrl).placeholder(R.drawable.kong_mrjz).into(mImageView);
     }
 
     private void getViews() {
