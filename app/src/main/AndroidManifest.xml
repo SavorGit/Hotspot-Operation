@@ -92,6 +92,7 @@
             android:name=".activity.PublishTaskActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".activity.TaskActivity"
             android:screenOrientation="portrait" />
         <activity
