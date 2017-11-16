@@ -74,10 +74,10 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         jobAdapter = new JobAdapter(context,this);
         pullToRefreshListView.setAdapter(jobAdapter);
         String task_type_id = taskDetail.getTask_type_id();
-        if ("".equals(task_type_id) ) {
-            radioGroup.setVisibility(View.GONE);
-        }else {
+        if ("2".equals(task_type_id) ) {
             radioGroup.setVisibility(View.VISIBLE);
+        }else {
+            radioGroup.setVisibility(View.GONE);
         }
     }
 
