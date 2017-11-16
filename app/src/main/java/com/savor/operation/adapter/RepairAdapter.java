@@ -77,7 +77,7 @@ public class RepairAdapter extends BaseAdapter {
         final TaskDetailRepair item = (TaskDetailRepair) getItem(position);
         holder.name.setText("版位名称："+item.getBox_name());
         holder.desc.setText("故障现象："+item.getFault_desc());
-        Glide.with(context).load(item.getFault_img_url()).into(holder.imge_la);
+        Glide.with(context).load(item.getFault_img_url()).placeholder(R.drawable.kong_mrjz).into(holder.imge_la);
         holder.imge_la.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

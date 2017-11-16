@@ -185,7 +185,7 @@ public class FixTaskListAdapter extends BaseAdapter {
         String fault_img_url = repairInfo.getFault_img_url();
         if(!TextUtils.isEmpty(fault_img_url)) {
             holder.iv_exce_pic.setVisibility(View.VISIBLE);
-            Glide.with(mContext).load(fault_img_url).into(holder.iv_exce_pic);
+            Glide.with(mContext).load(fault_img_url).placeholder(R.drawable.kong_mrjz).into(holder.iv_exce_pic);
         }else {
             holder.iv_exce_pic.setVisibility(View.GONE);
         }

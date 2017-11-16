@@ -294,7 +294,7 @@ public class MaintenanceDialog implements OnClickListener {
 
 
                         iv_exce_pic1.setVisibility(View.VISIBLE);
-                        Glide.with(context).load(copyPath).into(iv_exce_pic1);
+                        Glide.with(context).load(copyPath).placeholder(R.drawable.kong_mrjz).into(iv_exce_pic1);
                     }else {
                         tv_select_pic1.setVisibility(View.GONE);
                     }
@@ -302,7 +302,7 @@ public class MaintenanceDialog implements OnClickListener {
                 case 1:
                     if(!TextUtils.isEmpty(copyPath)) {
                         iv_exce_pic2.setVisibility(View.VISIBLE);
-                        Glide.with(context).load(copyPath).into(iv_exce_pic2);
+                        Glide.with(context).load(copyPath).placeholder(R.drawable.kong_mrjz).into(iv_exce_pic2);
                     }else {
                         tv_select_pic2.setVisibility(View.GONE);
                     }
@@ -310,7 +310,7 @@ public class MaintenanceDialog implements OnClickListener {
                 case 2:
                     if(!TextUtils.isEmpty(copyPath)) {
                         iv_exce_pic3.setVisibility(View.VISIBLE);
-                        Glide.with(context).load(copyPath).into(iv_exce_pic3);
+                        Glide.with(context).load(copyPath).placeholder(R.drawable.kong_mrjz).into(iv_exce_pic3);
                     }else {
                         tv_select_pic3.setVisibility(View.GONE);
                     }
@@ -348,7 +348,7 @@ public class MaintenanceDialog implements OnClickListener {
                 case 0:
                     if(!TextUtils.isEmpty(currentImagePath)) {
                         iv_exce_pic1.setVisibility(View.VISIBLE);
-                        Glide.with(context).load(currentImagePath).into(iv_exce_pic1);
+                        Glide.with(context).load(currentImagePath).placeholder(R.drawable.kong_mrjz).into(iv_exce_pic1);
                     }else {
                         tv_select_pic1.setVisibility(View.GONE);
                     }
@@ -356,7 +356,7 @@ public class MaintenanceDialog implements OnClickListener {
                 case 1:
                     if(!TextUtils.isEmpty(currentImagePath)) {
                         iv_exce_pic2.setVisibility(View.VISIBLE);
-                        Glide.with(context).load(currentImagePath).into(iv_exce_pic2);
+                        Glide.with(context).load(currentImagePath).placeholder(R.drawable.kong_mrjz).into(iv_exce_pic2);
                     }else {
                         tv_select_pic2.setVisibility(View.GONE);
                     }
@@ -364,7 +364,7 @@ public class MaintenanceDialog implements OnClickListener {
                 case 2:
                     if(!TextUtils.isEmpty(currentImagePath)) {
                         iv_exce_pic3.setVisibility(View.VISIBLE);
-                        Glide.with(context).load(currentImagePath).into(iv_exce_pic3);
+                        Glide.with(context).load(currentImagePath).placeholder(R.drawable.kong_mrjz).into(iv_exce_pic3);
                     }else {
                         tv_select_pic3.setVisibility(View.GONE);
                     }

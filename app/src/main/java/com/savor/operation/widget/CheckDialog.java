@@ -195,7 +195,7 @@ public class CheckDialog implements OnClickListener {
 
             if(!TextUtils.isEmpty(copyPath)) {
                 iv_drawings.setVisibility(View.VISIBLE);
-                Glide.with(context).load(copyPath).into(iv_drawings);
+                Glide.with(context).load(copyPath).placeholder(R.drawable.kong_mrjz).into(iv_drawings);
             }else {
                 tv_drawings.setVisibility(View.GONE);
             }
@@ -211,7 +211,7 @@ public class CheckDialog implements OnClickListener {
 
             if(!TextUtils.isEmpty(currentImagePath)) {
                 iv_drawings.setVisibility(View.VISIBLE);
-                Glide.with(context).load(currentImagePath).into(iv_drawings);
+                Glide.with(context).load(currentImagePath).placeholder(R.drawable.kong_mrjz).into(iv_drawings);
 
             }else {
                 tv_drawings.setVisibility(View.GONE);
