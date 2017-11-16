@@ -5,7 +5,7 @@
     android:background="#ffffff">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -14,34 +14,34 @@
         android:layout_marginLeft="12dp"
         android:textSize="15sp"
         android:textColor="#333333"
-        android:text=""
+        android:text="维修版位"
         />
     <TextView
-        android:id="@+id/box"
+        android:id="@+id/state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/name"
-        android:layout_marginTop="16dp"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/box"
         android:layout_marginLeft="12dp"
         android:textSize="15sp"
         android:textColor="#333333"
-        android:text=""
+        android:text="解决状态"
         />
     <TextView
         android:id="@+id/desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/box"
+        android:layout_below="@id/state"
         android:layout_marginTop="16dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="12dp"
         android:textSize="15sp"
         android:textColor="#333333"
-        android:text=""
+        android:text="故障现象："
         />
     <TextView
-        android:id="@+id/time"
+        android:id="@+id/desc_la_pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/desc"
@@ -50,26 +50,46 @@
         android:layout_marginLeft="12dp"
         android:textSize="15sp"
         android:textColor="#333333"
-        android:text=""
-        />
-    <TextView
-        android:id="@+id/imge_la"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/desc"
-        android:layout_marginTop="16dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="12dp"
-        android:textSize="15sp"
-        android:textColor="#333333"
-        android:text="故障照片"
+        android:text="故障照片："
         />
 
+    <ImageView
+        android:id="@+id/fault_img"
+        android:layout_width="150dp"
+        android:layout_height="90dp"
+        android:layout_below="@id/desc"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@id/desc_la_pic"/>
+    <TextView
+        android:id="@+id/remark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fault_img"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="12dp"
+        android:textSize="15sp"
+        android:textColor="#333333"
+        android:text="备注："
+        />
+
+    <TextView
+        android:id="@+id/pic_la"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/remark"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="12dp"
+        android:textSize="15sp"
+        android:textColor="#333333"
+        android:text="照片："
+        />
     <LinearLayout
         android:id="@+id/msg_la"
-        android:layout_below="@id/desc"
-        android:layout_marginTop="22dp"
-        android:layout_toRightOf="@id/imge_la"
+        android:layout_below="@id/remark"
+        android:layout_marginTop="26dp"
+        android:layout_toRightOf="@id/pic_la"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -37,7 +37,7 @@ public class TaskDetail implements Serializable {
     private  String hotel_linkman_tel;
 
     private List<TaskDetailRepair> repair_list = new ArrayList<TaskDetailRepair>();
-    private List<TaskDetailExecute> execute = new ArrayList<TaskDetailExecute>();
+    //private List<TaskDetailExecute> execute = new ArrayList<TaskDetailExecute>();
 
     public String getId() {
         return id;
@@ -239,14 +239,6 @@ public class TaskDetail implements Serializable {
         this.complete_time = complete_time;
     }
 
-    public List<TaskDetailExecute> getExecute() {
-        return execute;
-    }
-
-    public void setExecute(List<TaskDetailExecute> execute) {
-        this.execute = execute;
-    }
-
     public String getHotel_linkman_tel() {
         return hotel_linkman_tel;
     }
@@ -284,7 +276,6 @@ public class TaskDetail implements Serializable {
                 ", complete_time='" + complete_time + '\'' +
                 ", hotel_linkman_tel='" + hotel_linkman_tel + '\'' +
                 ", repair_list=" + repair_list +
-                ", execute=" + execute +
                 '}';
     }
 }
