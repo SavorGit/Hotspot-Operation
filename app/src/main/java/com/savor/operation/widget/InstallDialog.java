@@ -111,7 +111,7 @@ public class InstallDialog implements OnClickListener {
 
     public void setListeners() {
         submit.setOnClickListener(this);
-
+        cancel.setOnClickListener(this);
 
     }
 
