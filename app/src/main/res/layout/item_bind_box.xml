@@ -6,6 +6,7 @@
     android:orientation="horizontal">
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_room_name"
         android:padding="10dp"
         android:layout_width="wrap_content"
