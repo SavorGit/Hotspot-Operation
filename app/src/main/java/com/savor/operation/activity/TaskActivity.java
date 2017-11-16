@@ -136,7 +136,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void setViews() {
-        boxList.clear();
+
 
         if(mTask!=null) {
             String type_name = mTask.getType_name();
@@ -149,7 +149,13 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         mTaskAdapter.setData(boxList);
         mTaskLv.setAdapter(mTaskAdapter);
         mTaskLv.addHeaderView(mHeadView);
+        resetBox();
+    }
 
+    private void resetBox() {
+        mBoxNumTv.setText("1");
+
+        boxList.clear();
         if(actionType == PublishTaskActivity.TaskType.FIX) {
             RepairInfo repairInfo = new RepairInfo();
             repairInfo.setBoxInfoList(mBoxList);
@@ -413,6 +419,8 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                     mContactEt.setText(contractor);
                     mPhoneEt.setText(mobile);
                     mAddressEt.setText(addr);
+
+                    resetBox();
 
                     if (!TextUtils.isEmpty(id)) {
                         AppApi.getBoxList(this, id, this);
