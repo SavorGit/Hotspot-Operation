@@ -131,6 +131,8 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                 if(num>0) {
                     holder.tv_num.setVisibility(View.VISIBLE);
                     holder.tv_num.setText(String.valueOf(num));
+                }else {
+                    holder.tv_num.setVisibility(View.GONE);
                 }
                 break;
             case SYSTEM_STATUS:
@@ -155,6 +157,8 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                 if(num>0) {
                     holder.tv_num.setVisibility(View.VISIBLE);
                     holder.tv_num.setText(String.valueOf(num));
+                }else {
+                    holder.tv_num.setVisibility(View.GONE);
                 }
                 break;
             case SEARCH_HOTEL:
