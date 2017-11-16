@@ -25,6 +25,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.savor.operation.bean.BindBoxList;
 import com.savor.operation.bean.BindBoxListBean;
+import com.savor.operation.bean.BindBoxResponse;
 import com.savor.operation.bean.BoxInfo;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.ErrorDetail;
@@ -306,7 +307,8 @@ public class ApiResponseFactory {
                 }.getType());
                 break;
             case POST_BIND_BOX_JSON:
-                result = info;
+                result = gson.fromJson(info, new TypeToken<BindBoxResponse>() {
+                }.getType());
                 break;
             case POST_TASK_DETAIL_JSON:
                 result = gson.fromJson(info, new TypeToken<TaskDetail>() {

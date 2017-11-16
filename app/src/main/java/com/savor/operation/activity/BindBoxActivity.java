@@ -24,6 +24,7 @@ import com.savor.operation.R;
 import com.savor.operation.adapter.BindBoxAdapter;
 import com.savor.operation.bean.BindBoxList;
 import com.savor.operation.bean.BindBoxListBean;
+import com.savor.operation.bean.BindBoxResponse;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.receiver.NetworkConnectChangedReceiver;
 import com.savor.operation.ssdp.SSDPService;
@@ -296,7 +297,16 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
         super.onSuccess(method, obj);
         switch (method) {
             case POST_BIND_BOX_JSON:
-                ShowMessage.showToast(this,"绑定成功");
+                if(obj instanceof BindBoxResponse) {
+                    BindBoxResponse bindBoxResponse = (BindBoxResponse) obj;
+                    int type = bindBoxResponse.getType();
+                    if("1".equals(type)) {
+                        ShowMessage.showToast(this,"绑定成功");
+                    }else if("2".equals(type)) {
+                        String err_msg = bindBoxResponse.getErr_msg();
+                        ShowMessage.showToast(this,err_msg);
+                    }
+                }
                 break;
             case POST_ROOM_BOX_JSON:
                 if(obj instanceof BindBoxList) {

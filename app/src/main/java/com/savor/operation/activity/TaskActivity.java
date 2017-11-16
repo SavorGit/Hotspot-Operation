@@ -445,6 +445,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                         for(RepairInfo repairInfo:boxList) {
                             repairInfo.setBoxInfoList(mBoxList);
                         }
+                        mTaskAdapter.notifyDataSetChanged();
                     }
                 }
 
