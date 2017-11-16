@@ -36,6 +36,7 @@ import com.savor.operation.bean.BaseBoxInfo;
 import com.savor.operation.bean.BoxInfo;
 import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.RepairInfo;
+import com.savor.operation.bean.Task;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.enums.SearchHotelOpType;
 import com.savor.operation.utils.ConstantValues;
@@ -78,6 +79,8 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private List<BoxInfo> mBoxList;
     private ProgressBar mloadingPb;
     private Handler mHandler = new Handler();
+    private TextView mTitleTv;
+    private Task mTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +96,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private void handleIntent() {
         Intent intent = getIntent();
         actionType = (PublishTaskActivity.TaskType) intent.getSerializableExtra("type");
+        mTask = (Task) intent.getSerializableExtra("task");
     }
 
     @Override
@@ -101,6 +105,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         mTaskLv = (ListView) findViewById(R.id.lv_task_list);
         mRightTv = (TextView) findViewById(R.id.tv_right);
+        mTitleTv = (TextView) findViewById(R.id.tv_center);
 
         initHeaderView();
 
@@ -132,6 +137,13 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void setViews() {
         boxList.clear();
+
+        if(mTask!=null) {
+            String type_name = mTask.getType_name();
+            if(!TextUtils.isEmpty(type_name)) {
+                mTitleTv.setText(type_name);
+            }
+        }
 
         mTaskAdapter = new FixTaskListAdapter(this);
         mTaskAdapter.setData(boxList);
@@ -216,8 +228,10 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 try {
                     int boxNum = Integer.valueOf(num);
                     // 如果数量达到最大不可在操作
-                    if(boxNum>=mBoxList.size())
+                    if(boxNum>=mBoxList.size()) {
+                        ShowMessage.showToast(this,"不能大于该酒楼总版位数量");
                         return;
+                    }
                     boxNum += 1;
                     mBoxNumTv.setText(String.valueOf(boxNum));
                 } catch (Exception e) {

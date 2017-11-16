@@ -52,7 +52,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskHo
 
     @Override
     public void onBindViewHolder(TaskHolder holder, int position) {
-        Task task = mTaskList.get(position);
+        final Task task = mTaskList.get(position);
         String bref = task.getBref();
         String type_name = task.getType_name();
         final int type_id = task.getType_id();
@@ -68,21 +68,25 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskHo
                     case TYPE_FIX:
                         intent = new Intent(mContext,TaskActivity.class);
                         intent.putExtra("type", PublishTaskActivity.TaskType.FIX);
+                        intent.putExtra("task",task);
                         mContext.startActivity(intent);
                         break;
                     case TYPE_INFO_CHECK:
                         intent = new Intent(mContext,TaskActivity.class);
                         intent.putExtra("type", PublishTaskActivity.TaskType.INFO_CHECK);
+                        intent.putExtra("task",task);
                         mContext.startActivity(intent);
                         break;
                     case TYPE_NETWORK_REMOULD:
                         intent = new Intent(mContext,TaskActivity.class);
                         intent.putExtra("type", PublishTaskActivity.TaskType.NETWORK_REMOULD);
+                        intent.putExtra("task",task);
                         mContext.startActivity(intent);
                         break;
                     case TYPE_SETUP_CHECK:
                         intent = new Intent(mContext,TaskActivity.class);
                         intent.putExtra("type", PublishTaskActivity.TaskType.SETUP_AND_CHECK);
+                        intent.putExtra("task",task);
                         mContext.startActivity(intent);
                         break;
                 }
