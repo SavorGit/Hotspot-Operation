@@ -70,7 +70,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void setViews() {
-        tv_center.setText("任务详情");
+        tv_center.setText("指派人员");
         jobAdapter = new JobAdapter(context,this);
         pullToRefreshListView.setAdapter(jobAdapter);
         String task_type_id = taskDetail.getTask_type_id();
