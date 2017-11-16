@@ -175,6 +175,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
     private void handleWealthData(List<MissionTaskListBean> mList){
 
         if (mList != null && mList.size() > 0) {
+            page++;
             pullToRefreshListView.setVisibility(View.VISIBLE);
             if (isUp) {
                 listItems.clear();
@@ -191,7 +192,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
             if (mList!=null && mList.size()<15) {
                 pullToRefreshListView.onLoadComplete(false,false);
             }else {
-                page++;
+
                 pullToRefreshListView.onLoadComplete(true,false);
             }
         }else {

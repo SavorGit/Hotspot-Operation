@@ -217,7 +217,7 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
             listItems.addAll(mList);
             missionAdapter.setData(listItems);
 
-            if (mList!=null && mList.size()<20) {
+            if (mList!=null && mList.size()<15) {
                 pullToRefreshListView.onLoadComplete(false,false);
             }else {
                 page++;

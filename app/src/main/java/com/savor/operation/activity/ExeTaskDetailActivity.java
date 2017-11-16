@@ -402,8 +402,10 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void checkPublish( String url) {
+        List<String>ulist = new ArrayList<String>();
+        ulist.add(url);
         Gson gson = new Gson();
-        String  repair_info = gson.toJson(url, new TypeToken<String>() {
+        String  repair_info = gson.toJson(ulist, new TypeToken<List<String>>() {
         }.getType());
         AppApi.reportMission(context, "" ,"", repair_info,""
                 ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
