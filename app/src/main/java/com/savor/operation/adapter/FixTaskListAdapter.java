@@ -192,6 +192,8 @@ public class FixTaskListAdapter extends BaseAdapter {
 
         // 故障描述
         final ViewHolder finalHolder1 = holder;
+        holder.et_exception_desc.setTag(new Integer(position));
+        final ViewHolder finalHolder2 = holder;
         holder.et_exception_desc.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -206,6 +208,8 @@ public class FixTaskListAdapter extends BaseAdapter {
             @Override
             public void afterTextChanged(Editable s) {
                 String desc = finalHolder1.et_exception_desc.getText().toString();
+                Integer pos = (Integer) finalHolder2.et_exception_desc.getTag();
+                final RepairInfo repairInfo = (RepairInfo) getItem(pos);
                 repairInfo.setFault_desc(desc);
             }
         });
