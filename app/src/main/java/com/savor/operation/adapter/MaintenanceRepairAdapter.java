@@ -1,6 +1,7 @@
 package com.savor.operation.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +86,12 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
         holder.box.setText("维修版位："+item.getBox_name());
         holder.time.setText("操作时间："+item.getRepair_time());
         holder.remark.setText("备注："+item.getRemark());
+        String ts = item.getRepair_time();
+        if (TextUtils.isEmpty(ts)) {
+            ts = "无";
+        }
+        holder.time.setText(ts);
+
         Glide.with(context).load(item.getFault_img_url()).into(holder.fault_img);
         holder.fault_img.setOnClickListener(new View.OnClickListener() {
             @Override

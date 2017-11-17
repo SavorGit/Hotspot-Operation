@@ -1,6 +1,7 @@
 package com.savor.operation.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,12 +70,17 @@ public class CompleteRepairAdapter extends BaseAdapter {
             holder.img_a = (ImageView) convertView.findViewById(R.id.img_a);
             holder.la_b = (TextView) convertView.findViewById(R.id.la_b);
             holder.img_b = (ImageView) convertView.findViewById(R.id.img_b);
+            holder.time = (TextView) convertView.findViewById(R.id.time);
             convertView.setTag(holder);
         }else {
             holder = (CompleteRepairAdapter.ViewHolder) convertView.getTag();
         }
         final ExecuteRepair item = (ExecuteRepair) getItem(position);
-
+        String ts = item.getRepair_time();
+        if (TextUtils.isEmpty(ts)) {
+            ts = "无";
+        }
+        holder.time.setText(item.getRepair_time());
         List<TaskDetailRepairImg> repair_img = item.getRepair_img();
         if (repair_img != null && repair_img.size()>0) {
             final TaskDetailRepairImg obj1 = repair_img.get(0);
