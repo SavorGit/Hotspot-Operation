@@ -39,6 +39,7 @@ import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.bean.RepairRecordList;
+import com.savor.operation.bean.SmallPlatformByGetIp;
 import com.savor.operation.bean.Task;
 import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskNum;
@@ -331,7 +332,10 @@ public class ApiResponseFactory {
             case POST_APPOIN_TASK_JSON:
                 result = "success";
                 break;
-
+            case GET_IP_JSON:
+                result = gson.fromJson(info, new TypeToken<SmallPlatformByGetIp>() {
+                }.getType());
+                break;
 
             default:
                 break;
