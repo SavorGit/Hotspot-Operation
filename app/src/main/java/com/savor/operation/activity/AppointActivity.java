@@ -39,6 +39,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     private ImageView iv_left;
     private JobAdapter jobAdapter;
     private String times;
+    private TextView exe_num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         pullToRefreshListView = (PullToRefreshListView) findViewById(R.id.wl_listview);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         time = (TextView) findViewById(R.id.time);
+        exe_num = (TextView) findViewById(R.id.exe_num);
     }
 
     @Override
@@ -124,10 +126,14 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
             case POST_EXE_USER_LIST_JSON:
                 if(obj instanceof List) {
                     List<ExeUserList> tasks = (List<ExeUserList>) obj;
-                    if (jobAdapter!= null && jobAdapter.getCount()>0) {
-                        jobAdapter.clear();
+                    if (tasks != null && tasks.size()>0) {
+                        exe_num.setText("执行者数量"+tasks.size());
+                        if (jobAdapter!= null && jobAdapter.getCount()>0) {
+                            jobAdapter.clear();
+                        }
+                        jobAdapter.setData(tasks);
                     }
-                    jobAdapter.setData(tasks);
+
                 }
                 break;
             case POST_APPOIN_TASK_JSON:
