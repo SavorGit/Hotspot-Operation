@@ -60,6 +60,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     private TextView refused;
     private TextView assign;
     private TextView call;
+    private TextView refuse_desc;
     private String  tnum;
     private MaintenanceRepairAdapter maintenanceRepairAdapter;
     private InstallRepairAdapter installRepairAdapter;
@@ -104,6 +105,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         refused = (TextView) findViewById(R.id.refused);
         assign = (TextView) findViewById(R.id.assign);
         call = (TextView) findViewById(R.id.call);
+        refuse_desc = (TextView) findViewById(R.id.refuse_desc);
     }
 
     @Override
@@ -205,6 +207,14 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
             mold.setText(taskDetail.getTask_type_desc());
             hotel_name.setText(taskDetail.getHotel_name());
             add.setText(taskDetail.getHotel_address());
+            String refuse = taskDetail.getRefuse_desc();
+            if (!TextUtils.isEmpty(refuse)) {
+                refuse_desc.setVisibility(View.VISIBLE);
+                refuse_desc.setText(refuse);
+            }else {
+                refuse_desc.setVisibility(View.GONE);
+            }
+
 //            String appoint_exe_time = taskDetail.getAppoint_exe_time();
 //            if (!TextUtils.isEmpty(appoint_exe_time)) {
 //                release_execute_time.setVisibility(View.VISIBLE);
