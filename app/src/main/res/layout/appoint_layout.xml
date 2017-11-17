@@ -85,12 +85,12 @@
     </RadioGroup>
     <TextView
         android:id="@+id/exe_num"
-        android:layout_below="@id/title_tv"
+        android:layout_below="@id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="执行者数量"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"/>
 
     <com.common.api.widget.pulltorefresh.library.PullToRefreshListView
