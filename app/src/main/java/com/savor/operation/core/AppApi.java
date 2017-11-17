@@ -91,7 +91,8 @@ public class AppApi {
         POST_EXE_USER_LIST_JSON,
         /**指派任务*/
         POST_APPOIN_TASK_JSON,
-
+        /**请求getip接口*/
+        GET_IP_JSON,
 
     }
 
@@ -133,6 +134,7 @@ public class AppApi {
             put(Action.POST_REPORT_MISSION_JSON, formatPhpUrl("Opclient11/Mission/reportMission"));
             put(Action.POST_EXE_USER_LIST_JSON, formatPhpUrl("Opclient11/Task/getExeUserList"));
             put(Action.POST_APPOIN_TASK_JSON, formatPhpUrl("Opclient11/Task/appointTask"));
+            put(Action.GET_IP_JSON, formatPhpUrl("basedata/Ip/getIp"));
 
 
 
@@ -534,7 +536,11 @@ public class AppApi {
         new AppServiceOk(context, Action.POST_APPOIN_TASK_JSON, handler, params).post();
     }
 
-
+    /**获取小平台地址*/
+    public static void getSmallPlatformIp(Context context, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<String, Object>();
+        new AppServiceOk(context,Action.GET_IP_JSON,handler,params).get();
+    }
 
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";

@@ -1,12 +1,19 @@
 package com.savor.operation.activity;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
 import android.net.Uri;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
@@ -37,6 +44,7 @@ import com.savor.operation.bean.ExecutorInfo;
 import com.savor.operation.bean.ExecutorInfoBean;
 import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.RepairInfo;
+import com.savor.operation.bean.SmallPlatformByGetIp;
 import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.core.ApiRequestListener;
@@ -44,8 +52,11 @@ import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.interfaces.MaintenanceCallBack;
 import com.savor.operation.interfaces.RefuseCallBack;
+import com.savor.operation.receiver.NetworkConnectChangedReceiver;
+import com.savor.operation.ssdp.SSDPService;
 import com.savor.operation.utils.ConstantValues;
 import com.savor.operation.utils.OSSClientUtil;
+import com.savor.operation.utils.WifiUtil;
 import com.savor.operation.widget.CheckDialog;
 import com.savor.operation.widget.DetectDialog;
 import com.savor.operation.widget.InstallDialog;
@@ -66,7 +77,7 @@ import static com.savor.operation.adapter.FixTaskListAdapter.TAKE_PHOTO_REQUEST;
  * Created by bushlee on 2017/11/12.
  */
 
-public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener,MaintenanceCallBack {
+public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener,MaintenanceCallBack, SSDPService.OnSSDPReceivedListener {
 
     private Context context;
     private PullToRefreshListView mPullRefreshListView;
@@ -101,7 +112,6 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private String state;
     private String remark;
     private String checkUrl = "";
-    private Handler mHandler = new Handler();
     private  List<String> urls = new ArrayList<String>();
     private TextView call;
     private String  tnum;
@@ -109,6 +119,49 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private InstallRepairAdapter installRepairAdapter;
     private CompleteInstallRepairAdapter completeInstallRepairAdapter;
     private CompleteRepairAdapter completeRepairAdapter;
+    private NetworkConnectChangedReceiver mChangedReceiver;
+    private static final int MSG_CHECK_SSDP = 100;
+    private ServiceConnection mConn = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            SSDPService ssdpService = ((SSDPService.SSDPBinder) service).getService();
+            ssdpService.setOnSSDPReceivedListener(ExeTaskDetailActivity.this);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case WifiManager.WIFI_STATE_ENABLED:
+                    String wifiName = WifiUtil.getWifiName(ExeTaskDetailActivity.this);
+                    initSSDP();
+                    getIp();
+                    break;
+                case WifiManager.WIFI_STATE_DISABLED:
+                    stopSSDPService();
+                    reset();
+                    break;
+                case MSG_CHECK_SSDP:
+                    if(mHotelId==0 ) {
+                        stopSSDPService();
+                    }
+                    break;
+            }
+        }
+    };
+
+    private void reset() {
+        mHotelId = 0;
+    }
+
+    private Intent mSSDPBindIntent;
+    private int mHotelId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,6 +173,31 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         setViews();
         setListeners();
         getData();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerNetWorkReceiver();
+        if(!WifiUtil.checkWifiState(this)) {
+            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
+        }
+        getIp();
+    }
+
+    private void getIp() {
+        AppApi.getSmallPlatformIp(this,this);
+    }
+
+    public void registerNetWorkReceiver() {
+        if(mChangedReceiver==null)
+            mChangedReceiver = new NetworkConnectChangedReceiver(mHandler);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+        filter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+        filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        mContext.registerReceiver(mChangedReceiver, filter);
     }
 
     private void handleIntent() {
@@ -198,6 +276,17 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method){
+            case GET_IP_JSON:
+                if(obj instanceof SmallPlatformByGetIp) {
+                    SmallPlatformByGetIp smallPlatformByGetIp = (SmallPlatformByGetIp) obj;
+                    try {
+                        mHotelId = Integer.valueOf(smallPlatformByGetIp.getHotelId());
+                    }catch (Exception e) {
+
+                    }
+
+                }
+                break;
             case POST_TASK_DETAIL_JSON:
                 mPullRefreshListView.onRefreshComplete();
                 if (obj instanceof TaskDetail){
@@ -221,6 +310,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
                 break;
             case POST_REPORT_MISSION_JSON:
+                installDialog.loadFinish();
                 finish();
                 break;
 
@@ -468,7 +558,12 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
     @Override
     public void toInstallation(List<String> urls) {
-        InstalluploadPic(urls,0);
+        if(mHotelId>0) {
+            InstalluploadPic(urls,0);
+        }else {
+            installDialog.loadFinish();
+            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
+        }
     }
 
     @Override
@@ -735,4 +830,43 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         return false;
     }
 
+
+    private void initSSDP() {
+//        if(WifiUtil.checkWifiState(this)) {
+        bindSSDPService();
+        checkSSDPDelayed();
+//        }else {
+//            ShowMessage.showToast(this,"请连接wifi后继续操作");
+//        }
+    }
+
+    private void bindSSDPService() {
+        mSSDPBindIntent = new Intent(this,SSDPService.class);
+        mSSDPBindIntent.setAction("com.savor.operation.ssdp.action.SERVICE");
+        bindService(mSSDPBindIntent,mConn,BIND_AUTO_CREATE);
+        startService(mSSDPBindIntent);
+    }
+
+    @Override
+    public void onSSDPReceivedListener(String address, String boxAddress, int hotelId, int roomId, String boxMac) {
+        this.mHotelId = hotelId;
+    }
+
+    private void stopSSDPService() {
+        try {
+            if(mConn!=null) {
+                unbindService(mConn);
+            }
+            if(mSSDPBindIntent!=null) {
+                stopService(mSSDPBindIntent);
+                mSSDPBindIntent = null;
+            }
+        }catch (Exception e){}
+
+        mHotelId = 0;
+    }
+
+    private void checkSSDPDelayed() {
+        mHandler.sendEmptyMessageDelayed(MSG_CHECK_SSDP,10*1000);
+    }
 }
