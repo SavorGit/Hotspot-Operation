@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -43,6 +44,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     private JobAdapter jobAdapter;
     private String times;
     private TextView exe_num;
+    private String is_lead_install = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,25 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     public void setListeners() {
         time.setOnClickListener(this);
         iv_left.setOnClickListener(this);
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup arg0, int arg1) {
+                // TODO Auto-generated method stub
+                //获取变更后的选中项的ID
+                int radioButtonId = arg0.getCheckedRadioButtonId();
+                //根据ID获取RadioButton的实例
+                RadioButton rb = (RadioButton)findViewById(radioButtonId);
+                if ("带队安装".equals(rb.getText().toString())) {
+                    is_lead_install = "1";
+                }else {
+                    is_lead_install = "0";
+                }
+                //  state = rb.getText().toString();
+                //更新文本内容，以符合选中项
+                //tv.setText("您的性别是：" + rb.getText());
+            }
+        });
     }
 
     @Override
@@ -183,6 +204,6 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void appoint(ExeUserList itemVo) {
-        AppApi.appointTask(context,times,mSession.getLoginResponse().getUserid(),itemVo.getUser_id(),taskDetail.getId(),this);
+        AppApi.appointTask(context,times,mSession.getLoginResponse().getUserid(),itemVo.getUser_id(),taskDetail.getId(),is_lead_install,this);
     }
 }

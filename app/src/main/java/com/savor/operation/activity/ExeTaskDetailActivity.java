@@ -310,7 +310,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
                 break;
             case POST_REPORT_MISSION_JSON:
-                installDialog.loadFinish();
+                //installDialog.loadFinish();
                 finish();
                 break;
 

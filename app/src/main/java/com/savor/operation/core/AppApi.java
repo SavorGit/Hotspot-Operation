@@ -527,12 +527,13 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void appointTask(Context context, String appoint_exe_time ,String appoint_user_id,String exe_user_id,String task_id,ApiRequestListener handler) {
+    public static void appointTask(Context context, String appoint_exe_time ,String appoint_user_id,String exe_user_id,String task_id,String is_lead_install,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("appoint_exe_time",appoint_exe_time);
         params.put("appoint_user_id",appoint_user_id);
         params.put("exe_user_id",exe_user_id);
         params.put("task_id",task_id);
+        params.put("is_lead_install",is_lead_install);
         new AppServiceOk(context, Action.POST_APPOIN_TASK_JSON, handler, params).post();
     }
 
