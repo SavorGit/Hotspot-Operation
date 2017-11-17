@@ -13,7 +13,10 @@ import android.widget.TextView;
 import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
+import com.savor.operation.adapter.CompleteInstallRepairAdapter;
+import com.savor.operation.adapter.CompleteRepairAdapter;
 import com.savor.operation.adapter.RepairAdapter;
+import com.savor.operation.bean.ExecuteRepair;
 import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.core.ApiRequestListener;
@@ -54,6 +57,8 @@ public class CompletedSeekTaskDetailActivity extends BaseActivity implements Vie
     private TextView assign;
     private TextView call;
     private String  tnum;
+    private CompleteInstallRepairAdapter completeInstallRepairAdapter;
+    private CompleteRepairAdapter completeRepairAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -235,6 +240,7 @@ public class CompletedSeekTaskDetailActivity extends BaseActivity implements Vie
             }
 
             List<TaskDetailRepair> repair_list = taskDetail.getRepair_list();
+            List<ExecuteRepair> execute = taskDetail.getExecute();
             if (repair_list != null && repair_list.size()>0) {
                 screen_num.setText("版位数量 ："+repair_list.size());
                 repairAdapter = new RepairAdapter(context);

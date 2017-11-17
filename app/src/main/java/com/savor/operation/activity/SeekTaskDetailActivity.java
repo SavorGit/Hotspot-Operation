@@ -13,9 +13,12 @@ import android.widget.TextView;
 import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
+import com.savor.operation.adapter.CompleteInstallRepairAdapter;
+import com.savor.operation.adapter.CompleteRepairAdapter;
 import com.savor.operation.adapter.InstallRepairAdapter;
 import com.savor.operation.adapter.MaintenanceRepairAdapter;
 import com.savor.operation.adapter.RepairAdapter;
+import com.savor.operation.bean.ExecuteRepair;
 import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.core.ApiRequestListener;
@@ -59,6 +62,8 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
     private TextView call;
     private String  tnum;
     private String task_type_id;
+    private CompleteInstallRepairAdapter completeInstallRepairAdapter;
+    private CompleteRepairAdapter completeRepairAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,7 +246,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
             }
 
             List<TaskDetailRepair> repair_list = taskDetail.getRepair_list();
-
+            List<ExecuteRepair> execute = taskDetail.getExecute();
             if (repair_list != null && repair_list.size()>0) {
                 //screen_num.setText("版位数量 ："+repair_list.size());
                 mPullRefreshListView.setVisibility(View.VISIBLE);
@@ -270,6 +275,27 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                     mPullRefreshListView.onLoadComplete(false,false);
                 }
 
+
+            }else if(execute != null && execute.size()>0){
+                mPullRefreshListView.setVisibility(View.VISIBLE);
+                if ("1".equals(task_type_id)) {//信息检测
+                    completeRepairAdapter = new CompleteRepairAdapter(context);
+                    mPullRefreshListView.setAdapter(completeRepairAdapter);
+                    completeRepairAdapter.setData(execute);
+                    mPullRefreshListView.onLoadComplete(false,false);
+
+                }else if ("2".equals(task_type_id)){//安装验收
+                    completeInstallRepairAdapter = new CompleteInstallRepairAdapter(context);
+                    mPullRefreshListView.setAdapter(completeInstallRepairAdapter);
+                    completeInstallRepairAdapter.setData(execute);
+                    mPullRefreshListView.onLoadComplete(false,false);
+
+                }else if ("8".equals(task_type_id)) {//网络改造
+                    completeRepairAdapter = new CompleteRepairAdapter(context);
+                    mPullRefreshListView.setAdapter(completeRepairAdapter);
+                    completeRepairAdapter.setData(execute);
+                    mPullRefreshListView.onLoadComplete(false,false);
+                }
 
             }else {
                 mPullRefreshListView.setVisibility(View.GONE);
