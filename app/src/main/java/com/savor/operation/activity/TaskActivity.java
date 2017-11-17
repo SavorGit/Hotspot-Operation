@@ -482,7 +482,6 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
-        super.onError(method,obj);
         switch (method) {
             case POST_PUBLISH_JSON:
                 mloadingPb.setVisibility(View.GONE);

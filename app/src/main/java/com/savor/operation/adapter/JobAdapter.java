@@ -43,6 +43,10 @@ public class JobAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public List<ExeUserList> getData() {
+        return list;
+    }
+
     public void clear() {
         this.list.clear();
         notifyDataSetChanged();

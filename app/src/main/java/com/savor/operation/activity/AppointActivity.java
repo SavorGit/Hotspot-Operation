@@ -134,9 +134,20 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onTimeSelect(Date date, View v) {
                 times = getTime(date);
+                Date currentDate = new Date(System.currentTimeMillis());
+                int compareTo = currentDate.compareTo(date);
+                if(compareTo<0) {
+                    time.setText("执行日期：");
+                    ShowMessage.showToast(AppointActivity.this,"不能选择今天之前的日期");
+                    List<ExeUserList> data = jobAdapter.getData();
+                    data.clear();
+                    jobAdapter.setData(data);
+                }else {
+                    time.setText("执行日期："+times);
+                    getExeUserList();
+                }
                 //ShowMessage.showToast(SavorMainActivity.this,time);
-                time.setText("执行日期："+times);
-                getExeUserList();
+
             }
         }).setType(new boolean[]{true, true, true, false, false, false}).isCenterLabel(false).build();
         timePickerView.show();
