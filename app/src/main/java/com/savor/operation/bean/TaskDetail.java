@@ -33,9 +33,11 @@ public class TaskDetail implements Serializable {
     private  String appoint_user_id;
     private  String appoint_user;
     private  String appoint_exe_time;
+    private  String refuse_time;
+    private  String refuse_desc;
     private  String complete_time;
     private  String hotel_linkman_tel;
-
+    private int is_lead_install;
     private List<TaskDetailRepair> repair_list = new ArrayList<TaskDetailRepair>();
     private List<ExecuteRepair> execute = new ArrayList<ExecuteRepair>();
     //private List<TaskDetailExecute> execute = new ArrayList<TaskDetailExecute>();
@@ -256,6 +258,30 @@ public class TaskDetail implements Serializable {
         this.execute = execute;
     }
 
+    public String getRefuse_time() {
+        return refuse_time;
+    }
+
+    public void setRefuse_time(String refuse_time) {
+        this.refuse_time = refuse_time;
+    }
+
+    public String getRefuse_desc() {
+        return refuse_desc;
+    }
+
+    public void setRefuse_desc(String refuse_desc) {
+        this.refuse_desc = refuse_desc;
+    }
+
+    public int getIs_lead_install() {
+        return is_lead_install;
+    }
+
+    public void setIs_lead_install(int is_lead_install) {
+        this.is_lead_install = is_lead_install;
+    }
+
     @Override
     public String toString() {
         return "TaskDetail{" +
@@ -282,8 +308,11 @@ public class TaskDetail implements Serializable {
                 ", appoint_user_id='" + appoint_user_id + '\'' +
                 ", appoint_user='" + appoint_user + '\'' +
                 ", appoint_exe_time='" + appoint_exe_time + '\'' +
+                ", refuse_time='" + refuse_time + '\'' +
+                ", refuse_desc='" + refuse_desc + '\'' +
                 ", complete_time='" + complete_time + '\'' +
                 ", hotel_linkman_tel='" + hotel_linkman_tel + '\'' +
+                ", is_lead_install=" + is_lead_install +
                 ", repair_list=" + repair_list +
                 ", execute=" + execute +
                 '}';
