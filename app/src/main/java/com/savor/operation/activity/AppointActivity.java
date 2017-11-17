@@ -2,6 +2,7 @@ package com.savor.operation.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
@@ -31,7 +32,9 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
 
     private TaskDetail taskDetail;
     private Context context;
-    private TextView info;
+    private TextView info_state;
+    private TextView info_hotel_name;
+    private TextView tv_num;
     private RadioGroup radioGroup;
     private PullToRefreshListView pullToRefreshListView;
     private TextView tv_center;
@@ -63,7 +66,9 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     public void getViews() {
         iv_left = (ImageView) findViewById(R.id.iv_left);
         tv_center = (TextView) findViewById(R.id.tv_center);
-        info = (TextView) findViewById(R.id.info);
+        info_state = (TextView) findViewById(R.id.info_state);
+        info_hotel_name = (TextView) findViewById(R.id.info_hotel_name);
+        tv_num = (TextView) findViewById(R.id.tv_num);
         pullToRefreshListView = (PullToRefreshListView) findViewById(R.id.wl_listview);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         time = (TextView) findViewById(R.id.time);
@@ -145,7 +150,32 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         }
     }
     private void initView(){
-        info.setText(taskDetail.getTask_type_desc()+taskDetail.getHotel_address()+"版位数量："+taskDetail.getTv_nums()+"个");
+        String state = taskDetail.getTask_type_desc();
+        String hotel_name = taskDetail.getHotel_address();
+        String num = taskDetail.getTv_nums();
+
+        if (!TextUtils.isEmpty(state)) {
+            info_state.setVisibility(View.VISIBLE);
+            info_state.setText(state);
+        }else {
+            info_state.setVisibility(View.GONE);
+            //info_state.setText(state);
+        }
+
+        if (!TextUtils.isEmpty(hotel_name)) {
+            info_hotel_name.setVisibility(View.VISIBLE);
+            info_hotel_name.setText(hotel_name);
+        }else {
+            info_hotel_name.setVisibility(View.GONE);
+        }
+
+        if (!TextUtils.isEmpty(num)) {
+            tv_num.setVisibility(View.VISIBLE);
+            tv_num.setText("版位数量："+num+"个");
+        }else {
+            tv_num.setVisibility(View.GONE);
+        }
+
     }
     private void getExeUserList(){
         AppApi.getExeUserList(context,times,"",taskDetail.getId(),this);

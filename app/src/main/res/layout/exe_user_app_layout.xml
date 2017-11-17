@@ -35,7 +35,7 @@
         android:paddingRight="5dp"
         android:paddingLeft="5dp"
         android:layout_toLeftOf="@id/refused"
-        android:text="去指派"
+        android:text="指派"
         android:background="@color/actionsheet_blue"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
