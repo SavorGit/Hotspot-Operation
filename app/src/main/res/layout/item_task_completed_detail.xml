@@ -26,7 +26,8 @@
         android:layout_marginLeft="12dp"
         android:textSize="15sp"
         android:textColor="#333333"
-        android:text="解决状态"
+        android:textStyle="bold"
+        android:text=""
         />
     <TextView
         android:id="@+id/desc"

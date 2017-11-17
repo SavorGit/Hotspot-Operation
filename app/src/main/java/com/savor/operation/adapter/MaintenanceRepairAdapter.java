@@ -112,6 +112,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
              final  TaskDetailRepairImg obj = repair_img.get(i);
             View v = mInflater.inflate(R.layout.item_pic_layout, null);
             final ImageView iv_exce_pic1 = (ImageView)v.findViewById(R.id.iv_exce_pic1);
+             Glide.with(context).load(obj.getImg()).into(iv_exce_pic1);
              iv_exce_pic1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
