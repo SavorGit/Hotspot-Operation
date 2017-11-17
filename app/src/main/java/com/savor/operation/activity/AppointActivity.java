@@ -88,6 +88,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         }else {
             radioGroup.setVisibility(View.GONE);
         }
+        exe_num.setVisibility(View.GONE);
     }
 
     @Override
@@ -153,11 +154,14 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                 if(obj instanceof List) {
                     List<ExeUserList> tasks = (List<ExeUserList>) obj;
                     if (tasks != null && tasks.size()>0) {
+                        exe_num.setVisibility(View.VISIBLE);
                         exe_num.setText("执行者数量"+tasks.size());
                         if (jobAdapter!= null && jobAdapter.getCount()>0) {
                             jobAdapter.clear();
                         }
                         jobAdapter.setData(tasks);
+                    }else {
+                        exe_num.setVisibility(View.GONE);
                     }
 
                 }
