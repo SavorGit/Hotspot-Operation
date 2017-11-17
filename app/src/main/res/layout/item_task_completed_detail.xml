@@ -108,6 +108,18 @@
         android:orientation="horizontal"
         >
     </LinearLayout>
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/msg_la"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="12dp"
+        android:textSize="15sp"
+        android:textColor="#333333"
+        android:text="操作时间："
+        />
 
 
 </RelativeLayout>
