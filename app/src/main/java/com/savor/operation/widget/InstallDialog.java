@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -62,6 +63,7 @@ public class InstallDialog implements OnClickListener {
     private int currentPos;
     private  TextView currentTv;
     private  ImageView currentIv ;
+    private ProgressBar pb_loading;
 
     public InstallDialog(Context context) {
         this.context = context;
@@ -95,6 +97,7 @@ public class InstallDialog implements OnClickListener {
         submit = (TextView) view.findViewById(R.id.submit);
         cancel = (TextView) view.findViewById(R.id.cancel);
         msg_la = (LinearLayout) view.findViewById(R.id.msg_la);
+        pb_loading = (ProgressBar) view.findViewById(R.id.pb_loading);
 
         if (dialog == null) {
             dialog = new Dialog(context, R.style.AlertDialogStyle);
@@ -107,6 +110,14 @@ public class InstallDialog implements OnClickListener {
         addView();
         setListeners();
         return this;
+    }
+
+    public void loadFinish() {
+        pb_loading.setVisibility(View.GONE);
+    }
+
+    public void startLoading() {
+        pb_loading.setVisibility(View.VISIBLE);
     }
 
     public void setListeners() {
@@ -153,6 +164,7 @@ public class InstallDialog implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.submit:
+                startLoading();
                 callBack.toInstallation(urls);
                 //callBack.toMaintenance(box_id,ev_info.getText().toString(),state,urls);
                 break;

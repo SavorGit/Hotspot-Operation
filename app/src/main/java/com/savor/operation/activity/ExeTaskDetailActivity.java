@@ -280,7 +280,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 if(obj instanceof SmallPlatformByGetIp) {
                     SmallPlatformByGetIp smallPlatformByGetIp = (SmallPlatformByGetIp) obj;
                     try {
-                        mHotelId = Integer.valueOf(smallPlatformByGetIp.getHotelIp());
+                        mHotelId = Integer.valueOf(smallPlatformByGetIp.getHotelId());
                     }catch (Exception e) {
 
                     }
@@ -310,6 +310,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
                 break;
             case POST_REPORT_MISSION_JSON:
+                installDialog.loadFinish();
                 finish();
                 break;
 
@@ -560,6 +561,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         if(mHotelId>0) {
             InstalluploadPic(urls,0);
         }else {
+            installDialog.loadFinish();
             ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
         }
     }
