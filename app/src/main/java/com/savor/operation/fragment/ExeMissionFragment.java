@@ -95,7 +95,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
 
             switch (state){
                 case 0:
-                    if (!"1".equals(itemState)) {
+                    if (!"2".equals(itemState)) {
                         Intent intent = new Intent(context, SeekTaskDetailActivity.class);
                         intent.putExtra("id",item.getId());
                         startActivity(intent);

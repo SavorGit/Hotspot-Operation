@@ -58,6 +58,7 @@
         android:layout_width="match_parent"
         android:gravity="center|left"
         android:text="执行日期：请选择"
+        android:textColor="@color/title_text_color"
         android:layout_height="45dp" />
 
     <RadioGroup
