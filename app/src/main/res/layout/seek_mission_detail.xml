@@ -185,6 +185,16 @@
             android:textColor="#66cc00"/>
 
     </RelativeLayout>
+    <TextView
+        android:id="@+id/refuse_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact_la"
+        android:layout_marginTop="5dp"
+        android:textColor="#888888"
+        android:textSize="15sp"
+        android:layout_marginBottom="5dp"
+        android:text=""/>
     <RelativeLayout
         android:id="@+id/btn_la"
         android:visibility="gone"
@@ -235,7 +245,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_below="@id/contact_la"
+        android:layout_below="@id/refuse_desc"
         android:id="@+id/wl_listview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

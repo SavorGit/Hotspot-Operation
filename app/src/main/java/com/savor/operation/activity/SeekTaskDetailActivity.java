@@ -57,14 +57,14 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
     private InstallRepairAdapter installRepairAdapter;
     private RefuseDialog refuseDialog;
     private RelativeLayout btn_la;
-    private TextView refused;
     private TextView assign;
     private TextView call;
     private String  tnum;
     private String task_type_id;
     private CompleteInstallRepairAdapter completeInstallRepairAdapter;
     private CompleteRepairAdapter completeRepairAdapter;
-
+    private TextView refused;
+    private TextView refuse_desc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +102,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
         refused = (TextView) findViewById(R.id.refused);
         assign = (TextView) findViewById(R.id.assign);
         call = (TextView) findViewById(R.id.call);
+        refuse_desc = (TextView) findViewById(R.id.call);
     }
 
     @Override
@@ -195,6 +196,14 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
             mold.setText(taskDetail.getTask_type_desc());
             hotel_name.setText(taskDetail.getHotel_name());
             add.setText(taskDetail.getHotel_address());
+
+            String refuses = taskDetail.getRefuse_desc();
+            if (!TextUtils.isEmpty(refuses)) {
+                refuse_desc.setVisibility(View.VISIBLE);
+                refuse_desc.setText(refuses);
+            }else {
+                refuse_desc.setVisibility(View.GONE);
+            }
 //            String appoint_exe_time = taskDetail.getAppoint_exe_time();
 //            if (!TextUtils.isEmpty(appoint_exe_time)) {
 //                release_execute_time.setVisibility(View.VISIBLE);
