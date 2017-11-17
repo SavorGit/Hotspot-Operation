@@ -125,7 +125,6 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                 break;
             case APPOINT_TASK_LIST:
             case PUB_TASK_LIST:
-            case TASK_LIST:
                 imageId = R.drawable.ico_task_list;
                 desc = "任务列表";
                 if(num>0) {
@@ -134,6 +133,10 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                 }else {
                     holder.tv_num.setVisibility(View.GONE);
                 }
+                break;
+            case TASK_LIST:
+                imageId = R.drawable.ico_task_list;
+                desc = "任务列表";
                 break;
             case SYSTEM_STATUS:
                 imageId = R.drawable.ico_system_status;

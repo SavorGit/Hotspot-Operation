@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.common.api.utils.DensityUtil;
 import com.savor.operation.R;
 import com.savor.operation.widget.imageshow.ImageShowViewPager;
+import com.savor.operation.widget.imageshow.TouchImageView;
 
 /**
  * Created by hezd on 2016/12/26.
@@ -23,7 +24,7 @@ public class ShowPicDialog extends Dialog implements View.OnClickListener {
     private OnTakePhotoBtnClickListener onTakePhotoBtnClickListener;
     private OnAlbumBtnClickListener onAlbumBtnClickListener;
     private boolean iscolor = false;
-    private ImageView mImageView;
+    private PhotoView mImageView;
 
     public ShowPicDialog(Context context) {
         super(context, R.style.loading_dialog);
@@ -50,24 +51,27 @@ public class ShowPicDialog extends Dialog implements View.OnClickListener {
     }
 
     private void setListeners() {
+        mImageView.setOnClickListener(this);
     }
 
     private void setViews() {
         ViewGroup.LayoutParams layoutParams = mImageView.getLayoutParams();
         layoutParams.width = DensityUtil.getScreenWidth(getContext());
-        layoutParams.height = DensityUtil.dip2px(getContext(),200);
+        layoutParams.height = DensityUtil.getScreenHeight(getContext());
         Glide.with(getContext()).load(mImageUrl).placeholder(R.drawable.kong_mrjz).into(mImageView);
     }
 
     private void getViews() {
-        mImageView = (ImageView) findViewById(R.id.iv_image);
+        mImageView = (PhotoView) findViewById(R.id.iv_image);
     }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
+            case R.id.iv_image:
+                dismiss();
+                break;
         }
     }
 
