@@ -75,6 +75,7 @@ public class CommonDialog extends Dialog implements View.OnClickListener {
 
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,12 +121,12 @@ public class CommonDialog extends Dialog implements View.OnClickListener {
             mConfirmBtn.setText(confirm);
         }
 
-        if(mCancelListener!=null) {
-            //  mDividerView.setVisibility(View.VISIBLE);
-            mCancelBtn.setVisibility(View.VISIBLE);
-        }else {
-            mCancelBtn.setVisibility(View.GONE);
-        }
+//        if(mCancelListener!=null) {
+//            //  mDividerView.setVisibility(View.VISIBLE);
+//            mCancelBtn.setVisibility(View.VISIBLE);
+//        }else {
+//            mCancelBtn.setVisibility(View.GONE);
+//        }
 
         if(!TextUtils.isEmpty(title)) {
             ts.setText(title);

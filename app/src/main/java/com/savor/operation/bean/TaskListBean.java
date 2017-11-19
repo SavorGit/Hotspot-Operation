@@ -23,6 +23,7 @@ public class TaskListBean implements Serializable {
     private  String task_emerge_id;
     private  String task_type_id;
     private  String task_type_desc;
+    private  String refuse_time;
 
     public String getId() {
         return id;
@@ -144,6 +145,14 @@ public class TaskListBean implements Serializable {
         this.task_type_desc = task_type_desc;
     }
 
+    public String getRefuse_time() {
+        return refuse_time;
+    }
+
+    public void setRefuse_time(String refuse_time) {
+        this.refuse_time = refuse_time;
+    }
+
     @Override
     public String toString() {
         return "TaskListBean{" +
@@ -162,6 +171,7 @@ public class TaskListBean implements Serializable {
                 ", task_emerge_id='" + task_emerge_id + '\'' +
                 ", task_type_id='" + task_type_id + '\'' +
                 ", task_type_desc='" + task_type_desc + '\'' +
+                ", refuse_time='" + refuse_time + '\'' +
                 '}';
     }
 }

@@ -162,6 +162,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 if (refuseDialog != null) {
                     refuseDialog.dismiss();
                 }
+                finish();
                 break;
         }
 
@@ -339,4 +340,13 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     public void toRefuse(String info) {
         AppApi.refuseTask(context,info,mSession.getLoginResponse().getUserid(),id,this);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 10) {
+            finish();
+        }
+    }
+
 }

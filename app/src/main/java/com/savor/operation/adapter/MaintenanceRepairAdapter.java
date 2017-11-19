@@ -76,16 +76,34 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
             holder.remark = (TextView) convertView.findViewById(R.id.remark);
             holder.state = (TextView) convertView.findViewById(R.id.state);
             holder.user  = (TextView) convertView.findViewById(R.id.user);
+            holder.pic_la = (TextView) convertView.findViewById(R.id.pic_la);
             convertView.setTag(holder);
         }else {
             holder = (MaintenanceRepairAdapter.ViewHolder) convertView.getTag();
         }
         final TaskDetailRepair item = (TaskDetailRepair) getItem(position);
-        holder.user.setText("执行人："+item.getUsername());
+
         holder.desc.setText("故障现象："+item.getFault_desc());
         holder.box.setText("维修版位："+item.getBox_name());
         holder.time.setText("操作时间："+item.getRepair_time());
-        holder.remark.setText("备注："+item.getRemark());
+
+        String Username = item.getUsername();
+        String Remark = item.getRemark();
+        if (!TextUtils.isEmpty(Username)) {
+            holder.user.setVisibility(View.VISIBLE);
+            holder.user.setText("执行人："+item.getUsername());
+        }else {
+            holder.user.setVisibility(View.GONE);
+        }
+
+        if (!TextUtils.isEmpty(Remark)) {
+            holder.remark.setVisibility(View.VISIBLE);
+            holder.remark.setText("备注："+item.getRemark());
+        }else {
+            holder.remark.setVisibility(View.GONE);
+        }
+
+
         String ts = item.getRepair_time();
         if (TextUtils.isEmpty(ts)) {
             ts = "无";
@@ -108,6 +126,8 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
         }
         List<TaskDetailRepairImg> repair_img = item.getRepair_img();
         if (repair_img != null && repair_img.size()>0) {
+            holder.msg_la.setVisibility(View.VISIBLE);
+            holder.pic_la.setVisibility(View.VISIBLE);
          for (int i = 0; i < repair_img.size(); i++) {
              final  TaskDetailRepairImg obj = repair_img.get(i);
             View v = mInflater.inflate(R.layout.item_pic_layout, null);
@@ -122,6 +142,10 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
             //convertView = mInflater.inflate(R.layout.item_video, null);
              holder.msg_la.addView(v);
         }
+        }else {
+            holder.msg_la.setVisibility(View.GONE);
+            holder.pic_la.setVisibility(View.VISIBLE);
+            holder.pic_la.setText("无");
         }
 
 
@@ -139,6 +163,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
         public TextView remark;
         public TextView state;
         public TextView user;
+        public TextView pic_la;
 
     }
 }

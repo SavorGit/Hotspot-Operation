@@ -1,6 +1,7 @@
 package com.savor.operation.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskInfoListBean;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.widget.CommonDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,7 +31,7 @@ import java.util.List;
  * Created by bushlee on 2017/11/13.
  */
 
-public class AppointActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener,JobAdapter.Appoint {
+public class AppointActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener,JobAdapter.Appoint,CommonDialog.OnConfirmListener {
 
     private TaskDetail taskDetail;
     private Context context;
@@ -109,6 +111,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                 }else {
                     is_lead_install = "0";
                 }
+                getExeUserList();
                 //  state = rb.getText().toString();
                 //更新文本内容，以符合选中项
                 //tv.setText("您的性别是：" + rb.getText());
@@ -135,8 +138,9 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
             public void onTimeSelect(Date date, View v) {
                 times = getTime(date);
                 Date currentDate = new Date(System.currentTimeMillis());
+                String ctimes =  getTime(currentDate);
                 int compareTo = currentDate.compareTo(date);
-                if(compareTo<0) {
+                if(compareTo>=1&& !times.equals(ctimes)) {
                     time.setText("执行日期：");
                     ShowMessage.showToast(AppointActivity.this,"不能选择今天之前的日期");
                     List<ExeUserList> data = jobAdapter.getData();
@@ -219,6 +223,26 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void appoint(ExeUserList itemVo) {
-        AppApi.appointTask(context,times,mSession.getLoginResponse().getUserid(),itemVo.getUser_id(),taskDetail.getId(),is_lead_install,this);
+
+        final ExeUserList CitemVo = itemVo;
+
+        new CommonDialog(this, "是否指派", new CommonDialog.OnConfirmListener() {
+            @Override
+            public void onConfirm() {
+                AppApi.appointTask(context,times,mSession.getLoginResponse().getUserid(),CitemVo.getUser_id(),taskDetail.getId(),is_lead_install,AppointActivity.this);
+            }
+        }, new CommonDialog.OnCancelListener() {
+            @Override
+            public void onCancel() {
+
+            }
+        },"确定").show();
+
+
+    }
+
+    @Override
+    public void onConfirm() {
+
     }
 }

@@ -304,6 +304,11 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                     mPullRefreshListView.setAdapter(completeRepairAdapter);
                     completeRepairAdapter.setData(execute);
                     mPullRefreshListView.onLoadComplete(false,false);
+                }else {
+                    completeRepairAdapter = new CompleteRepairAdapter(context);
+                    mPullRefreshListView.setAdapter(completeRepairAdapter);
+                    completeRepairAdapter.setData(execute);
+                    mPullRefreshListView.onLoadComplete(false,false);
                 }
 
             }else {

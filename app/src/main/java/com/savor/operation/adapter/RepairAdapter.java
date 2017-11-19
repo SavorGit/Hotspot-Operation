@@ -81,15 +81,23 @@ public class RepairAdapter extends BaseAdapter {
         List<TaskDetailRepairImg> repair_img = item.getRepair_img();
         if (repair_img != null && repair_img.size()>0) {
             final TaskDetailRepairImg obj1 = repair_img.get(0);
+            String URL1 = repair_img.get(0).getImg();
             if (repair_img.size() == 1) {
                 holder.la_a.setText("信息检测单");
-                Glide.with(context).load(repair_img.get(0).getImg()).placeholder(R.drawable.kong_mrjz).into(holder.img_a);
-                holder.img_a.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new ShowPicDialog(context,obj1.getImg()).show();
-                    }
-                });
+                if (!TextUtils.isEmpty(URL1)) {
+                    Glide.with(context).load(repair_img.get(0).getImg()).placeholder(R.drawable.kong_mrjz).into(holder.img_a);
+                    holder.img_a.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new ShowPicDialog(context,obj1.getImg()).show();
+                        }
+                    });
+                }else {
+                    holder.img_a.setBackgroundResource(R.drawable.kong_mrjz);
+                }
+
+
+
                 holder.la_a.setVisibility(View.VISIBLE);
                 holder.img_a.setVisibility(View.VISIBLE);
 
@@ -103,22 +111,32 @@ public class RepairAdapter extends BaseAdapter {
                 holder.la_b.setVisibility(View.VISIBLE);
                 holder.img_b.setVisibility(View.VISIBLE);
 
-                Glide.with(context).load(obj1.getImg()).placeholder(R.drawable.kong_mrjz).into(holder.img_a);
-                holder.img_a.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new ShowPicDialog(context,obj1.getImg()).show();
-                    }
-                });
+                if (!TextUtils.isEmpty(URL1)) {
+                    Glide.with(context).load(repair_img.get(0).getImg()).placeholder(R.drawable.kong_mrjz).into(holder.img_a);
+                    holder.img_a.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new ShowPicDialog(context,obj1.getImg()).show();
+                        }
+                    });
+                }else {
+                    holder.img_a.setBackgroundResource(R.drawable.kong_mrjz);
+                }
 
+                String URL2 = obj2.getImg();
+                if (!TextUtils.isEmpty(URL2)) {
+                    Glide.with(context).load(obj2.getImg()).placeholder(R.drawable.kong_mrjz).into(holder.img_b);
+                    holder.img_b.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new ShowPicDialog(context,obj2.getImg()).show();
+                        }
+                    });
+                }else {
+                    holder.img_b.setBackgroundResource(R.drawable.kong_mrjz);
+                }
                 holder.la_b.setText("网络改造检测单");
-                Glide.with(context).load(obj2.getImg()).placeholder(R.drawable.kong_mrjz).into(holder.img_b);
-                holder.img_b.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new ShowPicDialog(context,obj2.getImg()).show();
-                    }
-                });
+
             }
         }
 //        Glide.with(context).load(item.getFault_img_url()).placeholder(R.drawable.kong_mrjz).into(holder.imge_la);

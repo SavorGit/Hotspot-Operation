@@ -1,8 +1,12 @@
 package com.savor.operation.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +34,9 @@ import com.savor.operation.core.ResponseErrorMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.savor.operation.adapter.FixTaskListAdapter.REQUEST_CODE_IMAGE;
+import static com.savor.operation.adapter.FixTaskListAdapter.TAKE_PHOTO_REQUEST;
 
 /**
  * 执行者任务列表
@@ -102,13 +109,15 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
                     }else {
                         Intent intent = new Intent(context, ExeTaskDetailActivity.class);
                         intent.putExtra("id",item.getId());
-                        startActivity(intent);
+                        startActivityForResult(intent,555);
+                       // startActivity(intent);
                     }
                     break;
                 case 2:
                     Intent intent1 = new Intent(context, ExeTaskDetailActivity.class);
                     intent1.putExtra("id",item.getId());
-                    startActivity(intent1);
+                    startActivityForResult(intent1,555);
+                    //startActivity(intent1);
                     break;
                 case 4:
                     Intent intent = new Intent(context, SeekTaskDetailActivity.class);
@@ -120,6 +129,18 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
 
         }
     };
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 555) {
+            page = 0;
+            isUp = true;
+            getData();
+        }
+    }
+
     @Override
     public void setViews() {
 

@@ -74,13 +74,28 @@ public class MissionAdapter extends BaseAdapter {
             holder.release_time = (TextView) convertView.findViewById(R.id.release_time);
             holder.execute_time = (TextView) convertView.findViewById(R.id.execute_time);
             holder.complete_time = (TextView) convertView.findViewById(R.id.complete_time);
-
+            holder.refuse_time = (TextView) convertView.findViewById(R.id.refuse_time);
             convertView.setTag(holder);
         }else {
             holder = (MissionAdapter.ViewHolder) convertView.getTag();
         }
         MissionTaskListBean item = (MissionTaskListBean) getItem(position);
         holder.plan_state.setText(item.getState()+"("+item.getRegion_name()+")");
+        String stateId = item.getState_id();
+        if ("0".equals(stateId)) {
+            holder.plan_state.setTextColor(context.getResources().getColor(R.color.green_2));
+        }else if ("1".equals(stateId)) {
+            holder.plan_state.setTextColor(context.getResources().getColor(R.color.orange_1));
+        }else if ("2".equals(stateId)) {
+            holder.plan_state.setTextColor(context.getResources().getColor(R.color.api_blue));
+        }else if ("4".equals(stateId)) {
+            holder.plan_state.setTextColor(context.getResources().getColor(R.color.green_2));
+        }else if ("5".equals(stateId)) {
+            holder.plan_state.setTextColor(context.getResources().getColor(R.color.red));
+        }
+
+
+
         String task_emerge_id = item.getTask_emerge_id();
         if ("2".equals(task_emerge_id)) {
             holder.level_state.setVisibility(View.VISIBLE);
@@ -136,6 +151,14 @@ public class MissionAdapter extends BaseAdapter {
             holder.complete_time.setVisibility(View.GONE);
             holder.complete_time.setText("");
         }
+        String refuseT = item.getRefuse_time();
+        if (!TextUtils.isEmpty(refuseT)) {
+            holder.refuse_time.setVisibility(View.VISIBLE);
+            holder.refuse_time.setText("拒绝时间"+complete_time+"("+item.getExeuser()+")");
+        }else {
+            holder.refuse_time.setVisibility(View.GONE);
+            holder.refuse_time.setText("");
+        }
 
         return convertView;
     }
@@ -150,6 +173,7 @@ public class MissionAdapter extends BaseAdapter {
         public TextView release_time;
         public TextView execute_time;
         public TextView complete_time;
+        public TextView refuse_time;
 
     }
 }

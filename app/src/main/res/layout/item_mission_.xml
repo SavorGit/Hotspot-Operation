@@ -134,6 +134,19 @@
             android:textSize="14dp"
             android:text=""/>
 
+        <TextView
+            android:id="@+id/refuse_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/execute_time"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textColor="#888888"
+            android:layout_toRightOf="@id/mold"
+            android:layout_marginLeft="24dp"
+            android:textSize="14dp"
+            android:text=""/>
+
     </RelativeLayout>
 
 

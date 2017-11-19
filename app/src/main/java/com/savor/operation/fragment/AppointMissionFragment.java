@@ -99,13 +99,15 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
                 }else {
                     Intent intent = new Intent(context, TaskDetailActivity.class);
                     intent.putExtra("id",item.getId());
-                    startActivity(intent);
+                    startActivityForResult(intent,666);
+                    //startActivity(intent);
                 }
 
             }else {
                 Intent intent = new Intent(context, TaskDetailActivity.class);
                 intent.putExtra("id",item.getId());
-                startActivity(intent);
+                startActivityForResult(intent,666);
+                //startActivity(intent);
             }
 
 
@@ -246,5 +248,15 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
                 return city;
         }
         return null;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 666) {
+            page = 0;
+            isUp = true;
+            getData();
+        }
     }
 }
