@@ -191,7 +191,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     }
     private void initView(){
         String state = taskDetail.getTask_type_desc();
-        String hotel_name = taskDetail.getHotel_address();
+        String hotel_name = taskDetail.getHotel_name();
         String num = taskDetail.getTv_nums();
 
         if (!TextUtils.isEmpty(state)) {

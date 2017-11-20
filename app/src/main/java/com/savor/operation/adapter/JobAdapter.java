@@ -86,6 +86,7 @@ public class JobAdapter extends BaseAdapter {
         holder.name.setText(item.getUsername());
         List<TaskInfoListBean> task_info = item.getTask_info();
         if (task_info != null && task_info.size()>0) {
+            holder.msg_la.removeAllViews();
             for (int i = 0; i < task_info.size(); i++) {
                 View v = mInflater.inflate(R.layout.upgrade_info_item_layout, null);
                 TextView info = (TextView)v.findViewById(R.id.info);
