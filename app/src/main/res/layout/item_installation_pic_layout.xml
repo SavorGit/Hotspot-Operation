@@ -29,6 +29,19 @@
             android:layout_alignParentRight="true"
             android:layout_width="80dp"
             android:layout_height="80dp"/>
+        <TextView
+           android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_select_pic1"
+            android:visibility="gone"
+            android:gravity="center"
+            android:id="@+id/del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="3dp"
+            android:text="删除"
+            android:textColor="@color/title_text_color"
+            android:textSize="16sp" />
     </RelativeLayout>
             <TextView
                 android:textSize="15dp"
