@@ -14,6 +14,7 @@ import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.PushErrorBean;
 import com.savor.operation.core.Session;
 import com.savor.operation.utils.ActivitiesManager;
+import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 import com.umeng.message.UmengMessageHandler;
