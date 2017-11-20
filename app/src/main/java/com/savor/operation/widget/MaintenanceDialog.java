@@ -271,7 +271,7 @@ public class MaintenanceDialog implements OnClickListener {
      * 更新图片路径
      */
     public void updateImagePath(String path) {
-        if(elist!=null && elist.size()>=currentTakePhonePos) {
+ //       if(elist!=null && elist.size()>=currentTakePhonePos) {
 
             String cachePath = ((SavorApplication)activity.getApplication()).imagePath;
             File dir = new File(cachePath);
@@ -325,14 +325,14 @@ public class MaintenanceDialog implements OnClickListener {
 //            }
 //            elist.get(currentTakePhonePos).setFault_img_url(copyPath);
 //            notifyDataSetChanged();
-        }
+//        }
     }
 
     /**
      * 拍照以后更新图片路径到实体类中
      */
     public void updataPhotoPath() {
-        if(elist!=null && elist.size()>0) {
+//        if(elist!=null && elist.size()>0) {
 //            mData.get(currentTakePhonePos).setFault_img_url(currentImagePath);
 //            notifyDataSetChanged();
 //            FileUtils.copyFile(sFile, copyPath);
@@ -372,6 +372,6 @@ public class MaintenanceDialog implements OnClickListener {
             }
 
             urls.set(currentTakePhonePos ,currentImagePath);
-        }
+ //       }
     }
 }
