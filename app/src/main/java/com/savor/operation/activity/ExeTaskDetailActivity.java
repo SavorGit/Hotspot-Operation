@@ -16,6 +16,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.TextureView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -154,6 +155,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             }
         }
     };
+    private int nextPos;
 
     private void reset() {
         mHotelId = 0;
@@ -246,6 +248,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.assign:
+                nextPos= 0;
                 if ("1".equals(task_type_id)) {//信息检测
                     checkDetect();
                 }else if ("2".equals(task_type_id)){//安装验收
@@ -560,11 +563,29 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void toInstallation(List<String> urls) {
         if(mHotelId>0) {
-            InstalluploadPic(urls,0);
+            if(checkImageUrlIsEmpty(urls)) {
+                InstalluploadPic(urls,0);
+            }else {
+                ShowMessage.showToast(this,"请上传图片");
+            }
         }else {
+
             installDialog.loadFinish();
             ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
         }
+    }
+
+    /**
+     * 检查要上传的版位图片是否有一张可上传的图片路径
+     * @param urls
+     */
+    private boolean checkImageUrlIsEmpty(List<String> urls) {
+        for(String url: urls) {
+            if(!TextUtils.isEmpty(url)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -784,12 +805,10 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                     public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
                         String imageUrl = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
                         urls.add(imageUrl);
-                        // urls = urls+imageUrl+",";
-                        //repairInfo.setFault_img_url(imageUrl);
 
-                        int nextPos = startPos+1;
-                        if(nextPos<infos.size()) {
-                            InstalluploadPic(infos,nextPos);
+                        nextPos = startPos+1;
+                        if(nextPos <infos.size()) {
+                            InstalluploadPic(infos, nextPos);
                         }else {
                             mHandler.post(new Runnable() {
                                 @Override
@@ -817,6 +836,18 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 });
 
             }catch (Exception e) {}
+        }else {
+            nextPos = startPos+1;
+            if(nextPos <infos.size()) {
+                InstalluploadPic(infos, nextPos);
+            }else {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        inStallpublish(infos);
+                    }
+                });
+            }
         }
     }
 
