@@ -68,6 +68,9 @@ public class MaintenanceDialog implements OnClickListener {
     private ImageView iv_exce_pic3;
     private ImageView iv_exce_pic2;
     private ImageView iv_exce_pic1;
+    private TextView del1;
+    private TextView del2;
+    private TextView del3;
     private RelativeLayout pic3;
     private RelativeLayout pic2;
     private RelativeLayout pic1;
@@ -123,6 +126,9 @@ public class MaintenanceDialog implements OnClickListener {
         tv_select_pic1 = (TextView) view.findViewById(R.id.tv_select_pic1);
         tv_select_pic2 = (TextView) view.findViewById(R.id.tv_select_pic2);
         tv_select_pic3 = (TextView) view.findViewById(R.id.tv_select_pic3);
+        del1 = (TextView) view.findViewById(R.id.del1);
+        del2 = (TextView) view.findViewById(R.id.del2);
+        del3 = (TextView) view.findViewById(R.id.del3);
         cancel = (TextView) view.findViewById(R.id.cancel);
         urls.add("");
         urls.add("");
@@ -150,6 +156,9 @@ public class MaintenanceDialog implements OnClickListener {
         tv_select_pic1.setOnClickListener(this);
         tv_select_pic2.setOnClickListener(this);
         tv_select_pic3.setOnClickListener(this);
+        del1.setOnClickListener(this);
+        del2.setOnClickListener(this);
+        del3.setOnClickListener(this);
         cancel.setOnClickListener(this);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
              @Override
@@ -228,6 +237,24 @@ public class MaintenanceDialog implements OnClickListener {
             case R.id.cancel:
                 dismiss();
                 break;
+            case R.id.del1:
+                iv_exce_pic1.setVisibility(View.GONE);
+                tv_select_pic1.setVisibility(View.VISIBLE);
+                del1.setVisibility(View.GONE);
+                urls.set(0,"");
+                break;
+            case R.id.del2:
+                iv_exce_pic2.setVisibility(View.GONE);
+                tv_select_pic2.setVisibility(View.VISIBLE);
+                del2.setVisibility(View.GONE);
+                urls.set(1,"");
+                break;
+            case R.id.del3:
+                iv_exce_pic3.setVisibility(View.GONE);
+                tv_select_pic3.setVisibility(View.VISIBLE);
+                del3.setVisibility(View.GONE);
+                urls.set(2,"");
+                break;
 
 
         }
@@ -294,6 +321,7 @@ public class MaintenanceDialog implements OnClickListener {
 
 
                         iv_exce_pic1.setVisibility(View.VISIBLE);
+                        del1.setVisibility(View.VISIBLE);
                         Glide.with(context).load(copyPath).placeholder(R.drawable.kong_mrjz).into(iv_exce_pic1);
                     }else {
                         tv_select_pic1.setVisibility(View.GONE);
@@ -302,6 +330,7 @@ public class MaintenanceDialog implements OnClickListener {
                 case 1:
                     if(!TextUtils.isEmpty(copyPath)) {
                         iv_exce_pic2.setVisibility(View.VISIBLE);
+                        del2.setVisibility(View.VISIBLE);
                         Glide.with(context).load(copyPath).placeholder(R.drawable.kong_mrjz).into(iv_exce_pic2);
                     }else {
                         tv_select_pic2.setVisibility(View.GONE);
@@ -310,6 +339,7 @@ public class MaintenanceDialog implements OnClickListener {
                 case 2:
                     if(!TextUtils.isEmpty(copyPath)) {
                         iv_exce_pic3.setVisibility(View.VISIBLE);
+                        del3.setVisibility(View.VISIBLE);
                         Glide.with(context).load(copyPath).placeholder(R.drawable.kong_mrjz).into(iv_exce_pic3);
                     }else {
                         tv_select_pic3.setVisibility(View.GONE);
@@ -347,6 +377,7 @@ public class MaintenanceDialog implements OnClickListener {
             switch(currentTakePhonePos){
                 case 0:
                     if(!TextUtils.isEmpty(currentImagePath)) {
+                        del1.setVisibility(View.VISIBLE);
                         iv_exce_pic1.setVisibility(View.VISIBLE);
                         Glide.with(context).load(currentImagePath).placeholder(R.drawable.kong_mrjz).into(iv_exce_pic1);
                     }else {
@@ -356,6 +387,7 @@ public class MaintenanceDialog implements OnClickListener {
                 case 1:
                     if(!TextUtils.isEmpty(currentImagePath)) {
                         iv_exce_pic2.setVisibility(View.VISIBLE);
+                        del2.setVisibility(View.VISIBLE);
                         Glide.with(context).load(currentImagePath).placeholder(R.drawable.kong_mrjz).into(iv_exce_pic2);
                     }else {
                         tv_select_pic2.setVisibility(View.GONE);
@@ -364,6 +396,7 @@ public class MaintenanceDialog implements OnClickListener {
                 case 2:
                     if(!TextUtils.isEmpty(currentImagePath)) {
                         iv_exce_pic3.setVisibility(View.VISIBLE);
+                        del3.setVisibility(View.VISIBLE);
                         Glide.with(context).load(currentImagePath).placeholder(R.drawable.kong_mrjz).into(iv_exce_pic3);
                     }else {
                         tv_select_pic3.setVisibility(View.GONE);
