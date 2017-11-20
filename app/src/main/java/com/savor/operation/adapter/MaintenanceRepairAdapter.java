@@ -63,7 +63,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MaintenanceRepairAdapter.ViewHolder holder;
+        final  MaintenanceRepairAdapter.ViewHolder holder;
         if(convertView == null) {
             convertView = View.inflate(context, R.layout.item_task_completed_detail,null);
             holder = new MaintenanceRepairAdapter.ViewHolder();
@@ -71,7 +71,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
             holder.desc = (TextView) convertView.findViewById(R.id.desc);
             holder.box = (TextView) convertView.findViewById(R.id.box);
             holder.time = (TextView) convertView.findViewById(R.id.time);
-           final holder.msg_la = (LinearLayout) convertView.findViewById(R.id.msg_la);
+            holder.msg_la = (LinearLayout) convertView.findViewById(R.id.msg_la);
             holder.fault_img = (ImageView) convertView.findViewById(R.id.fault_img);
             holder.remark = (TextView) convertView.findViewById(R.id.remark);
             holder.state = (TextView) convertView.findViewById(R.id.state);
@@ -130,12 +130,13 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
         }
         List<TaskDetailRepairImg> repair_img = item.getRepair_img();
         if (repair_img != null && repair_img.size()>0) {
+            holder.msg_la.removeAllViews();
             holder.msg_la.setVisibility(View.VISIBLE);
             holder.pic_la.setVisibility(View.VISIBLE);
          for (int i = 0; i < repair_img.size(); i++) {
              final  TaskDetailRepairImg obj = repair_img.get(i);
              final View v = mInflater.inflate(R.layout.item_pic_layout, null);
-            final ImageView iv_exce_pic1 = (ImageView)v.findViewById(R.id.iv_exce_pic1);
+             final ImageView iv_exce_pic1 = (ImageView)v.findViewById(R.id.iv_exce_pic1);
              Glide.with(context).load(obj.getImg()).into(iv_exce_pic1);
              iv_exce_pic1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -145,7 +146,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
             });
             //convertView = mInflater.inflate(R.layout.item_video, null);
              holder.msg_la.addView(v);
-        }
+            }
         }else {
             holder.msg_la.setVisibility(View.GONE);
             holder.pic_la.setVisibility(View.GONE);
