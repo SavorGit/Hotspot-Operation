@@ -344,7 +344,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             task_type_id = taskDetail.getTask_type_id();
 
             if ("1".equals(task_type_id)) {//信息检测
-                assign.setText("信息检测");
+                assign.setText("填写检测信息");
             }else if ("2".equals(task_type_id)){//安装验收
                 assign.setText("安装验收");
             }else if ("4".equals(task_type_id)) {//维修

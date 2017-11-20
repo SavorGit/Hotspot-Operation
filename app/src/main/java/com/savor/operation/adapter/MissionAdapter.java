@@ -154,7 +154,7 @@ public class MissionAdapter extends BaseAdapter {
         String refuseT = item.getRefuse_time();
         if (!TextUtils.isEmpty(refuseT)) {
             holder.refuse_time.setVisibility(View.VISIBLE);
-            holder.refuse_time.setText("拒绝时间"+complete_time+"("+item.getExeuser()+")");
+            holder.refuse_time.setText("拒绝时间"+refuseT+"("+item.getAppoint_user()+")");
         }else {
             holder.refuse_time.setVisibility(View.GONE);
             holder.refuse_time.setText("");
