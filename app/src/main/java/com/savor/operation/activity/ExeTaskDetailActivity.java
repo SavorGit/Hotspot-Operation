@@ -735,6 +735,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
+                        detectBean.setImg("");
                         int nextPos = startPos+1;
                         if(nextPos<des.size()) {
                             hotelUploadPic(des,nextPos);
@@ -754,9 +755,10 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void hotelCheckUploadPic(final String URL) {
-        if(!TextUtils.isEmpty(URL)) {
+        final String mURL = URL;
+        if(!TextUtils.isEmpty(mURL)) {
             final OSSClient ossClient = OSSClientUtil.getInstance().getOSSClient(this);
-            String imagePath = URL;
+            String imagePath = mURL;
             File file = new File(imagePath);
             Date date = new Date(System.currentTimeMillis());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
