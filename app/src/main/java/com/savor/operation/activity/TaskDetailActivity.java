@@ -67,6 +67,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     private CompleteInstallRepairAdapter completeInstallRepairAdapter;
     private CompleteRepairAdapter completeRepairAdapter;
     private String task_type_id;
+    private TextView appoint_exe_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +107,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         assign = (TextView) findViewById(R.id.assign);
         call = (TextView) findViewById(R.id.call);
         refuse_desc = (TextView) findViewById(R.id.refuse_desc);
+        appoint_exe_time = (TextView) findViewById(R.id.appoint_exe_time);
     }
 
     @Override
@@ -205,6 +207,13 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 screen_num.setText("");
             }
 
+
+            String appoint_exe_timeString = taskDetail.getAppoint_exe_time();
+            if (!TextUtils.isEmpty(appoint_exe_timeString)) {
+                appoint_exe_time.setText("指派执行时间 ："+appoint_exe_timeString);
+            }else {
+                appoint_exe_time.setVisibility(View.GONE);
+            }
             mold.setText(taskDetail.getTask_type_desc());
             hotel_name.setText(taskDetail.getHotel_name());
             add.setText(taskDetail.getHotel_address());

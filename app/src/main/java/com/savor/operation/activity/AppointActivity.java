@@ -21,6 +21,7 @@ import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskInfoListBean;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.widget.CommonDialog;
 
 import java.text.SimpleDateFormat;
@@ -91,6 +92,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
             radioGroup.setVisibility(View.VISIBLE);
         }else {
             radioGroup.setVisibility(View.GONE);
+            is_lead_install = "";
         }
         exe_num.setVisibility(View.GONE);
     }
@@ -205,6 +207,15 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                ShowMessage.showToast(context,"指派成功");
               //  }
                 break;
+        }
+    }
+
+    @Override
+    public void onError(AppApi.Action method, Object obj) {
+        if (obj instanceof ResponseErrorMessage){
+            ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
+            String statusCode = String.valueOf(errorMessage.getCode());
+            ShowMessage.showToast(context,errorMessage.getMessage());
         }
     }
     private void initView(){

@@ -63,6 +63,7 @@ public class InstallDialog implements OnClickListener {
     private int currentPos;
     private  TextView currentTv;
     private  ImageView currentIv ;
+    private  TextView cdel;
     private ProgressBar pb_loading;
 
     public InstallDialog(Context context) {
@@ -98,7 +99,7 @@ public class InstallDialog implements OnClickListener {
         cancel = (TextView) view.findViewById(R.id.cancel);
         msg_la = (LinearLayout) view.findViewById(R.id.msg_la);
         pb_loading = (ProgressBar) view.findViewById(R.id.pb_loading);
-
+        submit.setText("保存");
         if (dialog == null) {
             dialog = new Dialog(context, R.style.AlertDialogStyle);
         }
@@ -133,13 +134,22 @@ public class InstallDialog implements OnClickListener {
             View v = mInflater.inflate(R.layout.item_installation_pic_layout, null);
             final TextView tv_select_pic1 = (TextView)v.findViewById(R.id.tv_select_pic1);
             final ImageView iv_exce_pic1 = (ImageView)v.findViewById(R.id.iv_exce_pic1);
+            final TextView del = (TextView)v.findViewById(R.id.del);
             tv_select_pic1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     currentPos = pos;
                     currentTv = tv_select_pic1;
                     currentIv = iv_exce_pic1;
+                    cdel = del;
                     takePhoto();
+                }
+            });
+            del.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    currentPos = pos;
+                    setDel();
                 }
             });
             //convertView = mInflater.inflate(R.layout.item_video, null);
@@ -231,13 +241,15 @@ public class InstallDialog implements OnClickListener {
             //Glide.with(context).load(copyPath).into(iv_exce_pic1);
             if(!TextUtils.isEmpty(copyPath)) {
                 currentIv.setVisibility(View.VISIBLE);
+                cdel.setVisibility(View.VISIBLE);
                 Glide.with(context).load(copyPath).placeholder(R.drawable.kong_mrjz).into(currentIv);
             }else {
                 currentTv.setVisibility(View.GONE);
+                cdel.setVisibility(View.GONE);
             }
 
             urls.set(currentPos ,copyPath);
-
+            setbtn();
         }
     }
 
@@ -250,14 +262,40 @@ public class InstallDialog implements OnClickListener {
 
             if(!TextUtils.isEmpty(currentImagePath)) {
                 currentIv.setVisibility(View.VISIBLE);
+                cdel.setVisibility(View.VISIBLE);
                 Glide.with(context).load(currentImagePath).placeholder(R.drawable.kong_mrjz).into(currentIv);
             }else {
                 currentTv.setVisibility(View.GONE);
+                cdel.setVisibility(View.GONE);
             }
 
 
             urls.set(currentPos ,currentImagePath);
+            setbtn();
         }
     }
 
+    private void setbtn(){
+        int isfull = 0;
+        if (urls != null && urls.size()>0) {
+            for (int i = 0; i < urls.size() ; i++) {
+                String obj = urls.get(i);
+                if (TextUtils.isEmpty(obj)) {
+                    isfull = isfull+1;
+                }
+            }
+            if (isfull >0) {
+                submit.setText("保存");
+            }else {
+                submit.setText("提交");
+            }
+        }
+    }
+    private void setDel(){
+        urls.set(currentPos ,"");
+        currentIv.setVisibility(View.GONE);
+        cdel.setVisibility(View.GONE);
+        currentTv.setVisibility(View.VISIBLE);
+
+    }
 }

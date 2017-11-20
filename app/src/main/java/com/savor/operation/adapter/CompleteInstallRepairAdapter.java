@@ -1,6 +1,7 @@
 package com.savor.operation.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +76,14 @@ public class CompleteInstallRepairAdapter extends BaseAdapter {
             holder = (CompleteInstallRepairAdapter.ViewHolder) convertView.getTag();
         }
         final ExecuteRepair item = (ExecuteRepair) getItem(position);
-        holder.user.setText("执行人："+item.getUsername());
+        String User = item.getUsername();
+        if (!TextUtils.isEmpty(User)) {
+            holder.user.setVisibility(View.VISIBLE);
+            holder.user.setText("执行人："+item.getUsername());
+        }else {
+            holder.user.setVisibility(View.GONE);
+        }
+
         holder.box.setVisibility(View.GONE);
         holder.time.setText("操作时间："+item.getRepair_time());
         holder.remark.setVisibility(View.GONE);

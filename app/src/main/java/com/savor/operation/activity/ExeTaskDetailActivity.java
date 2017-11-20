@@ -93,6 +93,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private TextView execute_time;
     private TextView complete_time;
     private TextView contact;
+    private TextView appoint_exe_time;
     private TextView tv_center;
     private ImageView iv_left;
     private TaskDetail taskDetail;
@@ -226,6 +227,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         btn_la = (RelativeLayout) findViewById(R.id.btn_la);;
         assign = (TextView) findViewById(R.id.assign);
         call = (TextView) findViewById(R.id.call);
+        appoint_exe_time = (TextView) findViewById(R.id.appoint_exe_time);
     }
 
     @Override
@@ -362,6 +364,12 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 level_state.setVisibility(View.INVISIBLE);
             }
 
+            String appoint_exe_timeString = taskDetail.getAppoint_exe_time();
+            if (!TextUtils.isEmpty(appoint_exe_timeString)) {
+                appoint_exe_time.setText("指派执行时间 ："+appoint_exe_timeString);
+            }else {
+                appoint_exe_time.setVisibility(View.GONE);
+            }
             String tvNums = taskDetail.getTv_nums();
             if (!TextUtils.isEmpty(tvNums)) {
                 screen_num.setVisibility(View.VISIBLE);

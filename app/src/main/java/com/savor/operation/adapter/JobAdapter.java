@@ -86,6 +86,7 @@ public class JobAdapter extends BaseAdapter {
         }
         ExeUserList item = (ExeUserList) getItem(position);
         holder.name.setText(item.getUsername());
+        holder.job_la.setText(time+"的任务");
         List<TaskInfoListBean> task_info = item.getTask_info();
         holder.msg_la.removeAllViewsInLayout();
         if (task_info != null && task_info.size()>0) {
@@ -96,7 +97,7 @@ public class JobAdapter extends BaseAdapter {
                 String msg = task_info.get(i).getTask_type_desc();
                 String hotel_name = task_info.get(i).getHotel_name();
                 if (!TextUtils.isEmpty(msg)) {
-                    info.setText(time+" "+msg+" "+hotel_name);
+                    info.setText(msg+" "+hotel_name);
                 }
                 //convertView = mInflater.inflate(R.layout.item_video, null);
                 holder.msg_la.addView(v);
