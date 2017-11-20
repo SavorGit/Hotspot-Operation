@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
 
 import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
@@ -56,6 +57,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
     private int page = 1;
     private boolean isUp = false;
     private City city;
+    private TextView lead_install;
     @Override
     public String getFragmentName() {
         return TAG;

@@ -114,6 +114,7 @@
             android:textColor="#888888"
             android:textSize="14dp"
             android:text=""/>
+
         <TextView
             android:id="@+id/release_time"
             android:layout_width="wrap_content"
@@ -199,6 +200,19 @@
             android:textColor="#66cc00"/>
 
     </RelativeLayout>
+    <TextView
+        android:background="@color/white"
+        android:id="@+id/lead_install"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_below="@id/contact_la"
+        android:textColor="#333333"
+        android:textSize="15sp"
+        android:gravity="center|left"
+        android:paddingLeft="25dp"
+        android:layout_marginBottom="5dp"
+        android:visibility="gone"
+        android:text=""/>
     <RelativeLayout
         android:id="@+id/btn_la"
         android:layout_width="match_parent"

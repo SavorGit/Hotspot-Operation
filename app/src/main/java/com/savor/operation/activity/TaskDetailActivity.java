@@ -68,6 +68,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     private CompleteRepairAdapter completeRepairAdapter;
     private String task_type_id;
     private TextView appoint_exe_time;
+    private TextView lead_install;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         call = (TextView) findViewById(R.id.call);
         refuse_desc = (TextView) findViewById(R.id.refuse_desc);
         appoint_exe_time = (TextView) findViewById(R.id.appoint_exe_time);
+        lead_install = (TextView) findViewById(R.id.lead_install);
     }
 
     @Override
@@ -189,6 +191,8 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     private void initView(){
         if (taskDetail != null){
             task_type_id = taskDetail.getTask_type_id();
+            int is_lead_install = 5;
+            is_lead_install = taskDetail.getIs_lead_install();
            plan_state.setText(taskDetail.getState()+"("+taskDetail.getRegion_name()+")");
             String task_emerge_id = taskDetail.getTask_emerge_id();
             if ("2".equals(task_emerge_id)) {
@@ -290,6 +294,15 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                     mPullRefreshListView.onLoadComplete(false,false);
 
                 }else if ("2".equals(task_type_id)){//安装验收
+                    if (is_lead_install == 1) {
+                        lead_install.setVisibility(View.VISIBLE);
+                        lead_install.setText("带队安装：需要");
+                    }else if (is_lead_install == 0) {
+                        lead_install.setVisibility(View.VISIBLE);
+                        lead_install.setText("带队安装：不需要");
+                    }else {
+                        lead_install.setVisibility(View.GONE);
+                    }
                     installRepairAdapter = new InstallRepairAdapter(context);
                     mPullRefreshListView.setAdapter(installRepairAdapter);
                     installRepairAdapter.setData(repair_list);
@@ -318,6 +331,15 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                     mPullRefreshListView.onLoadComplete(false,false);
 
                 }else if ("2".equals(task_type_id)){//安装验收
+                    if (is_lead_install == 1) {
+                        lead_install.setVisibility(View.VISIBLE);
+                        lead_install.setText("带队安装：需要");
+                    }else if (is_lead_install == 0) {
+                        lead_install.setVisibility(View.VISIBLE);
+                        lead_install.setText("带队安装：不需要");
+                    }else {
+                        lead_install.setVisibility(View.GONE);
+                    }
                     completeInstallRepairAdapter = new CompleteInstallRepairAdapter(context);
                     mPullRefreshListView.setAdapter(completeInstallRepairAdapter);
                     completeInstallRepairAdapter.setData(execute);
