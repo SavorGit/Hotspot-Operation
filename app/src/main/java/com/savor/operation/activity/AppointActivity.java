@@ -92,6 +92,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
             radioGroup.setVisibility(View.VISIBLE);
         }else {
             radioGroup.setVisibility(View.GONE);
+            is_lead_install = "";
         }
         exe_num.setVisibility(View.GONE);
     }
