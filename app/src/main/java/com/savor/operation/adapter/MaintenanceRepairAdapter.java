@@ -148,8 +148,9 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
         }
         }else {
             holder.msg_la.setVisibility(View.GONE);
-            holder.pic_la.setVisibility(View.VISIBLE);
-            holder.pic_la.setText("无");
+            holder.pic_la.setVisibility(View.GONE);
+
+            //holder.pic_la.setText("无");
         }
 
 
