@@ -293,9 +293,14 @@ public class InstallDialog implements OnClickListener {
     }
     private void setDel(){
         urls.set(currentPos ,"");
-        currentIv.setVisibility(View.GONE);
-        cdel.setVisibility(View.GONE);
-        currentTv.setVisibility(View.VISIBLE);
+        msg_la.getChildAt(currentPos);
+        View v = msg_la.getChildAt(currentPos);
+        final TextView tv_select_pic1 = (TextView)v.findViewById(R.id.tv_select_pic1);
+        final ImageView iv_exce_pic1 = (ImageView)v.findViewById(R.id.iv_exce_pic1);
+        final TextView del = (TextView)v.findViewById(R.id.del);
+        tv_select_pic1.setVisibility(View.VISIBLE);
+        iv_exce_pic1.setVisibility(View.GONE);
+        del.setVisibility(View.GONE);
 
     }
 }

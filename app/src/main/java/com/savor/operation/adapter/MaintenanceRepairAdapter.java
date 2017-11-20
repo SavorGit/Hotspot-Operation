@@ -71,7 +71,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
             holder.desc = (TextView) convertView.findViewById(R.id.desc);
             holder.box = (TextView) convertView.findViewById(R.id.box);
             holder.time = (TextView) convertView.findViewById(R.id.time);
-            holder.msg_la = (LinearLayout) convertView.findViewById(R.id.msg_la);
+           final holder.msg_la = (LinearLayout) convertView.findViewById(R.id.msg_la);
             holder.fault_img = (ImageView) convertView.findViewById(R.id.fault_img);
             holder.remark = (TextView) convertView.findViewById(R.id.remark);
             holder.state = (TextView) convertView.findViewById(R.id.state);
@@ -110,7 +110,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
             holder.time.setVisibility(View.GONE);
         }else {
             holder.time.setVisibility(View.VISIBLE);
-            holder.time.setText(ts);
+            holder.time.setText("执行时间："+ts);
         }
 
 
@@ -134,7 +134,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
             holder.pic_la.setVisibility(View.VISIBLE);
          for (int i = 0; i < repair_img.size(); i++) {
              final  TaskDetailRepairImg obj = repair_img.get(i);
-            View v = mInflater.inflate(R.layout.item_pic_layout, null);
+             final View v = mInflater.inflate(R.layout.item_pic_layout, null);
             final ImageView iv_exce_pic1 = (ImageView)v.findViewById(R.id.iv_exce_pic1);
              Glide.with(context).load(obj.getImg()).into(iv_exce_pic1);
              iv_exce_pic1.setOnClickListener(new View.OnClickListener() {
