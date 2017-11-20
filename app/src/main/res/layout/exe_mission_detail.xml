@@ -100,11 +100,25 @@
             android:textSize="14dp"
             android:textColor="#888888"
             android:text=""/>
+
+
+        <TextView
+            android:id="@+id/appoint_exe_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/mold"
+            android:layout_marginLeft="24dp"
+            android:textColor="#888888"
+            android:textSize="14dp"
+            android:text=""/>
         <TextView
             android:id="@+id/release_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/add"
+            android:layout_below="@id/appoint_exe_time"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/mold"

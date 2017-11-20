@@ -65,6 +65,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
     private CompleteRepairAdapter completeRepairAdapter;
     private TextView refused;
     private TextView refuse_desc;
+    private TextView appoint_exe_time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +104,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
         assign = (TextView) findViewById(R.id.assign);
         call = (TextView) findViewById(R.id.call);
         refuse_desc = (TextView) findViewById(R.id.refuse_desc);
+        appoint_exe_time = (TextView) findViewById(R.id.appoint_exe_time);
     }
 
     @Override
@@ -185,6 +187,12 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                 level_state.setVisibility(View.INVISIBLE);
             }
 
+            String appoint_exe_timeString = taskDetail.getAppoint_exe_time();
+            if (!TextUtils.isEmpty(appoint_exe_timeString)) {
+                appoint_exe_time.setText("指派执行时间 ："+appoint_exe_timeString);
+            }else {
+                appoint_exe_time.setVisibility(View.GONE);
+            }
             String tvNums = taskDetail.getTv_nums();
             if (!TextUtils.isEmpty(tvNums)) {
                 screen_num.setVisibility(View.VISIBLE);
