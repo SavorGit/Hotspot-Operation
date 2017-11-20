@@ -138,7 +138,6 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void setViews() {
 
-
         if(mTask!=null) {
             String type_name = mTask.getType_name();
             if(!TextUtils.isEmpty(type_name)) {
@@ -373,6 +372,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
                     @Override
                     public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
+                        repairInfo.setFault_img_url("");
                         int nextPos = startPos+1;
                         if(nextPos<infos.size()) {
                             uploadPic(infos,nextPos);
