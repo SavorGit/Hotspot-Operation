@@ -102,7 +102,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
         refused = (TextView) findViewById(R.id.refused);
         assign = (TextView) findViewById(R.id.assign);
         call = (TextView) findViewById(R.id.call);
-        refuse_desc = (TextView) findViewById(R.id.call);
+        refuse_desc = (TextView) findViewById(R.id.refuse_desc);
     }
 
     @Override
@@ -200,7 +200,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
             String refuses = taskDetail.getRefuse_desc();
             if (!TextUtils.isEmpty(refuses)) {
                 refuse_desc.setVisibility(View.VISIBLE);
-                refuse_desc.setText(refuses);
+                refuse_desc.setText("拒绝原因："+refuses);
             }else {
                 refuse_desc.setVisibility(View.GONE);
             }

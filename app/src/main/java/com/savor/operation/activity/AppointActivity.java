@@ -46,7 +46,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     private JobAdapter jobAdapter;
     private String times;
     private TextView exe_num;
-    private String is_lead_install = "0";
+    private String is_lead_install = "1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +82,8 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void setViews() {
         tv_center.setText("指派人员");
-        jobAdapter = new JobAdapter(context,this);
-        pullToRefreshListView.setAdapter(jobAdapter);
+//        jobAdapter = new JobAdapter(context,this);
+//        pullToRefreshListView.setAdapter(jobAdapter);
         String task_type_id = taskDetail.getTask_type_id();
         if ("2".equals(task_type_id) ) {
             radioGroup.setVisibility(View.VISIBLE);
@@ -148,7 +148,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                     ShowMessage.showToast(AppointActivity.this,"不能选择今天之前的日期");
                     List<ExeUserList> data = jobAdapter.getData();
                     data.clear();
-                    jobAdapter.setData(data);
+                    jobAdapter.setData(data,times);
                 }else {
                     time.setText("执行日期："+times);
                     getExeUserList();
@@ -174,10 +174,18 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                     if (tasks != null && tasks.size()>0) {
                         exe_num.setVisibility(View.VISIBLE);
                         exe_num.setText("执行者数量"+tasks.size());
+                        jobAdapter = new JobAdapter(context,this);
+                        pullToRefreshListView.setAdapter(jobAdapter);
+
                         if (jobAdapter!= null && jobAdapter.getCount()>0) {
+//                            List<ExeUserList> data = jobAdapter.getData();
+//                            data.clear();
                             jobAdapter.clear();
+                            jobAdapter.setData(tasks,times);
+                        }else {
+                            jobAdapter.setData(tasks,times);
                         }
-                        jobAdapter.setData(tasks);
+
                     }else {
                         exe_num.setVisibility(View.GONE);
                     }
@@ -221,7 +229,10 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
 
     }
     private void getExeUserList(){
-        AppApi.getExeUserList(context,times,"",taskDetail.getId(),this);
+        if (jobAdapter != null) {
+            jobAdapter.clear();
+        }
+        AppApi.getExeUserList(context,times,is_lead_install,taskDetail.getId(),this);
     }
 
     @Override
