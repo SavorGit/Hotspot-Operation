@@ -347,7 +347,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             }else if ("4".equals(task_type_id)) {//维修
                 assign.setText("维修");
             }else if ("8".equals(task_type_id)) {//网络改造
-                assign.setText("网络改造");
+                assign.setText("处理完成");
             }
 
             plan_state.setText(taskDetail.getState()+"("+taskDetail.getRegion_name()+")");
