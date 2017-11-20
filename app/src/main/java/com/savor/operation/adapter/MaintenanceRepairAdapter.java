@@ -107,8 +107,12 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
         String ts = item.getRepair_time();
         if (TextUtils.isEmpty(ts)) {
             ts = "无";
+            holder.time.setVisibility(View.GONE);
+        }else {
+            holder.time.setVisibility(View.VISIBLE);
+            holder.time.setText(ts);
         }
-        holder.time.setText(ts);
+
 
         Glide.with(context).load(item.getFault_img_url()).into(holder.fault_img);
         holder.fault_img.setOnClickListener(new View.OnClickListener() {

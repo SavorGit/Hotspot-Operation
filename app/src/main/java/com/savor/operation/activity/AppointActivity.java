@@ -47,6 +47,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     private String times;
     private TextView exe_num;
     private String is_lead_install = "1";
+    private TextView reflrsh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         pullToRefreshListView = (PullToRefreshListView) findViewById(R.id.wl_listview);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         time = (TextView) findViewById(R.id.time);
+        reflrsh = (TextView) findViewById(R.id.reflrsh);
         exe_num = (TextView) findViewById(R.id.exe_num);
     }
 
@@ -97,7 +99,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     public void setListeners() {
         time.setOnClickListener(this);
         iv_left.setOnClickListener(this);
-
+        reflrsh.setOnClickListener(this);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup arg0, int arg1) {
@@ -130,6 +132,11 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.iv_left:
                 finish();
+                break;
+            case R.id.reflrsh:
+                if (!TextUtils.isEmpty(times)) {
+                    getExeUserList();
+                }
                 break;
         }
 

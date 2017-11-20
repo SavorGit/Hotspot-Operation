@@ -92,6 +92,15 @@
         android:text="执行者数量"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"/>
+    <TextView
+        android:id="@+id/reflrsh"
+        android:layout_below="@id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="刷新"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="25dp"/>
 
     <com.common.api.widget.pulltorefresh.library.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
