@@ -111,7 +111,10 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                 }else {
                     is_lead_install = "0";
                 }
-                getExeUserList();
+                if (!TextUtils.isEmpty(times)) {
+                    getExeUserList();
+                }
+
                 //  state = rb.getText().toString();
                 //更新文本内容，以符合选中项
                 //tv.setText("您的性别是：" + rb.getText());
