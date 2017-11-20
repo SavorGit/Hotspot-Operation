@@ -680,6 +680,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
+                        urls.add("");
                         int nextPos = startPos+1;
                         if(nextPos<infos.size()) {
                             uploadPic(infos,nextPos);
@@ -783,7 +784,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
-
+                        checkUrl = "";
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -831,6 +832,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
+                        urls.add("");
                         int nextPos = startPos+1;
                         if(nextPos<infos.size()) {
                             InstalluploadPic(infos,nextPos);
