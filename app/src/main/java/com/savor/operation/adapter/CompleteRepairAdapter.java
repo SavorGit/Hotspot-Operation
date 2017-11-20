@@ -101,8 +101,10 @@ public class CompleteRepairAdapter extends BaseAdapter {
                 holder.la_a.setVisibility(View.VISIBLE);
                 holder.img_a.setVisibility(View.VISIBLE);
 
-                holder.la_b.setVisibility(View.GONE);
-                holder.img_b.setVisibility(View.GONE);
+                holder.la_b.setVisibility(View.VISIBLE);
+                holder.la_b.setText("改造设备图");
+                holder.img_b.setBackgroundResource(R.drawable.kong_mrjz);
+                //holder.img_b.setVisibility(View.VISIBLE);
             }else if (repair_img.size() == 2) {
                 final TaskDetailRepairImg obj2 = repair_img.get(1);
                 holder.la_a.setVisibility(View.VISIBLE);
@@ -110,8 +112,8 @@ public class CompleteRepairAdapter extends BaseAdapter {
 
                 holder.la_b.setVisibility(View.VISIBLE);
                 holder.img_b.setVisibility(View.VISIBLE);
-
-                holder.la_a.setText("改造设备图");
+                holder.la_a.setText("信息检测单");
+                holder.la_b.setText("改造设备图");
                 if (!TextUtils.isEmpty(URL1)) {
                     Glide.with(context).load(repair_img.get(0).getImg()).placeholder(R.drawable.kong_mrjz).into(holder.img_a);
                     holder.img_a.setOnClickListener(new View.OnClickListener() {
