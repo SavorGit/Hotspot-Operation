@@ -35,7 +35,7 @@ public class SSDPService extends IntentService {
 
     private static final String TYPE_LABEL_PREFIX = "Savor-Type:";
     private static final String ID_ROOM_ID_PREFIX = "Savor-Room-ID:";
-    private static final String ID_BOX_MAC_PREFIX = "Savor-Box-MAC";
+    private static final String ID_BOX_MAC_PREFIX = "Savor-Box-MAC:";
     private static final String BOX_IP_LABEL_PREFIX = "Savor-Box-HOST:";
     private static final String IP_LABEL_PREFIX = "Savor-HOST:";
     private static final String COMMAND_PORT_LABEL_PREFIX = "Savor-Port-Command:";
