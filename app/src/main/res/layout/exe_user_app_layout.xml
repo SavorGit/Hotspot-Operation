@@ -18,8 +18,9 @@
         android:id="@+id/job_la"
         android:layout_alignParentTop="true"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/name"
-        android:layout_marginLeft="10dp"
+        android:layout_below="@id/name"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/title_text_color"
@@ -44,7 +45,8 @@
         android:layout_marginRight="15dp"
         android:layout_height="wrap_content" />
     <LinearLayout
-        android:layout_below="@id/name"
+        android:layout_below="@id/job_la"
+        android:layout_marginTop="10dp"
         android:id="@+id/msg_la"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
