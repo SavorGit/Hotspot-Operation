@@ -248,13 +248,20 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
             hotel_name.setText(taskDetail.getHotel_name());
             String ad = taskDetail.getHotel_address();
             add.setText(ad);
-            String refuse = taskDetail.getRefuse_desc();
-            if (!TextUtils.isEmpty(refuse)) {
-                refuse_desc.setVisibility(View.VISIBLE);
-                refuse_desc.setText(refuse);
+
+
+            if ("5".equals(stateId)) {
+                String refuse = taskDetail.getRefuse_desc();
+                if (!TextUtils.isEmpty(refuse)) {
+                    refuse_desc.setVisibility(View.VISIBLE);
+                    refuse_desc.setText(refuse);
+                }else {
+                    refuse_desc.setVisibility(View.GONE);
+                }
             }else {
                 refuse_desc.setVisibility(View.GONE);
             }
+
 
 //            String appoint_exe_time = taskDetail.getAppoint_exe_time();
 //            if (!TextUtils.isEmpty(appoint_exe_time)) {
@@ -318,6 +325,8 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 }else {
                     lead_install.setVisibility(View.GONE);
                 }
+            }else {
+                lead_install.setVisibility(View.GONE);
             }
             List<TaskDetailRepair> repair_list = taskDetail.getRepair_list();
             List<ExecuteRepair> execute = taskDetail.getExecute();

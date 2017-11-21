@@ -234,12 +234,18 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
             add.setText(taskDetail.getHotel_address());
 
             String refuses = taskDetail.getRefuse_desc();
-            if (!TextUtils.isEmpty(refuses)) {
-                refuse_desc.setVisibility(View.VISIBLE);
-                refuse_desc.setText("拒绝原因："+refuses);
+            if ("5".equals(stateId)) {
+                String refuse = taskDetail.getRefuse_desc();
+                if (!TextUtils.isEmpty(refuse)) {
+                    refuse_desc.setVisibility(View.VISIBLE);
+                    refuse_desc.setText(refuse);
+                }else {
+                    refuse_desc.setVisibility(View.GONE);
+                }
             }else {
                 refuse_desc.setVisibility(View.GONE);
             }
+
 //            String appoint_exe_time = taskDetail.getAppoint_exe_time();
 //            if (!TextUtils.isEmpty(appoint_exe_time)) {
 //                release_execute_time.setVisibility(View.VISIBLE);
@@ -302,6 +308,8 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                 }else {
                     lead_install.setVisibility(View.GONE);
                 }
+            }else {
+                lead_install.setVisibility(View.GONE);
             }
             if (repair_list != null && repair_list.size()>0) {
                 //screen_num.setText("版位数量 ："+repair_list.size());

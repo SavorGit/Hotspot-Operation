@@ -462,6 +462,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 }else {
                     lead_install.setVisibility(View.GONE);
                 }
+            }else {
+                lead_install.setVisibility(View.GONE);
             }
                repair_list = taskDetail.getRepair_list();
                 List<ExecuteRepair> execute = taskDetail.getExecute();
@@ -475,15 +477,6 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                     mPullRefreshListView.onLoadComplete(false,false);
 
                 }else if ("2".equals(task_type_id)){//安装验收
-                    if (is_lead_install == 1) {
-                        lead_install.setVisibility(View.VISIBLE);
-                        lead_install.setText("带队安装：需要");
-                    }else if (is_lead_install == 0) {
-                        lead_install.setVisibility(View.VISIBLE);
-                        lead_install.setText("带队安装：不需要");
-                    }else {
-                        lead_install.setVisibility(View.GONE);
-                    }
                     installRepairAdapter = new InstallRepairAdapter(context);
                     mPullRefreshListView.setAdapter(installRepairAdapter);
                     installRepairAdapter.setData(repair_list);
