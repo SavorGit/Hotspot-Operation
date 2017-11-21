@@ -234,10 +234,12 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
                 try {
                     int boxNum = Integer.valueOf(num);
-                    // 如果数量达到最大不可在操作
-                    if(boxNum>=mBoxList.size()) {
-                        ShowMessage.showToast(this,"不能大于该酒楼总版位数量");
-                        return;
+                    // 如果当前是非安装验收类型，数量达到最大不可在操作
+                    if(actionType != PublishTaskActivity.TaskType.SETUP_AND_CHECK) {
+                        if(boxNum>=mBoxList.size()) {
+                            ShowMessage.showToast(this,"不能大于该酒楼总版位数量");
+                            return;
+                        }
                     }
                     boxNum += 1;
                     mBoxNumTv.setText(String.valueOf(boxNum));
