@@ -288,7 +288,7 @@ public class InstallDialog implements OnClickListener {
             if (isfull >0) {
                 submit.setText("保存");
             }else {
-                submit.setText("提交");
+                submit.setText("安装");
             }
         }
     }
