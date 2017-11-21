@@ -29,6 +29,7 @@ import com.savor.operation.core.AppApi;
 import com.savor.operation.receiver.NetworkConnectChangedReceiver;
 import com.savor.operation.ssdp.SSDPService;
 import com.savor.operation.utils.WifiUtil;
+import com.savor.operation.widget.CommonDialog;
 
 import java.util.List;
 
@@ -92,6 +93,7 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
             }
         }
     };
+    private BindBoxListBean bindBoxListBean;
 
     private void reset() {
         mHoltelTv.setText("当前酒楼：");
@@ -302,6 +304,7 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
                     int type = bindBoxResponse.getType();
                     if("1".equals(type)) {
                         ShowMessage.showToast(this,"绑定成功");
+                        AppApi.bindBox(this,String.valueOf(mHotelId),bindBoxListBean.getBox_id(),bindBoxListBean.getBox_mac(),String.valueOf(mRoomId),this);
                     }else if("2".equals(type)) {
                         String err_msg = bindBoxResponse.getErr_msg();
                         ShowMessage.showToast(this,err_msg);
@@ -324,8 +327,20 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
     }
 
     @Override
-    public void onBindBtnClick(BindBoxListBean bindBoxListBean) {
-        AppApi.bindBox(this,String.valueOf(mHotelId),bindBoxListBean.getBox_id(),bindBoxListBean.getBox_mac(),String.valueOf(mRoomId),this);
+    public void onBindBtnClick(final BindBoxListBean bindBoxListBean) {
+        new CommonDialog(this, "是否需要绑定？", new CommonDialog.OnConfirmListener() {
+            @Override
+            public void onConfirm() {
+                BindBoxActivity.this.bindBoxListBean = bindBoxListBean;
+                AppApi.bindBox(BindBoxActivity.this,String.valueOf(mHotelId),bindBoxListBean.getBox_id(),bindBoxListBean.getBox_mac(),String.valueOf(mRoomId),BindBoxActivity.this);
+            }
+        }, new CommonDialog.OnCancelListener() {
+            @Override
+            public void onCancel() {
+
+            }
+        },"确定").show();
+
     }
 
 
