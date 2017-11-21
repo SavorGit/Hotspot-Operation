@@ -269,7 +269,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
 
         final ExeUserList CitemVo = itemVo;
 
-        new CommonDialog(this, "是否指派", new CommonDialog.OnConfirmListener() {
+        new CommonDialog(this, "是否指派给"+itemVo.getUsername(), new CommonDialog.OnConfirmListener() {
             @Override
             public void onConfirm() {
                 AppApi.appointTask(context,times,mSession.getLoginResponse().getUserid(),CitemVo.getUser_id(),taskDetail.getId(),is_lead_install,AppointActivity.this);
