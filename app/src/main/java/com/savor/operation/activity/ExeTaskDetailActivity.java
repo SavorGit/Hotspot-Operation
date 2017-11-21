@@ -124,6 +124,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private NetworkConnectChangedReceiver mChangedReceiver;
     private TextView lead_install;
     private TextView city_in;
+    private TextView  refuse_time;
+
     private static final int MSG_CHECK_SSDP = 100;
     private ServiceConnection mConn = new ServiceConnection() {
         @Override
@@ -232,6 +234,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         appoint_exe_time = (TextView) findViewById(R.id.appoint_exe_time);
         lead_install = (TextView) findViewById(R.id.lead_install);
         city_in = (TextView) findViewById(R.id.city_in);
+        refuse_time = (TextView) findViewById(R.id.refuse_time);
     }
 
     @Override
@@ -373,6 +376,13 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 plan_state.setTextColor(context.getResources().getColor(R.color.red));
             }
 
+            String refuseT = taskDetail.getRefuse_time();
+            if (!TextUtils.isEmpty(refuseT)) {
+                refuse_time.setVisibility(View.VISIBLE);
+                refuse_time.setText("拒绝时间："+refuseT+"("+taskDetail.getAppoint_user()+")");
+            }else {
+                refuse_time.setVisibility(View.GONE);
+            }
             plan_state.setText(taskDetail.getState());
             city_in.setText("("+taskDetail.getRegion_name()+")");
             String task_emerge_id = taskDetail.getTask_emerge_id();

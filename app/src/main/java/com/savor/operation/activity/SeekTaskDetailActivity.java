@@ -68,6 +68,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
     private TextView appoint_exe_time;
     private TextView lead_install;
     private TextView city_in;
+    private TextView  refuse_time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +110,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
         appoint_exe_time = (TextView) findViewById(R.id.appoint_exe_time);
         lead_install = (TextView) findViewById(R.id.lead_install);
         city_in = (TextView) findViewById(R.id.city_in);
+        refuse_time = (TextView) findViewById(R.id.refuse_time);
     }
 
     @Override
@@ -203,6 +205,13 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                 level_state.setText(taskDetail.getTask_emerge());
             }else {
                 level_state.setVisibility(View.INVISIBLE);
+            }
+            String refuseT = taskDetail.getRefuse_time();
+            if (!TextUtils.isEmpty(refuseT)) {
+                refuse_time.setVisibility(View.VISIBLE);
+                refuse_time.setText("拒绝时间："+refuseT+"("+taskDetail.getAppoint_user()+")");
+            }else {
+                refuse_time.setVisibility(View.GONE);
             }
             int is_lead_install = 5;
             is_lead_install = taskDetail.getIs_lead_install();

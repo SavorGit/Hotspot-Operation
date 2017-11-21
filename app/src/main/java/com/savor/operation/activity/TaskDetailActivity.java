@@ -70,6 +70,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     private TextView appoint_exe_time;
     private TextView lead_install;
     private TextView city_in;
+    private TextView  refuse_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +113,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         appoint_exe_time = (TextView) findViewById(R.id.appoint_exe_time);
         lead_install = (TextView) findViewById(R.id.lead_install);
         city_in = (TextView) findViewById(R.id.city_in);
+        refuse_time = (TextView) findViewById(R.id.refuse_time);
 }
 
     @Override
@@ -210,7 +212,13 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
 
             plan_state.setText(taskDetail.getState());
             city_in.setText("("+taskDetail.getRegion_name()+")");
-
+            String refuseT = taskDetail.getRefuse_time();
+            if (!TextUtils.isEmpty(refuseT)) {
+                refuse_time.setVisibility(View.VISIBLE);
+                refuse_time.setText("拒绝时间："+refuseT+"("+taskDetail.getAppoint_user()+")");
+            }else {
+                refuse_time.setVisibility(View.GONE);
+            }
 
             String task_emerge_id = taskDetail.getTask_emerge_id();
             if ("2".equals(task_emerge_id)) {
@@ -238,7 +246,8 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
             }
             mold.setText(taskDetail.getTask_type_desc());
             hotel_name.setText(taskDetail.getHotel_name());
-            add.setText(taskDetail.getHotel_address());
+            String ad = taskDetail.getHotel_address();
+            add.setText(ad);
             String refuse = taskDetail.getRefuse_desc();
             if (!TextUtils.isEmpty(refuse)) {
                 refuse_desc.setVisibility(View.VISIBLE);
