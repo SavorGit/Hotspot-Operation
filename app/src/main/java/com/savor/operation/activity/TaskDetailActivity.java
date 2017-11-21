@@ -69,6 +69,8 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     private String task_type_id;
     private TextView appoint_exe_time;
     private TextView lead_install;
+    private TextView city_in;
+    private TextView  refuse_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +112,9 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         refuse_desc = (TextView) findViewById(R.id.refuse_desc);
         appoint_exe_time = (TextView) findViewById(R.id.appoint_exe_time);
         lead_install = (TextView) findViewById(R.id.lead_install);
-    }
+        city_in = (TextView) findViewById(R.id.city_in);
+        refuse_time = (TextView) findViewById(R.id.refuse_time);
+}
 
     @Override
     public void setViews() {
@@ -193,7 +197,29 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
             task_type_id = taskDetail.getTask_type_id();
             int is_lead_install = 5;
             is_lead_install = taskDetail.getIs_lead_install();
-           plan_state.setText(taskDetail.getState()+"("+taskDetail.getRegion_name()+")");
+            String stateId = taskDetail.getState_id();
+            if ("0".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.green_2));
+            }else if ("1".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.orange_1));
+            }else if ("2".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.api_blue));
+            }else if ("4".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.green_2));
+            }else if ("5".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.red));
+            }
+
+            plan_state.setText(taskDetail.getState());
+            city_in.setText("("+taskDetail.getRegion_name()+")");
+            String refuseT = taskDetail.getRefuse_time();
+            if (!TextUtils.isEmpty(refuseT)) {
+                refuse_time.setVisibility(View.VISIBLE);
+                refuse_time.setText("拒绝时间："+refuseT+"("+taskDetail.getAppoint_user()+")");
+            }else {
+                refuse_time.setVisibility(View.GONE);
+            }
+
             String task_emerge_id = taskDetail.getTask_emerge_id();
             if ("2".equals(task_emerge_id)) {
                 level_state.setVisibility(View.VISIBLE);
@@ -220,7 +246,8 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
             }
             mold.setText(taskDetail.getTask_type_desc());
             hotel_name.setText(taskDetail.getHotel_name());
-            add.setText(taskDetail.getHotel_address());
+            String ad = taskDetail.getHotel_address();
+            add.setText(ad);
             String refuse = taskDetail.getRefuse_desc();
             if (!TextUtils.isEmpty(refuse)) {
                 refuse_desc.setVisibility(View.VISIBLE);
@@ -281,6 +308,17 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 complete_time.setText("");
             }
 
+            if ("2".equals(task_type_id)) {
+                if (is_lead_install == 1) {
+                    lead_install.setVisibility(View.VISIBLE);
+                    lead_install.setText("带队安装：需要");
+                }else if (is_lead_install == 0) {
+                    lead_install.setVisibility(View.VISIBLE);
+                    lead_install.setText("带队安装：不需要");
+                }else {
+                    lead_install.setVisibility(View.GONE);
+                }
+            }
             List<TaskDetailRepair> repair_list = taskDetail.getRepair_list();
             List<ExecuteRepair> execute = taskDetail.getExecute();
 
@@ -294,15 +332,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                     mPullRefreshListView.onLoadComplete(false,false);
 
                 }else if ("2".equals(task_type_id)){//安装验收
-                    if (is_lead_install == 1) {
-                        lead_install.setVisibility(View.VISIBLE);
-                        lead_install.setText("带队安装：需要");
-                    }else if (is_lead_install == 0) {
-                        lead_install.setVisibility(View.VISIBLE);
-                        lead_install.setText("带队安装：不需要");
-                    }else {
-                        lead_install.setVisibility(View.GONE);
-                    }
+
                     installRepairAdapter = new InstallRepairAdapter(context);
                     mPullRefreshListView.setAdapter(installRepairAdapter);
                     installRepairAdapter.setData(repair_list);
@@ -331,15 +361,6 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                     mPullRefreshListView.onLoadComplete(false,false);
 
                 }else if ("2".equals(task_type_id)){//安装验收
-                    if (is_lead_install == 1) {
-                        lead_install.setVisibility(View.VISIBLE);
-                        lead_install.setText("带队安装：需要");
-                    }else if (is_lead_install == 0) {
-                        lead_install.setVisibility(View.VISIBLE);
-                        lead_install.setText("带队安装：不需要");
-                    }else {
-                        lead_install.setVisibility(View.GONE);
-                    }
                     completeInstallRepairAdapter = new CompleteInstallRepairAdapter(context);
                     mPullRefreshListView.setAdapter(completeInstallRepairAdapter);
                     completeInstallRepairAdapter.setData(execute);

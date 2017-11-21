@@ -123,6 +123,9 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private CompleteRepairAdapter completeRepairAdapter;
     private NetworkConnectChangedReceiver mChangedReceiver;
     private TextView lead_install;
+    private TextView city_in;
+    private TextView  refuse_time;
+
     private static final int MSG_CHECK_SSDP = 100;
     private ServiceConnection mConn = new ServiceConnection() {
         @Override
@@ -230,6 +233,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         call = (TextView) findViewById(R.id.call);
         appoint_exe_time = (TextView) findViewById(R.id.appoint_exe_time);
         lead_install = (TextView) findViewById(R.id.lead_install);
+        city_in = (TextView) findViewById(R.id.city_in);
+        refuse_time = (TextView) findViewById(R.id.refuse_time);
     }
 
     @Override
@@ -358,7 +363,28 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 assign.setText("处理完成");
             }
 
-            plan_state.setText(taskDetail.getState()+"("+taskDetail.getRegion_name()+")");
+            String stateId = taskDetail.getState_id();
+            if ("0".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.green_2));
+            }else if ("1".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.orange_1));
+            }else if ("2".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.api_blue));
+            }else if ("4".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.green_2));
+            }else if ("5".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.red));
+            }
+
+            String refuseT = taskDetail.getRefuse_time();
+            if (!TextUtils.isEmpty(refuseT)) {
+                refuse_time.setVisibility(View.VISIBLE);
+                refuse_time.setText("拒绝时间："+refuseT+"("+taskDetail.getAppoint_user()+")");
+            }else {
+                refuse_time.setVisibility(View.GONE);
+            }
+            plan_state.setText(taskDetail.getState());
+            city_in.setText("("+taskDetail.getRegion_name()+")");
             String task_emerge_id = taskDetail.getTask_emerge_id();
             if ("2".equals(task_emerge_id)) {
                 level_state.setVisibility(View.VISIBLE);
@@ -426,7 +452,17 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 complete_time.setVisibility(View.GONE);
                 complete_time.setText("");
             }
-
+            if ("2".equals(task_type_id)) {
+                if (is_lead_install == 1) {
+                    lead_install.setVisibility(View.VISIBLE);
+                    lead_install.setText("带队安装：需要");
+                }else if (is_lead_install == 0) {
+                    lead_install.setVisibility(View.VISIBLE);
+                    lead_install.setText("带队安装：不需要");
+                }else {
+                    lead_install.setVisibility(View.GONE);
+                }
+            }
                repair_list = taskDetail.getRepair_list();
                 List<ExecuteRepair> execute = taskDetail.getExecute();
             if (repair_list != null && repair_list.size()>0) {
@@ -717,6 +753,18 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 });
 
             }catch (Exception e) {}
+        }else {
+            int nextPos = startPos+1;
+            if(nextPos<infos.size()) {
+                uploadPic(infos,nextPos);
+            }else {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        publish();
+                    }
+                });
+            }
         }
     }
 
@@ -773,6 +821,18 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 });
 
             }catch (Exception e) {}
+        }else {
+            int nextPos = startPos+1;
+            if(nextPos<des.size()) {
+                hotelUploadPic(des,nextPos);
+            }else {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        detectPublish(des);
+                    }
+                });
+            }
         }
     }
 

@@ -23,6 +23,15 @@
             android:layout_marginLeft="5dp"
             android:text="已完成"
             android:textSize="15sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/city_in"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/plan_state"
+            android:layout_marginLeft="5dp"
+            android:text=""
+            android:textSize="15sp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -149,6 +158,18 @@
             android:textSize="14dp"
             android:layout_marginBottom="15dp"
             android:text=""/>
+        <TextView
+            android:id="@+id/refuse_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/complete_time"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textColor="#888888"
+            android:layout_toRightOf="@id/mold"
+            android:layout_marginLeft="24dp"
+            android:textSize="14dp"
+            android:text=""/>
 
     </RelativeLayout>
     <ImageView
@@ -270,7 +291,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_below="@id/refuse_desc"
+        android:layout_below="@id/lead_install"
         android:layout_above="@id/btn_la"
         android:id="@+id/wl_listview"
         android:layout_width="fill_parent"

@@ -233,6 +233,7 @@ public class MaintenanceDialog implements OnClickListener {
                     state = "2";
                 }
                 callBack.toMaintenance(box_id,ev_info.getText().toString(),state,urls);
+                dismiss();
                 break;
             case R.id.cancel:
                 dismiss();

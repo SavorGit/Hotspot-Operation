@@ -218,10 +218,11 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
-
+        pullToRefreshListView.onRefreshComplete();
         switch (method){
+
             case POST_VIEW_TASK_LIST_JSON:
-                pullToRefreshListView.onRefreshComplete();
+
                 if (obj instanceof ResponseErrorMessage){
                     ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                     String statusCode = String.valueOf(errorMessage.getCode());

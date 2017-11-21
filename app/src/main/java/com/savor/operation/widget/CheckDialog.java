@@ -134,6 +134,7 @@ public class CheckDialog implements OnClickListener {
                 break;
             case R.id.submit:
                 callBack.toDetect(URL);
+                dismiss();
                 break;
         }
     }
