@@ -291,7 +291,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_below="@id/refuse_desc"
+        android:layout_below="@id/lead_install"
         android:layout_above="@id/btn_la"
         android:id="@+id/wl_listview"
         android:layout_width="fill_parent"
