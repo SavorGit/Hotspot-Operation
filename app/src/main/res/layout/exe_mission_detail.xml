@@ -23,6 +23,15 @@
             android:layout_marginLeft="5dp"
             android:text="已完成"
             android:textSize="15sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/city_in"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/plan_state"
+            android:layout_marginLeft="5dp"
+            android:text=""
+            android:textSize="15sp"/>
 
         <TextView
             android:layout_width="wrap_content"

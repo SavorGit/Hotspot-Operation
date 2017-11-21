@@ -67,6 +67,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
     private TextView refuse_desc;
     private TextView appoint_exe_time;
     private TextView lead_install;
+    private TextView city_in;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +108,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
         refuse_desc = (TextView) findViewById(R.id.refuse_desc);
         appoint_exe_time = (TextView) findViewById(R.id.appoint_exe_time);
         lead_install = (TextView) findViewById(R.id.lead_install);
+        city_in = (TextView) findViewById(R.id.city_in);
     }
 
     @Override
@@ -180,7 +182,21 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
     private void initView(){
         if (taskDetail != null){
             task_type_id = taskDetail.getTask_type_id();
-           plan_state.setText(taskDetail.getState()+"("+taskDetail.getRegion_name()+")");
+            String stateId = taskDetail.getState_id();
+            if ("0".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.green_2));
+            }else if ("1".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.orange_1));
+            }else if ("2".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.api_blue));
+            }else if ("4".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.green_2));
+            }else if ("5".equals(stateId)) {
+                plan_state.setTextColor(context.getResources().getColor(R.color.red));
+            }
+
+            plan_state.setText(taskDetail.getState());
+            city_in.setText("("+taskDetail.getRegion_name()+")");
             String task_emerge_id = taskDetail.getTask_emerge_id();
             if ("2".equals(task_emerge_id)) {
                 level_state.setVisibility(View.VISIBLE);
