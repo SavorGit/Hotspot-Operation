@@ -157,9 +157,10 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
 
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
+        pullToRefreshListView.onRefreshComplete();
         switch (method){
             case POST_VIEW_TASK_LIST_JSON:
-                pullToRefreshListView.onRefreshComplete();
+
                 if (obj instanceof List<?>){
                     List<MissionTaskListBean> mlist = (List<MissionTaskListBean>) obj;
                     handleWealthData(mlist);
