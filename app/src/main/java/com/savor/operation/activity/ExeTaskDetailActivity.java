@@ -753,6 +753,18 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 });
 
             }catch (Exception e) {}
+        }else {
+            int nextPos = startPos+1;
+            if(nextPos<infos.size()) {
+                uploadPic(infos,nextPos);
+            }else {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        publish();
+                    }
+                });
+            }
         }
     }
 
@@ -809,6 +821,18 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 });
 
             }catch (Exception e) {}
+        }else {
+            int nextPos = startPos+1;
+            if(nextPos<des.size()) {
+                hotelUploadPic(des,nextPos);
+            }else {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        detectPublish(des);
+                    }
+                });
+            }
         }
     }
 

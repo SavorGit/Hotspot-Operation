@@ -157,6 +157,7 @@ public class DetectDialog implements OnClickListener {
                 break;
             case R.id.submit:
                 callBack.toTransform(urls);
+                dismiss();
                 break;
         }
     }
