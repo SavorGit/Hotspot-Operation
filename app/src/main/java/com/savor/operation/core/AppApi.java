@@ -337,7 +337,7 @@ public class AppApi {
                                    String task_emerge,String task_type,
                                    String tv_nums,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
-        params.put("addr",tv_nums);
+        params.put("addr",addr);
         params.put("contractor",contractor);
         params.put("hotel_id",hotel_id);
         params.put("mobile",mobile);
