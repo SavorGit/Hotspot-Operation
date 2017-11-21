@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/common-library/common-library.iml" filepath="$PROJECT_DIR$/common-library/common-library.iml" />
       <module fileurl="file://$PROJECT_DIR$/pager-indicator-lib/pager-indicator-lib.iml" filepath="$PROJECT_DIR$/pager-indicator-lib/pager-indicator-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/video-compress-library/video-compress-library.iml" filepath="$PROJECT_DIR$/video-compress-library/video-compress-library.iml" />
     </modules>
   </component>
 </project>

@@ -155,9 +155,13 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                 if(compareTo>=1&& !times.equals(ctimes)) {
                     time.setText("执行日期：");
                     ShowMessage.showToast(AppointActivity.this,"不能选择今天之前的日期");
-                    List<ExeUserList> data = jobAdapter.getData();
-                    data.clear();
-                    jobAdapter.setData(data,times);
+                    if (jobAdapter != null) {
+                        List<ExeUserList> data = jobAdapter.getData();
+                        data.clear();
+                        jobAdapter.setData(data,times);
+                    }
+                    times = "";
+                    exe_num.setText("执行者数量"+0);
                 }else {
                     time.setText("执行日期："+times);
                     getExeUserList();
