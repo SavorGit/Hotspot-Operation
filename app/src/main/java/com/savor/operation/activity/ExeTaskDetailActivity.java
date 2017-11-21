@@ -395,7 +395,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
             String appoint_exe_timeString = taskDetail.getAppoint_exe_time();
             if (!TextUtils.isEmpty(appoint_exe_timeString)) {
-                appoint_exe_time.setText("指派执行时间 ："+appoint_exe_timeString);
+                appoint_exe_time.setText("指派执行时间 ："+appoint_exe_timeString+"("+taskDetail.getExeuser()+")");
             }else {
                 appoint_exe_time.setVisibility(View.GONE);
             }
