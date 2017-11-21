@@ -212,10 +212,21 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
-        if (obj instanceof ResponseErrorMessage){
-            ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
-            String statusCode = String.valueOf(errorMessage.getCode());
-            ShowMessage.showToast(context,errorMessage.getMessage());
+
+
+        switch (method) {
+            case POST_EXE_USER_LIST_JSON:
+                exe_num.setText("执行者数量"+0);
+                break;
+            case POST_APPOIN_TASK_JSON:
+                // if(obj instanceof List) {
+                if (obj instanceof ResponseErrorMessage){
+                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
+                    String statusCode = String.valueOf(errorMessage.getCode());
+                    ShowMessage.showToast(context,errorMessage.getMessage());
+                }
+                //  }
+                break;
         }
     }
     private void initView(){
