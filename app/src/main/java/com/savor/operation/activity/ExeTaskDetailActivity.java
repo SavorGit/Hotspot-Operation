@@ -615,7 +615,13 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
     @Override
     public void toInstallation(List<String> urls) {
-        if(mHotelId>0) {
+        String detailHotelId = taskDetail.getHotel_id();
+        int detailHotelIdInt = 0;
+        if (!TextUtils.isEmpty(detailHotelId)) {
+            detailHotelIdInt =  Integer.parseInt(detailHotelId);
+        }
+
+        if(mHotelId>0 && mHotelId == detailHotelIdInt) {
             if(checkImageUrlIsEmpty(urls)) {
                 InstalluploadPic(urls,0);
             }else {
