@@ -316,7 +316,9 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
                     boxList = (BindBoxList) obj;
                     if(boxList!=null) {
                         String hotel_name = boxList.getHotel_name();
-                        mHoltelTv.setText("当前酒楼："+hotel_name);
+                        if(!TextUtils.isEmpty(hotel_name)) {
+                            mHoltelTv.setText("当前酒楼："+hotel_name);
+                        }
                     }
                     List<BindBoxListBean> list = boxList.getList();
                     mBindAdapter.setData(list);
