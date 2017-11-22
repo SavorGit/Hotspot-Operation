@@ -302,10 +302,10 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
                 if(obj instanceof BindBoxResponse) {
                     BindBoxResponse bindBoxResponse = (BindBoxResponse) obj;
                     int type = bindBoxResponse.getType();
-                    if("1".equals(type)) {
+                    if(type == 1) {
                         ShowMessage.showToast(this,"绑定成功");
-                        AppApi.bindBox(this,String.valueOf(mHotelId),bindBoxListBean.getBox_id(),bindBoxListBean.getBox_mac(),String.valueOf(mRoomId),this);
-                    }else if("2".equals(type)) {
+                        AppApi.getRoomBoxList(BindBoxActivity.this,String.valueOf(mHotelId),String.valueOf(mRoomId),BindBoxActivity.this);
+                    }else if(type == 2) {
                         String err_msg = bindBoxResponse.getErr_msg();
                         ShowMessage.showToast(this,err_msg);
                     }
@@ -334,7 +334,7 @@ public class BindBoxActivity extends BaseActivity implements SSDPService.OnSSDPR
             @Override
             public void onConfirm() {
                 BindBoxActivity.this.bindBoxListBean = bindBoxListBean;
-                AppApi.bindBox(BindBoxActivity.this,String.valueOf(mHotelId),bindBoxListBean.getBox_id(),bindBoxListBean.getBox_mac(),String.valueOf(mRoomId),BindBoxActivity.this);
+                AppApi.bindBox(BindBoxActivity.this,String.valueOf(mHotelId),bindBoxListBean.getBox_id(),mBoxMAc,String.valueOf(mRoomId),BindBoxActivity.this);
             }
         }, new CommonDialog.OnCancelListener() {
             @Override
