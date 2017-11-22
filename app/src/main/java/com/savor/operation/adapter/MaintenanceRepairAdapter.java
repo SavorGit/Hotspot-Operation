@@ -110,7 +110,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
             holder.time.setVisibility(View.GONE);
         }else {
             holder.time.setVisibility(View.VISIBLE);
-            holder.time.setText("执行时间："+ts);
+            holder.time.setText("操作时间："+ts);
         }
 
 
