@@ -121,7 +121,8 @@ public class ExeMissionListActivity extends AppCompatActivity
         mPagerAdapter.setData(mFragmentList,mTitleList);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setViewPager(mViewPager);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setCurrentItem(1);
     }
 
     private void setListeners(){
