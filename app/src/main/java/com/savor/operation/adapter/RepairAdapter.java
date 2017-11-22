@@ -77,7 +77,7 @@ public class RepairAdapter extends BaseAdapter {
             holder = (RepairAdapter.ViewHolder) convertView.getTag();
         }
         final TaskDetailRepair item = (TaskDetailRepair) getItem(position);
-        holder.time.setText("操作时间"+item.getRepair_time());
+        holder.time.setText("操作时间："+item.getRepair_time());
         List<TaskDetailRepairImg> repair_img = item.getRepair_img();
         if (repair_img != null && repair_img.size()>0) {
             final TaskDetailRepairImg obj1 = repair_img.get(0);

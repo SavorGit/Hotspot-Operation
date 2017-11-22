@@ -191,8 +191,8 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
     public void onError(AppApi.Action method, Object obj) {
         pullToRefreshListView.onRefreshComplete();
         switch (method){
-            case POST_VIEW_TASK_LIST_JSON:
-
+            case POST_APPOINT_TASK_LIST_JSON:
+                pullToRefreshListView.onLoadComplete(false,true);
                     if (obj instanceof ResponseErrorMessage){
                         ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                         String statusCode = String.valueOf(errorMessage.getCode());
@@ -206,6 +206,7 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
     private void handleWealthData(List<MissionTaskListBean> mList){
 
         if (mList != null && mList.size() > 0) {
+            page++;
             pullToRefreshListView.setVisibility(View.VISIBLE);
             if (isUp) {
                 listItems.clear();
@@ -220,9 +221,9 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
             missionAdapter.setData(listItems);
 
             if (mList!=null && mList.size()<15) {
-                pullToRefreshListView.onLoadComplete(false,false);
+                pullToRefreshListView.onLoadComplete(false,true);
             }else {
-                page++;
+
                 pullToRefreshListView.onLoadComplete(true,false);
             }
         }else {

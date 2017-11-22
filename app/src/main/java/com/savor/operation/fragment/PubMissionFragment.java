@@ -174,8 +174,8 @@ public class PubMissionFragment extends BaseFragment implements ApiRequestListen
     public void onError(AppApi.Action method, Object obj) {
         pullToRefreshListView.onRefreshComplete();
         switch (method){
-            case POST_VIEW_TASK_LIST_JSON:
-
+            case POST_PUB_TASK_LIST_JSON:
+                pullToRefreshListView.onLoadComplete(false,true);
                 if (obj instanceof ResponseErrorMessage){
                     ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                     String statusCode = String.valueOf(errorMessage.getCode());
@@ -203,7 +203,7 @@ public class PubMissionFragment extends BaseFragment implements ApiRequestListen
             missionAdapter.setData(listItems);
 
             if (mList!=null && mList.size()<15) {
-                pullToRefreshListView.onLoadComplete(false,false);
+                pullToRefreshListView.onLoadComplete(false,true);
             }else {
 
                 pullToRefreshListView.onLoadComplete(true,false);

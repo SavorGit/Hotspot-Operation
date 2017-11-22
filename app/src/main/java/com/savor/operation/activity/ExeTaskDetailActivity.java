@@ -44,6 +44,7 @@ import com.savor.operation.bean.ExecuteRepair;
 import com.savor.operation.bean.ExecutorInfo;
 import com.savor.operation.bean.ExecutorInfoBean;
 import com.savor.operation.bean.Hotel;
+import com.savor.operation.bean.PicUrl;
 import com.savor.operation.bean.RepairInfo;
 import com.savor.operation.bean.SmallPlatformByGetIp;
 import com.savor.operation.bean.TaskDetail;
@@ -447,7 +448,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             String complete_timeStr = taskDetail.getComplete_time();
             if (!TextUtils.isEmpty(complete_timeStr)) {
                 complete_time.setVisibility(View.VISIBLE);
-                complete_time.setText("完成时间"+complete_timeStr+"("+taskDetail.getExeuser()+")");
+                complete_time.setText("完成时间："+complete_timeStr+"("+taskDetail.getExeuser()+")");
             }else {
                 complete_time.setVisibility(View.GONE);
                 complete_time.setText("");
@@ -565,7 +566,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 taskDetail.getTv_nums(),
                 taskDetail.getHotel_id(),
                 ExeTaskDetailActivity.this,
-                this
+                this,
+                elist
         );
         installDialog.show();
     }
@@ -581,6 +583,14 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void publish() {
+        if (urls != null && urls.size()>0) {
+            for (int i = 0; i < urls.size(); i++) {
+                String obj = urls.get(i);
+                if (TextUtils.isEmpty(obj)) {
+                    urls.remove(i);
+                }
+            }
+        }
         Gson gson = new Gson();
         String  repair_info = gson.toJson(urls, new TypeToken<List<String>>() {
         }.getType());
@@ -590,7 +600,20 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
     private void inStallpublish(List<String> infos) {
         Gson gson = new Gson();
-        String  repair_info = gson.toJson(infos, new TypeToken<List<String>>() {
+        List<PicUrl> infoss = new ArrayList<PicUrl>();
+        if (infos != null && infos.size()>0) {
+            for (int i = 0; i < infos.size(); i++) {
+                String obj = infos.get(i);
+                if (TextUtils.isEmpty(obj)) {
+                    infos.remove(i);
+                }else {
+                    PicUrl o = new PicUrl();
+                    o.setImg(obj);
+                    infoss.add(o);
+                }
+            }
+        }
+        String  repair_info = gson.toJson(infoss, new TypeToken<List<PicUrl>>() {
         }.getType());
         AppApi.reportMission(context, box_id ,remark, repair_info,state
                 ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
@@ -615,8 +638,9 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
     @Override
     public void toInstallation(List<String> urls) {
-        String detailHotelId = taskDetail.getHotel_id();
         int detailHotelIdInt = 0;
+        String detailHotelId = taskDetail.getHotel_id();
+
         if (!TextUtils.isEmpty(detailHotelId)) {
             detailHotelIdInt =  Integer.parseInt(detailHotelId);
         }
@@ -890,8 +914,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                     @Override
                     public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
                         String imageUrl = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
-                        urls.add(imageUrl);
-
+                        //urls.add(imageUrl);
+                        infos.set(startPos,imageUrl);
                         nextPos = startPos+1;
                         if(nextPos <infos.size()) {
                             InstalluploadPic(infos, nextPos);
@@ -907,7 +931,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
                     @Override
                     public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
-                        urls.add("");
+                        infos.set(startPos,"");
                         int nextPos = startPos+1;
                         if(nextPos<infos.size()) {
                             InstalluploadPic(infos,nextPos);

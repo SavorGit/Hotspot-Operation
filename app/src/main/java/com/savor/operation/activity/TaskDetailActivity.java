@@ -309,7 +309,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
             String complete_timeStr = taskDetail.getComplete_time();
             if (!TextUtils.isEmpty(complete_timeStr)) {
                 complete_time.setVisibility(View.VISIBLE);
-                complete_time.setText("完成时间"+complete_timeStr+"("+taskDetail.getExeuser()+")");
+                complete_time.setText("完成时间："+complete_timeStr+"("+taskDetail.getExeuser()+")");
             }else {
                 complete_time.setVisibility(View.GONE);
                 complete_time.setText("");

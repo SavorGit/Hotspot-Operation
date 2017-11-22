@@ -65,6 +65,7 @@ public class InstallDialog implements OnClickListener {
     private  ImageView currentIv ;
     private  TextView cdel;
     private ProgressBar pb_loading;
+    private List<ExecutorInfoBean> elist;
 
     public InstallDialog(Context context) {
         this.context = context;
@@ -81,7 +82,7 @@ public class InstallDialog implements OnClickListener {
         builder();
     }
 
-    public InstallDialog(Context context, String tvNum , String hotel_id,Activity activity, MaintenanceCallBack callBack){
+    public InstallDialog(Context context, String tvNum , String hotel_id,Activity activity, MaintenanceCallBack callBack,List<ExecutorInfoBean> elist){
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         display = windowManager.getDefaultDisplay();
         this.context = context;
@@ -90,6 +91,7 @@ public class InstallDialog implements OnClickListener {
         this.callBack = callBack;
         this.activity = activity;
         this.hotel_id = hotel_id;
+        this.elist = elist;
         builder();
     }
     public InstallDialog builder() {
@@ -135,6 +137,15 @@ public class InstallDialog implements OnClickListener {
             final TextView tv_select_pic1 = (TextView)v.findViewById(R.id.tv_select_pic1);
             final ImageView iv_exce_pic1 = (ImageView)v.findViewById(R.id.iv_exce_pic1);
             final TextView del = (TextView)v.findViewById(R.id.del);
+            if (elist != null && elist.size()>0&&elist.size()<=num) {
+                if (elist.size()-1>= i) {
+                    String urlo =  elist.get(i).getRepair_img();
+                    tv_select_pic1.setVisibility(View.GONE);
+                    iv_exce_pic1.setVisibility(View.VISIBLE);
+                    del.setVisibility(View.VISIBLE);
+                    Glide.with(context).load(urlo).into(iv_exce_pic1);
+                }
+            }
             tv_select_pic1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

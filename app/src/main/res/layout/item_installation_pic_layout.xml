@@ -31,7 +31,7 @@
             android:layout_height="80dp"/>
         <TextView
            android:layout_centerHorizontal="true"
-            android:layout_below="@id/tv_select_pic1"
+            android:layout_below="@id/iv_exce_pic1"
             android:visibility="gone"
             android:gravity="center"
             android:id="@+id/del"

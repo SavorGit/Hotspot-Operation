@@ -221,8 +221,8 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
         pullToRefreshListView.onRefreshComplete();
         switch (method){
 
-            case POST_VIEW_TASK_LIST_JSON:
-
+            case POST_EXE_TASK_LIST_JSON:
+                pullToRefreshListView.onLoadComplete(false,true);
                 if (obj instanceof ResponseErrorMessage){
                     ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                     String statusCode = String.valueOf(errorMessage.getCode());
@@ -250,7 +250,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
             missionAdapter.setData(listItems);
 
             if (mList!=null && mList.size()<15) {
-                pullToRefreshListView.onLoadComplete(false,false);
+                pullToRefreshListView.onLoadComplete(false,true);
             }else {
                 pullToRefreshListView.onLoadComplete(true,false);
             }

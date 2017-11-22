@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
+import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
@@ -28,6 +29,7 @@ import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.bean.SkillList;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.core.ResponseErrorMessage;
 
 
 import java.util.ArrayList;
@@ -173,6 +175,22 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
 
     }
 
+    @Override
+    public void onError(AppApi.Action method, Object obj) {
+        pullToRefreshListView.onRefreshComplete();
+        switch (method){
+
+            case POST_VIEW_TASK_LIST_JSON:
+                pullToRefreshListView.onLoadComplete(false,true);
+                if (obj instanceof ResponseErrorMessage){
+                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
+                    String statusCode = String.valueOf(errorMessage.getCode());
+                    ShowMessage.showToast(context,errorMessage.getMessage());
+                }
+
+                break;
+        }
+    }
     private void handleWealthData(List<MissionTaskListBean> mList){
 
         if (mList != null && mList.size() > 0) {
@@ -191,7 +209,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
             missionAdapter.setData(listItems);
 
             if (mList!=null && mList.size()<15) {
-                pullToRefreshListView.onLoadComplete(false,false);
+                pullToRefreshListView.onLoadComplete(false,true);
             }else {
 
                 pullToRefreshListView.onLoadComplete(true,false);
