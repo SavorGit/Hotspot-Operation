@@ -217,7 +217,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
             is_lead_install = taskDetail.getIs_lead_install();
             String appoint_exe_timeString = taskDetail.getAppoint_exe_time();
             if (!TextUtils.isEmpty(appoint_exe_timeString)) {
-                appoint_exe_time.setText("指派执行时间 ："+appoint_exe_timeString+"("+taskDetail.getExeuser()+")");
+                appoint_exe_time.setText("执行指派时间 ："+appoint_exe_timeString+"("+taskDetail.getExeuser()+")");
             }else {
                 appoint_exe_time.setVisibility(View.GONE);
             }
@@ -238,7 +238,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                 String refuse = taskDetail.getRefuse_desc();
                 if (!TextUtils.isEmpty(refuse)) {
                     refuse_desc.setVisibility(View.VISIBLE);
-                    refuse_desc.setText(refuse);
+                    refuse_desc.setText("拒绝原因："+refuse);
                 }else {
                     refuse_desc.setVisibility(View.GONE);
                 }
@@ -298,14 +298,18 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
 
             List<TaskDetailRepair> repair_list = taskDetail.getRepair_list();
             List<ExecuteRepair> execute = taskDetail.getExecute();
-            if ("2".equals(task_type_id)) {
-                if (is_lead_install == 1) {
-                    lead_install.setVisibility(View.VISIBLE);
-                    lead_install.setText("带队安装：需要");
-                }else if (is_lead_install == 0) {
-                    lead_install.setVisibility(View.VISIBLE);
-                    lead_install.setText("带队安装：不需要");
-                }else {
+            if (!"1".equals(stateId)&&!"5".equals(stateId)) {
+                if ("2".equals(task_type_id)) {
+                    if (is_lead_install == 1) {
+                        lead_install.setVisibility(View.VISIBLE);
+                        lead_install.setText("带队安装：需要");
+                    } else if (is_lead_install == 0) {
+                        lead_install.setVisibility(View.VISIBLE);
+                        lead_install.setText("带队安装：不需要");
+                    } else {
+                        lead_install.setVisibility(View.GONE);
+                    }
+                } else {
                     lead_install.setVisibility(View.GONE);
                 }
             }else {

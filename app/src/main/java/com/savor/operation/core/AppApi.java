@@ -11,7 +11,7 @@ public class AppApi {
     public static final String APK_DOWNLOAD_FILENAME = "NewApp.apk";
 
     /**云平台php接口*/
-//    public static final String CLOUND_PLATFORM_PHP_URL = "http://devp.mobile.littlehotspot.com/";
+   // public static final String CLOUND_PLATFORM_PHP_URL = "http://devp.mobile.littlehotspot.com/";
   public static final String CLOUND_PLATFORM_PHP_URL = "http://mobile.littlehotspot.com/";
 
     /**

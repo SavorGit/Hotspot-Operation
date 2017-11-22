@@ -234,7 +234,7 @@
         android:id="@+id/lead_install"
         android:layout_width="match_parent"
         android:layout_height="22dp"
-        android:layout_below="@id/contact_la"
+        android:layout_below="@id/refuse_desc"
         android:textColor="#333333"
         android:textSize="15sp"
         android:gravity="center|left"

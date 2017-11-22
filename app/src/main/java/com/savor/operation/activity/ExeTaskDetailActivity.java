@@ -395,7 +395,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
             String appoint_exe_timeString = taskDetail.getAppoint_exe_time();
             if (!TextUtils.isEmpty(appoint_exe_timeString)) {
-                appoint_exe_time.setText("指派执行时间 ："+appoint_exe_timeString+"("+taskDetail.getExeuser()+")");
+                appoint_exe_time.setText("执行指派时间 ："+appoint_exe_timeString+"("+taskDetail.getExeuser()+")");
             }else {
                 appoint_exe_time.setVisibility(View.GONE);
             }
@@ -452,14 +452,18 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 complete_time.setVisibility(View.GONE);
                 complete_time.setText("");
             }
-            if ("2".equals(task_type_id)) {
-                if (is_lead_install == 1) {
-                    lead_install.setVisibility(View.VISIBLE);
-                    lead_install.setText("带队安装：需要");
-                }else if (is_lead_install == 0) {
-                    lead_install.setVisibility(View.VISIBLE);
-                    lead_install.setText("带队安装：不需要");
-                }else {
+            if (!"1".equals(stateId)&&!"5".equals(stateId)) {
+                if ("2".equals(task_type_id)) {
+                    if (is_lead_install == 1) {
+                        lead_install.setVisibility(View.VISIBLE);
+                        lead_install.setText("带队安装：需要");
+                    } else if (is_lead_install == 0) {
+                        lead_install.setVisibility(View.VISIBLE);
+                        lead_install.setText("带队安装：不需要");
+                    } else {
+                        lead_install.setVisibility(View.GONE);
+                    }
+                } else {
                     lead_install.setVisibility(View.GONE);
                 }
             }else {
@@ -505,15 +509,6 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                     mPullRefreshListView.onLoadComplete(false,false);
 
                 }else if ("2".equals(task_type_id)){//安装验收
-                    if (is_lead_install == 1) {
-                        lead_install.setVisibility(View.VISIBLE);
-                        lead_install.setText("带队安装：需要");
-                    }else if (is_lead_install == 0) {
-                        lead_install.setVisibility(View.VISIBLE);
-                        lead_install.setText("带队安装：不需要");
-                    }else {
-                        lead_install.setVisibility(View.GONE);
-                    }
                     completeInstallRepairAdapter = new CompleteInstallRepairAdapter(context);
                     mPullRefreshListView.setAdapter(completeInstallRepairAdapter);
                     completeInstallRepairAdapter.setData(execute);

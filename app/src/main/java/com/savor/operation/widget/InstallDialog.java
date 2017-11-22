@@ -288,7 +288,7 @@ public class InstallDialog implements OnClickListener {
             if (isfull >0) {
                 submit.setText("保存");
             }else {
-                submit.setText("安装");
+                submit.setText("完成安装");
             }
         }
     }
@@ -302,6 +302,6 @@ public class InstallDialog implements OnClickListener {
         tv_select_pic1.setVisibility(View.VISIBLE);
         iv_exce_pic1.setVisibility(View.GONE);
         del.setVisibility(View.GONE);
-
+        setbtn();
     }
 }
