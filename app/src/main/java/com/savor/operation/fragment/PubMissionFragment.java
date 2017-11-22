@@ -176,11 +176,11 @@ public class PubMissionFragment extends BaseFragment implements ApiRequestListen
         switch (method){
             case POST_PUB_TASK_LIST_JSON:
                 pullToRefreshListView.onLoadComplete(false,true);
-                if (obj instanceof ResponseErrorMessage){
-                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
-                    String statusCode = String.valueOf(errorMessage.getCode());
-                    ShowMessage.showToast(context,errorMessage.getMessage());
-                }
+//                if (obj instanceof ResponseErrorMessage){
+//                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
+//                    String statusCode = String.valueOf(errorMessage.getCode());
+//                    ShowMessage.showToast(context,errorMessage.getMessage());
+//                }
 
                 break;
         }

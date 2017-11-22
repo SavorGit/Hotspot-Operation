@@ -182,11 +182,11 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
 
             case POST_VIEW_TASK_LIST_JSON:
                 pullToRefreshListView.onLoadComplete(false,true);
-                if (obj instanceof ResponseErrorMessage){
-                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
-                    String statusCode = String.valueOf(errorMessage.getCode());
-                    ShowMessage.showToast(context,errorMessage.getMessage());
-                }
+//                if (obj instanceof ResponseErrorMessage){
+//                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
+//                    String statusCode = String.valueOf(errorMessage.getCode());
+//                    ShowMessage.showToast(context,errorMessage.getMessage());
+//                }
 
                 break;
         }

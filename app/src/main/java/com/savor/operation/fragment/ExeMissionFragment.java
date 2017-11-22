@@ -223,11 +223,11 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
 
             case POST_EXE_TASK_LIST_JSON:
                 pullToRefreshListView.onLoadComplete(false,true);
-                if (obj instanceof ResponseErrorMessage){
-                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
-                    String statusCode = String.valueOf(errorMessage.getCode());
-                    ShowMessage.showToast(context,errorMessage.getMessage());
-                }
+//                if (obj instanceof ResponseErrorMessage){
+//                    ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
+//                    String statusCode = String.valueOf(errorMessage.getCode());
+//                    ShowMessage.showToast(context,errorMessage.getMessage());
+//                }
 
                 break;
         }
