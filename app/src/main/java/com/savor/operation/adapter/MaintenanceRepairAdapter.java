@@ -125,7 +125,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
         String stateS = item.getState();
         if ("1".equals(stateS)) {
             holder.state.setText("已解决");
-        }else if("0".equals(stateS)){
+        }else if("2".equals(stateS)){
             holder.state.setText("未解决");
         }
         List<TaskDetailRepairImg> repair_img = item.getRepair_img();
