@@ -122,7 +122,7 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
     OnRefreshListener onRefreshListener = new OnRefreshListener() {
         @Override
         public void onRefresh(PullToRefreshBase refreshView) {
-            page = 0;
+            page = 1;
             isUp = true;
             getData();
         }
@@ -193,7 +193,7 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
         switch (method){
             case POST_APPOINT_TASK_LIST_JSON:
                 pullToRefreshListView.onLoadComplete(false,true);
-                if (page == 0 ) {
+                if (page == 1 ) {
                     missionAdapter.clear();
                 }
 //                    if (obj instanceof ResponseErrorMessage){
@@ -209,7 +209,7 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
     private void handleWealthData(List<MissionTaskListBean> mList){
 
         if (mList != null && mList.size() > 0) {
-            page++;
+
             pullToRefreshListView.setVisibility(View.VISIBLE);
             if (isUp) {
                 listItems.clear();
@@ -226,7 +226,7 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
             if (mList!=null && mList.size()<15) {
                 pullToRefreshListView.onLoadComplete(false,true);
             }else {
-
+                page = page+1;
                 pullToRefreshListView.onLoadComplete(true,false);
             }
         }else {
@@ -258,7 +258,10 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 666) {
-            page = 0;
+            //pullToRefreshListView.onLoadComplete(true,false);
+            listItems.clear();
+            missionAdapter.clear();
+            page = 1;
             isUp = true;
             getData();
         }

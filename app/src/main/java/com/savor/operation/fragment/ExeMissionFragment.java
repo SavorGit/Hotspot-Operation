@@ -137,7 +137,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 555) {
-            page = 0;
+            page = 1;
             isUp = true;
             getData();
         }
@@ -151,7 +151,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
     OnRefreshListener onRefreshListener = new OnRefreshListener() {
         @Override
         public void onRefresh(PullToRefreshBase refreshView) {
-            page = 0;
+            page = 1;
             isUp = true;
             getData();
         }
@@ -223,7 +223,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
 
             case POST_EXE_TASK_LIST_JSON:
                 pullToRefreshListView.onLoadComplete(false,true);
-                if (page == 0 ) {
+                if (page == 1 ) {
                     missionAdapter.clear();
                 }
 //                if (obj instanceof ResponseErrorMessage){
