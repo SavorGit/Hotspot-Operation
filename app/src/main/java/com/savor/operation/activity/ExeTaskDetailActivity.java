@@ -632,11 +632,28 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void detectPublish( List<DetectBean> des) {
-        Gson gson = new Gson();
-        String  repair_info = gson.toJson(des, new TypeToken<List<DetectBean>>() {
-        }.getType());
-        AppApi.reportMission(context, "" ,"", repair_info,""
-                ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
+        int flag = 0;
+        if (des != null && des.size()>0) {
+
+            for (int i = 0; i < des.size(); i++) {
+                DetectBean de = des.get(i);
+                String img = de.getImg();
+                if (TextUtils.isEmpty(img)) {
+                    flag++;
+                }
+            }
+        }
+
+        if (flag == 2) {
+            ShowMessage.showToast(this,"请上传图片");
+        }else {
+            Gson gson = new Gson();
+            String  repair_info = gson.toJson(des, new TypeToken<List<DetectBean>>() {
+            }.getType());
+            AppApi.reportMission(context, "" ,"", repair_info,""
+                    ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
+        }
+
     }
 
     private void checkPublish( String url) {
