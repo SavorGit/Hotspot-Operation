@@ -85,7 +85,7 @@ public class MaintenanceDialog implements OnClickListener {
     private ImageView[] ims = {iv_exce_pic1,iv_exce_pic2,iv_exce_pic1};
     private  List<String> urls = new ArrayList<String>();
     private String box_id;
-    private String state;
+    private String state = "1";
     public MaintenanceDialog(Context context) {
         this.context = context;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
