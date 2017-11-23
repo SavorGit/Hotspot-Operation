@@ -123,11 +123,17 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
         });
 
         String stateS = item.getState();
-        if ("1".equals(stateS)) {
-            holder.state.setText("已解决");
-        }else if("2".equals(stateS)){
-            holder.state.setText("未解决");
+        if (TextUtils.isEmpty(stateS)) {
+            holder.state.setVisibility(View.GONE);
+        }else {
+            holder.state.setVisibility(View.VISIBLE);
+            if ("1".equals(stateS)) {
+                holder.state.setText("已解决");
+            }else if("2".equals(stateS)){
+                holder.state.setText("未解决");
+            }
         }
+
         List<TaskDetailRepairImg> repair_img = item.getRepair_img();
         if (repair_img != null && repair_img.size()>0) {
             holder.msg_la.removeAllViews();
