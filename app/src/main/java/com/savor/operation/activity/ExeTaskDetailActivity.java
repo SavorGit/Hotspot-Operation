@@ -657,19 +657,19 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             detailHotelIdInt =  Integer.parseInt(detailHotelId);
         }
 
-//        if(mHotelId>0 && mHotelId == detailHotelIdInt) {
-//            if(checkImageUrlIsEmpty(urls)) {
-//                InstalluploadPic(urls,0);
-//            }else {
-//                ShowMessage.showToast(this,"请上传图片");
-//            }
-//        }else {
-//
-//            installDialog.loadFinish();
-//            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
-//        }
-
+        if(mHotelId>0 && mHotelId == detailHotelIdInt) {
+            if(checkImageUrlIsEmpty(urls)) {
                 InstalluploadPic(urls,0);
+            }else {
+                ShowMessage.showToast(this,"请上传图片");
+            }
+        }else {
+
+            installDialog.loadFinish();
+            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
+        }
+
+        //        InstalluploadPic(urls,0);
 
     }
 
