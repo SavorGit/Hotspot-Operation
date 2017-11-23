@@ -601,11 +601,23 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private void inStallpublish(List<String> infos) {
         Gson gson = new Gson();
         List<PicUrl> infoss = new ArrayList<PicUrl>();
+        if (elist != null && elist.size()>0) {
+            //ExecutorInfoBean eo =
+            for (int i = 0; i <elist.size() ; i++) {
+                ExecutorInfoBean eo = elist.get(i);
+                String ossurl = eo.getRepair_img();
+                if (!TextUtils.isEmpty(ossurl)) {
+                    PicUrl o = new PicUrl();
+                    o.setImg(ossurl);
+                    infoss.add(o);
+                }
+            }
+        }
         if (infos != null && infos.size()>0) {
             for (int i = 0; i < infos.size(); i++) {
                 String obj = infos.get(i);
                 if (TextUtils.isEmpty(obj)) {
-                    infos.remove(i);
+                    //infos.remove(i);
                 }else {
                     PicUrl o = new PicUrl();
                     o.setImg(obj);
@@ -645,17 +657,20 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             detailHotelIdInt =  Integer.parseInt(detailHotelId);
         }
 
-        if(mHotelId>0 && mHotelId == detailHotelIdInt) {
-            if(checkImageUrlIsEmpty(urls)) {
-                InstalluploadPic(urls,0);
-            }else {
-                ShowMessage.showToast(this,"请上传图片");
-            }
-        }else {
+//        if(mHotelId>0 && mHotelId == detailHotelIdInt) {
+//            if(checkImageUrlIsEmpty(urls)) {
+//                InstalluploadPic(urls,0);
+//            }else {
+//                ShowMessage.showToast(this,"请上传图片");
+//            }
+//        }else {
+//
+//            installDialog.loadFinish();
+//            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
+//        }
 
-            installDialog.loadFinish();
-            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
-        }
+                InstalluploadPic(urls,0);
+
     }
 
     /**
@@ -681,6 +696,11 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     public void toDetect(String URL) {
 
         hotelCheckUploadPic(URL);
+    }
+
+    @Override
+    public void Updata(List<ExecutorInfoBean> elist) {
+            this.elist = elist;
     }
 
     @Override

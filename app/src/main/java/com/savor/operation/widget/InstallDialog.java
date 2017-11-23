@@ -260,6 +260,12 @@ public class InstallDialog implements OnClickListener {
                 cdel.setVisibility(View.GONE);
             }
 
+
+            if (elist != null && elist.size()>0) {
+                if (currentPos <= elist.size()-1) {
+                    elist.remove(currentPos);
+                }
+            }
             urls.set(currentPos ,copyPath);
             setbtn();
         }
@@ -282,6 +288,11 @@ public class InstallDialog implements OnClickListener {
             }
 
 
+            if (elist != null && elist.size()>0) {
+                if (currentPos <= elist.size()-1) {
+                    elist.remove(currentPos);
+                }
+            }
             urls.set(currentPos ,currentImagePath);
             setbtn();
         }
@@ -302,6 +313,7 @@ public class InstallDialog implements OnClickListener {
                 submit.setText("完成安装");
             }
         }
+        callBack.Updata(elist);
     }
     private void setDel(){
         urls.set(currentPos ,"");

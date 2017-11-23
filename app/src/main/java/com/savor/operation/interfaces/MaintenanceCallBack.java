@@ -1,6 +1,7 @@
 package com.savor.operation.interfaces;
 
 import com.savor.operation.bean.DetectBean;
+import com.savor.operation.bean.ExecutorInfoBean;
 
 import java.util.List;
 
@@ -28,5 +29,10 @@ public interface MaintenanceCallBack {
      */
     void toDetect(String URL);
 
-   ;
+    /**
+     * 提交检测任务
+     */
+    void Updata(List<ExecutorInfoBean> elist);
+
+    ;
 }
