@@ -193,6 +193,9 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
         switch (method){
             case POST_APPOINT_TASK_LIST_JSON:
                 pullToRefreshListView.onLoadComplete(false,true);
+                if (page == 0 ) {
+                    missionAdapter.clear();
+                }
 //                    if (obj instanceof ResponseErrorMessage){
 //                        ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
 //                        String statusCode = String.valueOf(errorMessage.getCode());
