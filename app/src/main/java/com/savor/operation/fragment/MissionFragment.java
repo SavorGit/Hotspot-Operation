@@ -109,7 +109,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
     PullToRefreshBase.OnRefreshListener onRefreshListener = new PullToRefreshBase.OnRefreshListener() {
         @Override
         public void onRefresh(PullToRefreshBase refreshView) {
-            page = 0;
+            page = 1;
             isUp = true;
             getData();
         }
@@ -182,7 +182,7 @@ public class MissionFragment extends BaseFragment implements ApiRequestListener,
 
             case POST_VIEW_TASK_LIST_JSON:
                 pullToRefreshListView.onLoadComplete(false,true);
-                if (page == 0 ) {
+                if (page == 1 ) {
                     missionAdapter.clear();
                 }
 //                if (obj instanceof ResponseErrorMessage){
