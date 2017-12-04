@@ -33,7 +33,7 @@
         android:id="@+id/desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/state"
+        android:layout_below="@id/box"
         android:layout_marginTop="16dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="12dp"
