@@ -682,8 +682,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             }
        // }else {
 
-            installDialog.loadFinish();
-            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
+//            installDialog.loadFinish();
+//            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
        // }
 
         //        InstalluploadPic(urls,0);
