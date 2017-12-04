@@ -12,8 +12,8 @@ android {
         applicationId "com.savor.operation"
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode 2017112301
-        versionName "1.1"
+        versionCode 2017120401
+        versionName "1.1.1"
 
         flavorDimensions "versionCode"
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaoredian"]
