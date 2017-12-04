@@ -667,24 +667,24 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
     @Override
     public void toInstallation(List<String> urls) {
-        int detailHotelIdInt = 0;
-        String detailHotelId = taskDetail.getHotel_id();
+//        int detailHotelIdInt = 0;
+//        String detailHotelId = taskDetail.getHotel_id();
+//
+//        if (!TextUtils.isEmpty(detailHotelId)) {
+//            detailHotelIdInt =  Integer.parseInt(detailHotelId);
+//        }
 
-        if (!TextUtils.isEmpty(detailHotelId)) {
-            detailHotelIdInt =  Integer.parseInt(detailHotelId);
-        }
-
-        if(mHotelId>0 && mHotelId == detailHotelIdInt) {
+       // if(mHotelId>0 && mHotelId == detailHotelIdInt) {
             if(checkImageUrlIsEmpty(urls)) {
                 InstalluploadPic(urls,0);
             }else {
                 ShowMessage.showToast(this,"请上传图片");
             }
-        }else {
+       // }else {
 
-            installDialog.loadFinish();
-            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
-        }
+//            installDialog.loadFinish();
+//            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
+       // }
 
         //        InstalluploadPic(urls,0);
 
