@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -219,6 +220,21 @@ public class SingleHotelPositionInfoAcitivty extends BaseActivity implements  Vi
                 singleFixDialog.startLoading();
                 final OSSClient ossClient = OSSClientUtil.getInstance().getOSSClient(SingleHotelPositionInfoAcitivty.this);
                 cacheImagePath = imagePath;
+                if(TextUtils.isEmpty(imagePath)) {
+                    StringBuilder sb = new StringBuilder();
+                    for(int i = 0;i<damageDesc.size();i++) {
+                        if(damageDesc.size() == 1 || i == damageDesc.size()-1) {
+                            sb.append(damageDesc.get(i));
+                        }else {
+                            sb.append(damageDesc.get(i)+",");
+                        }
+                    }
+                    AppApi.submitSingleDamage(SingleHotelPositionInfoAcitivty.this,boxInfoBean.getBid(),hotel.getId(),
+                            comment,"",sb.toString(),"2",isResolve== SingleFixDialog.FixState.RESOLVED?"1":"2",
+                            mSession.getLoginResponse().getUserid(),mSession.getCurrentLocation(),SingleHotelPositionInfoAcitivty.this);
+                    return;
+                }
+
                 File file = new File(imagePath);
                 Date date = new Date(System.currentTimeMillis());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");

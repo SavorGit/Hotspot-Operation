@@ -166,10 +166,10 @@ public class SingleFixDialog extends Dialog implements View.OnClickListener, Rad
                         ShowMessage.showToast(mContext,"请选择维修记录或填写备注");
                         return;
                     }
-                    if(TextUtils.isEmpty(copyPath)) {
-                        ShowMessage.showToast(mContext,"请选择拍照图片");
-                        return;
-                    }
+//                    if(TextUtils.isEmpty(copyPath)) {
+//                        ShowMessage.showToast(mContext,"请选择拍照图片");
+//                        return;
+//                    }
                     mOnSubmitListener.onSubmitClick(type, boxInfo,currentFixSate,selectedDamages,comment,mHotel,copyPath);
                 }
 //                dismiss();

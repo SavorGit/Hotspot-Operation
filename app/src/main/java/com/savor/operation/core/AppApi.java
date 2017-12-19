@@ -243,9 +243,10 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void searchSingleHotel(Context context, String hotel_name, ApiRequestListener handler) {
+    public static void searchSingleHotel(Context context, String hotel_name, String area_id, ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("hotel_name",hotel_name);
+        params.put("area_id",area_id);
         new AppServiceOk(context, Action.POST_SINGLESEARCH_HOTEL_JSON, handler, params).post();
     }
 
