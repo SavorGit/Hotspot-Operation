@@ -142,9 +142,9 @@ public class AppApi {
             put(Action.POST_EXE_USER_LIST_JSON, formatPhpUrl("Opclient11/Task/getExeUserList"));
             put(Action.POST_APPOIN_TASK_JSON, formatPhpUrl("Opclient11/Task/appointTask"));
             put(Action.GET_IP_JSON, formatPhpUrl("basedata/Ip/getIp"));
-            put(Action.POST_POSITION_LIST_JSON, formatPhpUrl("Tasksubcontract/Hotel/getHotelVersionById"));
+            put(Action.POST_POSITION_LIST_JSON, formatPhpUrl("Tasksubcontract/Hotel/getSingleHotelVersionById"));
 
-            put(Action.POST_SINGLE_SUBMIT_DAMAGE_JSON, formatPhpUrl("Tasksubcontract/Box/InsertBoxDamage"));
+            put(Action.POST_SINGLE_SUBMIT_DAMAGE_JSON, formatPhpUrl("Tasksubcontract/Box/insertSingleBoxDamage"));
         }
     };
 

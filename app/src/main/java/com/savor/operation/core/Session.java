@@ -512,6 +512,7 @@ public class Session {
         buffer.append(";language=");
         buffer.append("");
         buffer.append(";location=");
+        buffer.append( longitude+ "," + latitude);
         return buffer.toString();
     }
 
