@@ -14,6 +14,7 @@ import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.PushErrorBean;
 import com.savor.operation.core.Session;
 import com.savor.operation.utils.ActivitiesManager;
+import com.savor.operation.utils.LocationService;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
@@ -33,7 +34,7 @@ public class SavorApplication extends Application {
 
     private static SavorApplication mInstance;
     public String imagePath;
-
+    public LocationService locationService;
 
     public static SavorApplication getInstance() {
         return mInstance;
@@ -51,6 +52,7 @@ public class SavorApplication extends Application {
 
         initUmengPush();
         initCacheFile();
+        locationService = new LocationService(getApplicationContext());
 //        Debug.stopMethodTracing();
     }
 

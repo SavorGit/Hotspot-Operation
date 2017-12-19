@@ -173,6 +173,9 @@ public class Session {
     private Account account;
     private String hotelId;
     private int roomId;
+    private double latitude;
+    private double longitude;
+    private String currentLocation;
 
     private Session(Context context) {
 
@@ -545,5 +548,21 @@ public class Session {
 
     public int getRoomId() {
         return roomId;
+    }
+
+    public void setLatestLat(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLatestLng(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setCurrentLocation(String currentLocation) {
+        this.currentLocation = currentLocation;
+    }
+
+    public String getCurrentLocation() {
+        return currentLocation;
     }
 }

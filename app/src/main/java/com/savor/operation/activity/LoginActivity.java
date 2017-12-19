@@ -11,13 +11,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
+import com.savor.operation.SavorApplication;
 import com.savor.operation.bean.Account;
 import com.savor.operation.bean.City;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.SkillList;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.utils.LocationService;
 
 import java.util.List;
 
@@ -33,6 +37,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private String account;
     private String pwd;
     private ProgressBar mLoadingPb;
+    private LocationService locationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         getViews();
         setViews();
         setListeners();
+        startLocation();
     }
 
     @Override
@@ -70,7 +76,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void startMainActivity() {
         Intent intent = new Intent(this,SavorMainActivity.class);
         startActivity(intent);
-        finish();
+//        finish();
+    }
+
+    private void startLocation() {
+        locationService = ((SavorApplication)getApplication()).locationService;
+        locationService.registerListener(mLocationListener);
+        locationService.start();
     }
 
     @Override
@@ -154,4 +166,40 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void exitApp() {
         Process.killProcess(android.os.Process.myPid());
     }
+
+    /*****
+     *
+     * 点击首页底部悬浮窗进行定位结果回调
+     *
+     */
+    private BDAbstractLocationListener mLocationListener = new BDAbstractLocationListener() {
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+            if (null != bdLocation && bdLocation.getLocType() != BDLocation.TypeServerError) {
+                double latitude = bdLocation.getLatitude();
+                double longitude = bdLocation.getLongitude();
+                String addrStr = bdLocation.getAddrStr();
+                String locationDescribe = bdLocation.getLocationDescribe();
+                String currentLocation = addrStr+" "+locationDescribe;
+                mSession.setLatestLat(latitude);
+                mSession.setLatestLng(longitude);
+                mSession.setCurrentLocation(currentLocation);
+            }
+        }
+
+//        @Override
+//        public void onReceiveLocation(BDLocation location) {
+//            if (null != location && location.getLocType() != BDLocation.TypeServerError) {
+//                double latitude = location.getLatitude();
+//                double longitude = location.getLongitude();
+//                LogUtils.d("operations:location lat="+latitude+",lng="+longitude);
+//                mSession.setLatestLat(latitude);
+//                mSession.setLatestLng(longitude);
+//            }
+//        }
+//
+//        public void onConnectHotSpotMessage(String s, int i){
+//            LogUtils.d("savor:location onconnect = "+s);
+//        }
+    };
 }

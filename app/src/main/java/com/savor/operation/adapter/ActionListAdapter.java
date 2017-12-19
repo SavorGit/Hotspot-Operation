@@ -17,6 +17,7 @@ import com.savor.operation.activity.BindBoxActivity;
 import com.savor.operation.activity.ExeMissionListActivity;
 import com.savor.operation.activity.MaintenanceRecordActivity;
 import com.savor.operation.activity.MissionListActivity;
+import com.savor.operation.activity.OutSourceMainActivity;
 import com.savor.operation.activity.PubMissionListActivity;
 import com.savor.operation.activity.PublishTaskActivity;
 import com.savor.operation.activity.SavorMainActivity;
@@ -110,7 +111,10 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                         intent = new Intent(mContext, PubMissionListActivity.class);
                         mContext.startActivity(intent);
                         break;
-
+                    case UPDATE_CHANGE_IMAGE:
+                        intent = new Intent(mContext, OutSourceMainActivity.class);
+                        mContext.startActivity(intent);
+                        break;
 
                 }
             }
@@ -119,6 +123,10 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
 
     private void initViews(ActionHolder holder, int num, FunctionType type, int imageId, String desc) {
         switch (type) {
+            case UPDATE_CHANGE_IMAGE:
+                imageId = R.drawable.ico_refresh_image;
+                desc = "更新换画";
+                break;
             case PUBLISH_TASK:
                 imageId = R.drawable.ico_publish_task;
                 desc = "发布任务";

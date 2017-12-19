@@ -67,5 +67,5 @@
     <color name="color_red_light">#ff6a2f</color>
     <color name="grid_item_divider">#EAEAEA</color>
     <color name="grid_item_selected">#F7F7F7</color>
-
+    <color name="TextColorOrange">#fe9424</color>
 </resources>

@@ -50,7 +50,10 @@
             android:name=".activity.AbnormalityInfoActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
-
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="GDeWnZwX2Hfyn9j5zrt2ckBYZMbEULEs" >
+        </meta-data>
         <meta-data
             android:name="app_debug"
             android:value="1" />
@@ -117,23 +120,38 @@
             />
         <activity android:name=".activity.BindBoxActivity"
             android:screenOrientation="portrait"
-            ></activity>
+            />
         <activity android:name=".activity.TaskDetailActivity"
             android:screenOrientation="portrait"
-            ></activity>
+            />
         <activity android:name=".activity.ExeTaskDetailActivity"
             android:screenOrientation="portrait"
-            ></activity>
+            />
         <activity android:name=".activity.SeekTaskDetailActivity"
             android:screenOrientation="portrait"
-            ></activity>
+            />
         <activity android:name=".activity.AppointActivity"
             android:screenOrientation="portrait"
-            ></activity>
+            />
 
 
+        <activity android:name=".activity.OutSourceMainActivity"
+            android:screenOrientation="portrait"
+            />
 
+        <activity android:name=".activity.SingleHotelMacInfoActivity"
+            android:screenOrientation="portrait"
+            />
 
+        <activity android:name=".activity.SingleHotelPositionInfoAcitivty"
+            android:screenOrientation="portrait"
+            />
+
+        <activity android:name=".activity.SearchHotelActivity"
+            android:screenOrientation="portrait"
+            />
+
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"> </service>
     </application>
 
 </manifest>
