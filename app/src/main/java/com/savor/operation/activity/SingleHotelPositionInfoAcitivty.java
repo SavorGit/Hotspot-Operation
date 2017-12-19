@@ -86,7 +86,7 @@ public class SingleHotelPositionInfoAcitivty extends BaseActivity implements  Vi
     }
 
     private void getDamageInfo() {
-        AppApi.getDamageConfig(this,this);
+        AppApi.getSingleDamageConfig(this,this);
     }
 
     private void getData() {
@@ -164,12 +164,12 @@ public class SingleHotelPositionInfoAcitivty extends BaseActivity implements  Vi
                     }
                 }
                 break;
-            case POST_DAMAGE_CONFIG_JSON:
+            case POST_SINGLE_DAMAGE_CONFIG_JSON:
                 if(obj instanceof DamageConfig) {
                     damageConfig = (DamageConfig) obj;
                     List<DamageConfig.DamageInfo> list = damageConfig.getList();
                     if(list!=null&&list.size()>0) {
-                        mSession.setDamageConfig(damageConfig);
+                        mSession.setSingleDamageConfig(damageConfig);
                     }
                 }
                 break;
@@ -254,7 +254,7 @@ public class SingleHotelPositionInfoAcitivty extends BaseActivity implements  Vi
 
                 }catch (Exception e){}
             }
-        }, SingleFixDialog.OperationType.TYPE_BOX,boxInfoBean,mSession.getDamageConfig(),mHotel);
+        }, SingleFixDialog.OperationType.TYPE_BOX,boxInfoBean,mSession.getSingleDamageConfig(),mHotel);
         singleFixDialog.show();
     }
 

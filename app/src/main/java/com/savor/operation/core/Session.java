@@ -89,6 +89,7 @@ public class Session {
 
     private static final String P_APP_AREA_ID = "p_app_area_id";
     private static final String P_APP_DAMAGE_CONFIG = "p_app_damage_config";
+    private static final String P_APP_SINGLE_DAMAGE_CONFIG = "p_app_single_damage_config";
     /**首次使用*/
     private static final String P_APP_FIRST_USE = "p_app_first_use";
     /**最近可投屏酒店*/
@@ -176,6 +177,7 @@ public class Session {
     private double latitude;
     private double longitude;
     private String currentLocation;
+    private DamageConfig singleDamageConfig;
 
     private Session(Context context) {
 
@@ -228,7 +230,16 @@ public class Session {
     }
 
     public void setDamageConfig(DamageConfig damageConfig) {
-        this.damageConfig = damageConfig;
+        this.singleDamageConfig = damageConfig;
+        setObj(P_APP_SINGLE_DAMAGE_CONFIG,damageConfig);
+    }
+
+    public DamageConfig getSingleDamageConfig() {
+        return this.singleDamageConfig;
+    }
+
+    public void setSingleDamageConfig(DamageConfig damageConfig) {
+        this.singleDamageConfig = damageConfig;
         setObj(P_APP_DAMAGE_CONFIG,damageConfig);
     }
 
@@ -239,6 +250,7 @@ public class Session {
     private void readSettings() {
         account = (Account) getObj(P_APP_ACCOUNT);
         damageConfig = (DamageConfig) getObj(P_APP_DAMAGE_CONFIG);
+        singleDamageConfig = (DamageConfig) getObj(P_APP_SINGLE_DAMAGE_CONFIG);
         loginResponse = (LoginResponse) getObj(P_APP_LOGIN_RESPONSE);
         deviceid = STIDUtil.getDeviceId(mContext);
         netType = mPreference.loadStringKey(P_APP_NET_TYPE, "");

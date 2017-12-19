@@ -56,6 +56,8 @@ public class AppApi {
         POST_FIX_HISTORY_JSON,
         /**获取酒楼损坏配置表*/
         POST_DAMAGE_CONFIG_JSON,
+        /**获取单机版*/
+        POST_SINGLE_DAMAGE_CONFIG_JSON,
         /**提交保修记录*/
         POST_SUBMIT_DAMAGE_JSON,
         /**外包维修或者签到*/
@@ -145,6 +147,7 @@ public class AppApi {
             put(Action.POST_POSITION_LIST_JSON, formatPhpUrl("Tasksubcontract/Hotel/getSingleHotelVersionById"));
 
             put(Action.POST_SINGLE_SUBMIT_DAMAGE_JSON, formatPhpUrl("Tasksubcontract/Box/insertSingleBoxDamage"));
+            put(Action.POST_SINGLE_DAMAGE_CONFIG_JSON, formatPhpUrl("Tasksubcontract/Box/getHotelBoxDamageConfig"));
         }
     };
 
@@ -315,6 +318,16 @@ public class AppApi {
     public static void getDamageConfig(Context context, ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         new AppServiceOk(context, Action.POST_DAMAGE_CONFIG_JSON, handler, params).post();
+    }
+
+    /**
+     * 酒店损坏配置表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getSingleDamageConfig(Context context, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        new AppServiceOk(context, Action.POST_SINGLE_DAMAGE_CONFIG_JSON, handler, params).post();
     }
 
     /**
