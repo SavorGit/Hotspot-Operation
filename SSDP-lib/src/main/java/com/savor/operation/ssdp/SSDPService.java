@@ -115,7 +115,10 @@ public class SSDPService extends IntentService {
             closeSocketReceive();
         }
 
-        multicastLock.release();
+        try {
+            multicastLock.release();
+        }catch (Exception e){}
+
     }
 
     private void closeSocketReceive() {
@@ -163,6 +166,9 @@ public class SSDPService extends IntentService {
     public void onDestroy() {
         isLooping = false;
         super.onDestroy();
+        try {
+            multicastLock.release();
+        }catch (Exception e){}
     }
 
     public void setOnSSDPReceivedListener(OnSSDPReceivedListener listener) {
