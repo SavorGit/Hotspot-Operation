@@ -24,7 +24,7 @@ public class ShowPicDialog extends Dialog implements View.OnClickListener {
     private OnTakePhotoBtnClickListener onTakePhotoBtnClickListener;
     private OnAlbumBtnClickListener onAlbumBtnClickListener;
     private boolean iscolor = false;
-    private PhotoView mImageView;
+    private PinchImageView mImageView;
 
     public ShowPicDialog(Context context) {
         super(context, R.style.loading_dialog);
@@ -62,7 +62,7 @@ public class ShowPicDialog extends Dialog implements View.OnClickListener {
     }
 
     private void getViews() {
-        mImageView = (PhotoView) findViewById(R.id.iv_image);
+        mImageView = (PinchImageView) findViewById(R.id.iv_image);
     }
 
 
