@@ -2,8 +2,10 @@ package com.savor.operation.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.common.api.utils.ShowMessage;
+import com.savor.operation.R;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
@@ -64,6 +66,14 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
     protected void onDestroy() {
         super.onDestroy();
         ActivitiesManager.getInstance().popActivity(this);
+    }
+
+    public String getFormatStr(String content) {
+        if(TextUtils.isEmpty(content)) {
+            return getResources().getString(R.string.content_empty);
+        }
+
+        return content;
     }
 
 }

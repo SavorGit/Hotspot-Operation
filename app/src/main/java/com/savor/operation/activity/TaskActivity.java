@@ -430,11 +430,13 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
                     if (!TextUtils.isEmpty(name)) {
                         mHotelNameTv.setText(name);
+                    }else {
+                        mHotelNameTv.setText(R.string.content_empty);
                     }
 
-                    mContactEt.setText(contractor);
-                    mPhoneEt.setText(mobile);
-                    mAddressEt.setText(addr);
+                    mContactEt.setText(getFormatStr(contractor));
+                    mPhoneEt.setText(getFormatStr(mobile));
+                    mAddressEt.setText(getFormatStr(addr));
 
                     resetBox();
 
