@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.common.api.utils.DensityUtil;
 import com.savor.operation.R;
 import com.savor.operation.widget.imageshow.ImageShowViewPager;
@@ -25,6 +29,7 @@ public class ShowPicDialog extends Dialog implements View.OnClickListener {
     private OnAlbumBtnClickListener onAlbumBtnClickListener;
     private boolean iscolor = false;
     private PinchImageView mImageView;
+    private ProgressBar mLoadingPb;
 
     public ShowPicDialog(Context context) {
         super(context, R.style.loading_dialog);
@@ -57,12 +62,25 @@ public class ShowPicDialog extends Dialog implements View.OnClickListener {
     private void setViews() {
         ViewGroup.LayoutParams layoutParams = mImageView.getLayoutParams();
         layoutParams.width = DensityUtil.getScreenWidth(getContext());
-        layoutParams.height = DensityUtil.getScreenHeight(getContext());
-        Glide.with(getContext()).load(mImageUrl).placeholder(R.drawable.kong_mrjz).into(mImageView);
+        layoutParams.height = DensityUtil.getScreenHeight(getContext())-DensityUtil.getStatusBarHeight(getContext());
+        Glide.with(getContext()).load(mImageUrl).listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                mLoadingPb.setVisibility(View.GONE);
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                mLoadingPb.setVisibility(View.GONE);
+                return false;
+            }
+        }).placeholder(R.drawable.kong_mrjz).into(mImageView);
     }
 
     private void getViews() {
         mImageView = (PinchImageView) findViewById(R.id.iv_image);
+        mLoadingPb = (ProgressBar) findViewById(R.id.progressBar);
     }
 
 
