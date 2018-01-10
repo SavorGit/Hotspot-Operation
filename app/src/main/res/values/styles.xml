@@ -130,8 +130,6 @@
         <item name="android:windowNoTitle">true</item>
         <!--<item name="android:windowBackground">@android:color/transparent</item>-->
         <!--<item name="android:windowIsTranslucent">false</item>-->
-
-
     </style>
 
     <style name="FixDialog">
@@ -139,8 +137,6 @@
         <item name="android:windowNoTitle">true</item>
         <!--<item name="android:windowBackground">@android:color/transparent</item>-->
         <!--<item name="android:windowIsTranslucent">false</item>-->
-
-
     </style>
 
     <style name="AppBaseTheme.NoActionBar">
@@ -217,5 +213,9 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">true</item><!--模糊-->
+    </style>
+
+    <style name="BlackTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimaryDark">@color/black</item>
     </style>
 </resources>

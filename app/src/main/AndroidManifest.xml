@@ -50,10 +50,10 @@
             android:name=".activity.AbnormalityInfoActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="GDeWnZwX2Hfyn9j5zrt2ckBYZMbEULEs" >
-        </meta-data>
+            android:value="GDeWnZwX2Hfyn9j5zrt2ckBYZMbEULEs"></meta-data>
         <meta-data
             android:name="app_debug"
             android:value="1" />
@@ -95,9 +95,9 @@
             android:name=".activity.PublishTaskActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".activity.TaskActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.CityListActivity"
             android:screenOrientation="portrait" />
@@ -107,51 +107,53 @@
         <activity
             android:name=".activity.AppointMissionListActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.ExeMissionListActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PubMissionListActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SystemStatusActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.BindBoxActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TaskDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ExeTaskDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SeekTaskDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AppointActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OutSourceMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SingleHotelMacInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SingleHotelPositionInfoAcitivty"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SearchHotelActivity"
+            android:screenOrientation="portrait" />
 
-        <activity android:name=".activity.SystemStatusActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.BindBoxActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.TaskDetailActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.ExeTaskDetailActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.SeekTaskDetailActivity"
-            android:screenOrientation="portrait"
-            />
-        <activity android:name=".activity.AppointActivity"
-            android:screenOrientation="portrait"
-            />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"></service>
 
-
-        <activity android:name=".activity.OutSourceMainActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".activity.PhotoShowActivity"
+            android:theme="@style/BlackTheme"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             />
-
-        <activity android:name=".activity.SingleHotelMacInfoActivity"
-            android:screenOrientation="portrait"
-            />
-
-        <activity android:name=".activity.SingleHotelPositionInfoAcitivty"
-            android:screenOrientation="portrait"
-            />
-
-        <activity android:name=".activity.SearchHotelActivity"
-            android:screenOrientation="portrait"
-            />
-
-        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote"> </service>
     </application>
 
 </manifest>
