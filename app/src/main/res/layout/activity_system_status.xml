@@ -13,41 +13,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/ll_content"
+
+        <com.gxz.PagerSlidingTabStrip
+            android:id="@+id/tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:textColor="#737373"
+            android:textSize="15sp"
+            app:customTabLayout="@layout/layout_custom_tab"
+            app:pstsDividerColor="@android:color/transparent"
+            app:pstsDividerPaddingTopBottom="10dp"
+            app:pstsIndicatorColor="@color/colorPrimary"
+            app:pstsIndicatorHeight="2dp"
+            app:pstsScaleZoomMax="0.1"
+            app:pstsShouldExpand="false"
+            app:pstsSmoothScrollWhenClickTab="true"
+            app:pstsTabPaddingLeftRight="12dp"
+            app:pstsTextSelectedColor="@color/colorPrimary"
+            app:pstsUnderlineColor="@android:color/transparent" />
+
+        <android.support.v4.view.ViewPager
+            android:layout_below="@id/tabs"
+            android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_edittext"
-            android:orientation="vertical"
-            android:visibility="invisible">
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rlv_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:dividerHeight="10dp" />
-
-            <TextView
-                android:id="@+id/tv_reamrk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:textSize="16sp"
-                tools:text="注：异常为心跳失联超过48小时" />
-        </LinearLayout>
+            android:layout_height="match_parent" />
 
         <ProgressBar
-            android:visibility="visible"
-            android:layout_centerInParent="true"
             android:id="@+id/pb_loading"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:indeterminateBehavior="repeat"
             android:indeterminateDrawable="@drawable/base_loading_large_anim"
-            android:indeterminateBehavior="repeat"/>
+            android:visibility="gone" />
     </RelativeLayout>
 
 
