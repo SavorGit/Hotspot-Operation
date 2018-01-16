@@ -224,6 +224,7 @@
     <string name="refresh">刷新</string>
     <string name="search_hotel">搜索酒楼</string>
     <string name="fix">维修</string>
+    <string name="content_empty">无</string>
 
 
 </resources>

@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.TextureView;
@@ -41,6 +42,7 @@ import com.savor.operation.core.AppApi;
 import com.savor.operation.enums.SearchHotelOpType;
 import com.savor.operation.utils.ConstantValues;
 import com.savor.operation.utils.OSSClientUtil;
+import com.savor.operation.widget.LoadingDialog;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -58,6 +60,9 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
     public static final int REQUEST_CODE_SEARCH = 0x1;
     public static final int RESULT_CODE_SEARCH = 0x2;
+    private static final int MESSAGE_UPLOAD_ERROR = 0x3;
+    private static final int MESSAGE_UPLOAD_SUCCESS = 0x4;
+    private static final int MESSAGE_PUBLISH = 0x5;
     private ListView mTaskLv;
     private View mHeadView;
     private ImageView mBackBtn;
@@ -77,11 +82,35 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private List<RepairInfo> boxList = new ArrayList<>();
     private FixTaskListAdapter mTaskAdapter;
     private List<BoxInfo> mBoxList;
-    private ProgressBar mloadingPb;
-    private Handler mHandler = new Handler();
     private TextView mTitleTv;
     private Task mTask;
     private int nextPos;
+    /**总进度，需要上传几张图片*/
+    private int imageCount;
+    /**当前上传进度(包括成功和失败)，已经上传了几张*/
+    private int uploadCount;
+    /**当前上传进度(只包括成功)，已经上传了几张*/
+    private int uploadSuccessCount;
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MESSAGE_UPLOAD_SUCCESS:
+                    uploadSuccessCount++;
+                case MESSAGE_UPLOAD_ERROR:
+                    uploadCount++;
+                    loadingDialog.updateProgress("正在上传图片："+uploadSuccessCount+"/"+imageCount);
+                    if(uploadCount == imageCount) {
+                        mHandler.sendEmptyMessageDelayed(MESSAGE_PUBLISH,500);
+                    }
+                    break;
+                case MESSAGE_PUBLISH:
+                    publish();
+                    break;
+            }
+        }
+    };
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +131,6 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void getViews() {
-        mloadingPb = (ProgressBar) findViewById(R.id.pb_loading);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         mTaskLv = (ListView) findViewById(R.id.lv_task_list);
         mRightTv = (TextView) findViewById(R.id.tv_right);
@@ -206,8 +234,10 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                 nextPos = 0;
                 if(data!=null&&data.size()>0) {
                     if(isHasUploadPic(data)) {
-                        mloadingPb.setVisibility(View.VISIBLE);
-                        uploadPic(data,0);
+                        imageCount = getImageCount(data);
+                        loadingDialog = new LoadingDialog(this,"正在上传图片：0/"+imageCount);
+                        loadingDialog.show();
+                        uploadPic(data);
                     }else {
                         publish();
                     }
@@ -341,68 +371,113 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         AppApi.publishTask(this, address, contact, hotelId, phone, publish_user_id, repair_info, task_emerge, task_type, tv_nums, this);
     }
 
-    private void uploadPic(final List<RepairInfo> infos, final int startPos) {
-        final RepairInfo repairInfo = infos.get(startPos);
-        if(!TextUtils.isEmpty(repairInfo.getFault_img_url())) {
-            final OSSClient ossClient = OSSClientUtil.getInstance().getOSSClient(this);
-            String imagePath = repairInfo.getFault_img_url();
-            File file = new File(imagePath);
-            Date date = new Date(System.currentTimeMillis());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-            String dateStr = simpleDateFormat.format(date);
-            final String objectKey = "log/resource/operation/mobile/box/"+dateStr+"/"+file.getName();
-            // 构造上传请求
-            PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
-            try {
-                ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
-                    @Override
-                    public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
-                        String imageUrl = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
-                        repairInfo.setFault_img_url(imageUrl);
-                        nextPos = startPos+1;
-                        if(nextPos <infos.size()) {
-                            uploadPic(infos, nextPos);
-                        }else {
-                            mHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    publish();
-                                }
-                            });
+    private void uploadPic(final List<RepairInfo> infos) {
+//        final RepairInfo repairInfo = infos.get(startPos);
+        for(final RepairInfo repairInfo: infos) {
+            String fault_img_url = repairInfo.getFault_img_url();
+            if(!TextUtils.isEmpty(fault_img_url)) {
+                final OSSClient ossClient = OSSClientUtil.getInstance().getOSSClient(this);
+                String imagePath = repairInfo.getFault_img_url();
+                File file = new File(imagePath);
+                Date date = new Date(System.currentTimeMillis());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+                String dateStr = simpleDateFormat.format(date);
+                final String objectKey = "log/resource/operation/mobile/box/"+dateStr+"/"+file.getName();
+                //            // 构造上传请求
+                PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
+                try {
+                    ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+                        @Override
+                        public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
+                            String imageUrl = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
+                            repairInfo.setFault_img_url(imageUrl);
+                            mHandler.sendEmptyMessage(MESSAGE_UPLOAD_SUCCESS);
                         }
-                    }
 
-                    @Override
-                    public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
-                        repairInfo.setFault_img_url("");
-                        int nextPos = startPos+1;
-                        if(nextPos<infos.size()) {
-                            uploadPic(infos,nextPos);
-                        }else {
-                            mHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    publish();
-                                }
-                            });
+                        @Override
+                        public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
+                            mHandler.sendEmptyMessage(MESSAGE_UPLOAD_ERROR);
                         }
-                    }
-                });
-
-            }catch (Exception e) {}
-        }else {
-            nextPos = startPos+1;
-            if(nextPos<infos.size()) {
-                uploadPic(infos, nextPos);
-            }else {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        publish();
-                    }
-                });
+                    });
+                }catch (Exception e) {}
             }
         }
+
+//        if(!TextUtils.isEmpty(repairInfo.getFault_img_url())) {
+//
+//        }
+
+//        if(!TextUtils.isEmpty(repairInfo.getFault_img_url())) {
+//            final OSSClient ossClient = OSSClientUtil.getInstance().getOSSClient(this);
+//            String imagePath = repairInfo.getFault_img_url();
+//            File file = new File(imagePath);
+//            Date date = new Date(System.currentTimeMillis());
+//            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+//            String dateStr = simpleDateFormat.format(date);
+//            final String objectKey = "log/resource/operation/mobile/box/"+dateStr+"/"+file.getName();
+//            // 构造上传请求
+//            PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
+//            try {
+//                ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+//                    @Override
+//                    public void onSuccess(PutObjectRequest putObjectRequest, PutObjectResult putObjectResult) {
+//                        String imageUrl = ossClient.presignPublicObjectURL(ConstantValues.BUCKET_NAME, objectKey);
+//                        repairInfo.setFault_img_url(imageUrl);
+//                        nextPos = startPos+1;
+//                        if(nextPos <infos.size()) {
+//                            uploadPic(infos, nextPos);
+//                        }else {
+//                            mHandler.post(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    publish();
+//                                }
+//                            });
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
+//                        repairInfo.setFault_img_url("");
+//                        int nextPos = startPos+1;
+//                        if(nextPos<infos.size()) {
+//                            uploadPic(infos,nextPos);
+//                        }else {
+//                            mHandler.post(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    publish();
+//                                }
+//                            });
+//                        }
+//                    }
+//                });
+//
+//            }catch (Exception e) {}
+//        }else {
+//            nextPos = startPos+1;
+//            if(nextPos<infos.size()) {
+//                uploadPic(infos, nextPos);
+//            }else {
+//                mHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        publish();
+//                    }
+//                });
+//            }
+//        }
+    }
+
+    private int getImageCount(List<RepairInfo> infos) {
+        int count = 0;
+        for(int i = 0;i<infos.size();i++) {
+            RepairInfo repairInfo = infos.get(i);
+            if(repairInfo!=null&&!TextUtils.isEmpty(repairInfo.getFault_img_url())) {
+                count++;
+            }
+        }
+        return count;
     }
 
     private boolean isHasUploadPic(List<RepairInfo> infos) {
@@ -430,11 +505,13 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
                     if (!TextUtils.isEmpty(name)) {
                         mHotelNameTv.setText(name);
+                    }else {
+                        mHotelNameTv.setText(R.string.content_empty);
                     }
 
-                    mContactEt.setText(contractor);
-                    mPhoneEt.setText(mobile);
-                    mAddressEt.setText(addr);
+                    mContactEt.setText(getFormatStr(contractor));
+                    mPhoneEt.setText(getFormatStr(mobile));
+                    mAddressEt.setText(getFormatStr(addr));
 
                     resetBox();
 
@@ -475,7 +552,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
                 break;
             case POST_PUBLISH_JSON:
-                mloadingPb.setVisibility(View.GONE);
+                loadingDialog.dismiss();
                 ShowMessage.showToast(this, "发布成功");
                 finish();
                 break;
@@ -486,7 +563,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     public void onError(AppApi.Action method, Object obj) {
         switch (method) {
             case POST_PUBLISH_JSON:
-                mloadingPb.setVisibility(View.GONE);
+                loadingDialog.dismiss();
                 break;
         }
     }

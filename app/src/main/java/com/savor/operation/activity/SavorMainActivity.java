@@ -110,7 +110,17 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
             add(new ActionListItem(FunctionType.FIX_HISTORY,0));
         }
     };
+
+    /**
+     * 外包
+     */
+    public static final List<ActionListItem> OUTSOURCE = new ArrayList<ActionListItem>(){
+        {
+            add(new ActionListItem(FunctionType.UPDATE_CHANGE_IMAGE,0));
+        }
+    };
     private ActionListAdapter mAdapter;
+    private SpacesItemDecoration spacesItemDecoration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +151,10 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
                 getData();
             }else if("4".equals(id)) {
                 mAdapter.setData(LOOK_ITEMS);
+            }else if("5".equals(id)) {
+                mAdapter.setData(OUTSOURCE);
+
+                mItemRlv.removeItemDecoration(spacesItemDecoration);
             }
         }
     }
@@ -208,8 +222,8 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
         //添加ItemDecoration，item之间的间隔
         int leftRight = DensityUtil.dip2px(this,2);
         int topBottom = DensityUtil.dip2px(this,2);
-
-        mItemRlv.addItemDecoration(new SpacesItemDecoration(leftRight, topBottom, getResources().getColor(R.color.grid_item_divider)));
+        spacesItemDecoration = new SpacesItemDecoration(leftRight, topBottom, getResources().getColor(R.color.grid_item_divider));
+        mItemRlv.addItemDecoration(spacesItemDecoration);
 
 
     }

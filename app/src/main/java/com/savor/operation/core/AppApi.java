@@ -1,6 +1,7 @@
 package com.savor.operation.core;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.common.api.utils.AppUtils;
 
@@ -11,8 +12,8 @@ public class AppApi {
     public static final String APK_DOWNLOAD_FILENAME = "NewApp.apk";
 
     /**云平台php接口*/
- //   public static final String CLOUND_PLATFORM_PHP_URL = "http://devp.mobile.littlehotspot.com/";
-  public static final String CLOUND_PLATFORM_PHP_URL = "http://mobile.littlehotspot.com/";
+    public static final String CLOUND_PLATFORM_PHP_URL = "http://devp.mobile.littlehotspot.com/";
+//  public static final String CLOUND_PLATFORM_PHP_URL = "http://mobile.littlehotspot.com/";
 
     /**
      * 常用的一些key值 ,签名、时间戳、token、params
@@ -43,6 +44,8 @@ public class AppApi {
         POST_REPAIR_USER_JSON,
         /**搜索酒楼*/
         POST_SEARCH_HOTEL_JSON,
+        /**外包搜索酒楼*/
+        POST_SINGLESEARCH_HOTEL_JSON,
         /**异常报告列表*/
         POST_ERROR_REPORT_LIST_JSON,
         /**异常报告详情页*/
@@ -53,8 +56,12 @@ public class AppApi {
         POST_FIX_HISTORY_JSON,
         /**获取酒楼损坏配置表*/
         POST_DAMAGE_CONFIG_JSON,
+        /**获取单机版*/
+        POST_SINGLE_DAMAGE_CONFIG_JSON,
         /**提交保修记录*/
         POST_SUBMIT_DAMAGE_JSON,
+        /**外包维修或者签到*/
+        POST_SINGLE_SUBMIT_DAMAGE_JSON,
         TEST_DOWNLOAD_JSON,
         POST_UPGRADE_JSON,
         /**获取酒店版位详细信息（mac地址等）*/
@@ -93,7 +100,8 @@ public class AppApi {
         POST_APPOIN_TASK_JSON,
         /**请求getip接口*/
         GET_IP_JSON,
-
+        /**维修记录*/
+        POST_POSITION_LIST_JSON,
     }
 
     /**
@@ -109,6 +117,7 @@ public class AppApi {
             put(Action.POST_INDEX_JSON, formatPhpUrl("Opclient/index/index"));
             put(Action.POST_REPAIR_USER_JSON, formatPhpUrl("Opclient/Box/getAllRepairUser"));
             put(Action.POST_SEARCH_HOTEL_JSON, formatPhpUrl("Opclient11/Hotel/searchHotel"));
+            put(Action.POST_SINGLESEARCH_HOTEL_JSON, formatPhpUrl("Tasksubcontract/hotel/searchHotel"));
             put(Action.POST_ERROR_REPORT_LIST_JSON, formatPhpUrl("Opclient/ErrorReport/getList"));
             put(Action.POST_ERROR_REPORT_DETAIL_JSON, formatPhpUrl("Opclient/ErrorReport/getErrorDetail"));
             put(Action.POST_REPAIR_RECORD_LIST_JSON, formatPhpUrl("Opclient/Box/getRepairRecordListByUserid"));
@@ -135,9 +144,10 @@ public class AppApi {
             put(Action.POST_EXE_USER_LIST_JSON, formatPhpUrl("Opclient11/Task/getExeUserList"));
             put(Action.POST_APPOIN_TASK_JSON, formatPhpUrl("Opclient11/Task/appointTask"));
             put(Action.GET_IP_JSON, formatPhpUrl("basedata/Ip/getIp"));
+            put(Action.POST_POSITION_LIST_JSON, formatPhpUrl("Tasksubcontract/Hotel/getSingleHotelVersionById"));
 
-
-
+            put(Action.POST_SINGLE_SUBMIT_DAMAGE_JSON, formatPhpUrl("Tasksubcontract/Box/insertSingleBoxDamage"));
+            put(Action.POST_SINGLE_DAMAGE_CONFIG_JSON, formatPhpUrl("Tasksubcontract/Box/getHotelBoxDamageConfig"));
         }
     };
 
@@ -229,6 +239,30 @@ public class AppApi {
     }
 
     /**
+     * 外包搜索酒楼
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void searchSingleHotel(Context context, String hotel_name, String area_id, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("hotel_name",hotel_name);
+        params.put("area_id",area_id);
+        new AppServiceOk(context, Action.POST_SINGLESEARCH_HOTEL_JSON, handler, params).post();
+    }
+
+    /**
+     * 获取版位信息
+     * @param context 上下文
+     * @param handler 接口回调
+     * @param hotelId 酒店id
+     */
+    public static void getPositionList(Context context, String hotelId,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("hotel_id",hotelId);
+        new AppServiceOk(context, Action.POST_POSITION_LIST_JSON, handler, params).post();
+    }
+
+    /**
      * 异常报告列表
      * @param context 上下文
      * @param handler 接口回调
@@ -288,6 +322,16 @@ public class AppApi {
     }
 
     /**
+     * 酒店损坏配置表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getSingleDamageConfig(Context context, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        new AppServiceOk(context, Action.POST_SINGLE_DAMAGE_CONFIG_JSON, handler, params).post();
+    }
+
+    /**
      * 提交保修记录
      * @param context 上下文
      * @param handler 接口回调
@@ -304,6 +348,28 @@ public class AppApi {
         params.put("type",type);
         params.put("userid",userid);
         new AppServiceOk(context, Action.POST_SUBMIT_DAMAGE_JSON, handler, params).post();
+    }
+
+    /**
+     * 提交保修记录
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void submitSingleDamage(Context context, String bid, String hotel_id,
+                                          String remark, String repair_img, String repair_type, String srtype, String state,
+                                          String userid, String current_location, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("bid",bid);
+        params.put("hotel_id",hotel_id);
+        params.put("remark",remark);
+        params.put("repair_img",repair_img);
+        params.put("repair_type",repair_type);
+        if(!TextUtils.isEmpty(current_location)) {
+            params.put("current_location",current_location);
+        }
+        params.put("srtype",srtype);
+        params.put("userid",userid);
+        new AppServiceOk(context, Action.POST_SINGLE_SUBMIT_DAMAGE_JSON, handler, params).post();
     }
 
     /**

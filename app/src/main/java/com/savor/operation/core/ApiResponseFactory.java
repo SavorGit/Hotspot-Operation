@@ -38,6 +38,7 @@ import com.savor.operation.bean.HotelMacInfo;
 import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.MissionTaskListBean;
+import com.savor.operation.bean.PositionListInfo;
 import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.SmallPlatformByGetIp;
 import com.savor.operation.bean.Task;
@@ -336,7 +337,18 @@ public class ApiResponseFactory {
                 result = gson.fromJson(info, new TypeToken<SmallPlatformByGetIp>() {
                 }.getType());
                 break;
-
+            case POST_POSITION_LIST_JSON:
+                result = gson.fromJson(info, PositionListInfo.class);
+                break;
+            case POST_SINGLESEARCH_HOTEL_JSON:
+                result = gson.fromJson(info, HotelListResponse.class);
+                break;
+            case POST_SINGLE_SUBMIT_DAMAGE_JSON:
+                result = info;
+                break;
+            case POST_SINGLE_DAMAGE_CONFIG_JSON:
+                result = gson.fromJson(info, DamageConfig.class);
+                break;
             default:
                 break;
         }

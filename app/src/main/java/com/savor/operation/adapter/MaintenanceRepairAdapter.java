@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.savor.operation.R;
+import com.savor.operation.activity.PhotoShowActivity;
 import com.savor.operation.bean.TaskDetailExecute;
 import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.bean.TaskDetailRepairImg;
@@ -118,7 +119,8 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
         holder.fault_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new ShowPicDialog(context,item.getFault_img_url()).show();
+//                new ShowPicDialog(context,item.getFault_img_url()).show();
+                PhotoShowActivity.startPhotoShowActivity(context,item.getFault_img_url());
             }
         });
 
@@ -147,7 +149,8 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
              iv_exce_pic1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new ShowPicDialog(context,obj.getImg()).show();
+//                    new ShowPicDialog(context,obj.getImg()).show();
+                    PhotoShowActivity.startPhotoShowActivity(context,obj.getImg());
                 }
             });
             //convertView = mInflater.inflate(R.layout.item_video, null);

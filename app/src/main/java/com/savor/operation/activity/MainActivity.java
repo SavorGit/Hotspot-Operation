@@ -32,6 +32,7 @@ import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.UpgradeInfo;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
+import com.savor.operation.utils.ActivitiesManager;
 import com.savor.operation.utils.STIDUtil;
 import com.savor.operation.widget.CommonDialog;
 import com.savor.operation.widget.UpgradeDialog;
@@ -253,6 +254,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void exitApp() {
+        ActivitiesManager.getInstance().popAllActivities();
         Process.killProcess(android.os.Process.myPid());
     }
 

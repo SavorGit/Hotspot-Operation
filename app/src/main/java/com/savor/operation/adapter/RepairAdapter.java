@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.savor.operation.R;
+import com.savor.operation.activity.PhotoShowActivity;
 import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.bean.TaskDetailRepairImg;
@@ -89,7 +90,8 @@ public class RepairAdapter extends BaseAdapter {
                     holder.img_a.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new ShowPicDialog(context,obj1.getImg()).show();
+//                            new ShowPicDialog(context,obj1.getImg()).show();
+                            PhotoShowActivity.startPhotoShowActivity(context,obj1.getImg());
                         }
                     });
                 }else {
@@ -116,7 +118,8 @@ public class RepairAdapter extends BaseAdapter {
                     holder.img_a.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new ShowPicDialog(context,obj1.getImg()).show();
+//                            new ShowPicDialog(context,obj1.getImg()).show();
+                            PhotoShowActivity.startPhotoShowActivity(context,obj1.getImg());
                         }
                     });
                 }else {
@@ -129,7 +132,8 @@ public class RepairAdapter extends BaseAdapter {
                     holder.img_b.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new ShowPicDialog(context,obj2.getImg()).show();
+//                            new ShowPicDialog(context,obj2.getImg()).show();
+                            PhotoShowActivity.startPhotoShowActivity(context,obj2.getImg());
                         }
                     });
                 }else {

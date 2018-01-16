@@ -28,4 +28,6 @@ public enum FunctionType implements Serializable {
     APPOINT_TASK_LIST,
     /**发布者任务列表*/
     PUB_TASK_LIST,
+    /**更新换画*/
+    UPDATE_CHANGE_IMAGE,
 }
