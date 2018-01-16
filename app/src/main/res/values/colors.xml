@@ -14,7 +14,7 @@
     <!-- 灰色 -->
     <color name="gray">#888888</color>
     <!--浅灰  -->
-    <color name="red">#F43531</color>
+    <color name="red">#FF4D55</color>
     <color name="transparent">#00000000</color>
     <color name="picout">#0000</color>
     <color name="pdf_dialog_bg">#19000000</color>
@@ -68,4 +68,9 @@
     <color name="grid_item_divider">#EAEAEA</color>
     <color name="grid_item_selected">#F7F7F7</color>
     <color name="TextColorOrange">#fe9424</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_d7d7d7">#d7d7d7</color>
+    <color name="color_00bcee">#00BCEE</color>
+    <color name="color_3aba9a">#3ABA9A</color>
+    <color name="color_16abe5">#16ABE5</color>
 </resources>
