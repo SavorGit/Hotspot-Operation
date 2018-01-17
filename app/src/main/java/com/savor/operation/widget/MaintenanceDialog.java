@@ -81,11 +81,13 @@ public class MaintenanceDialog implements OnClickListener {
     private List<ExecutorInfoBean> elist;
     private ExeSpinnerAdapter spinnerAdapter;
     private ExecutorInfoBean currentExecutorInfoBean;
+    private Spinner type_spinner;
     private int currentpos;
     private ImageView[] ims = {iv_exce_pic1,iv_exce_pic2,iv_exce_pic1};
     private  List<String> urls = new ArrayList<String>();
     private String box_id;
     private String state = "1";
+    private SpinnerAdapter typeSpinnerAdapter;
     public MaintenanceDialog(Context context) {
         this.context = context;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -130,6 +132,7 @@ public class MaintenanceDialog implements OnClickListener {
         del2 = (TextView) view.findViewById(R.id.del2);
         del3 = (TextView) view.findViewById(R.id.del3);
         cancel = (TextView) view.findViewById(R.id.cancel);
+        type_spinner = (Spinner) view.findViewById(R.id.type_spinner);
         urls.add("");
         urls.add("");
         urls.add("");
