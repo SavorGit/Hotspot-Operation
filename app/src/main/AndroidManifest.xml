@@ -53,7 +53,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="GDeWnZwX2Hfyn9j5zrt2ckBYZMbEULEs"/>
+            android:value="GDeWnZwX2Hfyn9j5zrt2ckBYZMbEULEs" />
         <meta-data
             android:name="app_debug"
             android:value="1" />
@@ -147,12 +147,14 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
 
         <activity
             android:name=".activity.PhotoShowActivity"
-            android:theme="@style/BlackTheme"
             android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/BlackTheme" />
+        <activity android:name=".activity.BoxDetailActivity"
+            android:screenOrientation="portrait"
             />
     </application>
 

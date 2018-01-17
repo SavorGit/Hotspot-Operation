@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,6 +22,7 @@ import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.PositionListInfo;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.widget.FixDialog;
 
@@ -29,7 +31,7 @@ import java.util.List;
 /**
  * 酒楼版位信息
  */
-public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPositionAdapter.OnFixBtnClickListener, View.OnClickListener {
+public class HotelPositionInfoAcitivty extends BaseActivity implements  View.OnClickListener, HotelPositionAdapter.OnItemClickListener {
 
     private ListView mPostionListView;
     private ImageView mBackBtn;
@@ -50,6 +52,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
     private TextView mFixHintTv;
     private RecyclerView mSpHistoryRlv;
     private TvBoxFixHistoryAdapter mSpHistoryAdapter;
+    private ImageView mRightIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
 
     @Override
     public void getViews() {
+        mRightIv = (ImageView) findViewById(R.id.iv_right);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         mTitleTv = (TextView) findViewById(R.id.tv_center);
         mRightTv = (TextView) findViewById(R.id.tv_right);
@@ -114,15 +118,18 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
             mTitleTv.getPaint().setAntiAlias(true);//抗锯齿
         }
 
-        mRightTv.setVisibility(View.VISIBLE);
-        mRightTv.setBackgroundResource(R.drawable.bg_edittext);
-        mRightTv.setTextColor(getResources().getColor(R.color.black));
-        mRightTv.setText(getString(R.string.refresh));
+//        mRightTv.setVisibility(View.VISIBLE);
+//        mRightTv.setBackgroundResource(R.drawable.bg_edittext);
+//        mRightTv.setTextColor(getResources().getColor(R.color.black));
+//        mRightTv.setText(getString(R.string.refresh));
+//
+//        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mRightTv.getLayoutParams();
+//        layoutParams.height = DensityUtil.dip2px(this,35);
+//        layoutParams.setMargins(0,0,DensityUtil.dip2px(this,15),0);
+//        mRightTv.setPadding(DensityUtil.dip2px(this,10),0,DensityUtil.dip2px(this,10),0);
 
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mRightTv.getLayoutParams();
-        layoutParams.height = DensityUtil.dip2px(this,35);
-        layoutParams.setMargins(0,0,DensityUtil.dip2px(this,15),0);
-        mRightTv.setPadding(DensityUtil.dip2px(this,10),0,DensityUtil.dip2px(this,10),0);
+        mRightIv.setVisibility(View.VISIBLE);
+        mRightIv.setImageResource(R.drawable.ico_refresh_noword);
 
         mSpHistoryAdapter = new TvBoxFixHistoryAdapter(this);
         LinearLayoutManager manager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
@@ -134,8 +141,9 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
     @Override
     public void setListeners() {
         mTitleTv.setOnClickListener(this);
-        mRightTv.setOnClickListener(this);
-        mHotelPositionAdapter.setOnFixBtnClickListener(this);
+        mRightIv.setOnClickListener(this);
+        mHotelPositionAdapter.setOnItemCLickListener(this);
+//        mHotelPositionAdapter.setOnFixBtnClickListener(this);
         mFixSpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -249,36 +257,6 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
         }
     }
 
-    @Override
-    public void onFixBtnClick(int position, final FixHistoryResponse.PositionInfo.BoxInfoBean boxInfoBean) {
-        new FixDialog(this, new FixDialog.OnSubmitBtnClickListener() {
-            @Override
-            public void onSubmitClick(FixDialog.OperationType type,FixHistoryResponse response,FixDialog.FixState isResolve, List<String> damageDesc, String comment, Hotel hotel) {
-
-                StringBuilder sb = new StringBuilder();
-                for(int i = 0;i<damageDesc.size();i++) {
-                    if(damageDesc.size() == 1 || i == damageDesc.size()-1) {
-                        sb.append(damageDesc.get(i));
-                    }else {
-                        sb.append(damageDesc.get(i)+",");
-                    }
-                }
-
-                int state = 0;
-                if(isResolve == FixDialog.FixState.RESOLVED) {
-                    state = 1;
-                }else if(isResolve == FixDialog.FixState.UNRESOLVED) {
-                    state = 2;
-                }
-
-                LoginResponse loginResponse = mSession.getLoginResponse();
-                String userid = loginResponse.getUserid();
-
-                AppApi.submitDamage(HotelPositionInfoAcitivty.this,boxInfoBean.getMac(),
-                        hotel.getId(),comment,sb.toString(),state+"", 2+"",userid,HotelPositionInfoAcitivty.this);
-            }
-        }, FixDialog.OperationType.TYPE_BOX,fixHistoryResponse,damageConfig,mHotel).show();
-    }
 
     @Override
     public void onClick(View v) {
@@ -288,7 +266,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
                 intent.putExtra("hotel",mHotel);
                 startActivity(intent);
                 break;
-            case R.id.tv_right:
+            case R.id.iv_right:
                 ShowMessage.showToast(this,"刷新数据");
                 getData();
                 break;
@@ -296,5 +274,12 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements HotelPosi
                 finish();
                 break;
         }
+    }
+
+
+    @Override
+    public void onItemClick(FixHistoryResponse.PositionInfo.BoxInfoBean boxInfoBean, int position) {
+        Intent intent = new Intent(this,BoxDetailActivity.class);
+        startActivity(intent);
     }
 }
