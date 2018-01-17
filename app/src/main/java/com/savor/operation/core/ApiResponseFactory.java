@@ -41,6 +41,7 @@ import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.bean.PositionListInfo;
 import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.SmallPlatformByGetIp;
+import com.savor.operation.bean.StateConf;
 import com.savor.operation.bean.Task;
 import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskNum;
@@ -348,6 +349,10 @@ public class ApiResponseFactory {
                 break;
             case POST_SINGLE_DAMAGE_CONFIG_JSON:
                 result = gson.fromJson(info, DamageConfig.class);
+                break;
+            case POST_STATE_CONF_JSON:
+                result = gson.fromJson(info, new TypeToken<List<StateConf>>() {
+                }.getType());
                 break;
             default:
                 break;
