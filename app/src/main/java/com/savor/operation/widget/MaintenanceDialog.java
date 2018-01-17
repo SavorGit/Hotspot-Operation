@@ -30,8 +30,10 @@ import com.savor.operation.R;
 import com.savor.operation.SavorApplication;
 import com.savor.operation.adapter.ExeSpinnerAdapter;
 import com.savor.operation.adapter.SpinnerAdapter;
+import com.savor.operation.adapter.TypeSpinnerAdapter;
 import com.savor.operation.bean.ExecutorInfoBean;
 import com.savor.operation.bean.RepairInfo;
+import com.savor.operation.bean.StateConf;
 import com.savor.operation.bean.TaskDetailRepair;
 import com.savor.operation.bean.UserBean;
 import com.savor.operation.interfaces.MaintenanceCallBack;
@@ -80,6 +82,7 @@ public class MaintenanceDialog implements OnClickListener {
     private Activity activity;
     private List<ExecutorInfoBean> elist;
     private ExeSpinnerAdapter spinnerAdapter;
+    private TypeSpinnerAdapter typeSpinnerAdapter;
     private ExecutorInfoBean currentExecutorInfoBean;
     private Spinner type_spinner;
     private int currentpos;
@@ -87,7 +90,6 @@ public class MaintenanceDialog implements OnClickListener {
     private  List<String> urls = new ArrayList<String>();
     private String box_id;
     private String state = "1";
-    private SpinnerAdapter typeSpinnerAdapter;
     public MaintenanceDialog(Context context) {
         this.context = context;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -147,6 +149,27 @@ public class MaintenanceDialog implements OnClickListener {
 //                display.getWidth() * 0.85), LayoutParams.WRAP_CONTENT));
         spinnerAdapter = new ExeSpinnerAdapter(context,elist);
         spinner.setAdapter(spinnerAdapter);
+
+        List<StateConf> mData = new ArrayList<StateConf>();
+        StateConf conf = new StateConf();
+        conf.setId("1");
+        conf.setName("正常");
+
+        StateConf conf1 = new StateConf();
+        conf1.setId("2");
+        conf1.setName("冻结");
+
+        StateConf conf2 = new StateConf();
+        conf2.setId("3");
+        conf2.setName("报损");
+
+        mData.add(conf);
+        mData.add(conf1);
+        mData.add(conf2);
+
+        typeSpinnerAdapter = new TypeSpinnerAdapter(context,mData);
+        type_spinner.setAdapter(typeSpinnerAdapter);
+        type_spinner.setSelection(0);
         setListeners();
         return this;
     }
