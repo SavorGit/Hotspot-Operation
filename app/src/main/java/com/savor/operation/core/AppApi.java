@@ -102,6 +102,8 @@ public class AppApi {
         GET_IP_JSON,
         /**维修记录*/
         POST_POSITION_LIST_JSON,
+        /**机顶盒状态列表*/
+        POST_STATE_CONF_JSON,
     }
 
     /**
@@ -148,6 +150,8 @@ public class AppApi {
 
             put(Action.POST_SINGLE_SUBMIT_DAMAGE_JSON, formatPhpUrl("Tasksubcontract/Box/insertSingleBoxDamage"));
             put(Action.POST_SINGLE_DAMAGE_CONFIG_JSON, formatPhpUrl("Tasksubcontract/Box/getHotelBoxDamageConfig"));
+            put(Action.POST_STATE_CONF_JSON, formatPhpUrl("Opclient20/Box/stateConf"));
+
         }
     };
 
@@ -607,6 +611,12 @@ public class AppApi {
     public static void getSmallPlatformIp(Context context, ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<String, Object>();
         new AppServiceOk(context,Action.GET_IP_JSON,handler,params).get();
+    }
+
+    /**机顶盒状态列表*/
+    public static void stateConf(Context context, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<String, Object>();
+        new AppServiceOk(context,Action.POST_STATE_CONF_JSON,handler,params).post();
     }
 
     // 超时（网络）异常
