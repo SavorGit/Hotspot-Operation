@@ -104,6 +104,8 @@ public class AppApi {
         POST_POSITION_LIST_JSON,
         /**机顶盒状态列表*/
         POST_STATE_CONF_JSON,
+        /**获取巡视列表*/
+        POST_INSPECTOR_JSON,
     }
 
     /**
@@ -151,6 +153,7 @@ public class AppApi {
             put(Action.POST_SINGLE_SUBMIT_DAMAGE_JSON, formatPhpUrl("Tasksubcontract/Box/insertSingleBoxDamage"));
             put(Action.POST_SINGLE_DAMAGE_CONFIG_JSON, formatPhpUrl("Tasksubcontract/Box/getHotelBoxDamageConfig"));
             put(Action.POST_STATE_CONF_JSON, formatPhpUrl("Opclient20/Box/stateConf"));
+            put(Action.POST_INSPECTOR_JSON, formatPhpUrl("Opclient20/Inspector/getMyInspect"));
 
         }
     };
@@ -617,6 +620,19 @@ public class AppApi {
     public static void stateConf(Context context, ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<String, Object>();
         new AppServiceOk(context,Action.POST_STATE_CONF_JSON,handler,params).post();
+    }
+
+    /**
+     * 获取巡视列表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getMyInspect(Context context, String pageNum ,String pageSize,String user_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("pageNum",pageNum);
+        params.put("pageSize",pageSize);
+        params.put("user_id",user_id);
+        new AppServiceOk(context, Action.POST_INSPECTOR_JSON, handler, params).post();
     }
 
     // 超时（网络）异常
