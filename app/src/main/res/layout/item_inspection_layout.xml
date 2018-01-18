@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="85dp"
+    android:background="@color/white">
+    <TextView
+        android:id="@+id/hotle_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:textSize="16sp"
+        android:text="福润龙庭 共8个版位"
+        android:textColor="@color/black"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:id="@+id/small_palt_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hotle_info"
+        android:layout_alignParentLeft="true"
+        android:textSize="15sp"
+        android:text="小平台正常，上次上报时间 2018-01-17 08:30:25"
+        android:textColor="@color/color_575757"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"/>
+    <TextView
+        android:id="@+id/box_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/small_palt_info"
+        android:layout_alignParentLeft="true"
+        android:textSize="15sp"
+        android:text="机顶盒异常 5个"
+        android:textColor="@color/color_575757"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="3dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/arraw_right"/>
+
+
+
+</RelativeLayout>
