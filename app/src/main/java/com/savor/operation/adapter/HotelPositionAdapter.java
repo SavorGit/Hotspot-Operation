@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.savor.operation.R;
@@ -24,7 +25,7 @@ public class HotelPositionAdapter extends BaseAdapter {
 
     private final Context mContext;
     private List<FixHistoryResponse.PositionInfo.BoxInfoBean> data;
-    private OnFixBtnClickListener mOnFixBtnClickListener;
+    private OnItemClickListener onItemClickListener;
 
     public HotelPositionAdapter(Context context) {
         this.mContext = context;
@@ -33,6 +34,10 @@ public class HotelPositionAdapter extends BaseAdapter {
     public void setData(List<FixHistoryResponse.PositionInfo.BoxInfoBean> data) {
         this.data = data;
         notifyDataSetChanged();
+    }
+
+    public List<FixHistoryResponse.PositionInfo.BoxInfoBean> getData() {
+        return this.data;
     }
 
     @Override
@@ -56,12 +61,12 @@ public class HotelPositionAdapter extends BaseAdapter {
         if(convertView == null) {
             holder = new ViewHolder();
             convertView = View.inflate(mContext,R.layout.item_hotel_position,null);
+            holder.ll_parent = (LinearLayout) convertView.findViewById(R.id.ll_parent);
             holder.rlv_fix_history = (RecyclerView) convertView.findViewById(R.id.rlv_fix_history);
             holder.tv_box_info = (TextView) convertView.findViewById(R.id.tv_box_info);
             holder.tv_last_xintiao = (TextView) convertView.findViewById(R.id.tv_last_xintiao);
             holder.tv_last_log = (TextView) convertView.findViewById(R.id.tv_last_log);
             holder.tv_hint = (TextView) convertView.findViewById(R.id.tv_hint);
-            holder.tv_fix = (TextView) convertView.findViewById(R.id.tv_fix);
             holder.tv_box_status = (ImageView) convertView.findViewById(R.id.tv_box_status);
             holder.divider = convertView.findViewById(R.id.divider);
             convertView.setTag(holder);
@@ -103,36 +108,43 @@ public class HotelPositionAdapter extends BaseAdapter {
         }else {
             holder.tv_hint.setVisibility(View.VISIBLE);
         }
-
-        holder.tv_fix.setOnClickListener(new View.OnClickListener() {
+        holder.ll_parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mOnFixBtnClickListener!=null) {
-                    mOnFixBtnClickListener.onFixBtnClick(position,boxInfoBean);
+                if(onItemClickListener!=null) {
+                    onItemClickListener.onItemClick(boxInfoBean,position);
                 }
             }
         });
+//        holder.tv_fix.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(mOnFixBtnClickListener!=null) {
+//                    mOnFixBtnClickListener.onFixBtnClick(position,boxInfoBean);
+//                }
+//            }
+//        });
 
         return convertView;
     }
 
     public class ViewHolder {
+        public LinearLayout ll_parent;
         public RecyclerView rlv_fix_history;
         public View divider;
         public TextView tv_box_info;
         public TextView tv_last_log;
-        public TextView tv_fix;
         public TextView tv_last_xintiao;
         public ImageView tv_box_status;
         public TextView tv_hint;
     }
 
-    public interface OnFixBtnClickListener {
-        void onFixBtnClick(int position,FixHistoryResponse.PositionInfo.BoxInfoBean boxInfoBean);
-    }
+   public interface OnItemClickListener {
+        void onItemClick(FixHistoryResponse.PositionInfo.BoxInfoBean boxInfoBean,int position);
+   }
 
-    public void setOnFixBtnClickListener(OnFixBtnClickListener listener) {
-        this.mOnFixBtnClickListener = listener;
-    }
+   public void setOnItemCLickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+   }
 
 }

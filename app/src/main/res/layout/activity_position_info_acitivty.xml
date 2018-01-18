@@ -9,6 +9,7 @@
         layout="@layout/layout_head_title"
         />
     <ListView
+        android:layout_marginBottom="10dp"
         android:visibility="gone"
         android:id="@+id/lv_hotel_position_list"
         android:divider="@color/white"

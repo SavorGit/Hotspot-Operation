@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.savor.operation.activity.BoxDetailActivity">
+    <include
+        layout="@layout/layout_head_title"
+        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <RelativeLayout
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_room_name"
+                    android:textStyle="bold"
+                    android:textColor="@color/title_text_color"
+                    android:textSize="15sp"
+                    android:text="V1包间"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_toRightOf="@id/tv_room_name"
+                    android:textStyle="bold"
+                    android:textColor="@color/title_text_color"
+                    android:textSize="15sp"
+                    android:layout_marginLeft="20dp"
+                    android:text="FCD5D900B7AB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:textSize="15sp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:background="@drawable/bg_test_btn"
+                    android:layout_alignParentRight="true"
+                    android:text="一键测试"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <View
+                android:background="#D7D7D7"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+
+            <LinearLayout
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/title_text_color"
+                    android:text="最后心跳时间：无"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/title_text_color"
+                    android:text="最后上传日志时间：无"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:layout_marginTop="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_history_hint"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="维修记录："
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_toRightOf="@id/tv_history_hint"
+                        android:id="@+id/rlv_fix_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        />
+                </RelativeLayout>
+
+            </LinearLayout>
+            <View
+                android:background="@color/color_app_bg"
+                android:layout_width="match_parent"
+                android:layout_height="19dp"/>
+
+            <!--当前状态-->
+            <LinearLayout
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="15sp"
+                    android:textColor="@color/title_text_color"
+                    android:text="当前状态：失联10小时/正常"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="节目状态：版本不是最新"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:textSize="15sp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColor="#ff4d55"
+                        android:background="@drawable/bg_look_loading_btn"
+                        android:layout_alignParentRight="true"
+                        android:text="查看正在下载"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="广告状态：已更新到最新"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:textSize="15sp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColor="#ff4d55"
+                        android:background="@drawable/bg_look_loading_btn"
+                        android:layout_alignParentRight="true"
+                        android:text="查看正在下载"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </LinearLayout>
+            <View
+                android:background="#D7D7D7"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
+            <LinearLayout
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/tv_program"
+                        android:textStyle="bold"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="15sp"
+                        android:text="当前播放列表 节目 (20170506)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:textSize="15sp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:background="@drawable/bg_test_btn"
+                        android:layout_alignParentRight="true"
+                        android:text="发布内容列表"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/app_text_type"
+                    android:text="节目期号：20170506095038"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/app_text_type"
+                    android:text="广告期号：20180202154526"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_marginTop="20dp"
+                    android:background="#D7D7D7"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:paddingRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#E6E6E6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55.5dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="225dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_search_text"
+            android:gravity="center"
+            android:text="维修"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>
