@@ -186,7 +186,7 @@
                 android:layout_height="0.5dp"/>
             <LinearLayout
                 android:paddingTop="20dp"
-                android:paddingBottom="20dp"
+                android:paddingBottom="10dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:orientation="vertical"
@@ -239,7 +239,7 @@
                     android:layout_height="0.5dp"/>
             </LinearLayout>
             <android.support.v7.widget.RecyclerView
-                android:layout_marginTop="20dp"
+                android:id="@+id/rlv_program_status"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="15dp"
                 android:paddingRight="15dp"
