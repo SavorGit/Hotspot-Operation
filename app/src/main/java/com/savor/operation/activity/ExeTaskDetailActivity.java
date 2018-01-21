@@ -126,6 +126,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private TextView lead_install;
     private TextView city_in;
     private TextView  refuse_time;
+    private RelativeLayout remark_la;
+    private TextView  remarkView;
 
     private static final int MSG_CHECK_SSDP = 100;
     private ServiceConnection mConn = new ServiceConnection() {
@@ -236,6 +238,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         lead_install = (TextView) findViewById(R.id.lead_install);
         city_in = (TextView) findViewById(R.id.city_in);
         refuse_time = (TextView) findViewById(R.id.refuse_time);
+        remark_la =(RelativeLayout) findViewById(R.id.remark_la);
+        remarkView = (TextView) findViewById(R.id.remark);
     }
 
     @Override
@@ -470,6 +474,14 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             }else {
                 lead_install.setVisibility(View.GONE);
             }
+
+            String remarkExe = taskDetail.getRemark();
+            if (!TextUtils.isEmpty(remarkExe)) {
+                remarkView.setText("备注:"+remarkExe);
+            }else {
+                remarkView.setText("备注:"+"无");
+            }
+
                repair_list = taskDetail.getRepair_list();
                 List<ExecuteRepair> execute = taskDetail.getExecute();
             if (repair_list != null && repair_list.size()>0) {

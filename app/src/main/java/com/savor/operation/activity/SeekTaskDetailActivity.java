@@ -69,6 +69,8 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
     private TextView lead_install;
     private TextView city_in;
     private TextView  refuse_time;
+    private RelativeLayout remark_la;
+    private TextView  remarkView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +113,8 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
         lead_install = (TextView) findViewById(R.id.lead_install);
         city_in = (TextView) findViewById(R.id.city_in);
         refuse_time = (TextView) findViewById(R.id.refuse_time);
+        remark_la =(RelativeLayout) findViewById(R.id.remark_la);
+        remarkView = (TextView) findViewById(R.id.remark);
     }
 
     @Override
@@ -246,6 +250,12 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                 refuse_desc.setVisibility(View.GONE);
             }
 
+            String remarkExe = taskDetail.getRemark();
+            if (!TextUtils.isEmpty(remarkExe)) {
+                remarkView.setText("备注:"+remarkExe);
+            }else {
+                remarkView.setText("备注:"+"无");
+            }
 //            String appoint_exe_time = taskDetail.getAppoint_exe_time();
 //            if (!TextUtils.isEmpty(appoint_exe_time)) {
 //                release_execute_time.setVisibility(View.VISIBLE);
