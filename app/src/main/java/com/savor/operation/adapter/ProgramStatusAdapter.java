@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +20,7 @@ import java.util.List;
  * Created by hezd on 2018/1/18.
  */
 
-public class ProgramStatusAdapter extends RecyclerView.Adapter<ProgramStatusAdapter.ProgramStatusHolder> {
+public class ProgramStatusAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<Program> mData;
@@ -34,45 +35,59 @@ public class ProgramStatusAdapter extends RecyclerView.Adapter<ProgramStatusAdap
     }
 
     @Override
-    public ProgramStatusHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ProgramStatusHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_system_status,parent,false));
+    public int getCount() {
+        return mData == null ? 0 : mData.size();
     }
 
     @Override
-    public void onBindViewHolder(ProgramStatusHolder holder, int position) {
-        Program program = mData.get(position);
+    public Object getItem(int position) {
+        return mData.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ProgramStatusHolder holder = null;
+        if (convertView == null) {
+            holder = new ProgramStatusHolder();
+            convertView = View.inflate(mContext, R.layout.item_system_status, null);
+            holder.label = (TextView) convertView.findViewById(R.id.tv_hint);
+            holder.name = (TextView) convertView.findViewById(R.id.tv_name);
+            holder.statusIv = (ImageView) convertView.findViewById(R.id.iv_status);
+            convertView.setTag(holder);
+        } else {
+            holder = (ProgramStatusHolder) convertView.getTag();
+        }
+
+        Program program = (Program) getItem(position);
+
         String ads_name = program.getName();
         int flag = program.getFlag();
         String type = program.getType();
-        if(!TextUtils.isEmpty(ads_name)) {
+        if (!TextUtils.isEmpty(ads_name)) {
             holder.name.setText(ads_name);
         }
-        if(!TextUtils.isEmpty(type)) {
+        if (!TextUtils.isEmpty(type)) {
             holder.label.setText(type);
         }
 
-        if(flag == 0) {
+        if (flag == 0) {
             holder.statusIv.setImageResource(R.drawable.ico_exist);
-        }else {
+        } else {
             holder.statusIv.setImageResource(R.drawable.ico_noexit);
         }
+
+        return convertView;
     }
 
-    @Override
-    public int getItemCount() {
-        return mData == null?0:mData.size();
-    }
-
-    public class ProgramStatusHolder extends RecyclerView.ViewHolder {
+    public class ProgramStatusHolder {
 
         public TextView label;
         public TextView name;
         public ImageView statusIv;
-        public ProgramStatusHolder(View itemView) {
-            super(itemView);
-            label = (TextView) itemView.findViewById(R.id.tv_hint);
-            name = (TextView) itemView.findViewById(R.id.tv_name);
-            statusIv = (ImageView) itemView.findViewById(R.id.iv_status);
-        }
     }
 }

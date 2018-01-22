@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.savor.operation.R;
@@ -22,7 +23,7 @@ import java.util.List;
 public class BoxDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView mBackBtn;
-    private RecyclerView mProgramRlv;
+    private ListView mProgramRlv;
     private String box_id;
     private LoadingDialog loadingDialog;
     private TextView mBoxNameTv;
@@ -67,32 +68,37 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void getViews() {
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
-        mProgramRlv = (RecyclerView) findViewById(R.id.rlv_program_status);
+        mProgramRlv = (ListView) findViewById(R.id.rlv_program_status);
 
-        mBoxNameTv = (TextView) findViewById(R.id.tv_room_name);
-        mBoxMacTv = (TextView) findViewById(R.id.tv_box_mac);
-        mLastHeartTimeTv = (TextView) findViewById(R.id.tv_last_heart_time);
-        mLastLogTimeTv = (TextView) findViewById(R.id.tv_last_log_time);
-        mRepairListRlv = (RecyclerView) findViewById(R.id.rlv_fix_history);
-        mHistoryHintTv = (TextView) findViewById(R.id.tv_history_hint);
+        initHeaderView();
+    }
 
-        mCurrentStatusTv = (TextView) findViewById(R.id.tv_current_status);
-        mProgramStatusTv = (TextView) findViewById(R.id.tv_program_status);
-        mAdvertStatusTv = (TextView) findViewById(R.id.tv_advert_status);
-        mLookLoadingProgramTv = (TextView) findViewById(R.id.tv_loading_program);
-        mLookLoadingAdvertTv = (TextView) findViewById(R.id.tv_loading_advert);
-        mContentListBtn = (TextView) findViewById(R.id.tv_content_list);
+    private void initHeaderView() {
+        View headerView = View.inflate(this, R.layout.header_view_box_detail,null);
 
-        mProgramPeriodTv = (TextView) findViewById(R.id.tv_pro_period);
-        mAdsPeriodTv = (TextView) findViewById(R.id.tv_ads_period);
+        mBoxNameTv = (TextView) headerView.findViewById(R.id.tv_room_name);
+        mBoxMacTv = (TextView)  headerView.findViewById(R.id.tv_box_mac);
+        mLastHeartTimeTv = (TextView)  headerView.findViewById(R.id.tv_last_heart_time);
+        mLastLogTimeTv = (TextView)  headerView.findViewById(R.id.tv_last_log_time);
+        mRepairListRlv = (RecyclerView)  headerView.findViewById(R.id.rlv_fix_history);
+        mHistoryHintTv = (TextView)  headerView.findViewById(R.id.tv_history_hint);
+
+        mCurrentStatusTv = (TextView)  headerView.findViewById(R.id.tv_current_status);
+        mProgramStatusTv = (TextView)  headerView.findViewById(R.id.tv_program_status);
+        mAdvertStatusTv = (TextView)  headerView.findViewById(R.id.tv_advert_status);
+        mLookLoadingProgramTv = (TextView)  headerView.findViewById(R.id.tv_loading_program);
+        mLookLoadingAdvertTv = (TextView)  headerView.findViewById(R.id.tv_loading_advert);
+        mContentListBtn = (TextView)  headerView.findViewById(R.id.tv_content_list);
+
+        mProgramPeriodTv = (TextView)  headerView.findViewById(R.id.tv_pro_period);
+        mAdsPeriodTv = (TextView)  headerView.findViewById(R.id.tv_ads_period);
+
+        mProgramRlv.addHeaderView(headerView);
     }
 
     @Override
     public void setViews() {
         programStatusAdapter = new ProgramStatusAdapter(this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mProgramRlv.setLayoutManager(linearLayoutManager);
         mProgramRlv.setAdapter(programStatusAdapter);
     }
 
