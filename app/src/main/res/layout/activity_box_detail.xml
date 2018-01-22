@@ -38,6 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/tv_box_mac"
                     android:layout_toRightOf="@id/tv_room_name"
                     android:textStyle="bold"
                     android:textColor="@color/title_text_color"
@@ -73,12 +74,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/tv_last_heart_time"
                     android:textSize="15sp"
                     android:textColor="@color/title_text_color"
                     android:text="最后心跳时间：无"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/tv_last_log_time"
                     android:layout_marginTop="15dp"
                     android:textSize="15sp"
                     android:textColor="@color/title_text_color"
@@ -121,6 +124,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/tv_current_status"
                     android:textSize="15sp"
                     android:textColor="@color/title_text_color"
                     android:text="当前状态：失联10小时/正常"
@@ -132,6 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/tv_program_status"
                         android:layout_centerVertical="true"
                         android:textSize="15sp"
                         android:textColor="@color/title_text_color"
@@ -139,6 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/tv_loading_program"
                         android:layout_centerVertical="true"
                         android:textSize="15sp"
                         android:paddingTop="5dp"
@@ -159,6 +165,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/tv_advert_status"
                         android:layout_centerVertical="true"
                         android:textSize="15sp"
                         android:textColor="@color/title_text_color"
@@ -166,6 +173,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/tv_loading_advert"
                         android:layout_centerVertical="true"
                         android:textSize="15sp"
                         android:paddingTop="5dp"
@@ -205,6 +213,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
+                        android:id="@+id/tv_content_list"
                         android:layout_centerVertical="true"
                         android:textSize="15sp"
                         android:paddingTop="5dp"
@@ -219,6 +228,7 @@
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
                 <TextView
+                    android:id="@+id/tv_pro_period"
                     android:layout_marginTop="15dp"
                     android:textSize="14sp"
                     android:textColor="@color/app_text_type"
@@ -226,6 +236,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/tv_ads_period"
                     android:layout_marginTop="15dp"
                     android:textSize="14sp"
                     android:textColor="@color/app_text_type"

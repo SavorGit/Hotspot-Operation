@@ -106,6 +106,8 @@ public class AppApi {
         POST_STATE_CONF_JSON,
         /**获取巡视列表*/
         POST_INSPECTOR_JSON,
+        /**获取机顶盒详情*/
+        POST_BOX_DETAIL_JSON,
     }
 
     /**
@@ -154,7 +156,7 @@ public class AppApi {
             put(Action.POST_SINGLE_DAMAGE_CONFIG_JSON, formatPhpUrl("Tasksubcontract/Box/getHotelBoxDamageConfig"));
             put(Action.POST_STATE_CONF_JSON, formatPhpUrl("Opclient20/Box/stateConf"));
             put(Action.POST_INSPECTOR_JSON, formatPhpUrl("Opclient20/Inspector/getMyInspect"));
-
+            put(Action.POST_BOX_DETAIL_JSON, formatPhpUrl("Opclient20/Box/contentDetail"));
         }
     };
 
@@ -633,6 +635,17 @@ public class AppApi {
         params.put("pageSize",pageSize);
         params.put("user_id",user_id);
         new AppServiceOk(context, Action.POST_INSPECTOR_JSON, handler, params).post();
+    }
+
+    /**
+     * 获取机顶盒详情
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getBoxDetail(Context context, String box_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("box_id",box_id);
+        new AppServiceOk(context, Action.POST_BOX_DETAIL_JSON, handler, params).post();
     }
 
     // 超时（网络）异常

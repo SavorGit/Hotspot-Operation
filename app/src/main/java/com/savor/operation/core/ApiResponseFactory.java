@@ -26,6 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import com.savor.operation.bean.BindBoxList;
 import com.savor.operation.bean.BindBoxListBean;
 import com.savor.operation.bean.BindBoxResponse;
+import com.savor.operation.bean.BoxDetail;
 import com.savor.operation.bean.BoxInfo;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.ErrorDetail;
@@ -359,7 +360,10 @@ public class ApiResponseFactory {
                 result = gson.fromJson(info, new TypeToken<MyInspectResult>() {
                 }.getType());
                 break;
-
+            case POST_BOX_DETAIL_JSON:
+                result = gson.fromJson(info, new TypeToken<BoxDetail>() {
+                }.getType());
+                break;
             default:
                 break;
         }
