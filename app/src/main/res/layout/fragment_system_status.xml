@@ -326,7 +326,6 @@
                     android:drawablePadding="10dp"
                     android:textColor="@color/title_text_color"
                     android:textSize="13sp"
-                    android:paddingTop="10dp"
                     android:text="总数 104"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -387,7 +386,6 @@
                     android:drawablePadding="10dp"
                     android:textColor="@color/title_text_color"
                     android:textSize="13sp"
-                    android:paddingTop="10dp"
                     android:text="总数 104"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -448,7 +446,6 @@
                     android:drawablePadding="10dp"
                     android:textColor="@color/title_text_color"
                     android:textSize="13sp"
-                    android:paddingTop="10dp"
                     android:text="总数 104"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -510,7 +507,6 @@
                     android:drawablePadding="10dp"
                     android:textColor="@color/title_text_color"
                     android:textSize="13sp"
-                    android:paddingTop="10dp"
                     android:text="总数 104"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -681,7 +677,6 @@
                     android:drawablePadding="10dp"
                     android:textColor="@color/title_text_color"
                     android:textSize="13sp"
-                    android:paddingTop="10dp"
                     android:text="总数 104"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -754,7 +749,6 @@
                     android:drawablePadding="10dp"
                     android:textColor="@color/title_text_color"
                     android:textSize="13sp"
-                    android:paddingTop="10dp"
                     android:text="总数 104"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -827,7 +821,6 @@
                     android:drawablePadding="10dp"
                     android:textColor="@color/title_text_color"
                     android:textSize="13sp"
-                    android:paddingTop="10dp"
                     android:text="总数 104"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -901,7 +894,6 @@
                     android:drawablePadding="10dp"
                     android:textColor="@color/title_text_color"
                     android:textSize="13sp"
-                    android:paddingTop="10dp"
                     android:text="总数 104"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
