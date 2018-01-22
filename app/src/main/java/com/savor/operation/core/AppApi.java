@@ -348,7 +348,7 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void submitDamage(Context context,String box_mac,String hotel_id,
+    public static void submitDamage(Context context,String box_mac,String hotel_id,String box_state,
                                     String remark,String repair_num_str,String state,
                                     String type,String userid, ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();

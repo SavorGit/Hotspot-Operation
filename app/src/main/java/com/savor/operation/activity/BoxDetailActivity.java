@@ -40,6 +40,8 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     private TextView mProgramPeriodTv;
     private TextView mAdsPeriodTv;
     private ProgramStatusAdapter programStatusAdapter;
+    private String box_name;
+    private TextView mTitleTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +64,13 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
 
     private void handleIntent() {
         box_id = getIntent().getStringExtra("box_id");
+        box_name = getIntent().getStringExtra("box_name");
     }
 
     @Override
     public void getViews() {
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
+        mTitleTv = (TextView) findViewById(R.id.tv_center);
         mProgramRlv = (ListView) findViewById(R.id.rlv_program_status);
 
         initHeaderView();
@@ -97,6 +101,9 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void setViews() {
+        if(!TextUtils.isEmpty(box_name)) {
+            mTitleTv.setText(box_name);
+        }
         programStatusAdapter = new ProgramStatusAdapter(this);
         mProgramRlv.setAdapter(programStatusAdapter);
     }
@@ -104,6 +111,8 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void setListeners() {
         mBackBtn.setOnClickListener(this);
+        mLookLoadingProgramTv.setOnClickListener(this);
+        mLookLoadingAdvertTv.setOnClickListener(this);
     }
 
     @Override
@@ -111,6 +120,12 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.iv_left:
                 finish();
+                break;
+            case R.id.tv_loading_program:
+                LoadingListActivity.startLoadingListActivity(this,"");
+                break;
+            case R.id.tv_loading_advert:
+                LoadingListActivity.startLoadingListActivity(this,"");
                 break;
         }
     }

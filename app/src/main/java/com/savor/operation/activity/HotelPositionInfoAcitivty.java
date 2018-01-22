@@ -168,7 +168,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements  View.OnC
 
                         LoginResponse loginResponse = mSession.getLoginResponse();
                         String userid = loginResponse.getUserid();
-                        AppApi.submitDamage(HotelPositionInfoAcitivty.this,fixHistoryResponse.getList().getVersion().getSmall_mac(),
+                        AppApi.submitDamage(HotelPositionInfoAcitivty.this,fixHistoryResponse.getList().getVersion().getSmall_mac(),"1",
                                 hotel.getId(),comment,sb.toString(),state+"", 1+"",userid,HotelPositionInfoAcitivty.this);
 
                     }
@@ -281,6 +281,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements  View.OnC
     public void onItemClick(FixHistoryResponse.PositionInfo.BoxInfoBean boxInfoBean, int position) {
         Intent intent = new Intent(this,BoxDetailActivity.class);
         intent.putExtra("box_id",boxInfoBean.getBox_id());
+        intent.putExtra("box_name",boxInfoBean.getBoxname());
         startActivity(intent);
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,12 +16,13 @@ import com.savor.operation.core.AppApi;
 
 import java.util.List;
 
-public class LoadingListActivity extends BaseActivity {
+public class LoadingListActivity extends BaseActivity implements View.OnClickListener {
 
     private ListView mLoadingLv;
     private TextView mPeriodTv;
     private LoadingProgramAdsAdapter programAdsAdapter;
     private String pro_download_period;
+    private ImageView mBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class LoadingListActivity extends BaseActivity {
 
     @Override
     public void getViews() {
+        mBackBtn = (ImageView) findViewById(R.id.iv_left);
         mLoadingLv = (ListView) findViewById(R.id.rlv_loading);
 
         initHeaderView();
@@ -72,7 +75,7 @@ public class LoadingListActivity extends BaseActivity {
 
     @Override
     public void setListeners() {
-
+        mBackBtn.setOnClickListener(this);
     }
 
     @Override
@@ -95,6 +98,15 @@ public class LoadingListActivity extends BaseActivity {
         switch (method) {
             case POST_LOADING_PRO_JSON:
                 hideLoadingLayout();
+                break;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_left:
+                finish();
                 break;
         }
     }
