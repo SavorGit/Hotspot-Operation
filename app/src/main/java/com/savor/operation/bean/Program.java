@@ -17,7 +17,7 @@ public class Program implements Serializable {
      * flag : 0
      */
 
-    private String ads_name;
+    private String name;
     private String location_id;
     private String sort_num;
     private String type;
@@ -26,7 +26,7 @@ public class Program implements Serializable {
     @Override
     public String toString() {
         return "Program{" +
-                "ads_name='" + ads_name + '\'' +
+                "name='" + name + '\'' +
                 ", location_id='" + location_id + '\'' +
                 ", sort_num='" + sort_num + '\'' +
                 ", type='" + type + '\'' +
@@ -42,8 +42,7 @@ public class Program implements Serializable {
         Program program = (Program) o;
 
         if (flag != program.flag) return false;
-        if (ads_name != null ? !ads_name.equals(program.ads_name) : program.ads_name != null)
-            return false;
+        if (name != null ? !name.equals(program.name) : program.name != null) return false;
         if (location_id != null ? !location_id.equals(program.location_id) : program.location_id != null)
             return false;
         if (sort_num != null ? !sort_num.equals(program.sort_num) : program.sort_num != null)
@@ -53,7 +52,7 @@ public class Program implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = ads_name != null ? ads_name.hashCode() : 0;
+        int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (location_id != null ? location_id.hashCode() : 0);
         result = 31 * result + (sort_num != null ? sort_num.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
@@ -61,12 +60,12 @@ public class Program implements Serializable {
         return result;
     }
 
-    public String getAds_name() {
-        return ads_name;
+    public String getName() {
+        return name;
     }
 
-    public void setAds_name(String ads_name) {
-        this.ads_name = ads_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLocation_id() {

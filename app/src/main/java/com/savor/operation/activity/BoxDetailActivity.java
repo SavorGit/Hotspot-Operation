@@ -13,6 +13,7 @@ import com.savor.operation.adapter.ProgramStatusAdapter;
 import com.savor.operation.adapter.TvBoxFixHistoryAdapter;
 import com.savor.operation.bean.BoxDetail;
 import com.savor.operation.bean.FixHistoryResponse;
+import com.savor.operation.bean.Program;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.widget.LoadingDialog;
 
@@ -38,6 +39,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     private TextView mContentListBtn;
     private TextView mProgramPeriodTv;
     private TextView mAdsPeriodTv;
+    private ProgramStatusAdapter programStatusAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +89,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void setViews() {
-        ProgramStatusAdapter programStatusAdapter = new ProgramStatusAdapter(this);
+        programStatusAdapter = new ProgramStatusAdapter(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mProgramRlv.setLayoutManager(linearLayoutManager);
@@ -124,6 +126,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         super.onSuccess(method, obj);
         switch (method) {
             case POST_BOX_DETAIL_JSON:
+                hideLoadingLayout();
                 if(obj instanceof BoxDetail) {
                     BoxDetail boxDetail = (BoxDetail) obj;
                     initViews(boxDetail);
@@ -164,6 +167,13 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         mAdvertStatusTv.setText("广告状态："+getFormatStr(ads_period_state));
 
         /*****当前期号****/
+        String pro_period = boxDetail.getPro_period();
+        String ads_period = boxDetail.getAds_period();
+        mProgramPeriodTv.setText("节目期号："+pro_period);
+        mAdsPeriodTv.setText("广告期号："+ads_period);
+
+        List<Program> program_list = boxDetail.getProgram_list();
+        programStatusAdapter.setData(program_list);
 
     }
 

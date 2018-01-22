@@ -280,6 +280,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements  View.OnC
     @Override
     public void onItemClick(FixHistoryResponse.PositionInfo.BoxInfoBean boxInfoBean, int position) {
         Intent intent = new Intent(this,BoxDetailActivity.class);
+        intent.putExtra("box_id",boxInfoBean.getBox_id());
         startActivity(intent);
     }
 }

@@ -34,7 +34,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/title_text_color"
                     android:textSize="15sp"
-                    android:text="V1包间"
+                    tools:text="V1包间"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -44,7 +44,7 @@
                     android:textColor="@color/title_text_color"
                     android:textSize="15sp"
                     android:layout_marginLeft="20dp"
-                    android:text="FCD5D900B7AB"
+                    tools:text="FCD5D900B7AB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -127,7 +127,7 @@
                     android:id="@+id/tv_current_status"
                     android:textSize="15sp"
                     android:textColor="@color/title_text_color"
-                    android:text="当前状态：失联10小时/正常"
+                    android:text="当前状态："
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <RelativeLayout
@@ -140,7 +140,7 @@
                         android:layout_centerVertical="true"
                         android:textSize="15sp"
                         android:textColor="@color/title_text_color"
-                        android:text="节目状态：版本不是最新"
+                        android:text="节目状态："
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -169,7 +169,7 @@
                         android:layout_centerVertical="true"
                         android:textSize="15sp"
                         android:textColor="@color/title_text_color"
-                        android:text="广告状态：已更新到最新"
+                        android:text="广告状态："
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -209,7 +209,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/title_text_color"
                         android:textSize="15sp"
-                        android:text="当前播放列表 节目 (20170506)"
+                        android:text="当前播放列表 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -232,7 +232,7 @@
                     android:layout_marginTop="15dp"
                     android:textSize="14sp"
                     android:textColor="@color/app_text_type"
-                    android:text="节目期号：20170506095038"
+                    android:text="节目期号："
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -240,7 +240,7 @@
                     android:layout_marginTop="15dp"
                     android:textSize="14sp"
                     android:textColor="@color/app_text_type"
-                    android:text="广告期号：20180202154526"
+                    android:text="广告期号："
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <View
