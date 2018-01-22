@@ -37,6 +37,7 @@ import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.HotelListResponse;
 import com.savor.operation.bean.HotelMacInfo;
 import com.savor.operation.bean.IndexInfo;
+import com.savor.operation.bean.LoadingProgramAds;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.bean.MyInspectResult;
@@ -362,6 +363,10 @@ public class ApiResponseFactory {
                 break;
             case POST_BOX_DETAIL_JSON:
                 result = gson.fromJson(info, new TypeToken<BoxDetail>() {
+                }.getType());
+                break;
+            case POST_LOADING_PRO_JSON:
+                result = gson.fromJson(info, new TypeToken<List<LoadingProgramAds>>() {
                 }.getType());
                 break;
             default:

@@ -153,9 +153,10 @@
             android:name=".activity.PhotoShowActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/BlackTheme" />
-        <activity android:name=".activity.BoxDetailActivity"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".activity.BoxDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activity.LoadingListActivity"></activity>
     </application>
 
 </manifest>

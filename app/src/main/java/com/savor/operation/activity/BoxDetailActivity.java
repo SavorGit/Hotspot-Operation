@@ -25,7 +25,6 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     private ImageView mBackBtn;
     private ListView mProgramRlv;
     private String box_id;
-    private LoadingDialog loadingDialog;
     private TextView mBoxNameTv;
     private TextView mBoxMacTv;
     private TextView mLastHeartTimeTv;
@@ -116,16 +115,6 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
-    public void showLoadingLayout() {
-        if(loadingDialog == null)
-            loadingDialog = new LoadingDialog(this,"");
-        loadingDialog.show();
-    }
-
-    public void hideLoadingLayout() {
-        if(loadingDialog!=null&&loadingDialog.isShowing())
-            loadingDialog.dismiss();
-    }
 
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
