@@ -1,19 +1,25 @@
 package com.savor.operation.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
+import com.savor.operation.adapter.InspectionAdapter;
 import com.savor.operation.adapter.MaintenanceRecordAdapter;
 import com.savor.operation.adapter.SpinnerAdapter;
 import com.savor.operation.bean.ErrorReport;
+import com.savor.operation.bean.ErrorReportBean;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.MyInspect;
+import com.savor.operation.bean.MyInspectResult;
 import com.savor.operation.bean.RepairRecord;
 import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.RepairRecordListBean;
@@ -31,40 +37,38 @@ import java.util.List;
 
 public class InspectionActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener {
     private Context context;
-    private Spinner spinner;
+    //private Spinner spinner;
     private RelativeLayout back;
+    private TextView title;
     private PullToRefreshListView mPullRefreshListView;
     private List<UserBean> userlist = new ArrayList<UserBean>();
     private UserBean currentUser;
-    private SpinnerAdapter spinnerAdapter;
-    private MaintenanceRecordAdapter mAdapter;
+   // private SpinnerAdapter spinnerAdapter;
+    private InspectionAdapter mAdapter;
     private int page = 1;
     private String id = "0";
     private ErrorReport errorReport;
-    private List<RepairRecordListBean> list = new ArrayList<RepairRecordListBean>();
+    private List<MyInspect> list = new ArrayList<MyInspect>();
     private boolean isUp = true;
     private String userid;
+    private String pageSize = "15";
 
     private RepairRecord repairRecord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maintenance_record);
+        setContentView(R.layout.activity_inspection);
         context = this;
         getViews();
         setViews();
         setListeners();
-        getData();
-        getRepairRecordList();
+        getMyInspect();
     }
 
-    private void getData(){
-        AppApi.getAllRepairUser(this,this);
 
-    }
 
-    private void getRepairRecordList(){
-        AppApi.getRepairRecordList(this,userid,page,this);
+    private void getMyInspect(){
+        AppApi.getMyInspect(this,page+"",pageSize,userid,this);
     }
     @Override
     public void getViews() {
@@ -73,14 +77,15 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
         currentUser = new UserBean();
         currentUser.setUserid(userid);
         currentUser.setUsername(loginResponse.getUsername());
-        spinner = (Spinner) findViewById(R.id.spinner);
+        //spinner = (Spinner) findViewById(R.id.spinner);
         back = (RelativeLayout) findViewById(R.id.back);
+        title = (TextView) findViewById(R.id.title);
         mPullRefreshListView  = (PullToRefreshListView)findViewById(R.id.listview);
     }
 
     @Override
     public void setViews() {
-        mAdapter = new MaintenanceRecordAdapter(context);
+        mAdapter = new InspectionAdapter(context);
         mPullRefreshListView.setAdapter(mAdapter);
     }
 
@@ -90,25 +95,20 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
         mPullRefreshListView.setOnRefreshListener(onRefreshListener);
         mPullRefreshListView.setOnLastItemVisibleListener(onLastItemVisibleListener);
         mPullRefreshListView.onLoadComplete(true,false);
+        mPullRefreshListView.setOnItemClickListener(itemClickListener);
     }
 
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         mPullRefreshListView.onRefreshComplete();
         switch (method) {
-            case POST_REPAIR_USER_JSON:
-                if(obj instanceof List) {
-                    userlist = (List<UserBean>) obj;
-                    initSpinner(userlist);
-                }
-                break;
             case POST_REPAIR_RECORD_LIST_JSON:
-                if(obj instanceof RepairRecordList) {
-                    RepairRecordList repairRecord = (RepairRecordList) obj;
-                    if (repairRecord != null) {
+                if(obj instanceof MyInspectResult) {
+                    MyInspectResult myInspectResult = (MyInspectResult) obj;
+                    if (myInspectResult != null) {
 
-                            List<RepairRecordListBean> list = repairRecord.getList();
-                            handleVodList(list);
+                           //List<MyInspect> list = repairRecord.getList();
+                           handleVodList(myInspectResult);
 
 
 
@@ -149,69 +149,47 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
         }
     }
 
-    private void initSpinner(List<UserBean> hotelList){
-        if (hotelList != null && hotelList.size()>0) {
-            spinnerAdapter = new SpinnerAdapter(context,hotelList);
-            spinner.setAdapter(spinnerAdapter);
-            int index = 0;
-            for (int i = 0; i < hotelList.size(); i++) {
-                UserBean user = hotelList.get(i);
-                if (userid.equals(user.getUserid())) {
-                    index = i;
-                }
-            }
-            spinner.setSelection(index);
-            spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
-                public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                    // TODO Auto-generated method stub
-                /* 将所选mySpinner 的值带入myTextView 中*/
-                    UserBean user = (UserBean)spinnerAdapter.getItem(arg2);
-                    userid = user.getUserid();
-                    page = 1;
-                    isUp = true;
-                    getRepairRecordList();
-                    arg0.setVisibility(View.VISIBLE);
-                }
-                public void onNothingSelected(AdapterView<?> arg0) {
-                }
-            });
 
-        }
-    }
-    private void handleVodList(List<RepairRecordListBean> mList) {
+    private void handleVodList( MyInspectResult myInspectResult) {
 
-        if (mList != null && mList.size() > 0) {
-            if (isUp) {
-                list.clear();
-                mAdapter.clear();
-                mPullRefreshListView.onLoadComplete(true, false);
+        if (myInspectResult != null) {
+            int count = myInspectResult.getCount();
+            title.setText("我的巡检酒楼（"+count+"）");
+            List<MyInspect> mList = myInspectResult.getList();
+            if (mList != null && mList.size() > 0) {
+                if (isUp) {
+                    list.clear();
+                    mAdapter.clear();
+                    mPullRefreshListView.onLoadComplete(true, false);
 
+                } else {
+                    mPullRefreshListView.onLoadComplete(true, false);
+                }
+                // id = mList.get(mList.size()-1).getId();
+                page++;
+                list.addAll(mList);
+                mAdapter.setData(list);
+                int isNextPage = 0;
+                isNextPage = myInspectResult.getIsNextPage();
+
+                if (isNextPage == 0) {
+                    mPullRefreshListView.onLoadComplete(false, true);
+                } else {
+                    mPullRefreshListView.onLoadComplete(true, false);
+                }
             } else {
-                mPullRefreshListView.onLoadComplete(true, false);
-            }
-            // id = mList.get(mList.size()-1).getId();
-            page++;
-            list.addAll(mList);
-            mAdapter.setData(list,isUp);
-            //int haveNext = 0;
-           // haveNext = errorReport.getIsNextPage();
-
-            if (mList.size() < 15) {
-                mPullRefreshListView.onLoadComplete(false, true);
-            } else {
-                mPullRefreshListView.onLoadComplete(true, false);
-            }
-        } else {
-            if (list != null && list.size() > 0) {
-                mAdapter.clear();
-            }
+                if (list != null && list.size() > 0) {
+                    mAdapter.clear();
+                }
 //            mProgressLayout.loadSuccess();
 //            empty_la.setVisibility(View.VISIBLE);
 //            mPullRefreshListView.setVisibility(View.GONE);
 
 
-            mPullRefreshListView.onLoadComplete(false, true);
+                mPullRefreshListView.onLoadComplete(false, true);
+            }
         }
+
 
     }
 
@@ -221,7 +199,7 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
             page = 1;
             isUp = true;
             // istop = true;
-            getRepairRecordList();
+            getMyInspect();
         }
     };
 
@@ -230,7 +208,7 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
         public void onLastItemVisible() {
             isUp = false;
             // istop = false;
-            getRepairRecordList();
+            getMyInspect();
         }
     };
         @Override
@@ -242,4 +220,18 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
 
         }
     }
+
+    AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            MyInspect item = (MyInspect)parent.getItemAtPosition(position);
+            if (item!=null){
+                Intent intent = new Intent();
+                intent.putExtra("error_id",item.getHotel_id());
+                intent.setClass(InspectionActivity.this,AbnormalityInfoActivity.class);
+                startActivity(intent);
+            }
+        }
+    };
 }

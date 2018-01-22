@@ -38,6 +38,7 @@ import com.savor.operation.bean.HotelMacInfo;
 import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.MissionTaskListBean;
+import com.savor.operation.bean.MyInspectResult;
 import com.savor.operation.bean.PositionListInfo;
 import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.SmallPlatformByGetIp;
@@ -354,6 +355,11 @@ public class ApiResponseFactory {
                 result = gson.fromJson(info, new TypeToken<List<StateConf>>() {
                 }.getType());
                 break;
+            case POST_INSPECTOR_JSON:
+                result = gson.fromJson(info, new TypeToken<MyInspectResult>() {
+                }.getType());
+                break;
+
             default:
                 break;
         }
