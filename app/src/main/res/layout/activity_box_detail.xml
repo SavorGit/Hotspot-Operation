@@ -29,6 +29,7 @@
         android:gravity="center">
 
         <TextView
+            android:id="@+id/tv_fix"
             android:layout_width="225dp"
             android:layout_height="44dp"
             android:background="@drawable/bg_search_text"

@@ -292,6 +292,8 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements  View.OnC
         Intent intent = new Intent(this,BoxDetailActivity.class);
         intent.putExtra("box_id",boxInfoBean.getBox_id());
         intent.putExtra("box_name",boxInfoBean.getBoxname());
+        intent.putExtra("box_mac",boxInfoBean.getMac());
+        intent.putExtra("hotel",mHotel);
         startActivity(intent);
     }
 }

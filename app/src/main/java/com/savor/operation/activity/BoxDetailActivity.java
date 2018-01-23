@@ -9,13 +9,18 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.adapter.ProgramStatusAdapter;
 import com.savor.operation.adapter.TvBoxFixHistoryAdapter;
 import com.savor.operation.bean.BoxDetail;
+import com.savor.operation.bean.BoxState;
 import com.savor.operation.bean.FixHistoryResponse;
+import com.savor.operation.bean.Hotel;
+import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.Program;
 import com.savor.operation.core.AppApi;
+import com.savor.operation.widget.FixDialog;
 import com.savor.operation.widget.LoadingDialog;
 
 import java.util.List;
@@ -42,6 +47,10 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     private ProgramStatusAdapter programStatusAdapter;
     private String box_name;
     private TextView mTitleTv;
+    private BoxDetail boxDetail;
+    private TextView mFixBtn;
+    private Hotel hotel;
+    private String box_mac;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +74,13 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     private void handleIntent() {
         box_id = getIntent().getStringExtra("box_id");
         box_name = getIntent().getStringExtra("box_name");
+        box_mac = getIntent().getStringExtra("box_mac");
+        hotel = (Hotel) getIntent().getSerializableExtra("hotel");
     }
 
     @Override
     public void getViews() {
+        mFixBtn = (TextView) findViewById(R.id.tv_fix);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         mTitleTv = (TextView) findViewById(R.id.tv_center);
         mProgramRlv = (ListView) findViewById(R.id.rlv_program_status);
@@ -110,6 +122,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void setListeners() {
+        mFixBtn.setOnClickListener(this);
         mBackBtn.setOnClickListener(this);
         mLookLoadingProgramTv.setOnClickListener(this);
         mLookLoadingAdvertTv.setOnClickListener(this);
@@ -118,14 +131,43 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_fix:
+                FixHistoryResponse fixHistoryResponse = new FixHistoryResponse();
+                new FixDialog(this, new FixDialog.OnSubmitBtnClickListener() {
+                    @Override
+                    public void onSubmitClick(FixDialog.OperationType type, FixHistoryResponse fixHistoryResponse, FixDialog.FixState isResolve, List<String> damageDesc, BoxState boxState, String comment, Hotel hotel) {
+                        StringBuilder sb = new StringBuilder();
+                        for(int i = 0;i<damageDesc.size();i++) {
+                            if(damageDesc.size() == 1 || i == damageDesc.size()-1) {
+                                sb.append(damageDesc.get(i));
+                            }else {
+                                sb.append(damageDesc.get(i)+",");
+                            }
+                        }
+
+                        int state = 0;
+                        if(isResolve == FixDialog.FixState.RESOLVED) {
+                            state = 1;
+                        }else if(isResolve == FixDialog.FixState.UNRESOLVED) {
+                            state = 2;
+                        }
+
+                        LoginResponse loginResponse = mSession.getLoginResponse();
+                        String userid = loginResponse.getUserid();
+                        AppApi.submitDamage(BoxDetailActivity.this,box_mac,
+                                hotel.getId(),boxState.getId()+"",comment,sb.toString(),state+"", 2+"",userid,BoxDetailActivity.this);
+
+                    }
+                }, FixDialog.OperationType.TYPE_SMALL, fixHistoryResponse, mSession.getDamageConfig(), hotel).show();
+                break;
             case R.id.iv_left:
                 finish();
                 break;
             case R.id.tv_loading_program:
-                LoadingListActivity.startLoadingListActivity(this,"");
+                LoadingListActivity.startLoadingListActivity(this,boxDetail.getPro_download_period());
                 break;
             case R.id.tv_loading_advert:
-                LoadingListActivity.startLoadingListActivity(this,"");
+                LoadingListActivity.startLoadingListActivity(this,boxDetail.getAds_download_period());
                 break;
         }
     }
@@ -135,10 +177,14 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     public void onSuccess(AppApi.Action method, Object obj) {
         super.onSuccess(method, obj);
         switch (method) {
+            case POST_SUBMIT_DAMAGE_JSON:
+                ShowMessage.showToast(BoxDetailActivity.this,"提交成功");
+                getData();
+                break;
             case POST_BOX_DETAIL_JSON:
                 hideLoadingLayout();
                 if(obj instanceof BoxDetail) {
-                    BoxDetail boxDetail = (BoxDetail) obj;
+                    boxDetail = (BoxDetail) obj;
                     initViews(boxDetail);
                 }
                 break;
@@ -179,6 +225,11 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         /*****当前期号****/
         String pro_period = boxDetail.getPro_period();
         String ads_period = boxDetail.getAds_period();
+        String pro_download_period = boxDetail.getPro_download_period();
+        String ads_download_period = boxDetail.getAds_download_period();
+        mLookLoadingProgramTv.setVisibility(TextUtils.isEmpty(pro_download_period)?View.GONE:View.VISIBLE);
+        mLookLoadingAdvertTv.setVisibility(TextUtils.isEmpty(ads_download_period)?View.GONE:View.VISIBLE);
+
         mProgramPeriodTv.setText("节目期号："+pro_period);
         mAdsPeriodTv.setText("广告期号："+ads_period);
 

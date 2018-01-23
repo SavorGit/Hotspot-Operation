@@ -105,6 +105,11 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
     }
 
     private void setViews() {
+        final ArrayList<BoxState> boxStateConfig = session.getBoxStateConfig();
+        if(boxStateConfig != null&&boxStateConfig.size() > 0) {
+            currentSeletBoxState = boxStateConfig.get(0);
+            mStatusDescTv.setText(boxStateConfig.get(0).getName());
+        }
     }
 
     private void setListeners() {
@@ -144,8 +149,6 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
             case R.id.rl_status_layout:
                 final ArrayList<BoxState> boxStateConfig = session.getBoxStateConfig();
                 if(boxStateConfig == null||boxStateConfig.size() == 0) {
-                    currentSeletBoxState = boxStateConfig.get(0);
-                    mStatusDescTv.setText(boxStateConfig.get(0).getName());
                     return;
                 }
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
