@@ -357,6 +357,7 @@ public class FixHistoryResponse implements Serializable {
             private int ustate;
             private String last_heart_time;
             private String ltime;
+            private String box_id;
             private List<RepaireInfo> repair_record;
 
             @Override
@@ -369,6 +370,7 @@ public class FixHistoryResponse implements Serializable {
                         ", ustate=" + ustate +
                         ", last_heart_time='" + last_heart_time + '\'' +
                         ", ltime='" + ltime + '\'' +
+                        ", box_id='" + box_id + '\'' +
                         ", repair_record=" + repair_record +
                         '}';
             }
@@ -390,8 +392,9 @@ public class FixHistoryResponse implements Serializable {
                 if (last_heart_time != null ? !last_heart_time.equals(that.last_heart_time) : that.last_heart_time != null)
                     return false;
                 if (ltime != null ? !ltime.equals(that.ltime) : that.ltime != null) return false;
+                if (box_id != null ? !box_id.equals(that.box_id) : that.box_id != null)
+                    return false;
                 return repair_record != null ? repair_record.equals(that.repair_record) : that.repair_record == null;
-
             }
 
             @Override
@@ -403,6 +406,7 @@ public class FixHistoryResponse implements Serializable {
                 result = 31 * result + ustate;
                 result = 31 * result + (last_heart_time != null ? last_heart_time.hashCode() : 0);
                 result = 31 * result + (ltime != null ? ltime.hashCode() : 0);
+                result = 31 * result + (box_id != null ? box_id.hashCode() : 0);
                 result = 31 * result + (repair_record != null ? repair_record.hashCode() : 0);
                 return result;
             }
@@ -461,6 +465,14 @@ public class FixHistoryResponse implements Serializable {
 
             public void setLtime(String ltime) {
                 this.ltime = ltime;
+            }
+
+            public String getBox_id() {
+                return box_id;
+            }
+
+            public void setBox_id(String box_id) {
+                this.box_id = box_id;
             }
 
             public List<RepaireInfo> getRepair_record() {

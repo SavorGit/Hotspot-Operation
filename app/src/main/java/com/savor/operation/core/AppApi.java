@@ -106,6 +106,10 @@ public class AppApi {
         POST_STATE_CONF_JSON,
         /**获取巡视列表*/
         POST_INSPECTOR_JSON,
+        /**获取机顶盒详情*/
+        POST_BOX_DETAIL_JSON,
+        /**获取正在下载的节目单列表*/
+        POST_LOADING_PRO_JSON,
     }
 
     /**
@@ -154,7 +158,8 @@ public class AppApi {
             put(Action.POST_SINGLE_DAMAGE_CONFIG_JSON, formatPhpUrl("Tasksubcontract/Box/getHotelBoxDamageConfig"));
             put(Action.POST_STATE_CONF_JSON, formatPhpUrl("Opclient20/Box/stateConf"));
             put(Action.POST_INSPECTOR_JSON, formatPhpUrl("Opclient20/Inspector/getMyInspect"));
-
+            put(Action.POST_BOX_DETAIL_JSON, formatPhpUrl("Opclient20/Box/contentDetail"));
+            put(Action.POST_LOADING_PRO_JSON, formatPhpUrl("Opclient20/Box/getDownloadPro"));
         }
     };
 
@@ -343,7 +348,7 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void submitDamage(Context context,String box_mac,String hotel_id,
+    public static void submitDamage(Context context,String box_mac,String hotel_id,String box_state,
                                     String remark,String repair_num_str,String state,
                                     String type,String userid, ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
@@ -633,6 +638,28 @@ public class AppApi {
         params.put("pageSize",pageSize);
         params.put("user_id",user_id);
         new AppServiceOk(context, Action.POST_INSPECTOR_JSON, handler, params).post();
+    }
+
+    /**
+     * 获取机顶盒详情
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getBoxDetail(Context context, String box_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("box_id",box_id);
+        new AppServiceOk(context, Action.POST_BOX_DETAIL_JSON, handler, params).post();
+    }
+
+    /**
+     * 获取正在下载节目单列表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getLoadingProList(Context context, String pro_download_period,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("pro_download_period",pro_download_period);
+        new AppServiceOk(context, Action.POST_LOADING_PRO_JSON, handler, params).post();
     }
 
     // 超时（网络）异常

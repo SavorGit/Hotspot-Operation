@@ -26,6 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import com.savor.operation.bean.BindBoxList;
 import com.savor.operation.bean.BindBoxListBean;
 import com.savor.operation.bean.BindBoxResponse;
+import com.savor.operation.bean.BoxDetail;
 import com.savor.operation.bean.BoxInfo;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.ErrorDetail;
@@ -36,6 +37,7 @@ import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.HotelListResponse;
 import com.savor.operation.bean.HotelMacInfo;
 import com.savor.operation.bean.IndexInfo;
+import com.savor.operation.bean.LoadingProgramAds;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.bean.MyInspectResult;
@@ -359,7 +361,14 @@ public class ApiResponseFactory {
                 result = gson.fromJson(info, new TypeToken<MyInspectResult>() {
                 }.getType());
                 break;
-
+            case POST_BOX_DETAIL_JSON:
+                result = gson.fromJson(info, new TypeToken<BoxDetail>() {
+                }.getType());
+                break;
+            case POST_LOADING_PRO_JSON:
+                result = gson.fromJson(info, new TypeToken<List<LoadingProgramAds>>() {
+                }.getType());
+                break;
             default:
                 break;
         }

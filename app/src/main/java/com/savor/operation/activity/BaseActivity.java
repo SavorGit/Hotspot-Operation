@@ -12,6 +12,7 @@ import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.core.Session;
 import com.savor.operation.interfaces.IBaseView;
 import com.savor.operation.utils.ActivitiesManager;
+import com.savor.operation.widget.LoadingDialog;
 
 /**
  * 基类
@@ -21,6 +22,7 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
 
     protected Session mSession;
     protected Activity mContext;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,4 +78,15 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
         return content;
     }
 
+
+    public void showLoadingLayout() {
+        if(loadingDialog == null)
+            loadingDialog = new LoadingDialog(this,"");
+        loadingDialog.show();
+    }
+
+    public void hideLoadingLayout() {
+        if(loadingDialog!=null&&loadingDialog.isShowing())
+            loadingDialog.dismiss();
+    }
 }

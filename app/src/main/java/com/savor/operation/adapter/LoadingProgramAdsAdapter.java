@@ -1,9 +1,7 @@
 package com.savor.operation.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.savor.operation.R;
+import com.savor.operation.bean.LoadingProgramAds;
 import com.savor.operation.bean.Program;
 
 import java.util.List;
@@ -20,23 +19,24 @@ import java.util.List;
  * Created by hezd on 2018/1/18.
  */
 
-public class ProgramStatusAdapter extends BaseAdapter {
+public class LoadingProgramAdsAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<Program> mData;
+    private List<LoadingProgramAds> mData;
 
-    public ProgramStatusAdapter(Context context) {
+    public LoadingProgramAdsAdapter(Context context) {
         this.mContext = context;
     }
 
-    public void setData(List<Program> data) {
+    public void setData(List<LoadingProgramAds> data) {
         this.mData = data;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return mData == null ? 0 : mData.size();
+        return 20;
+//        return mData == null ? 0 : mData.size();
     }
 
     @Override
@@ -63,23 +63,18 @@ public class ProgramStatusAdapter extends BaseAdapter {
             holder = (ProgramStatusHolder) convertView.getTag();
         }
 
-        Program program = (Program) getItem(position);
-
-        String ads_name = program.getName();
-        int flag = program.getFlag();
-        String type = program.getType();
-        if (!TextUtils.isEmpty(ads_name)) {
-            holder.name.setText(ads_name);
-        }
-        if (!TextUtils.isEmpty(type)) {
-            holder.label.setText(type);
-        }
-
-        if (flag == 0) {
-            holder.statusIv.setImageResource(R.drawable.ico_exist);
-        } else {
-            holder.statusIv.setImageResource(R.drawable.ico_noexit);
-        }
+//        LoadingProgramAds program = (LoadingProgramAds) getItem(position);
+//
+//        String ads_name = program.getAds_name();
+//        String type = program.getType();
+//        if (!TextUtils.isEmpty(ads_name)) {
+//            holder.name.setText(ads_name);
+//        }
+//        if (!TextUtils.isEmpty(type)) {
+//            holder.label.setText(type);
+//        }
+//
+        holder.statusIv.setVisibility(View.GONE);
 
         return convertView;
     }
