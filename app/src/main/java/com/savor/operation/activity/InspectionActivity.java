@@ -103,7 +103,7 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
     public void onSuccess(AppApi.Action method, Object obj) {
         mPullRefreshListView.onRefreshComplete();
         switch (method) {
-            case POST_REPAIR_RECORD_LIST_JSON:
+            case POST_INSPECTOR_JSON:
                 if(obj instanceof MyInspectResult) {
                     MyInspectResult myInspectResult = (MyInspectResult) obj;
                     if (myInspectResult != null) {
@@ -126,9 +126,9 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
     public void onError(AppApi.Action method, Object obj) {
 
         switch (method) {
-            case POST_ERROR_REPORT_LIST_JSON:
+            case POST_INSPECTOR_JSON:
 
-
+                mPullRefreshListView.onRefreshComplete();
                 if (obj instanceof ResponseErrorMessage){
                     ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                     String statusCode = String.valueOf(errorMessage.getCode());

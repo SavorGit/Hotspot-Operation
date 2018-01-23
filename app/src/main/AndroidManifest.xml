@@ -132,6 +132,10 @@
             android:name=".activity.AppointActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.InspectionActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".activity.OutSourceMainActivity"
             android:screenOrientation="portrait" />
         <activity
