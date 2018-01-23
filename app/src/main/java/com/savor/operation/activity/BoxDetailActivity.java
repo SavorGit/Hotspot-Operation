@@ -186,6 +186,13 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
                 if(obj instanceof BoxDetail) {
                     boxDetail = (BoxDetail) obj;
                     initViews(boxDetail);
+                    mProgramRlv.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mProgramRlv.setSelectionAfterHeaderView();
+                            mProgramRlv.setSelection(0);
+                        }
+                    });
                 }
                 break;
         }
@@ -205,6 +212,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         mLastLogTimeTv.setText("最后上传日志时间："+getFormatStr(log_upload_time));
 
         if(repair_record!=null&&repair_record.size()>0) {
+            mHistoryHintTv.setText("维修记录：");
             TvBoxFixHistoryAdapter adapter = new TvBoxFixHistoryAdapter(mContext);
             LinearLayoutManager manager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
             mRepairListRlv.setLayoutManager(manager);
