@@ -118,6 +118,8 @@ public class AppApi {
         POST_CITY_LIST_JSON,
         /**获取指定城市系统状态*/
         POST_SYSTEM_STATUS_JSON,
+        /**获取发布列表*/
+        POST_PUBLISH_LIST_JSON,
     }
 
     /**
@@ -172,6 +174,7 @@ public class AppApi {
             put(Action.POST_ONEKEY_TEST_JSON, formatPhpUrl("Opclient20/Box/oneKeyCheck"));
             put(Action.POST_CITY_LIST_JSON, formatPhpUrl("Opclient20/City/getAreaList"));
             put(Action.POST_SYSTEM_STATUS_JSON, formatPhpUrl("Opclient20/System/index"));
+            put(Action.POST_PUBLISH_LIST_JSON, formatPhpUrl("Opclient20/Box/getPubProgram"));
 
         }
     };
@@ -717,6 +720,17 @@ public class AppApi {
     public static void getCityList(Context context, ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         new AppServiceOk(context, Action.POST_CITY_LIST_JSON, handler, params).post();
+    }
+
+    /**
+     * 获取发布内容列表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getPubProList(Context context, String box_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("box_id",box_id);
+        new AppServiceOk(context, Action.POST_PUBLISH_JSON, handler, params).post();
     }
 
     // 超时（网络）异常
