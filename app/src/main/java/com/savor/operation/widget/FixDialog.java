@@ -17,9 +17,12 @@ import android.widget.TextView;
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.activity.HotelPositionInfoAcitivty;
+import com.savor.operation.bean.BoxState;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.Hotel;
+import com.savor.operation.bean.RepairInfo;
+import com.savor.operation.core.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,11 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
     private FixState currentFixSate = FixState.UNSELECTED;
     private AlertDialog alertDialog;
     private TextView mSelectDescTv;
+    private RelativeLayout mBoxStateLayout;
+    private AlertDialog stateAlertDialog;
+    private Session session;
+    private BoxState currentSeletBoxState;
+    private TextView mStatusDescTv;
 
     public enum FixState {
         /**为选择*/
@@ -79,12 +87,15 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_fix);
 
+        session = Session.get(getContext());
         getViews();
         setViews();
         setListeners();
     }
 
     private void getViews() {
+        mStatusDescTv = (TextView) findViewById(R.id.tv_status_desc);
+        mBoxStateLayout = (RelativeLayout) findViewById(R.id.rl_status_layout);
         mResovleRg = (RadioGroup) findViewById(R.id.rg_resovle);
         mCommentEt = (EditText) findViewById(R.id.et_desc);
         mDamageLayout = (RelativeLayout) findViewById(R.id.rl_damage_layout);
@@ -94,7 +105,11 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
     }
 
     private void setViews() {
-
+        final ArrayList<BoxState> boxStateConfig = session.getBoxStateConfig();
+        if(boxStateConfig != null&&boxStateConfig.size() > 0) {
+            currentSeletBoxState = boxStateConfig.get(0);
+            mStatusDescTv.setText(boxStateConfig.get(0).getName());
+        }
     }
 
     private void setListeners() {
@@ -102,6 +117,7 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
         mCancelBtn.setOnClickListener(this);
         mSubmitBtn.setOnClickListener(this);
         mResovleRg.setOnCheckedChangeListener(this);
+        mBoxStateLayout.setOnClickListener(this);
     }
 
     @Override
@@ -121,9 +137,34 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
                         ShowMessage.showToast(mContext,"请选择维修记录或填写备注");
                         return;
                     }
-                    mOnSubmitListener.onSubmitClick(type,fixRespone,currentFixSate,selectedDamages,comment,mHotel);
+
+                    if(currentSeletBoxState == null) {
+                        ShowMessage.showToast(mContext,"请选择状态");
+                        return;
+                    }
+                    mOnSubmitListener.onSubmitClick(type,fixRespone,currentFixSate,selectedDamages,currentSeletBoxState,comment,mHotel);
                 }
                 dismiss();
+                break;
+            case R.id.rl_status_layout:
+                final ArrayList<BoxState> boxStateConfig = session.getBoxStateConfig();
+                if(boxStateConfig == null||boxStateConfig.size() == 0) {
+                    return;
+                }
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(mContext);
+                final String[] items = new String[boxStateConfig.size()];
+                for(int i = 0;i<boxStateConfig.size();i++) {
+                    items[i] = boxStateConfig.get(i).getName();
+                }
+                alertBuilder.setItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int index) {
+                        currentSeletBoxState = boxStateConfig.get(index);
+                        mStatusDescTv.setText(boxStateConfig.get(index).getName());
+                    }
+                });
+                AlertDialog finalAlertDialog = alertBuilder.create();
+                finalAlertDialog.show();
                 break;
             case R.id.rl_damage_layout:
                 if(alertDialog == null) {
@@ -176,7 +217,7 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
                     alertDialog = builder.create();
                 }
                 alertDialog.show();
-
+                break;
         }
     }
 
@@ -199,6 +240,6 @@ public class FixDialog extends Dialog implements View.OnClickListener, RadioGrou
          * @param damageDesc 故障原因
          * @param comment 评论
          */
-        void onSubmitClick(OperationType type,FixHistoryResponse fixHistoryResponse,FixState isResolve, List<String> damageDesc, String comment,Hotel hotel);
+        void onSubmitClick(OperationType type,FixHistoryResponse fixHistoryResponse,FixState isResolve, List<String> damageDesc,BoxState boxState, String comment,Hotel hotel);
     }
 }

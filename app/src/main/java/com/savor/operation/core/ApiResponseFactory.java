@@ -28,6 +28,7 @@ import com.savor.operation.bean.BindBoxListBean;
 import com.savor.operation.bean.BindBoxResponse;
 import com.savor.operation.bean.BoxDetail;
 import com.savor.operation.bean.BoxInfo;
+import com.savor.operation.bean.BoxState;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.ErrorDetail;
 import com.savor.operation.bean.ErrorReport;
@@ -56,6 +57,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Response;
@@ -366,7 +368,11 @@ public class ApiResponseFactory {
                 }.getType());
                 break;
             case POST_LOADING_PRO_JSON:
-                result = gson.fromJson(info, new TypeToken<List<LoadingProgramAds>>() {
+                result = gson.fromJson(info, new TypeToken<ArrayList<LoadingProgramAds>>() {
+                }.getType());
+                break;
+            case POST_BOX_STATECONFIG_JSON:
+                result = gson.fromJson(info, new TypeToken<List<BoxState>>() {
                 }.getType());
                 break;
             default:

@@ -16,6 +16,8 @@ public class BoxDetail implements Serializable {
     private String last_heart_time;
     private String loss_hours;
     private String pro_period_state;
+    private String pro_download_period;
+    private String ads_download_period;
     private String ads_period_state;
     private String pro_period;
     private String ads_period;
@@ -31,6 +33,8 @@ public class BoxDetail implements Serializable {
                 ", last_heart_time='" + last_heart_time + '\'' +
                 ", loss_hours='" + loss_hours + '\'' +
                 ", pro_period_state='" + pro_period_state + '\'' +
+                ", pro_download_period='" + pro_download_period + '\'' +
+                ", ads_download_period='" + ads_download_period + '\'' +
                 ", ads_period_state='" + ads_period_state + '\'' +
                 ", pro_period='" + pro_period + '\'' +
                 ", ads_period='" + ads_period + '\'' +
@@ -59,6 +63,10 @@ public class BoxDetail implements Serializable {
             return false;
         if (pro_period_state != null ? !pro_period_state.equals(boxDetail.pro_period_state) : boxDetail.pro_period_state != null)
             return false;
+        if (pro_download_period != null ? !pro_download_period.equals(boxDetail.pro_download_period) : boxDetail.pro_download_period != null)
+            return false;
+        if (ads_download_period != null ? !ads_download_period.equals(boxDetail.ads_download_period) : boxDetail.ads_download_period != null)
+            return false;
         if (ads_period_state != null ? !ads_period_state.equals(boxDetail.ads_period_state) : boxDetail.ads_period_state != null)
             return false;
         if (pro_period != null ? !pro_period.equals(boxDetail.pro_period) : boxDetail.pro_period != null)
@@ -77,6 +85,8 @@ public class BoxDetail implements Serializable {
         result = 31 * result + (last_heart_time != null ? last_heart_time.hashCode() : 0);
         result = 31 * result + (loss_hours != null ? loss_hours.hashCode() : 0);
         result = 31 * result + (pro_period_state != null ? pro_period_state.hashCode() : 0);
+        result = 31 * result + (pro_download_period != null ? pro_download_period.hashCode() : 0);
+        result = 31 * result + (ads_download_period != null ? ads_download_period.hashCode() : 0);
         result = 31 * result + (ads_period_state != null ? ads_period_state.hashCode() : 0);
         result = 31 * result + (pro_period != null ? pro_period.hashCode() : 0);
         result = 31 * result + (ads_period != null ? ads_period.hashCode() : 0);
@@ -138,6 +148,22 @@ public class BoxDetail implements Serializable {
 
     public void setPro_period_state(String pro_period_state) {
         this.pro_period_state = pro_period_state;
+    }
+
+    public String getPro_download_period() {
+        return pro_download_period;
+    }
+
+    public void setPro_download_period(String pro_download_period) {
+        this.pro_download_period = pro_download_period;
+    }
+
+    public String getAds_download_period() {
+        return ads_download_period;
+    }
+
+    public void setAds_download_period(String ads_download_period) {
+        this.ads_download_period = ads_download_period;
     }
 
     public String getAds_period_state() {

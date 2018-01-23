@@ -38,6 +38,7 @@ import com.common.api.utils.LogUtils;
 import com.common.api.utils.Pair;
 import com.common.api.utils.SaveFileData;
 import com.savor.operation.bean.Account;
+import com.savor.operation.bean.BoxState;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.utils.STIDUtil;
@@ -49,6 +50,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -90,6 +92,7 @@ public class Session {
     private static final String P_APP_AREA_ID = "p_app_area_id";
     private static final String P_APP_DAMAGE_CONFIG = "p_app_damage_config";
     private static final String P_APP_SINGLE_DAMAGE_CONFIG = "p_app_single_damage_config";
+    private static final String P_APP_BOX_STATE_DAMAGE_CONFIG = "p_app_box_state_damage_config";
     /**首次使用*/
     private static final String P_APP_FIRST_USE = "p_app_first_use";
     /**最近可投屏酒店*/
@@ -178,6 +181,7 @@ public class Session {
     private double longitude;
     private String currentLocation;
     private DamageConfig singleDamageConfig;
+    private ArrayList<BoxState> boxStateList;
 
     private Session(Context context) {
 
@@ -248,6 +252,7 @@ public class Session {
     }
 
     private void readSettings() {
+        boxStateList = (ArrayList<BoxState>) getObj(P_APP_BOX_STATE_DAMAGE_CONFIG);
         account = (Account) getObj(P_APP_ACCOUNT);
         damageConfig = (DamageConfig) getObj(P_APP_DAMAGE_CONFIG);
         singleDamageConfig = (DamageConfig) getObj(P_APP_SINGLE_DAMAGE_CONFIG);
@@ -577,5 +582,14 @@ public class Session {
 
     public String getCurrentLocation() {
         return currentLocation;
+    }
+
+    public void setBoxStateList(ArrayList<BoxState> boxStateList) {
+        this.boxStateList = boxStateList;
+        setObj(P_APP_BOX_STATE_DAMAGE_CONFIG,boxStateList);
+    }
+
+    public ArrayList<BoxState> getBoxStateConfig() {
+        return boxStateList;
     }
 }
