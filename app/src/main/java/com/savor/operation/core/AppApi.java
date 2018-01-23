@@ -131,7 +131,7 @@ public class AppApi {
             put(Action.POST_SEARCH_HOTEL_JSON, formatPhpUrl("Opclient11/Hotel/searchHotel"));
             put(Action.POST_SINGLESEARCH_HOTEL_JSON, formatPhpUrl("Tasksubcontract/hotel/searchHotel"));
             put(Action.POST_ERROR_REPORT_LIST_JSON, formatPhpUrl("Opclient/ErrorReport/getList"));
-            put(Action.POST_ERROR_REPORT_DETAIL_JSON, formatPhpUrl("Opclient/ErrorReport/getErrorDetail"));
+            put(Action.POST_ERROR_REPORT_DETAIL_JSON, formatPhpUrl("Opclient20/ErrorReport/getNewErrorDetail"));
             put(Action.POST_REPAIR_RECORD_LIST_JSON, formatPhpUrl("Opclient/Box/getRepairRecordListByUserid"));
             put(Action.POST_FIX_HISTORY_JSON, formatPhpUrl("Opclient/Hotel/getHotelVersionById"));
             put(Action.POST_DAMAGE_CONFIG_JSON, formatPhpUrl("Opclient/Box/getHotelBoxDamageConfig"));

@@ -17,6 +17,7 @@ import com.savor.operation.adapter.MaintenanceRecordAdapter;
 import com.savor.operation.adapter.SpinnerAdapter;
 import com.savor.operation.bean.ErrorReport;
 import com.savor.operation.bean.ErrorReportBean;
+import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.MyInspect;
 import com.savor.operation.bean.MyInspectResult;
@@ -227,9 +228,12 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
 
             MyInspect item = (MyInspect)parent.getItemAtPosition(position);
             if (item!=null){
+                Hotel hotel = new Hotel();
+                hotel.setId(item.getHotel_id());
+                hotel.setName(item.getHotel_name());
                 Intent intent = new Intent();
-                intent.putExtra("error_id",item.getHotel_id());
-                intent.setClass(InspectionActivity.this,AbnormalityInfoActivity.class);
+                intent.putExtra("hotel",hotel);
+                intent.setClass(InspectionActivity.this,HotelPositionInfoAcitivty.class);
                 startActivity(intent);
             }
         }
