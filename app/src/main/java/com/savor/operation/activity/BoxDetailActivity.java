@@ -153,8 +153,13 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_onekey_test:
-                onKeyTest();
                 showOnkeTestDialog();
+                mProgramRlv.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        onKeyTest();
+                    }
+                },500);
                 break;
             case R.id.tv_fix:
                 FixHistoryResponse fixHistoryResponse = new FixHistoryResponse();
@@ -293,7 +298,12 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onReTestBtnClick() {
-        onKeyTest();
         oneKeyTestDialog.reset();
+        mProgramRlv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onKeyTest();
+            }
+        },500);
     }
 }
