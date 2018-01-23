@@ -1,6 +1,8 @@
 package com.savor.operation.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -22,13 +24,13 @@ import com.savor.operation.bean.OneKeyTestResponse;
 import com.savor.operation.bean.Program;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.widget.FixDialog;
-import com.savor.operation.widget.LoadingDialog;
 import com.savor.operation.widget.OneKeyTestDialog;
 
 import java.util.List;
 
-public class BoxDetailActivity extends BaseActivity implements View.OnClickListener, OneKeyTestDialog.OnReTestBtnClickLisnter {
+public class BoxDetailActivity extends BaseActivity implements View.OnClickListener, OneKeyTestDialog.OnReTestBtnClickLisnter, OneKeyTestDialog.OnCancelBtnClickListener {
 
+    private static final int MSG_ONKEY_TEST = 0x1;
     private ImageView mBackBtn;
     private ListView mProgramRlv;
     private String box_id;
@@ -55,6 +57,16 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     private String box_mac;
     private TextView mOnkeyTestTv;
     private OneKeyTestDialog oneKeyTestDialog;
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_ONKEY_TEST:
+                    oneKeyTest();
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +150,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         if(oneKeyTestDialog==null) {
             oneKeyTestDialog = new OneKeyTestDialog(this);
             oneKeyTestDialog.setOnReTestBtnClickLisnter(this);
+            oneKeyTestDialog.setOnCancelBtnClickListener(this);
         }
         oneKeyTestDialog.reset();
         oneKeyTestDialog.show();
@@ -154,12 +167,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.tv_onekey_test:
                 showOnkeTestDialog();
-                mProgramRlv.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        onKeyTest();
-                    }
-                },500);
+                mHandler.sendEmptyMessageDelayed(MSG_ONKEY_TEST,500);
                 break;
             case R.id.tv_fix:
                 FixHistoryResponse fixHistoryResponse = new FixHistoryResponse();
@@ -202,7 +210,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
-    private void onKeyTest() {
+    private void oneKeyTest() {
         AppApi.oneKeyTest(this,box_id,this);
     }
 
@@ -299,11 +307,12 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onReTestBtnClick() {
         oneKeyTestDialog.reset();
-        mProgramRlv.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                onKeyTest();
-            }
-        },500);
+        mHandler.sendEmptyMessageDelayed(MSG_ONKEY_TEST,500);
+    }
+
+    @Override
+    public void onCancelBtnClick() {
+        mHandler.removeMessages(MSG_ONKEY_TEST);
+        mHandler.removeCallbacksAndMessages(null);
     }
 }

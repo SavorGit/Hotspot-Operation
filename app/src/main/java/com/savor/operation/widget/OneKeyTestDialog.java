@@ -53,6 +53,7 @@ public class OneKeyTestDialog extends Dialog implements View.OnClickListener {
     private RecyclerView mOffLineReasonRlv;
     private OfflineReasonAdapter offlineReasonAdapter;
     private OnReTestBtnClickLisnter onReTestBtnClickLisnter;
+    private OnCancelBtnClickListener onCancelBtnClickListener;
 
     public OneKeyTestDialog(@NonNull Context context) {
         super(context);
@@ -130,7 +131,9 @@ public class OneKeyTestDialog extends Dialog implements View.OnClickListener {
                 }
                 break;
             case R.id.tv_cancel:
-                OkHttpUtils.getInstance().getOkHttpClient().dispatcher().cancelAll();
+                if(onCancelBtnClickListener!=null) {
+                    onCancelBtnClickListener.onCancelBtnClick();
+                }
                 dismiss();
                 break;
         }
@@ -165,7 +168,15 @@ public class OneKeyTestDialog extends Dialog implements View.OnClickListener {
         this.onReTestBtnClickLisnter = onReTestBtnClickLisnter;
     }
 
+    public void setOnCancelBtnClickListener(OnCancelBtnClickListener onCancelBtnClickListener) {
+        this.onCancelBtnClickListener = onCancelBtnClickListener;
+    }
+
     public interface OnReTestBtnClickLisnter {
         void onReTestBtnClick();
+    }
+
+    public interface OnCancelBtnClickListener {
+        void onCancelBtnClick();
     }
 }
