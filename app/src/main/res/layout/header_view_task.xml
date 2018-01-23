@@ -140,7 +140,6 @@
 
     <RelativeLayout
         android:background="@color/white"
-        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp">
@@ -189,6 +188,40 @@
                 android:textSize="16sp" />
         </RadioGroup>
     </RelativeLayout>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/grid_item_divider" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="14sp"
+            android:textColor="#434343"
+            android:text="备注  （200字以内，非必填）"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_remark"
+            android:maxLength="200"
+            android:padding="15dp"
+            android:textSize="14sp"
+            android:textColorHint="#999999"
+            android:hint="请输入备注信息，建议到店时间等"
+            android:gravity="left"
+            android:background="@drawable/bg_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="140dp" />
+    </LinearLayout>
+
+
+
     <RelativeLayout
         android:id="@+id/rl_num"
         android:padding="15dp"

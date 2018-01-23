@@ -424,13 +424,14 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void publishTask(Context context, String addr,String contractor,String hotel_id,
+    public static void publishTask(Context context, String addr,String contractor,String desc,String hotel_id,
                                    String mobile,String publish_user_id,String repair_info,
                                    String task_emerge,String task_type,
                                    String tv_nums,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("addr",addr);
         params.put("contractor",contractor);
+        params.put("desc",desc);
         params.put("hotel_id",hotel_id);
         params.put("mobile",mobile);
         params.put("publish_user_id",publish_user_id);
