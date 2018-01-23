@@ -54,6 +54,7 @@ public class SystemStatusActivity extends BaseFragmentActivity implements View.O
     }
 
     private void getData() {
+        showLoadingLayout();
         AppApi.getCityList(this,this);
     }
 
@@ -105,6 +106,7 @@ public class SystemStatusActivity extends BaseFragmentActivity implements View.O
         super.onSuccess(method, obj);
         switch (method) {
             case POST_CITY_LIST_JSON:
+                hideLoadingLayout();
                 if(obj instanceof List) {
                     List<SystemStatusCity> cityList = (List<SystemStatusCity>) obj;
 
@@ -143,5 +145,13 @@ public class SystemStatusActivity extends BaseFragmentActivity implements View.O
         }
     }
 
+    @Override
+    public void showLoadingLayout() {
+        mLoadingPb.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void hideLoadingLayout() {
+        mLoadingPb.setVisibility(View.GONE);
+    }
 }
