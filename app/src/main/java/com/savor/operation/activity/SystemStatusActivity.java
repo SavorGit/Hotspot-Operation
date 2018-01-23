@@ -54,7 +54,6 @@ public class SystemStatusActivity extends BaseFragmentActivity implements View.O
     }
 
     private void getData() {
-        mLoadingPb.setVisibility(View.VISIBLE);
         AppApi.getCityList(this,this);
     }
 

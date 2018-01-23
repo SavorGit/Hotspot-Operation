@@ -1,946 +1,991 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:fillViewport="true"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/color_app_bg"
-    android:orientation="vertical"
-    tools:context="com.savor.operation.fragment.SystemStatusFragment">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:background="@color/white"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:fillViewport="true"
+        android:id="@+id/slv_content"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <View
-            android:id="@+id/divider"
-            android:layout_below="@id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/color_app_bg" />
-        <!--标题栏-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:padding="15dp">
+        android:background="@color/color_app_bg"
+        android:orientation="vertical"
+        tools:context="com.savor.operation.fragment.SystemStatusFragment">
 
-            <TextView
-                android:id="@+id/tv_online_time_hint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="在线状态"
-                android:textColor="#62ad19"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_online_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/tv_online_time_hint"
-                android:paddingLeft="15dp"
-                android:text="更新时间  2017-01-08  9:30"
-                android:textColor="@color/color_999999"
-                android:textSize="13sp" />
-
-            <ImageView
-                android:id="@+id/iv_refresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ico_refresh" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_d7d7d7" />
-
-        <!--酒楼小平台机顶盒在线状态-->
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
-            <!--酒楼状态-->
-            <LinearLayout
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="15dp"
+            <View
+                android:id="@+id/divider"
+                android:layout_below="@id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="10dp"
+                android:background="@color/color_app_bg" />
+            <!--标题栏-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="15dp">
+
                 <TextView
-                    android:textStyle="bold"
+                    android:id="@+id/tv_online_time_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="在线状态"
+                    android:textColor="#62ad19"
                     android:textSize="15sp"
-                    android:textColor="@color/title_text_color"
-                    android:text="酒楼"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content" />
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_online_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/tv_online_time_hint"
+                    android:paddingLeft="15dp"
+                    android:text="更新时间  2017-01-08  9:30"
+                    android:textColor="@color/color_999999"
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:id="@+id/iv_refresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ico_refresh" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_d7d7d7" />
+
+            <!--酒楼小平台机顶盒在线状态-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!--酒楼状态-->
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+                    <TextView
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="酒楼"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content" />
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_online"
+                                android:layout_weight="1"
+                                android:drawablePadding="5dp"
+                                android:drawableLeft="@drawable/cirlce_green"
+                                android:textSize="15sp"
+                                android:textColor="@color/title_text_color"
+                                android:paddingLeft="10dp"
+                                android:text="在线  98"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/tv_offline"
+                                android:layout_weight="1"
+                                android:drawablePadding="5dp"
+                                android:drawableLeft="@drawable/cirlce_red"
+                                android:textSize="15sp"
+                                android:textColor="@color/title_text_color"
+                                android:paddingLeft="10dp"
+                                android:text="离线  16"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
                         <TextView
-                            android:id="@+id/tv_online"
-                            android:layout_weight="1"
-                            android:drawablePadding="10dp"
-                            android:drawableLeft="@drawable/cirlce_green"
-                            android:textSize="15sp"
+                            android:id="@+id/tv_hotel_status"
                             android:textColor="@color/title_text_color"
-                            android:paddingLeft="10dp"
-                            android:text="在线  98"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/tv_offline"
-                            android:layout_weight="1"
-                            android:drawablePadding="10dp"
-                            android:drawableLeft="@drawable/cirlce_red"
-                            android:textSize="15sp"
-                            android:textColor="@color/title_text_color"
-                            android:paddingLeft="10dp"
-                            android:text="离线  16"
+                            android:textSize="13sp"
+                            android:paddingTop="10dp"
+                            android:text="（离线小于72小时：6  离线大于72小时：10）"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
-                    <TextView
-                        android:textColor="@color/title_text_color"
-                        android:textSize="13sp"
-                        android:paddingTop="10dp"
-                        android:text="（离线小于72小时：6  离线大于72小时：10）"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <!--小平台状态-->
-            <LinearLayout
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:textColor="@color/title_text_color"
-                    android:text="小平台"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content" />
-
+                <!--小平台状态-->
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tv_normal_small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/cirlce_green"
-                        android:drawablePadding="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="正常  34"
-                        android:textColor="@color/title_text_color"
-                        android:textSize="15sp" />
-
-                    <TextView
-                        android:id="@+id/tv_exe_small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/cirlce_red"
-                        android:drawablePadding="10dp"
-                        android:paddingLeft="10dp"
-                        android:text="异常  70"
-                        android:textColor="@color/title_text_color"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-            </LinearLayout>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:textColor="@color/title_text_color"
-                    android:text="机顶盒"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content" />
-                <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+                    <TextView
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="小平台"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content" />
+
                     <LinearLayout
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:id="@+id/tv_normal_box"
+                            android:id="@+id/tv_normal_small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
                             android:drawableLeft="@drawable/cirlce_green"
-                            android:textSize="15sp"
-                            android:textColor="@color/title_text_color"
+                            android:drawablePadding="5dp"
                             android:paddingLeft="10dp"
                             android:text="正常  34"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tv_exe_small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/cirlce_red"
+                            android:drawablePadding="5dp"
+                            android:paddingLeft="10dp"
+                            android:text="异常  70"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="15dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textStyle="bold"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="机顶盒"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/tv_normal_box"
+                                android:layout_weight="1"
+                                android:drawablePadding="5dp"
+                                android:drawableLeft="@drawable/cirlce_green"
+                                android:textSize="15sp"
+                                android:textColor="@color/title_text_color"
+                                android:paddingLeft="10dp"
+                                android:text="正常  34"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/tv_exe_box"
+                                android:layout_weight="1"
+                                android:drawablePadding="5dp"
+                                android:drawableLeft="@drawable/cirlce_red"
+                                android:textSize="15sp"
+                                android:textColor="@color/title_text_color"
+                                android:paddingLeft="10dp"
+                                android:text="异常  94"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/tv_black_list"
+                            android:paddingBottom="5dp"
+                            android:paddingLeft="10dp"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_black"
+                            android:textColor="@color/title_text_color"
+                            android:textSize="13sp"
+                            android:paddingTop="10dp"
+                            android:text="黑名单 229"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_d7d7d7" />
+            <TextView
+                android:id="@+id/tv_hotel_remark"
+                android:textColor="@color/color_999999"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:gravity="center_vertical"
+                android:textSize="12.5sp"
+                android:text="(在线指10分钟以内；离线指大于10分钟；异常指大于72小时)"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:background="@color/color_app_bg" />
+
+            <!--酒楼信息，一代，二代，5G-->
+            <LinearLayout
+                android:padding="15dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/ico_hotel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_hotel_count"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/red"
+                        android:gravity="left"
+                        android:text="3546"
+                        android:layout_width="92dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_hotel_normal"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="正常 3000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_hotel_freeze"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="冻结 546"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_d7d7d7" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_one_box_name"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/title_text_color"
+                    android:text="一代"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_one_box_count"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="13sp"
+                        android:text="总数 104"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_normal_one"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_green"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="正常  98"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
-                            android:id="@+id/tv_exe_box"
+                            android:id="@+id/tv_exe_one"
                             android:layout_weight="1"
-                            android:drawablePadding="10dp"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_blue"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="冻结  94"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_two_box_name"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/title_text_color"
+                    android:text="二代"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_two_box_count"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="13sp"
+                        android:text="总数 104"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_normal_two"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_green"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="正常  98"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_exe_two"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_blue"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="冻结  94"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_5g_name"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/title_text_color"
+                    android:text="5G"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_count_5g"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="13sp"
+                        android:text="总数 104"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_normal_5g"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_green"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="正常  98"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_exe_5g"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_blue"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="冻结  94"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_box_three_name"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/title_text_color"
+                    android:text="三代"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:layout_marginBottom="15dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_box_three_count"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="13sp"
+                        android:text="总数 104"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_normal_three"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_green"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="正常  98"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_exe_three"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_blue"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="冻结  94"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/color_app_bg" />
+            <!--小平台-->
+            <LinearLayout
+                android:padding="15dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/ico_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_small_count"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/color_3aba9a"
+                        android:gravity="left"
+                        android:text="3546"
+                        android:layout_width="92dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_small_normal"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="正常 3000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_small_freezee_count"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="冻结 546"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/color_app_bg" />
+            <LinearLayout
+                android:padding="15dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/ico_box"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_box_count"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/color_16abe5"
+                        android:gravity="left"
+                        android:text="17874"
+                        android:layout_width="92dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_box_normal"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="正常 13957"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/tv_box_baosun"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="报损 2839"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:id="@+id/tv_box_freeze"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="冻结 1078"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_d7d7d7" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_box_one_name"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/title_text_color"
+                    android:text="一代"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_box_one_count"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="13sp"
+                        android:text="总数 104"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_normal_one_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_green"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="正常  98"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_broken_one_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
                             android:drawableLeft="@drawable/cirlce_red"
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="异常  94"
+                            android:text="报损  16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/tv_exe_one_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_blue"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="冻结  16"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_box_two_name"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/title_text_color"
+                    android:text="二代"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/tv_box_two_count"
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_black"
+                        android:drawablePadding="5dp"
                         android:textColor="@color/title_text_color"
                         android:textSize="13sp"
-                        android:paddingTop="10dp"
-                        android:text="黑名单 229"
+                        android:text="总数 104"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_normal_two_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_green"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="正常  98"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_broken_two_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_red"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="破损  16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/tv_exe_two_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_blue"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="冻结  16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_d7d7d7" />
-        <TextView
-            android:textColor="@color/color_999999"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:gravity="center_vertical"
-            android:textSize="12.5sp"
-            android:text="(在线指10分钟以内；离线指大于10分钟；异常指大于72小时)"
-            android:layout_width="match_parent"
-            android:layout_height="40dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="14dp"
-            android:background="@color/color_app_bg" />
-
-        <!--酒楼信息，一代，二代，5G-->
-        <LinearLayout
-            android:padding="15dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="15dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <ImageView
-                    android:src="@drawable/ico_hotel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
                 <TextView
+                    android:id="@+id/tv_box_5g_name"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:textColor="@color/red"
-                    android:gravity="left"
-                    android:text="3546"
-                    android:layout_width="92dp"
+                    android:textColor="@color/title_text_color"
+                    android:text="5G"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_box_5g_count"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:drawablePadding="5dp"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="13sp"
+                        android:text="总数 104"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_normal_5g_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_green"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="正常  98"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_broken_5g_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_red"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="报损  16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/tv_exe_5g_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_blue"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="冻结  16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
             <LinearLayout
-                android:layout_gravity="center_vertical"
                 android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:layout_weight="1"
-                    android:textSize="15sp"
-                    android:textColor="@color/title_text_color"
-                    android:text="正常 3000"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_weight="1"
-                    android:textSize="15sp"
-                    android:textColor="@color/title_text_color"
-                    android:text="冻结 546"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_d7d7d7" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="@color/title_text_color"
-                android:text="一代"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:drawablePadding="10dp"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="13sp"
-                    android:text="总数 104"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tv_normal_one"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_green"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="正常  98"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_exe_one"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_blue"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="冻结  94"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="@color/title_text_color"
-                android:text="二代"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:drawablePadding="10dp"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="13sp"
-                    android:text="总数 104"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tv_normal_two"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_green"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="正常  98"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_exe_two"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_blue"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="冻结  94"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="@color/title_text_color"
-                android:text="5G"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:drawablePadding="10dp"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="13sp"
-                    android:text="总数 104"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tv_normal_5g"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_green"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="正常  98"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_exe_5g"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_blue"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="冻结  94"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="@color/title_text_color"
-                android:text="三代"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:layout_marginBottom="15dp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:drawablePadding="10dp"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="13sp"
-                    android:text="总数 104"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tv_normal_three"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_green"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="正常  98"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_exe_three"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_blue"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="冻结  94"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/color_app_bg" />
-        <!--小平台-->
-        <LinearLayout
-            android:padding="15dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:src="@drawable/ico_small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
+                    android:id="@+id/tv_three_box_name"
                     android:textStyle="bold"
                     android:textSize="15sp"
-                    android:textColor="@color/color_3aba9a"
-                    android:gravity="left"
-                    android:text="3546"
-                    android:layout_width="92dp"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_weight="1"
-                    android:textSize="15sp"
                     android:textColor="@color/title_text_color"
-                    android:text="正常 3000"
-                    android:layout_width="wrap_content"
+                    android:text="三代"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_weight="1"
-                    android:textSize="15sp"
-                    android:textColor="@color/title_text_color"
-                    android:text="冻结 546"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="@color/color_app_bg" />
-        <LinearLayout
-            android:padding="15dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:src="@drawable/ico_box"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:textStyle="bold"
-                    android:textSize="15sp"
-                    android:textColor="@color/color_16abe5"
-                    android:gravity="left"
-                    android:text="17874"
-                    android:layout_width="92dp"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_weight="1"
-                    android:textSize="15sp"
-                    android:textColor="@color/title_text_color"
-                    android:text="正常 13957"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="报损 2839"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="15sp" />
-                <TextView
-                    android:layout_weight="1"
-                    android:textSize="15sp"
-                    android:textColor="@color/title_text_color"
-                    android:text="冻结 1078"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_d7d7d7" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="@color/title_text_color"
-                android:text="一代"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:drawablePadding="10dp"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="13sp"
-                    android:text="总数 104"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
                 <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
+                    android:layout_marginBottom="15dp"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/tv_normal_one_box"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_green"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
+                        android:id="@+id/tv_three_box_count"
+                        android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
-                        android:text="正常  98"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_broken_one_box"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_red"
-                        android:textSize="15sp"
+                        android:drawablePadding="5dp"
                         android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="报损  16"
+                        android:textSize="13sp"
+                        android:text="总数 104"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:id="@+id/tv_exe_one_box"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_blue"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="冻结  16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_normal_three_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_green"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="正常  98"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_broken_three_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_red"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="报损  16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/tv_exe_three_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_blue"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="冻结  16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
                 </LinearLayout>
+
             </LinearLayout>
-
         </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="@color/title_text_color"
-                android:text="二代"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:drawablePadding="10dp"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="13sp"
-                    android:text="总数 104"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tv_normal_two_box"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_green"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="正常  98"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_broken_two_box"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_red"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="破损  16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+    </ScrollView>
+    <ProgressBar
+        android:id="@+id/pb_loading"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:indeterminateBehavior="repeat"
+        android:indeterminateDrawable="@drawable/base_loading_large_anim"
+        android:visibility="visible" />
+</RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tv_exe_two_box"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_blue"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="冻结  16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="@color/title_text_color"
-                android:text="5G"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:drawablePadding="10dp"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="13sp"
-                    android:text="总数 104"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tv_normal_5g_box"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_green"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="正常  98"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_broken_5g_box"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_red"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="报损  16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/tv_exe_5g_box"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_blue"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="冻结  16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:textStyle="bold"
-                android:textSize="15sp"
-                android:textColor="@color/title_text_color"
-                android:text="三代"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content" />
-            <LinearLayout
-                android:layout_marginBottom="15dp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:paddingBottom="5dp"
-                    android:paddingLeft="10dp"
-                    android:drawablePadding="10dp"
-                    android:textColor="@color/title_text_color"
-                    android:textSize="13sp"
-                    android:text="总数 104"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/tv_normal_three_box"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_green"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="正常  98"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_broken_three_box"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_red"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="报损  16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/tv_exe_three_box"
-                        android:layout_weight="1"
-                        android:drawablePadding="10dp"
-                        android:drawableLeft="@drawable/cirlce_blue"
-                        android:textSize="15sp"
-                        android:textColor="@color/title_text_color"
-                        android:paddingLeft="10dp"
-                        android:text="冻结  16"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
-
-</ScrollView>
