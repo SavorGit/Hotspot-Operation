@@ -18,6 +18,7 @@ import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.adapter.HotelPositionAdapter;
 import com.savor.operation.adapter.TvBoxFixHistoryAdapter;
+import com.savor.operation.bean.BoxState;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.Hotel;
@@ -26,6 +27,7 @@ import com.savor.operation.bean.PositionListInfo;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.widget.FixDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -66,9 +68,11 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements  View.OnC
 
         getData();
         getDamageInfo();
-
+        getstateConf();
     }
-
+    private void getstateConf() {
+        AppApi.getStateConfig(this,this);
+    }
     private void getDamageInfo() {
         AppApi.getDamageConfig(this,this);
     }
@@ -149,7 +153,7 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements  View.OnC
             public void onClick(View v) {
                 new FixDialog(HotelPositionInfoAcitivty.this, new FixDialog.OnSubmitBtnClickListener() {
                     @Override
-                    public void onSubmitClick(FixDialog.OperationType type, FixHistoryResponse fixHistoryResponse, FixDialog.FixState isResolve, List<String> damageDesc, String comment, Hotel hotel) {
+                    public void onSubmitClick(FixDialog.OperationType type, FixHistoryResponse fixHistoryResponse, FixDialog.FixState isResolve, List<String> damageDesc, BoxState boxState, String comment, Hotel hotel) {
                         StringBuilder sb = new StringBuilder();
                         for(int i = 0;i<damageDesc.size();i++) {
                             if(damageDesc.size() == 1 || i == damageDesc.size()-1) {
@@ -168,8 +172,8 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements  View.OnC
 
                         LoginResponse loginResponse = mSession.getLoginResponse();
                         String userid = loginResponse.getUserid();
-                        AppApi.submitDamage(HotelPositionInfoAcitivty.this,fixHistoryResponse.getList().getVersion().getSmall_mac(),"1",
-                                hotel.getId(),comment,sb.toString(),state+"", 1+"",userid,HotelPositionInfoAcitivty.this);
+                        AppApi.submitDamage(HotelPositionInfoAcitivty.this,fixHistoryResponse.getList().getVersion().getSmall_mac(),
+                                hotel.getId(),boxState.getId()+"",comment,sb.toString(),state+"", 1+"",userid,HotelPositionInfoAcitivty.this);
 
                     }
                 }, FixDialog.OperationType.TYPE_SMALL, fixHistoryResponse, damageConfig, mHotel).show();
@@ -180,6 +184,12 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements  View.OnC
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method) {
+            case POST_BOX_STATECONFIG_JSON:
+                if(obj instanceof ArrayList) {
+                    ArrayList<BoxState> boxStateList = (ArrayList<BoxState>) obj;
+                    mSession.setBoxStateList(boxStateList);
+                }
+                break;
             case POST_SUBMIT_DAMAGE_JSON:
                 ShowMessage.showToast(HotelPositionInfoAcitivty.this,"提交成功");
                 getData();

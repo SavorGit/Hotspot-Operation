@@ -24,6 +24,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.adapter.SingleHotelPositionAdapter;
+import com.savor.operation.bean.BoxState;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.FixBean;
 import com.savor.operation.bean.Hotel;
@@ -35,6 +36,7 @@ import com.savor.operation.widget.SingleFixDialog;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -83,7 +85,11 @@ public class SingleHotelPositionInfoAcitivty extends BaseActivity implements  Vi
 
         getData();
         getDamageInfo();
+        getstateConf();
+    }
 
+    private void getstateConf() {
+        AppApi.getStateConfig(this,this);
     }
 
     private void getDamageInfo() {
@@ -140,6 +146,12 @@ public class SingleHotelPositionInfoAcitivty extends BaseActivity implements  Vi
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         switch (method) {
+            case POST_BOX_STATECONFIG_JSON:
+                if(obj instanceof ArrayList) {
+                    ArrayList<BoxState> boxStateList = (ArrayList<BoxState>) obj;
+                    mSession.setBoxStateList(boxStateList);
+                }
+                break;
             case POST_SINGLE_SUBMIT_DAMAGE_JSON:
                 if(currentOType == TYPE_FIX) {
                     ShowMessage.showToast(this,"提交成功");

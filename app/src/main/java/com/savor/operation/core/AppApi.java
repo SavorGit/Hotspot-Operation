@@ -110,6 +110,8 @@ public class AppApi {
         POST_BOX_DETAIL_JSON,
         /**获取正在下载的节目单列表*/
         POST_LOADING_PRO_JSON,
+        /**机顶盒状态 正常冻结损坏*/
+        POST_BOX_STATECONFIG_JSON,
     }
 
     /**
@@ -160,6 +162,7 @@ public class AppApi {
             put(Action.POST_INSPECTOR_JSON, formatPhpUrl("Opclient20/Inspector/getMyInspect"));
             put(Action.POST_BOX_DETAIL_JSON, formatPhpUrl("Opclient20/Box/contentDetail"));
             put(Action.POST_LOADING_PRO_JSON, formatPhpUrl("Opclient20/Box/getDownloadPro"));
+            put(Action.POST_BOX_STATECONFIG_JSON, formatPhpUrl("Opclient20/Box/stateConf"));
         }
     };
 
@@ -354,6 +357,7 @@ public class AppApi {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("box_mac",box_mac);
         params.put("hotel_id",hotel_id);
+        params.put("box_state",box_state);
         params.put("remark",remark);
         params.put("repair_num_str",repair_num_str);
         params.put("state",state);
@@ -660,6 +664,16 @@ public class AppApi {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("pro_download_period",pro_download_period);
         new AppServiceOk(context, Action.POST_LOADING_PRO_JSON, handler, params).post();
+    }
+
+    /**
+     * 获取机顶盒状态（正常、冻结、报损）
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getStateConfig(Context context, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        new AppServiceOk(context, Action.POST_BOX_STATECONFIG_JSON, handler, params).post();
     }
 
     // 超时（网络）异常
