@@ -296,8 +296,11 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
-        super.onError(method, obj);
         switch (method) {
+            case POST_ONEKEY_TEST_JSON:
+                ShowMessage.showToast(this,"测试失败");
+                hideOnKeyTestDialog();
+                break;
             case POST_BOX_DETAIL_JSON:
                 hideLoadingLayout();
                 break;

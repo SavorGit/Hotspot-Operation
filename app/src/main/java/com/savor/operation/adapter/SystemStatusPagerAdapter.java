@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 
+import com.savor.operation.bean.SystemStatusCity;
+
 import java.util.List;
 
 /**
@@ -14,42 +16,28 @@ import java.util.List;
 public class SystemStatusPagerAdapter extends FragmentStatePagerAdapter {
     private FragmentManager mFrgmentManager;
     private List<Fragment> mPagerList ;
-    private List<String> mTitleList ;
+    private List<SystemStatusCity> mCityList;
     public SystemStatusPagerAdapter(FragmentManager fm) {
         super(fm);
         this.mFrgmentManager = fm;
     }
-    public SystemStatusPagerAdapter(FragmentManager fm, List<Fragment> list, List<String> titleList) {
+    public SystemStatusPagerAdapter(FragmentManager fm, List<Fragment> list, List<SystemStatusCity> cityList) {
         super(fm);
         this.mPagerList = list;
-        this.mTitleList = titleList;
+        this.mCityList = cityList;
     }
 
-    public void setData(List<Fragment> list,List<String> titleList) {
+    public void setData(List<Fragment> list,List<SystemStatusCity> titleList) {
         this.mPagerList = list;
-        this.mTitleList = titleList;
+        this.mCityList = titleList;
         notifyDataSetChanged();
     }
 
-    public void addPager(Fragment fragment,String title) {
-        mPagerList.add(fragment);
-        mTitleList.add(title);
-        notifyDataSetChanged();
-    }
-
-    public void addPager(Fragment fragment,String title,int index) {
-
-        if(!mPagerList.contains(fragment)) {
-            mPagerList.add(index,fragment);
-            mTitleList.add(index,title);
-            notifyDataSetChanged();
-        }
-    }
 
     public void removePager(Fragment fragment,String title) {
         if(mPagerList.contains(fragment)) {
             mPagerList.remove(fragment);
-            mTitleList.remove(title);
+            mCityList.remove(title);
             notifyDataSetChanged();
         }
     }
@@ -73,7 +61,7 @@ public class SystemStatusPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mTitleList.get(position);
+        return mCityList.get(position).getRegion_name();
     }
 
 //    @Override

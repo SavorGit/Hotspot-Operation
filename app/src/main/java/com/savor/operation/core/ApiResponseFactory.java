@@ -47,6 +47,8 @@ import com.savor.operation.bean.PositionListInfo;
 import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.SmallPlatformByGetIp;
 import com.savor.operation.bean.StateConf;
+import com.savor.operation.bean.SystemStatusCity;
+import com.savor.operation.bean.SystemStatusResponse;
 import com.savor.operation.bean.Task;
 import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.bean.TaskNum;
@@ -378,6 +380,14 @@ public class ApiResponseFactory {
                 break;
             case POST_ONEKEY_TEST_JSON:
                 result = gson.fromJson(info, new TypeToken<OneKeyTestResponse>() {
+                }.getType());
+                break;
+            case POST_CITY_LIST_JSON:
+                result = gson.fromJson(info, new TypeToken<List<SystemStatusCity>>() {
+                }.getType());
+                break;
+            case POST_SYSTEM_STATUS_JSON:
+                result = gson.fromJson(info, new TypeToken<SystemStatusResponse>() {
                 }.getType());
                 break;
             default:
