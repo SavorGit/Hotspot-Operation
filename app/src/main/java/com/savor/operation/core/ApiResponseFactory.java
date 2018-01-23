@@ -42,6 +42,7 @@ import com.savor.operation.bean.LoadingProgramAds;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.MissionTaskListBean;
 import com.savor.operation.bean.MyInspectResult;
+import com.savor.operation.bean.OneKeyTestResponse;
 import com.savor.operation.bean.PositionListInfo;
 import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.SmallPlatformByGetIp;
@@ -373,6 +374,10 @@ public class ApiResponseFactory {
                 break;
             case POST_BOX_STATECONFIG_JSON:
                 result = gson.fromJson(info, new TypeToken<List<BoxState>>() {
+                }.getType());
+                break;
+            case POST_ONEKEY_TEST_JSON:
+                result = gson.fromJson(info, new TypeToken<OneKeyTestResponse>() {
                 }.getType());
                 break;
             default:

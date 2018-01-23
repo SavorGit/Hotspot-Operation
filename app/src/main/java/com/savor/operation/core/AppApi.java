@@ -112,6 +112,8 @@ public class AppApi {
         POST_LOADING_PRO_JSON,
         /**机顶盒状态 正常冻结损坏*/
         POST_BOX_STATECONFIG_JSON,
+        /**一键测试*/
+        POST_ONEKEY_TEST_JSON,
     }
 
     /**
@@ -163,6 +165,7 @@ public class AppApi {
             put(Action.POST_BOX_DETAIL_JSON, formatPhpUrl("Opclient20/Box/contentDetail"));
             put(Action.POST_LOADING_PRO_JSON, formatPhpUrl("Opclient20/Box/getDownloadPro"));
             put(Action.POST_BOX_STATECONFIG_JSON, formatPhpUrl("Opclient20/Box/stateConf"));
+            put(Action.POST_ONEKEY_TEST_JSON, formatPhpUrl("Opclient20/Box/oneKeyCheck"));
         }
     };
 
@@ -674,6 +677,17 @@ public class AppApi {
     public static void getStateConfig(Context context, ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         new AppServiceOk(context, Action.POST_BOX_STATECONFIG_JSON, handler, params).post();
+    }
+
+    /**
+     * 一键测试
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void oneKeyTest(Context context, String box_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("box_id",box_id);
+        new AppServiceOk(context, Action.POST_ONEKEY_TEST_JSON, handler, params).post();
     }
 
     // 超时（网络）异常

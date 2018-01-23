@@ -18,14 +18,16 @@ import com.savor.operation.bean.BoxState;
 import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.Hotel;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.OneKeyTestResponse;
 import com.savor.operation.bean.Program;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.widget.FixDialog;
 import com.savor.operation.widget.LoadingDialog;
+import com.savor.operation.widget.OneKeyTestDialog;
 
 import java.util.List;
 
-public class BoxDetailActivity extends BaseActivity implements View.OnClickListener {
+public class BoxDetailActivity extends BaseActivity implements View.OnClickListener, OneKeyTestDialog.OnReTestBtnClickLisnter {
 
     private ImageView mBackBtn;
     private ListView mProgramRlv;
@@ -51,6 +53,8 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     private TextView mFixBtn;
     private Hotel hotel;
     private String box_mac;
+    private TextView mOnkeyTestTv;
+    private OneKeyTestDialog oneKeyTestDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +111,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
 
         mProgramPeriodTv = (TextView)  headerView.findViewById(R.id.tv_pro_period);
         mAdsPeriodTv = (TextView)  headerView.findViewById(R.id.tv_ads_period);
+        mOnkeyTestTv = (TextView) headerView.findViewById(R.id.tv_onekey_test);
 
         mProgramRlv.addHeaderView(headerView);
     }
@@ -122,15 +127,35 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void setListeners() {
+        mOnkeyTestTv.setOnClickListener(this);
         mFixBtn.setOnClickListener(this);
         mBackBtn.setOnClickListener(this);
         mLookLoadingProgramTv.setOnClickListener(this);
         mLookLoadingAdvertTv.setOnClickListener(this);
     }
 
+    public void showOnkeTestDialog() {
+        if(oneKeyTestDialog==null) {
+            oneKeyTestDialog = new OneKeyTestDialog(this);
+            oneKeyTestDialog.setOnReTestBtnClickLisnter(this);
+        }
+        oneKeyTestDialog.reset();
+        oneKeyTestDialog.show();
+    }
+
+    public void hideOnKeyTestDialog() {
+        if(oneKeyTestDialog!=null&&oneKeyTestDialog.isShowing()) {
+            oneKeyTestDialog.dismiss();
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_onekey_test:
+                onKeyTest();
+                showOnkeTestDialog();
+                break;
             case R.id.tv_fix:
                 FixHistoryResponse fixHistoryResponse = new FixHistoryResponse();
                 new FixDialog(this, new FixDialog.OnSubmitBtnClickListener() {
@@ -158,7 +183,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
                                 hotel.getId(),boxState.getId()+"",comment,sb.toString(),state+"", 2+"",userid,BoxDetailActivity.this);
 
                     }
-                }, FixDialog.OperationType.TYPE_SMALL, fixHistoryResponse, mSession.getDamageConfig(), hotel).show();
+                }, FixDialog.OperationType.TYPE_BOX, fixHistoryResponse, mSession.getDamageConfig(), hotel).show();
                 break;
             case R.id.iv_left:
                 finish();
@@ -172,11 +197,21 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    private void onKeyTest() {
+        AppApi.oneKeyTest(this,box_id,this);
+    }
+
 
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         super.onSuccess(method, obj);
         switch (method) {
+            case POST_ONEKEY_TEST_JSON:
+                if(obj instanceof OneKeyTestResponse) {
+                    OneKeyTestResponse oneKeyTestResponse = (OneKeyTestResponse) obj;
+                    oneKeyTestDialog.init(oneKeyTestResponse);
+                }
+                break;
             case POST_SUBMIT_DAMAGE_JSON:
                 ShowMessage.showToast(BoxDetailActivity.this,"提交成功");
                 getData();
@@ -254,5 +289,11 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
                 hideLoadingLayout();
                 break;
         }
+    }
+
+    @Override
+    public void onReTestBtnClick() {
+        onKeyTest();
+        oneKeyTestDialog.reset();
     }
 }
