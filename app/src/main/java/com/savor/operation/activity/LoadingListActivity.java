@@ -29,6 +29,9 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     private String ads_download_period;
     private Operationtype type;
     private String box_id;
+    private String pro_period;
+    private String ads_period;
+    private TextView mTitleTv;
 
     public enum Operationtype implements Serializable{
         /**下载节目*/
@@ -61,7 +64,7 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
         if(type!=null) {
             switch (type) {
                 case DOWNLOAD_ADS:
-
+                    AppApi.getDownloadAds(this,box_id,ads_download_period,this);
                     break;
                 case DOWNLOAD_PRO:
                     if(!TextUtils.isEmpty(pro_download_period)) {
@@ -82,12 +85,15 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     private void handleIntent() {
         pro_download_period = getIntent().getStringExtra("pro_download_period");
         ads_download_period = getIntent().getStringExtra("ads_download_period");
+        pro_period = getIntent().getStringExtra("pro_period");
+        ads_period = getIntent().getStringExtra("ads_period");
         box_id = getIntent().getStringExtra("box_id");
         type = (Operationtype) getIntent().getSerializableExtra("type");
     }
 
     @Override
     public void getViews() {
+        mTitleTv = (TextView) findViewById(R.id.tv_center);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         mLoadingLv = (ListView) findViewById(R.id.rlv_loading);
 
@@ -102,7 +108,22 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void setViews() {
-
+        if(type!=null) {
+            switch (type) {
+                case PUB_PRO_LIST:
+                    mTitleTv.setText("发布节目单");
+                    mPeriodTv.setText("发布节目期号："+pro_period+"    "+"发布广告期号："+ads_period);
+                    break;
+                case DOWNLOAD_PRO:
+                    mTitleTv.setText("节目下载列表");
+                    mPeriodTv.setText("下载节目期号："+pro_download_period);
+                    break;
+                case DOWNLOAD_ADS:
+                    mTitleTv.setText("广告下载列表");
+                    mPeriodTv.setText("下载广告期号："+ads_download_period);
+                    break;
+            }
+        }
     }
 
     @Override
@@ -115,7 +136,8 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
         super.onSuccess(method, obj);
         hideLoadingLayout();
         switch (method) {
-            case POST_PUBLISH_JSON:
+            case POST_DOWNLOAD_ADS_JSON:
+            case POST_PUBLISH_LIST_JSON:_JSON:
                 if(obj instanceof List) {
                     List<PubProgram> pubPrograms = (List<PubProgram>) obj;
                     PubProListAdapter pubProListAdapter = new PubProListAdapter(this);

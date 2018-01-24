@@ -1,6 +1,7 @@
 package com.savor.operation.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -34,8 +35,8 @@ public class PubProListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 20;
-//        return mData == null ? 0 : mData.size();
+//        return 20;
+        return mData == null ? 0 : mData.size();
     }
 
     @Override
@@ -62,16 +63,16 @@ public class PubProListAdapter extends BaseAdapter {
             holder = (ProgramStatusHolder) convertView.getTag();
         }
 
-//        LoadingProgramAds program = (LoadingProgramAds) getItem(position);
-//
-//        String ads_name = program.getAds_name();
-//        String type = program.getType();
-//        if (!TextUtils.isEmpty(ads_name)) {
-//            holder.name.setText(ads_name);
-//        }
-//        if (!TextUtils.isEmpty(type)) {
-//            holder.label.setText(type);
-//        }
+        PubProgram program = (PubProgram) getItem(position);
+
+        String ads_name = program.getName();
+        String type = program.getType();
+        if (!TextUtils.isEmpty(ads_name)) {
+            holder.name.setText(ads_name);
+        }
+        if (!TextUtils.isEmpty(type)) {
+            holder.label.setText(type);
+        }
 //
         holder.statusIv.setVisibility(View.GONE);
 

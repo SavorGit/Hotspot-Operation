@@ -162,11 +162,9 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
                 mAdapter.setData(LOOK_ITEMS);
             }else if("5".equals(id)) {
                 mAdapter.setData(OUTSOURCE);
-
                 mItemRlv.removeItemDecoration(spacesItemDecoration);
             }else if("6".equals(id)) {
                 mAdapter.setData(CHECKHOTEL);
-
                 mItemRlv.removeItemDecoration(spacesItemDecoration);
             }
         }

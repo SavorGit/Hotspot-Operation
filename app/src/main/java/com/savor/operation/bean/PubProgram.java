@@ -15,14 +15,16 @@ public class PubProgram implements Serializable {
      */
 
     private String name;
-    private int type;
+    private String type;
+    private String sort_num;
     private String location_id;
 
     @Override
     public String toString() {
         return "PubProgram{" +
                 "name='" + name + '\'' +
-                ", type=" + type +
+                ", type='" + type + '\'' +
+                ", sort_num='" + sort_num + '\'' +
                 ", location_id='" + location_id + '\'' +
                 '}';
     }
@@ -34,15 +36,18 @@ public class PubProgram implements Serializable {
 
         PubProgram that = (PubProgram) o;
 
-        if (type != that.type) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
+        if (sort_num != null ? !sort_num.equals(that.sort_num) : that.sort_num != null)
+            return false;
         return location_id != null ? location_id.equals(that.location_id) : that.location_id == null;
     }
 
     @Override
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + type;
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (sort_num != null ? sort_num.hashCode() : 0);
         result = 31 * result + (location_id != null ? location_id.hashCode() : 0);
         return result;
     }
@@ -55,12 +60,20 @@ public class PubProgram implements Serializable {
         this.name = name;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
+    }
+
+    public String getSort_num() {
+        return sort_num;
+    }
+
+    public void setSort_num(String sort_num) {
+        this.sort_num = sort_num;
     }
 
     public String getLocation_id() {

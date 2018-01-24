@@ -120,6 +120,8 @@ public class AppApi {
         POST_SYSTEM_STATUS_JSON,
         /**获取发布列表*/
         POST_PUBLISH_LIST_JSON,
+        /**获取下载中的广告列表*/
+        POST_DOWNLOAD_ADS_JSON,
     }
 
     /**
@@ -175,6 +177,7 @@ public class AppApi {
             put(Action.POST_CITY_LIST_JSON, formatPhpUrl("Opclient20/City/getAreaList"));
             put(Action.POST_SYSTEM_STATUS_JSON, formatPhpUrl("Opclient20/System/index"));
             put(Action.POST_PUBLISH_LIST_JSON, formatPhpUrl("Opclient20/Box/getPubProgram"));
+            put(Action.POST_DOWNLOAD_ADS_JSON, formatPhpUrl("Opclient20/Box/getDownloadAds"));
 
         }
     };
@@ -730,7 +733,19 @@ public class AppApi {
     public static void getPubProList(Context context, String box_id,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("box_id",box_id);
-        new AppServiceOk(context, Action.POST_PUBLISH_JSON, handler, params).post();
+        new AppServiceOk(context, Action.POST_PUBLISH_LIST_JSON, handler, params).post();
+    }
+
+    /**
+     * 获取下载中的广告列表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getDownloadAds(Context context, String box_id,String ads_download_period,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("box_id",box_id);
+        params.put("ads_download_period",ads_download_period);
+        new AppServiceOk(context, Action.POST_DOWNLOAD_ADS_JSON, handler, params).post();
     }
 
     // 超时（网络）异常
