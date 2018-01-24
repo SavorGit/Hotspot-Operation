@@ -64,15 +64,18 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
         if(type!=null) {
             switch (type) {
                 case DOWNLOAD_ADS:
+                    showLoadingLayout();
                     AppApi.getDownloadAds(this,box_id,ads_download_period,this);
                     break;
                 case DOWNLOAD_PRO:
+                    showLoadingLayout();
                     if(!TextUtils.isEmpty(pro_download_period)) {
                         showLoadingLayout();
                         AppApi.getLoadingProList(this,pro_download_period,this);
                     }
                     break;
                 case PUB_PRO_LIST:
+                    showLoadingLayout();
                     if(!TextUtils.isEmpty(box_id)) {
                         AppApi.getPubProList(this,box_id,this);
                     }
@@ -159,6 +162,7 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onError(AppApi.Action method, Object obj) {
         super.onError(method, obj);
+        hideLoadingLayout();
         switch (method) {
             case POST_LOADING_PRO_JSON:
                 hideLoadingLayout();
