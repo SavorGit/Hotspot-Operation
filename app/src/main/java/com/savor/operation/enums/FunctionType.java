@@ -30,4 +30,6 @@ public enum FunctionType implements Serializable {
     PUB_TASK_LIST,
     /**更新换画*/
     UPDATE_CHANGE_IMAGE,
+    /**巡检酒楼*/
+    CHECK_HOTEL,
 }

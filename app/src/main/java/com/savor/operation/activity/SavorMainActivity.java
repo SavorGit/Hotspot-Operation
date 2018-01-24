@@ -119,6 +119,15 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
             add(new ActionListItem(FunctionType.UPDATE_CHANGE_IMAGE,0));
         }
     };
+
+    /**
+     * 外包
+     */
+    public static final List<ActionListItem> CHECKHOTEL = new ArrayList<ActionListItem>(){
+        {
+            add(new ActionListItem(FunctionType.CHECK_HOTEL,0));
+        }
+    };
     private ActionListAdapter mAdapter;
     private SpacesItemDecoration spacesItemDecoration;
 
@@ -153,6 +162,10 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
                 mAdapter.setData(LOOK_ITEMS);
             }else if("5".equals(id)) {
                 mAdapter.setData(OUTSOURCE);
+
+                mItemRlv.removeItemDecoration(spacesItemDecoration);
+            }else if("6".equals(id)) {
+                mAdapter.setData(CHECKHOTEL);
 
                 mItemRlv.removeItemDecoration(spacesItemDecoration);
             }
