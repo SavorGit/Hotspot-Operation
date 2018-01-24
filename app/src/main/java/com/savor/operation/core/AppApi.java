@@ -112,6 +112,14 @@ public class AppApi {
         POST_LOADING_PRO_JSON,
         /**机顶盒状态 正常冻结损坏*/
         POST_BOX_STATECONFIG_JSON,
+        /**一键测试*/
+        POST_ONEKEY_TEST_JSON,
+        /**获取系统状态城市列表*/
+        POST_CITY_LIST_JSON,
+        /**获取指定城市系统状态*/
+        POST_SYSTEM_STATUS_JSON,
+        /**获取发布列表*/
+        POST_PUBLISH_LIST_JSON,
     }
 
     /**
@@ -163,6 +171,11 @@ public class AppApi {
             put(Action.POST_BOX_DETAIL_JSON, formatPhpUrl("Opclient20/Box/contentDetail"));
             put(Action.POST_LOADING_PRO_JSON, formatPhpUrl("Opclient20/Box/getDownloadPro"));
             put(Action.POST_BOX_STATECONFIG_JSON, formatPhpUrl("Opclient20/Box/stateConf"));
+            put(Action.POST_ONEKEY_TEST_JSON, formatPhpUrl("Opclient20/Box/oneKeyCheck"));
+            put(Action.POST_CITY_LIST_JSON, formatPhpUrl("Opclient20/City/getAreaList"));
+            put(Action.POST_SYSTEM_STATUS_JSON, formatPhpUrl("Opclient20/System/index"));
+            put(Action.POST_PUBLISH_LIST_JSON, formatPhpUrl("Opclient20/Box/getPubProgram"));
+
         }
     };
 
@@ -414,13 +427,14 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void publishTask(Context context, String addr,String contractor,String hotel_id,
+    public static void publishTask(Context context, String addr,String contractor,String desc,String hotel_id,
                                    String mobile,String publish_user_id,String repair_info,
                                    String task_emerge,String task_type,
                                    String tv_nums,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("addr",addr);
         params.put("contractor",contractor);
+        params.put("desc",desc);
         params.put("hotel_id",hotel_id);
         params.put("mobile",mobile);
         params.put("publish_user_id",publish_user_id);
@@ -674,6 +688,49 @@ public class AppApi {
     public static void getStateConfig(Context context, ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         new AppServiceOk(context, Action.POST_BOX_STATECONFIG_JSON, handler, params).post();
+    }
+
+    /**
+     * 一键测试
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void oneKeyTest(Context context, String box_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("box_id",box_id);
+        new AppServiceOk(context, Action.POST_ONEKEY_TEST_JSON, handler, params).post();
+    }
+
+    /**
+     * 获取系统状态
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getSystemStatus(Context context, String city_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("city_id",city_id);
+        new AppServiceOk(context, Action.POST_SYSTEM_STATUS_JSON, handler, params).post();
+    }
+
+    /**
+     * 获取系统状态城市列表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getCityList(Context context, ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        new AppServiceOk(context, Action.POST_CITY_LIST_JSON, handler, params).post();
+    }
+
+    /**
+     * 获取发布内容列表
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getPubProList(Context context, String box_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("box_id",box_id);
+        new AppServiceOk(context, Action.POST_PUBLISH_JSON, handler, params).post();
     }
 
     // 超时（网络）异常

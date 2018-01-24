@@ -111,6 +111,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         }
     };
     private LoadingDialog loadingDialog;
+    private EditText mRemarkEt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +156,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         mPhoneEt = (EditText) mHeadView.findViewById(R.id.et_phone);
         mAddressEt = (EditText) mHeadView.findViewById(R.id.et_address);
         mEmergcyRG = (RadioGroup) mHeadView.findViewById(R.id.rg_emergcy);
-
+        mRemarkEt = (EditText) mHeadView.findViewById(R.id.et_remark);
         if (actionType == PublishTaskActivity.TaskType.INFO_CHECK || actionType == PublishTaskActivity.TaskType.NETWORK_REMOULD) {
             mNumLayout.setVisibility(View.GONE);
         }
@@ -367,8 +368,9 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
             tv_nums = mBoxNumTv.getText().toString();
         }
 
+        String desc = mRemarkEt.getText().toString();
 
-        AppApi.publishTask(this, address, contact, hotelId, phone, publish_user_id, repair_info, task_emerge, task_type, tv_nums, this);
+        AppApi.publishTask(this, address, contact,desc, hotelId, phone, publish_user_id, repair_info, task_emerge, task_type, tv_nums, this);
     }
 
     private void uploadPic(final List<RepairInfo> infos) {
@@ -552,7 +554,8 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
                 break;
             case POST_PUBLISH_JSON:
-                loadingDialog.dismiss();
+                if(loadingDialog!=null&&loadingDialog.isShowing())
+                    loadingDialog.dismiss();
                 ShowMessage.showToast(this, "发布成功");
                 finish();
                 break;

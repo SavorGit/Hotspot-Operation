@@ -11,9 +11,12 @@ import android.widget.TextView;
 
 import com.savor.operation.R;
 import com.savor.operation.adapter.LoadingProgramAdsAdapter;
+import com.savor.operation.adapter.PubProListAdapter;
 import com.savor.operation.bean.LoadingProgramAds;
+import com.savor.operation.bean.PubProgram;
 import com.savor.operation.core.AppApi;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class LoadingListActivity extends BaseActivity implements View.OnClickListener {
@@ -23,6 +26,18 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     private LoadingProgramAdsAdapter programAdsAdapter;
     private String pro_download_period;
     private ImageView mBackBtn;
+    private String ads_download_period;
+    private Operationtype type;
+    private String box_id;
+
+    public enum Operationtype implements Serializable{
+        /**下载节目*/
+        PUB_PRO_LIST,
+        /**下载广告*/
+        DOWNLOAD_ADS,
+        /**发布内容*/
+        DOWNLOAD_PRO,
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +58,32 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void getData() {
-        if(!TextUtils.isEmpty(pro_download_period)) {
-            showLoadingLayout();
-            AppApi.getLoadingProList(this,pro_download_period,this);
+        if(type!=null) {
+            switch (type) {
+                case DOWNLOAD_ADS:
+
+                    break;
+                case DOWNLOAD_PRO:
+                    if(!TextUtils.isEmpty(pro_download_period)) {
+                        showLoadingLayout();
+                        AppApi.getLoadingProList(this,pro_download_period,this);
+                    }
+                    break;
+                case PUB_PRO_LIST:
+                    if(!TextUtils.isEmpty(box_id)) {
+                        AppApi.getPubProList(this,box_id,this);
+                    }
+                    break;
+            }
+
         }
     }
 
     private void handleIntent() {
         pro_download_period = getIntent().getStringExtra("pro_download_period");
+        ads_download_period = getIntent().getStringExtra("ads_download_period");
+        box_id = getIntent().getStringExtra("box_id");
+        type = (Operationtype) getIntent().getSerializableExtra("type");
     }
 
     @Override
@@ -69,8 +102,7 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void setViews() {
-        programAdsAdapter = new LoadingProgramAdsAdapter(this);
-        mLoadingLv.setAdapter(programAdsAdapter);
+
     }
 
     @Override
@@ -81,11 +113,21 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         super.onSuccess(method, obj);
+        hideLoadingLayout();
         switch (method) {
+            case POST_PUBLISH_JSON:
+                if(obj instanceof List) {
+                    List<PubProgram> pubPrograms = (List<PubProgram>) obj;
+                    PubProListAdapter pubProListAdapter = new PubProListAdapter(this);
+                    pubProListAdapter.setData(pubPrograms);
+                    mLoadingLv.setAdapter(pubProListAdapter);
+                }
+                break;
             case POST_LOADING_PRO_JSON:
-                hideLoadingLayout();
                 if(obj instanceof List) {
                     List<LoadingProgramAds> programList = (List<LoadingProgramAds>) obj;
+                    programAdsAdapter = new LoadingProgramAdsAdapter(this);
+                    mLoadingLv.setAdapter(programAdsAdapter);
                     programAdsAdapter.setData(programList);
                 }
                 break;

@@ -28,7 +28,7 @@
 
     <!--应用灰色偏蓝背景颜色-->
 
-    <color name="app_divider">#EAEAEA</color>
+    <color name="app_divider">#E4E4E4</color>
     <color name="app_text_type">#666666</color>
 
     <!--dialog-->
@@ -73,4 +73,5 @@
     <color name="color_00bcee">#00BCEE</color>
     <color name="color_3aba9a">#3ABA9A</color>
     <color name="color_16abe5">#16ABE5</color>
+    <color name="color_222222">#222222</color>
 </resources>

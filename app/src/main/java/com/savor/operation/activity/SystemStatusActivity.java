@@ -22,6 +22,7 @@ import com.savor.operation.adapter.IndexInfoAdapter;
 import com.savor.operation.adapter.SystemStatusPagerAdapter;
 import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.SystemStatusCity;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.fragment.SystemStatusFragment;
 
@@ -49,12 +50,12 @@ public class SystemStatusActivity extends BaseFragmentActivity implements View.O
         getViews();
         setViews();
         setListeners();
-//        getData();
+        getData();
     }
 
     private void getData() {
-        mLoadingPb.setVisibility(View.VISIBLE);
-        AppApi.getIndexInfo(this,this);
+        showLoadingLayout();
+        AppApi.getCityList(this,this);
     }
 
     @Override
@@ -92,24 +93,6 @@ public class SystemStatusActivity extends BaseFragmentActivity implements View.O
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mRightTv.getLayoutParams();
         layoutParams.setMargins(padding10,padding10,padding10,padding10);
 
-
-        List<String> titleList = new ArrayList<>();
-        titleList.add("全国");
-        titleList.add("北京");
-        titleList.add("上海");
-        titleList.add("广州");
-        titleList.add("深圳");
-
-        List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(SystemStatusFragment.newInstance("0"));
-        fragmentList.add(SystemStatusFragment.newInstance("1"));
-        fragmentList.add(SystemStatusFragment.newInstance("2"));
-        fragmentList.add(SystemStatusFragment.newInstance("3"));
-        fragmentList.add(SystemStatusFragment.newInstance("4"));
-
-        SystemStatusPagerAdapter mPagerAdapter = new SystemStatusPagerAdapter(getSupportFragmentManager(),fragmentList,titleList);
-        mViewPager.setAdapter(mPagerAdapter);
-        pagerSlidingTabStrip.setViewPager(mViewPager);
     }
 
     @Override
@@ -122,7 +105,21 @@ public class SystemStatusActivity extends BaseFragmentActivity implements View.O
     public void onSuccess(AppApi.Action method, Object obj) {
         super.onSuccess(method, obj);
         switch (method) {
+            case POST_CITY_LIST_JSON:
+                hideLoadingLayout();
+                if(obj instanceof List) {
+                    List<SystemStatusCity> cityList = (List<SystemStatusCity>) obj;
 
+                    List<Fragment> fragmentList = new ArrayList<>();
+                    for(int i = 0;i<cityList.size();i++) {
+                        fragmentList.add(SystemStatusFragment.newInstance(cityList.get(i).getId()));
+                    }
+
+                    SystemStatusPagerAdapter mPagerAdapter = new SystemStatusPagerAdapter(getSupportFragmentManager(),fragmentList,cityList);
+                    mViewPager.setAdapter(mPagerAdapter);
+                    pagerSlidingTabStrip.setViewPager(mViewPager);
+                }
+                break;
         }
     }
 
@@ -148,5 +145,13 @@ public class SystemStatusActivity extends BaseFragmentActivity implements View.O
         }
     }
 
+    @Override
+    public void showLoadingLayout() {
+        mLoadingPb.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void hideLoadingLayout() {
+        mLoadingPb.setVisibility(View.GONE);
+    }
 }

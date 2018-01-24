@@ -1,5 +1,6 @@
 package com.savor.operation.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -11,12 +12,14 @@ import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.core.Session;
 import com.savor.operation.interfaces.IBaseView;
 import com.savor.operation.utils.ActivitiesManager;
+import com.savor.operation.widget.LoadingDialog;
 
 
 public abstract class BaseFragmentActivity extends FragmentActivity implements IBaseView,ApiRequestListener {
 
 	protected Session mSession;
 	protected Context mContext;
+	private LoadingDialog loadingDialog;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -64,4 +67,14 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements I
 
 	}
 
+	public void showLoadingLayout() {
+		if(loadingDialog == null)
+			loadingDialog = new LoadingDialog(this,"");
+		loadingDialog.show();
+	}
+
+	public void hideLoadingLayout() {
+
+		loadingDialog.dismiss();
+	}
 }
