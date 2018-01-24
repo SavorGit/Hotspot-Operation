@@ -84,9 +84,26 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
         }
         final TaskDetailRepair item = (TaskDetailRepair) getItem(position);
 
-        holder.desc.setText("故障现象："+item.getFault_desc());
-        holder.box.setText("维修版位："+item.getBox_name());
-        holder.time.setText("操作时间："+item.getRepair_time());
+        String desc = item.getFault_desc();
+        if (!TextUtils.isEmpty(desc)) {
+            holder.desc.setText("故障现象："+desc);
+        }else {
+            holder.desc.setText("故障现象：无");
+        }
+
+        String box = item.getBox_name();
+        if (!TextUtils.isEmpty(box)) {
+            holder.box.setText("维修版位："+box);
+        }else {
+            holder.box.setText("维修版位：无");
+        }
+
+        String time = item.getRepair_time();
+        if (!TextUtils.isEmpty(time)) {
+            holder.time.setText("操作时间："+time);
+        }else {
+            holder.time.setText("操作时间：无");
+        }
 
         String Username = item.getUsername();
         String Remark = item.getRemark();
@@ -94,14 +111,14 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
             holder.user.setVisibility(View.VISIBLE);
             holder.user.setText("执行人："+item.getUsername());
         }else {
-            holder.user.setVisibility(View.GONE);
+            holder.user.setText("执行人：无");
         }
 
         if (!TextUtils.isEmpty(Remark)) {
             holder.remark.setVisibility(View.VISIBLE);
             holder.remark.setText("备注："+item.getRemark());
         }else {
-            holder.remark.setVisibility(View.GONE);
+            holder.remark.setText("备注：无");
         }
 
 

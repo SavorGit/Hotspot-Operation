@@ -83,11 +83,32 @@ public class InstallRepairAdapter extends BaseAdapter {
             holder.user.setVisibility(View.VISIBLE);
             holder.user.setText("执行人："+item.getUsername());
         }else {
-            holder.user.setVisibility(View.GONE);
+            holder.user.setText("执行人：无");
         }
-        holder.box.setText("版位名称："+item.getBox_name());
-        holder.time.setText("操作时间："+item.getRepair_time());
-        holder.remark.setText("备注："+item.getRemark());
+
+
+        String Box_name = item.getBox_name();
+        if (!TextUtils.isEmpty(Box_name)) {
+            holder.box.setText("版位名称："+Box_name);
+        }else {
+            holder.box.setText("版位名称：无");
+        }
+
+        String time = item.getRepair_time();
+        if (!TextUtils.isEmpty(time)) {
+            holder.time.setText("操作时间："+time);
+        }else {
+            holder.time.setText("操作时间：无");
+        }
+
+        String remark = item.getRemark();
+        if (!TextUtils.isEmpty(remark)) {
+            holder.remark.setText("备注："+remark);
+        }else {
+            holder.remark.setText("备注：无");
+        }
+
+
 
 
 
