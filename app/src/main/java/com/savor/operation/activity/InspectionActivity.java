@@ -129,6 +129,7 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
             case POST_INSPECTOR_JSON:
 
                 mPullRefreshListView.onRefreshComplete();
+                mPullRefreshListView.onLoadComplete(false, true);
                 if (obj instanceof ResponseErrorMessage){
                     ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                     String statusCode = String.valueOf(errorMessage.getCode());
