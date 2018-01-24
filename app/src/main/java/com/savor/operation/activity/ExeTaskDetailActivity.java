@@ -399,7 +399,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 refuse_time.setVisibility(View.VISIBLE);
                 refuse_time.setText("拒绝时间："+refuseT+"("+taskDetail.getAppoint_user()+")");
             }else {
-                refuse_time.setVisibility(View.GONE);
+                refuse_time.setText("拒绝时间：无");
             }
             plan_state.setText(taskDetail.getState());
             city_in.setText("("+taskDetail.getRegion_name()+")");
@@ -415,15 +415,14 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             if (!TextUtils.isEmpty(appoint_exe_timeString)) {
                 appoint_exe_time.setText("执行指派时间 ："+appoint_exe_timeString+"("+taskDetail.getExeuser()+")");
             }else {
-                appoint_exe_time.setVisibility(View.GONE);
+                appoint_exe_time.setText("执行指派时间 ：无");
             }
             String tvNums = taskDetail.getTv_nums();
             if (!TextUtils.isEmpty(tvNums)) {
                 screen_num.setVisibility(View.VISIBLE);
                 screen_num.setText("版位数量 ："+taskDetail.getTv_nums());
             }else {
-                screen_num.setVisibility(View.GONE);
-                screen_num.setText("");
+                screen_num.setText("版位数量 ：无");
             }
             mold.setText(taskDetail.getTask_type_desc());
             hotel_name.setText(taskDetail.getHotel_name());
@@ -439,7 +438,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 contact.setVisibility(View.VISIBLE);
                 contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
             }else {
-                contact.setVisibility(View.GONE);
+                contact.setText("联系人："+"无"+"    "+tnum);
                 //contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
             }
 
@@ -449,8 +448,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 release_time.setVisibility(View.VISIBLE);
                 release_time.setText("发布时间:"+create_time+"("+taskDetail.getPublish_user()+")");
             }else {
-                release_time.setVisibility(View.GONE);
-                release_time.setText("");
+                release_time.setText("发布时间:无");
             }
 
             String appoint_time = taskDetail.getAppoint_time();
@@ -458,8 +456,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 execute_time.setVisibility(View.VISIBLE);
                 execute_time.setText("指派时间:"+appoint_time+"("+taskDetail.getAppoint_user()+")");
             }else {
-                execute_time.setVisibility(View.GONE);
-                execute_time.setText("");
+                execute_time.setText("指派时间:无");
             }
 
             String complete_timeStr = taskDetail.getComplete_time();
@@ -467,8 +464,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 complete_time.setVisibility(View.VISIBLE);
                 complete_time.setText("完成时间："+complete_timeStr+"("+taskDetail.getExeuser()+")");
             }else {
-                complete_time.setVisibility(View.GONE);
-                complete_time.setText("");
+                complete_time.setText("完成时间：无");
             }
             if (!"1".equals(stateId)&&!"5".equals(stateId)) {
                 if ("2".equals(task_type_id)) {

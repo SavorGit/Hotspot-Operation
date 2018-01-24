@@ -230,7 +230,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                 refuse_time.setVisibility(View.VISIBLE);
                 refuse_time.setText("拒绝时间："+refuseT+"("+taskDetail.getAppoint_user()+")");
             }else {
-                refuse_time.setVisibility(View.GONE);
+                refuse_time.setText("拒绝时间：无");
             }
             int is_lead_install = 5;
             is_lead_install = taskDetail.getIs_lead_install();
@@ -238,15 +238,14 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
             if (!TextUtils.isEmpty(appoint_exe_timeString)) {
                 appoint_exe_time.setText("执行指派时间 ："+appoint_exe_timeString+"("+taskDetail.getExeuser()+")");
             }else {
-                appoint_exe_time.setVisibility(View.GONE);
+                appoint_exe_time.setText("执行指派时间 ：无");
             }
             String tvNums = taskDetail.getTv_nums();
             if (!TextUtils.isEmpty(tvNums)) {
                 screen_num.setVisibility(View.VISIBLE);
                 screen_num.setText("版位数量 ："+taskDetail.getTv_nums());
             }else {
-                screen_num.setVisibility(View.GONE);
-                screen_num.setText("");
+                screen_num.setText("版位数量 ：无");
             }
             mold.setText(taskDetail.getTask_type_desc());
             hotel_name.setText(taskDetail.getHotel_name());
@@ -259,7 +258,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                     refuse_desc.setVisibility(View.VISIBLE);
                     refuse_desc.setText("拒绝原因："+refuse);
                 }else {
-                    refuse_desc.setVisibility(View.GONE);
+                    refuse_desc.setText("拒绝原因：无");
                 }
             }else {
                 refuse_desc.setVisibility(View.GONE);
@@ -290,8 +289,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                 contact.setVisibility(View.VISIBLE);
                 contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
             }else {
-                contact.setVisibility(View.GONE);
-                //contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
+                contact.setText("联系人：无");
             }
 
             String create_time = taskDetail.getCreate_time();
