@@ -94,35 +94,44 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void getViews() {
-        plan_state = (TextView) findViewById(R.id.plan_state);
-        level_state = (TextView) findViewById(R.id.level_state);
-        screen_num = (TextView) findViewById(R.id.screen_num);
-        mold = (TextView) findViewById(R.id.mold);
-        hotel_name = (TextView) findViewById(R.id.hotel_name);
-        add = (TextView) findViewById(R.id.add);
-        release_time = (TextView) findViewById(R.id.release_time);
-        execute_time = (TextView) findViewById(R.id.execute_time);
-        complete_time = (TextView) findViewById(R.id.complete_time);
-        contact = (TextView) findViewById(R.id.contact);
         mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.wl_listview);
         iv_left = (ImageView) findViewById(R.id.iv_left);
         tv_center = (TextView) findViewById(R.id.tv_center);
         btn_la = (RelativeLayout) findViewById(R.id.btn_la);;
         refused = (TextView) findViewById(R.id.refused);
         assign = (TextView) findViewById(R.id.assign);
-        call = (TextView) findViewById(R.id.call);
-        refuse_desc = (TextView) findViewById(R.id.refuse_desc);
-        appoint_exe_time = (TextView) findViewById(R.id.appoint_exe_time);
-        lead_install = (TextView) findViewById(R.id.lead_install);
-        city_in = (TextView) findViewById(R.id.city_in);
-        refuse_time = (TextView) findViewById(R.id.refuse_time);
-        remark_la =(RelativeLayout) findViewById(R.id.remark_la);
-        remarkView = (TextView) findViewById(R.id.remark);
+        initHeaderView();
+
+
 }
 
+    private void initHeaderView() {
+        View headerView = View.inflate(this, R.layout.mission_header_layout, null);
+
+        plan_state = (TextView) headerView.findViewById(R.id.plan_state);
+        level_state = (TextView) headerView.findViewById(R.id.level_state);
+        screen_num = (TextView) headerView.findViewById(R.id.screen_num);
+        mold = (TextView) headerView.findViewById(R.id.mold);
+        hotel_name = (TextView) headerView.findViewById(R.id.hotel_name);
+        add = (TextView) headerView.findViewById(R.id.add);
+        release_time = (TextView) headerView.findViewById(R.id.release_time);
+        execute_time = (TextView) headerView.findViewById(R.id.execute_time);
+        complete_time = (TextView) headerView.findViewById(R.id.complete_time);
+        contact = (TextView) headerView.findViewById(R.id.contact);
+        call = (TextView) headerView.findViewById(R.id.call);
+        refuse_desc = (TextView) headerView.findViewById(R.id.refuse_desc);
+        appoint_exe_time = (TextView) headerView.findViewById(R.id.appoint_exe_time);
+        lead_install = (TextView) headerView.findViewById(R.id.lead_install);
+        city_in = (TextView) headerView.findViewById(R.id.city_in);
+        refuse_time = (TextView) headerView.findViewById(R.id.refuse_time);
+        remark_la =(RelativeLayout) headerView.findViewById(R.id.remark_la);
+        remarkView = (TextView) headerView.findViewById(R.id.remark);
+    }
     @Override
     public void setViews() {
         tv_center.setText("任务详情");
+        repairAdapter = new RepairAdapter(context);
+        mPullRefreshListView.setAdapter(repairAdapter);
     }
 
     @Override
@@ -399,7 +408,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 }
 
             }else {
-                mPullRefreshListView.setVisibility(View.GONE);
+               // mPullRefreshListView.setVisibility(View.GONE);
             }
 
         }

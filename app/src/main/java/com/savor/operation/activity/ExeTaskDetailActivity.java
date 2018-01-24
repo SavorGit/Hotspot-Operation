@@ -218,33 +218,46 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void getViews() {
-        plan_state = (TextView) findViewById(R.id.plan_state);
-        level_state = (TextView) findViewById(R.id.level_state);
-        screen_num = (TextView) findViewById(R.id.screen_num);
-        mold = (TextView) findViewById(R.id.mold);
-        hotel_name = (TextView) findViewById(R.id.hotel_name);
-        add = (TextView) findViewById(R.id.add);
-        release_time = (TextView) findViewById(R.id.release_time);
-        execute_time = (TextView) findViewById(R.id.execute_time);
-        complete_time = (TextView) findViewById(R.id.complete_time);
-        contact = (TextView) findViewById(R.id.contact);
-        mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.wl_listview);
-        iv_left = (ImageView) findViewById(R.id.iv_left);
-        tv_center = (TextView) findViewById(R.id.tv_center);
+
         btn_la = (RelativeLayout) findViewById(R.id.btn_la);;
         assign = (TextView) findViewById(R.id.assign);
-        call = (TextView) findViewById(R.id.call);
-        appoint_exe_time = (TextView) findViewById(R.id.appoint_exe_time);
-        lead_install = (TextView) findViewById(R.id.lead_install);
-        city_in = (TextView) findViewById(R.id.city_in);
-        refuse_time = (TextView) findViewById(R.id.refuse_time);
-        remark_la =(RelativeLayout) findViewById(R.id.remark_la);
-        remarkView = (TextView) findViewById(R.id.remark);
+        iv_left = (ImageView) findViewById(R.id.iv_left);
+        tv_center = (TextView) findViewById(R.id.tv_center);
+        mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.wl_listview);
+
+
+        initHeaderView();
     }
 
+
+    private void initHeaderView() {
+       View headerView = View.inflate(this, R.layout.exe_mission_header_layout, null);
+//
+        plan_state = (TextView) headerView.findViewById(R.id.plan_state);
+        level_state = (TextView) headerView.findViewById(R.id.level_state);
+        screen_num = (TextView) headerView.findViewById(R.id.screen_num);
+        mold = (TextView) headerView.findViewById(R.id.mold);
+        hotel_name = (TextView) headerView.findViewById(R.id.hotel_name);
+        add = (TextView) headerView.findViewById(R.id.add);
+        release_time = (TextView) headerView.findViewById(R.id.release_time);
+        execute_time = (TextView) headerView.findViewById(R.id.execute_time);
+        complete_time = (TextView) headerView.findViewById(R.id.complete_time);
+        contact = (TextView) headerView.findViewById(R.id.contact);
+        call = (TextView) headerView.findViewById(R.id.call);
+        appoint_exe_time = (TextView) headerView.findViewById(R.id.appoint_exe_time);
+        lead_install = (TextView) headerView.findViewById(R.id.lead_install);
+        city_in = (TextView) headerView.findViewById(R.id.city_in);
+        refuse_time = (TextView) headerView.findViewById(R.id.refuse_time);
+        remark_la =(RelativeLayout) headerView.findViewById(R.id.remark_la);
+        remarkView = (TextView) headerView.findViewById(R.id.remark);
+
+        mPullRefreshListView.getRefreshableView().addHeaderView(headerView);
+    }
     @Override
     public void setViews() {
         tv_center.setText("任务详情");
+        repairAdapter = new RepairAdapter(context);
+        mPullRefreshListView.setAdapter(repairAdapter);
     }
 
     @Override
@@ -484,6 +497,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
                repair_list = taskDetail.getRepair_list();
                 List<ExecuteRepair> execute = taskDetail.getExecute();
+            mPullRefreshListView.setVisibility(View.VISIBLE);
             if (repair_list != null && repair_list.size()>0) {
                 //screen_num.setText("版位数量 ："+repair_list.size());
                 mPullRefreshListView.setVisibility(View.VISIBLE);
@@ -535,7 +549,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 }
 
             }else {
-                mPullRefreshListView.setVisibility(View.GONE);
+                //mPullRefreshListView.setVisibility(View.GONE);
             }
 
         }

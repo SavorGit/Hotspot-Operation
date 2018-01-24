@@ -95,6 +95,9 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
         iv_left = (ImageView) findViewById(R.id.iv_left);
         tv_center = (TextView) findViewById(R.id.tv_center);
         mPullRefreshListView = (PullToRefreshListView) findViewById(R.id.wl_listview);
+        btn_la = (RelativeLayout)findViewById(R.id.btn_la);;
+        refused = (TextView) findViewById(R.id.refused);
+        assign = (TextView) findViewById(R.id.assign);
         initHeaderView();
     }
 
@@ -111,9 +114,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
         execute_time = (TextView) headerView.findViewById(R.id.execute_time);
         complete_time = (TextView) headerView.findViewById(R.id.complete_time);
         contact = (TextView) headerView.findViewById(R.id.contact);
-        btn_la = (RelativeLayout) headerView.findViewById(R.id.btn_la);;
-        refused = (TextView) headerView.findViewById(R.id.refused);
-        assign = (TextView) headerView.findViewById(R.id.assign);
+
         call = (TextView) headerView.findViewById(R.id.call);
         refuse_desc = (TextView) headerView.findViewById(R.id.refuse_desc);
         appoint_exe_time = (TextView) headerView.findViewById(R.id.appoint_exe_time);
@@ -132,6 +133,8 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
     @Override
     public void setViews() {
         tv_center.setText("任务详情");
+        repairAdapter = new RepairAdapter(context);
+        mPullRefreshListView.setAdapter(repairAdapter);
     }
 
     @Override
@@ -395,7 +398,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                 }
 
             }else {
-                mPullRefreshListView.setVisibility(View.GONE);
+               // mPullRefreshListView.setVisibility(View.GONE);
             }
 
         }

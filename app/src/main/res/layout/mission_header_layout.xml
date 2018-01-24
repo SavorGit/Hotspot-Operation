@@ -5,7 +5,7 @@
     android:background="#f5f5f5">
 
     <RelativeLayout
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/top"
         android:id="@+id/state_info_layout"
         android:layout_width="match_parent"
         android:background="#ffffff"
@@ -105,7 +105,6 @@
             android:textSize="14dp"
             android:textColor="#888888"
             android:text=""/>
-
         <TextView
             android:id="@+id/appoint_exe_time"
             android:layout_width="wrap_content"
@@ -181,7 +180,7 @@
         android:layout_below="@id/line2"
         android:layout_width="match_parent"
         android:background="#ffffff"
-        android:layout_height="40dp">
+        android:layout_height="50dp">
         <TextView
             android:id="@+id/contact"
             android:layout_width="wrap_content"
@@ -189,8 +188,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="5dp"
-            android:maxLength="8"
             android:layout_marginBottom="5dp"
+            android:maxLength="8"
             android:gravity="center"
             android:layout_alignParentLeft="true"
             android:text=""
@@ -223,8 +222,6 @@
         android:background="#444444"
         android:layout_below="@id/contact_la"
         />
-
-
     <RelativeLayout
         android:id="@+id/remark_la"
         android:layout_below="@id/line3"
@@ -251,15 +248,13 @@
 
     </RelativeLayout>
     <TextView
-        android:background="@color/white"
         android:id="@+id/refuse_desc"
         android:layout_width="match_parent"
-        android:layout_height="22dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/remark_la"
-        android:textColor="#333333"
+        android:layout_marginTop="5dp"
+        android:textColor="#888888"
         android:textSize="15sp"
-        android:gravity="center|left"
-        android:paddingLeft="25dp"
         android:layout_marginBottom="5dp"
         android:text=""/>
     <TextView
@@ -275,6 +270,4 @@
         android:layout_marginBottom="5dp"
         android:visibility="gone"
         android:text=""/>
-
-
 </RelativeLayout>

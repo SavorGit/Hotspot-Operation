@@ -9,6 +9,48 @@
         layout="@layout/layout_head_title"/>
     />
 
+    <RelativeLayout
+        android:id="@+id/btn_la"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/refused"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:layout_alignParentRight="true"
+            android:text="拒绝"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@color/app_red_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/assign"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:layout_toLeftOf="@id/refused"
+            android:text="去指派"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@color/actionsheet_blue"
+            android:layout_marginLeft="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
     <com.common.api.widget.pulltorefresh.library.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         ptr:ptrAnimationStyle = "scale"
