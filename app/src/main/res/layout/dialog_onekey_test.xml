@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minWidth="400dp"
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:text="小平台：离线"
+            android:text="小平台："
             android:textColor="@color/color_222222"
             android:textSize="15sp" />
 
@@ -45,17 +46,18 @@
             android:layout_marginTop="10dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:text="烟云亭：在线  可以投屏点播"
+            tools:text="烟云亭：在线  可以投屏点播"
             android:textColor="@color/color_222222"
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/tv_network_delayed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
-            android:text="网络延迟：外网（30秒）  内网（100毫秒）"
+            android:text="网络延迟："
             android:textColor="@color/color_222222"
             android:textSize="15sp" />
 

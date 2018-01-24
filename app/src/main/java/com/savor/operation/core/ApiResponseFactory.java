@@ -391,6 +391,7 @@ public class ApiResponseFactory {
                 result = gson.fromJson(info, new TypeToken<SystemStatusResponse>() {
                 }.getType());
                 break;
+            case POST_DOWNLOAD_ADS_JSON:
             case POST_PUBLISH_LIST_JSON:
                 result = gson.fromJson(info, new TypeToken<List<PubProgram>>() {
                 }.getType());

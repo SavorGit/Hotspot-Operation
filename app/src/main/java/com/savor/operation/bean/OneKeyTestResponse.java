@@ -21,6 +21,7 @@ public class OneKeyTestResponse implements Serializable {
     private String small_device_state;
     private String box_device_name;
     private String box_device_state;
+    private String box_net_state;
     private List<String> remark;
 
     @Override
@@ -30,6 +31,7 @@ public class OneKeyTestResponse implements Serializable {
                 ", small_device_state='" + small_device_state + '\'' +
                 ", box_device_name='" + box_device_name + '\'' +
                 ", box_device_state='" + box_device_state + '\'' +
+                ", box_net_state='" + box_net_state + '\'' +
                 ", remark=" + remark +
                 '}';
     }
@@ -49,6 +51,8 @@ public class OneKeyTestResponse implements Serializable {
             return false;
         if (box_device_state != null ? !box_device_state.equals(that.box_device_state) : that.box_device_state != null)
             return false;
+        if (box_net_state != null ? !box_net_state.equals(that.box_net_state) : that.box_net_state != null)
+            return false;
         return remark != null ? remark.equals(that.remark) : that.remark == null;
     }
 
@@ -58,6 +62,7 @@ public class OneKeyTestResponse implements Serializable {
         result = 31 * result + (small_device_state != null ? small_device_state.hashCode() : 0);
         result = 31 * result + (box_device_name != null ? box_device_name.hashCode() : 0);
         result = 31 * result + (box_device_state != null ? box_device_state.hashCode() : 0);
+        result = 31 * result + (box_net_state != null ? box_net_state.hashCode() : 0);
         result = 31 * result + (remark != null ? remark.hashCode() : 0);
         return result;
     }
@@ -92,6 +97,14 @@ public class OneKeyTestResponse implements Serializable {
 
     public void setBox_device_state(String box_device_state) {
         this.box_device_state = box_device_state;
+    }
+
+    public String getBox_net_state() {
+        return box_net_state;
+    }
+
+    public void setBox_net_state(String box_net_state) {
+        this.box_net_state = box_net_state;
     }
 
     public List<String> getRemark() {

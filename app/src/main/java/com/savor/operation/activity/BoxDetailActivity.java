@@ -1,5 +1,6 @@
 package com.savor.operation.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -67,6 +68,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
             }
         }
     };
+    private TextView mPubProgramBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +126,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         mProgramPeriodTv = (TextView)  headerView.findViewById(R.id.tv_pro_period);
         mAdsPeriodTv = (TextView)  headerView.findViewById(R.id.tv_ads_period);
         mOnkeyTestTv = (TextView) headerView.findViewById(R.id.tv_onekey_test);
+        mPubProgramBtn = (TextView) headerView.findViewById(R.id.tv_content_list);
 
         mProgramRlv.addHeaderView(headerView);
     }
@@ -139,6 +142,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void setListeners() {
+        mPubProgramBtn.setOnClickListener(this);
         mOnkeyTestTv.setOnClickListener(this);
         mFixBtn.setOnClickListener(this);
         mBackBtn.setOnClickListener(this);
@@ -165,6 +169,14 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.tv_content_list:
+                Intent intent = new Intent(this,LoadingListActivity.class);
+                intent.putExtra("type",LoadingListActivity.Operationtype.PUB_PRO_LIST);
+                intent.putExtra("pro_period",boxDetail.getPro_period());
+                intent.putExtra("ads_period",boxDetail.getAds_period());
+                intent.putExtra("box_id",box_id);
+                startActivity(intent);
+                break;
             case R.id.tv_onekey_test:
                 showOnkeTestDialog();
                 mHandler.sendEmptyMessageDelayed(MSG_ONKEY_TEST,500);

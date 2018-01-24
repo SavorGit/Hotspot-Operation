@@ -128,7 +128,7 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
     private void initViews(ActionHolder holder, int num, FunctionType type, int imageId, String desc) {
         switch (type) {
             case CHECK_HOTEL:
-                imageId = R.drawable.ico_refresh_image;
+                imageId = R.drawable.ico_checkhotel;
                 desc = "巡检酒楼";
                 break;
             case UPDATE_CHANGE_IMAGE:

@@ -54,6 +54,7 @@ public class OneKeyTestDialog extends Dialog implements View.OnClickListener {
     private OfflineReasonAdapter offlineReasonAdapter;
     private OnReTestBtnClickLisnter onReTestBtnClickLisnter;
     private OnCancelBtnClickListener onCancelBtnClickListener;
+    private TextView mNetworkDelayedTv;
 
     public OneKeyTestDialog(@NonNull Context context) {
         super(context);
@@ -72,6 +73,7 @@ public class OneKeyTestDialog extends Dialog implements View.OnClickListener {
     }
 
     private void getViews() {
+        mNetworkDelayedTv = (TextView) findViewById(R.id.tv_network_delayed);
         mOffLineReasonRlv = (RecyclerView) findViewById(R.id.rlv_offline_reason);
         mBoxStateTv = (TextView) findViewById(R.id.tv_box_state);
         mSmallStateTv = (TextView) findViewById(R.id.tv_small_state);
@@ -82,17 +84,6 @@ public class OneKeyTestDialog extends Dialog implements View.OnClickListener {
 
         mCancelTv = (TextView) findViewById(R.id.tv_cancel);
 
-//        testNetwork();
-    }
-
-    private void testNetwork() {
-        mLoadingLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mLoadingLayout.setVisibility(View.GONE);
-                mResultLayout.setVisibility(View.VISIBLE);
-            }
-        },3000);
     }
 
     private void setViews() {
@@ -155,6 +146,9 @@ public class OneKeyTestDialog extends Dialog implements View.OnClickListener {
 
         mLoadingLayout.setVisibility(View.GONE);
         mResultLayout.setVisibility(View.VISIBLE);
+
+        String box_net_state = oneKeyTestResponse.getBox_net_state();
+        mNetworkDelayedTv.setVisibility(TextUtils.isEmpty(box_net_state)?View.GONE:View.VISIBLE);
     }
 
     public void reset() {
