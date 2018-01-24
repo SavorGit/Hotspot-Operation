@@ -250,7 +250,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                 refuse_desc.setVisibility(View.GONE);
             }
 
-            String remarkExe = taskDetail.getRemark();
+            String remarkExe = taskDetail.getDesc();
             if (!TextUtils.isEmpty(remarkExe)) {
                 remarkView.setText("备注:"+remarkExe);
             }else {

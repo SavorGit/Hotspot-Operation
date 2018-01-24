@@ -475,7 +475,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 lead_install.setVisibility(View.GONE);
             }
 
-            String remarkExe = taskDetail.getRemark();
+            String remarkExe = taskDetail.getDesc();
             if (!TextUtils.isEmpty(remarkExe)) {
                 remarkView.setText("备注:"+remarkExe);
             }else {

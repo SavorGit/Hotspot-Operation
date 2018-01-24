@@ -38,6 +38,7 @@ public class TaskDetail implements Serializable {
     private  String complete_time;
     private  String hotel_linkman_tel;
     private  String remark;
+    private  String desc;
     private int is_lead_install;
     private List<TaskDetailRepair> repair_list = new ArrayList<TaskDetailRepair>();
     private List<ExecuteRepair> execute = new ArrayList<ExecuteRepair>();
@@ -291,6 +292,15 @@ public class TaskDetail implements Serializable {
         this.remark = remark;
     }
 
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     @Override
     public String toString() {
         return "TaskDetail{" +
@@ -322,6 +332,7 @@ public class TaskDetail implements Serializable {
                 ", complete_time='" + complete_time + '\'' +
                 ", hotel_linkman_tel='" + hotel_linkman_tel + '\'' +
                 ", remark='" + remark + '\'' +
+                ", desc='" + desc + '\'' +
                 ", is_lead_install=" + is_lead_install +
                 ", repair_list=" + repair_list +
                 ", execute=" + execute +
