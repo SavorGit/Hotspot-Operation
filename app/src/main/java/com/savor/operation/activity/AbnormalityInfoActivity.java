@@ -37,6 +37,7 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
     private PullToRefreshListView mPullRefreshListView;
     private ErrorReportInfoAdapter mAdapter;
     private int pageSize = 15;
+    private int pageNum = 1;
     private String error_id = "0";
     private String detail_id = "0";
     private boolean isUp = true;
@@ -62,7 +63,7 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
     }
 
     private void getData(){
-        AppApi.getErrorDetail(this,detail_id,error_id,pageSize,this);
+        AppApi.getErrorDetail(this,pageNum+"",error_id,pageSize,this);
 
     }
     @Override
@@ -156,6 +157,7 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
     private void handleVodList(List<ErrorDetailBean> mList){
 
         if (mList != null && mList.size() > 0) {
+            pageNum++;
             if (isUp) {
                 info.setText(errorDetail.getInfo());
                 time.setText(errorDetail.getDate());
@@ -196,6 +198,7 @@ public class AbnormalityInfoActivity extends BaseActivity implements View.OnClic
         @Override
         public void onRefresh(PullToRefreshBase refreshView) {
             detail_id = "0";
+            pageNum = 1;
             isUp = true;
             // istop = true;
             getData();
