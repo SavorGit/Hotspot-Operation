@@ -69,7 +69,6 @@
 
         <activity
             android:name=".activity.LoginActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|stateHidden">
