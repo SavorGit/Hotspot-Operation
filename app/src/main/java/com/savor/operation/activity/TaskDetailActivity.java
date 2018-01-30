@@ -126,6 +126,8 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         refuse_time = (TextView) headerView.findViewById(R.id.refuse_time);
         remark_la =(RelativeLayout) headerView.findViewById(R.id.remark_la);
         remarkView = (TextView) headerView.findViewById(R.id.remark);
+
+        mPullRefreshListView.getRefreshableView().addHeaderView(headerView);
     }
     @Override
     public void setViews() {
