@@ -9,9 +9,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.TextView;
@@ -33,6 +35,8 @@ import com.savor.operation.bean.TaskNum;
 import com.savor.operation.bean.UpgradeInfo;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.enums.FunctionType;
+import com.savor.operation.ssdp.SSDPService;
+import com.savor.operation.utils.ActivitiesManager;
 import com.savor.operation.utils.STIDUtil;
 import com.savor.operation.utils.log.ActionType;
 import com.savor.operation.widget.CommonDialog;
@@ -130,6 +134,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
     };
     private ActionListAdapter mAdapter;
     private SpacesItemDecoration spacesItemDecoration;
+    private long exitTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -491,6 +496,29 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                ShowMessage.showToast(this,getString(R.string.confirm_exit_app));
+                exitTime = System.currentTimeMillis();
+            } else {
+                exitApp();
+            }
+        }
+        return true;
+    }
+
+    private void exitApp() {
+        ActivitiesManager.getInstance().popAllActivities();
+        // 关闭发现小平台的service
+        Intent stopDescoveryIntent = new Intent(this,SSDPService.class);
+        stopService(stopDescoveryIntent);
+
+        Process.killProcess(android.os.Process.myPid());
 
     }
 }
