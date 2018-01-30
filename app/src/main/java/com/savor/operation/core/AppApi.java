@@ -310,9 +310,9 @@ public class AppApi {
      * @param context 上下文
      * @param handler 接口回调
      */
-    public static void getErrorDetail(Context context, String detail_id, String error_id,int pageSize,ApiRequestListener handler) {
+    public static void getErrorDetail(Context context, String pageNum, String error_id,int pageSize,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
-        params.put("detail_id",detail_id);
+        params.put("pageNum",pageNum);
         params.put("error_id",error_id);
         params.put("pageSize",pageSize);
         new AppServiceOk(context, Action.POST_ERROR_REPORT_DETAIL_JSON, handler, params).post();
