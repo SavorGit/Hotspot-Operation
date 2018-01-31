@@ -246,11 +246,27 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                     List<RepairInfo> infos = mTaskAdapter.getData();
                     for(RepairInfo repairInfo : infos) {
                         String box_id = repairInfo.getBox_id();
+                        String fault_desc = repairInfo.getFault_desc();
+
                         if(TextUtils.isEmpty(box_id)) {
                             ShowMessage.showToast(this,"请选择版位");
                             return;
                         }
+
                     }
+
+                    for(RepairInfo repairInfo : infos) {
+                        String box_id = repairInfo.getBox_id();
+                        String fault_desc = repairInfo.getFault_desc();
+
+                        if(TextUtils.isEmpty(fault_desc)) {
+                            ShowMessage.showToast(this,"请填写故障现象");
+                            return;
+                        }
+
+                    }
+
+
                 }
 
                 List<RepairInfo> data = mTaskAdapter.getData();
