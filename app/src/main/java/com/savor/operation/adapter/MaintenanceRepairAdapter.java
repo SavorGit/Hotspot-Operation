@@ -132,14 +132,22 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
         }
 
 
-        Glide.with(context).load(item.getFault_img_url()).into(holder.fault_img);
-        holder.fault_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        String url = item.getFault_img_url();
+        if (!TextUtils.isEmpty(url)) {
+            Glide.with(context).load(item.getFault_img_url()).into(holder.fault_img);
+
+            holder.fault_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 //                new ShowPicDialog(context,item.getFault_img_url()).show();
-                PhotoShowActivity.startPhotoShowActivity(context,item.getFault_img_url());
-            }
-        });
+                    PhotoShowActivity.startPhotoShowActivity(context,item.getFault_img_url());
+                }
+            });
+        }else {
+            holder.fault_img.setBackgroundResource(R.drawable.kong_mrjz);
+        }
+
+
 
         String stateS = item.getState();
         if (TextUtils.isEmpty(stateS)) {

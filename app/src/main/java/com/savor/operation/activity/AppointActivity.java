@@ -242,7 +242,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
             info_state.setVisibility(View.VISIBLE);
             info_state.setText(state);
         }else {
-            info_state.setVisibility(View.GONE);
+            info_state.setVisibility(View.INVISIBLE);
             //info_state.setText(state);
         }
 
@@ -250,14 +250,14 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
             info_hotel_name.setVisibility(View.VISIBLE);
             info_hotel_name.setText(hotel_name);
         }else {
-            info_hotel_name.setVisibility(View.GONE);
+            info_hotel_name.setVisibility(View.INVISIBLE);
         }
 
         if (!TextUtils.isEmpty(num)) {
             tv_num.setVisibility(View.VISIBLE);
             tv_num.setText("版位数量："+num+"个");
         }else {
-            tv_num.setVisibility(View.GONE);
+            tv_num.setVisibility(View.INVISIBLE);
         }
 
     }

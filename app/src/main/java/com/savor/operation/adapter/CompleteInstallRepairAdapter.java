@@ -96,13 +96,16 @@ public class CompleteInstallRepairAdapter extends BaseAdapter {
         if (repair_img != null && repair_img.size()>0) {
             final  TaskDetailRepairImg obj = repair_img.get(0);
             Glide.with(context).load(obj.getImg()).into(holder.pic);
-            holder.pic.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            if (!TextUtils.isEmpty(obj.getImg())) {
+                holder.pic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 //                    new ShowPicDialog(context,obj.getImg()).show();
-                    PhotoShowActivity.startPhotoShowActivity(context,obj.getImg());
-                }
-            });
+                        PhotoShowActivity.startPhotoShowActivity(context,obj.getImg());
+                    }
+                });
+            }
+
         }
 
 
