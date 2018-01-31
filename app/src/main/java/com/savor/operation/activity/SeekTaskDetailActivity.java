@@ -230,7 +230,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                 refuse_time.setVisibility(View.VISIBLE);
                 refuse_time.setText("拒绝时间："+refuseT+"("+taskDetail.getAppoint_user()+")");
             }else {
-                refuse_time.setText("拒绝时间：无");
+                refuse_time.setVisibility(View.INVISIBLE);
             }
             int is_lead_install = 5;
             is_lead_install = taskDetail.getIs_lead_install();

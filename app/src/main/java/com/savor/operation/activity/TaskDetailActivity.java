@@ -232,7 +232,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 refuse_time.setVisibility(View.VISIBLE);
                 refuse_time.setText("拒绝时间："+refuseT+"("+taskDetail.getAppoint_user()+")");
             }else {
-                refuse_time.setText("拒绝时间：无");
+                refuse_time.setVisibility(View.INVISIBLE);
             }
 
             String task_emerge_id = taskDetail.getTask_emerge_id();

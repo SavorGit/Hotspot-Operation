@@ -170,14 +170,20 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
              final  TaskDetailRepairImg obj = repair_img.get(i);
              final View v = mInflater.inflate(R.layout.item_pic_layout, null);
              final ImageView iv_exce_pic1 = (ImageView)v.findViewById(R.id.iv_exce_pic1);
+
+             final String Iurl = obj.getImg();
              Glide.with(context).load(obj.getImg()).into(iv_exce_pic1);
-             iv_exce_pic1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+             if (!TextUtils.isEmpty(Iurl)) {
+                 iv_exce_pic1.setOnClickListener(new View.OnClickListener() {
+                     @Override
+                     public void onClick(View v) {
 //                    new ShowPicDialog(context,obj.getImg()).show();
-                    PhotoShowActivity.startPhotoShowActivity(context,obj.getImg());
-                }
-            });
+                         PhotoShowActivity.startPhotoShowActivity(context,obj.getImg());
+                     }
+                 });
+             }
+
+
             //convertView = mInflater.inflate(R.layout.item_video, null);
              holder.msg_la.addView(v);
             }
