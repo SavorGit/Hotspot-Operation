@@ -87,14 +87,17 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         tv_center.setText("指派人员");
 //        jobAdapter = new JobAdapter(context,this);
 //        pullToRefreshListView.setAdapter(jobAdapter);
-        String task_type_id = taskDetail.getTask_type_id();
-        if ("2".equals(task_type_id) ) {
-            radioGroup.setVisibility(View.VISIBLE);
-        }else {
-            radioGroup.setVisibility(View.GONE);
-            is_lead_install = "";
+        if (taskDetail != null) {
+            String task_type_id = taskDetail.getTask_type_id();
+            if ("2".equals(task_type_id) ) {
+                radioGroup.setVisibility(View.VISIBLE);
+            }else {
+                radioGroup.setVisibility(View.GONE);
+                is_lead_install = "";
+            }
+            exe_num.setVisibility(View.GONE);
         }
-        exe_num.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -234,31 +237,35 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         }
     }
     private void initView(){
-        String state = taskDetail.getTask_type_desc();
-        String hotel_name = taskDetail.getHotel_name();
-        String num = taskDetail.getTv_nums();
+        if (taskDetail != null) {
+            String state = taskDetail.getTask_type_desc();
+            String hotel_name = taskDetail.getHotel_name();
+            String num = taskDetail.getTv_nums();
 
-        if (!TextUtils.isEmpty(state)) {
-            info_state.setVisibility(View.VISIBLE);
-            info_state.setText(state);
-        }else {
-            info_state.setVisibility(View.INVISIBLE);
-            //info_state.setText(state);
+            if (!TextUtils.isEmpty(state)) {
+                info_state.setVisibility(View.VISIBLE);
+                info_state.setText(state);
+            }else {
+                info_state.setVisibility(View.INVISIBLE);
+                //info_state.setText(state);
+            }
+
+            if (!TextUtils.isEmpty(hotel_name)) {
+                info_hotel_name.setVisibility(View.VISIBLE);
+                info_hotel_name.setText(hotel_name);
+            }else {
+                info_hotel_name.setVisibility(View.INVISIBLE);
+            }
+
+            if (!TextUtils.isEmpty(num)) {
+                tv_num.setVisibility(View.VISIBLE);
+                tv_num.setText("版位数量："+num+"个");
+            }else {
+                tv_num.setVisibility(View.INVISIBLE);
+            }
         }
 
-        if (!TextUtils.isEmpty(hotel_name)) {
-            info_hotel_name.setVisibility(View.VISIBLE);
-            info_hotel_name.setText(hotel_name);
-        }else {
-            info_hotel_name.setVisibility(View.INVISIBLE);
-        }
 
-        if (!TextUtils.isEmpty(num)) {
-            tv_num.setVisibility(View.VISIBLE);
-            tv_num.setText("版位数量："+num+"个");
-        }else {
-            tv_num.setVisibility(View.INVISIBLE);
-        }
 
     }
     private void getExeUserList(){

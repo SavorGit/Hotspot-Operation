@@ -399,7 +399,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 refuse_time.setVisibility(View.VISIBLE);
                 refuse_time.setText("拒绝时间："+refuseT+"("+taskDetail.getAppoint_user()+")");
             }else {
-                refuse_time.setText("拒绝时间：无");
+                refuse_time.setVisibility(View.INVISIBLE);
             }
             plan_state.setText(taskDetail.getState());
             city_in.setText("("+taskDetail.getRegion_name()+")");
