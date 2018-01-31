@@ -298,8 +298,8 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         mLookLoadingProgramTv.setVisibility(TextUtils.isEmpty(pro_download_period)?View.GONE:View.VISIBLE);
         mLookLoadingAdvertTv.setVisibility(TextUtils.isEmpty(ads_download_period)?View.GONE:View.VISIBLE);
 
-        mProgramPeriodTv.setText("节目期号："+pro_period);
-        mAdsPeriodTv.setText("广告期号："+ads_period);
+        mProgramPeriodTv.setText("节目期号："+getFormatStr(pro_period));
+        mAdsPeriodTv.setText("广告期号："+getFormatStr(ads_period));
 
         List<Program> program_list = boxDetail.getProgram_list();
         programStatusAdapter.setData(program_list);

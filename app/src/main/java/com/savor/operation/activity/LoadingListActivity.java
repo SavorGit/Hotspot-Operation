@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.savor.operation.R;
 import com.savor.operation.adapter.LoadingProgramAdsAdapter;
 import com.savor.operation.adapter.PubProListAdapter;
+import com.savor.operation.bean.ContentListResponse;
 import com.savor.operation.bean.LoadingProgramAds;
+import com.savor.operation.bean.Program;
 import com.savor.operation.bean.PubProgram;
 import com.savor.operation.core.AppApi;
 
@@ -34,11 +36,11 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     private TextView mTitleTv;
 
     public enum Operationtype implements Serializable{
-        /**下载节目*/
+        /**发布内容列表*/
         PUB_PRO_LIST,
         /**下载广告*/
         DOWNLOAD_ADS,
-        /**发布内容*/
+        /**下载节目列表*/
         DOWNLOAD_PRO,
     }
 
@@ -115,7 +117,7 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
             switch (type) {
                 case PUB_PRO_LIST:
                     mTitleTv.setText("发布节目单");
-                    mPeriodTv.setText("发布节目期号："+pro_period+"    "+"发布广告期号："+ads_period);
+                    mPeriodTv.setText("发布节目期号："+"    "+"发布广告期号：");
                     break;
                 case DOWNLOAD_PRO:
                     mTitleTv.setText("节目下载列表");
@@ -140,12 +142,27 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
         hideLoadingLayout();
         switch (method) {
             case POST_DOWNLOAD_ADS_JSON:
-            case POST_PUBLISH_LIST_JSON:_JSON:
                 if(obj instanceof List) {
                     List<PubProgram> pubPrograms = (List<PubProgram>) obj;
                     PubProListAdapter pubProListAdapter = new PubProListAdapter(this);
                     pubProListAdapter.setData(pubPrograms);
                     mLoadingLv.setAdapter(pubProListAdapter);
+                }
+                break;
+            case POST_PUBLISH_LIST_JSON:
+                if(obj instanceof ContentListResponse) {
+                    ContentListResponse contentListResponse = (ContentListResponse) obj;
+                    String ads_menu_num = contentListResponse.getAds_menu_num();
+                    String menu_num = contentListResponse.getMenu_num();
+                    List<PubProgram> program_list = contentListResponse.getProgram_list();
+
+                    if(program_list!=null) {
+                        PubProListAdapter pubProListAdapter = new PubProListAdapter(this);
+                        pubProListAdapter.setData(program_list);
+                        mLoadingLv.setAdapter(pubProListAdapter);
+                    }
+
+                    mPeriodTv.setText("发布节目期号："+menu_num+"    "+"发布广告期号："+ads_menu_num);
                 }
                 break;
             case POST_LOADING_PRO_JSON:

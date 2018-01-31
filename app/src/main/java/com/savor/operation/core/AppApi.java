@@ -373,7 +373,7 @@ public class AppApi {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("box_mac",box_mac);
         params.put("hotel_id",hotel_id);
-        params.put("box_state",box_state);
+//        params.put("box_state",box_state);
         params.put("remark",remark);
         params.put("repair_num_str",repair_num_str);
         params.put("state",state);

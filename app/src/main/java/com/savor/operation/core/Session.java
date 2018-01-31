@@ -234,8 +234,8 @@ public class Session {
     }
 
     public void setDamageConfig(DamageConfig damageConfig) {
-        this.singleDamageConfig = damageConfig;
-        setObj(P_APP_SINGLE_DAMAGE_CONFIG,damageConfig);
+        this.damageConfig = damageConfig;
+        setObj(P_APP_DAMAGE_CONFIG,damageConfig);
     }
 
     public DamageConfig getSingleDamageConfig() {
@@ -244,7 +244,7 @@ public class Session {
 
     public void setSingleDamageConfig(DamageConfig damageConfig) {
         this.singleDamageConfig = damageConfig;
-        setObj(P_APP_DAMAGE_CONFIG,damageConfig);
+        setObj(P_APP_SINGLE_DAMAGE_CONFIG,damageConfig);
     }
 
     public DamageConfig getDamageConfig() {

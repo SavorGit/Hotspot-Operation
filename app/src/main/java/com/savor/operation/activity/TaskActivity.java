@@ -10,8 +10,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -28,6 +30,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.common.api.utils.FileUtils;
 import com.common.api.utils.ShowMessage;
+import com.common.api.widget.ScrollListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.savor.operation.R;
@@ -50,6 +53,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static android.view.ViewGroup.FOCUS_AFTER_DESCENDANTS;
 import static com.savor.operation.adapter.FixTaskListAdapter.REQUEST_CODE_IMAGE;
 import static com.savor.operation.adapter.FixTaskListAdapter.TAKE_PHOTO_REQUEST;
 
@@ -63,8 +67,8 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private static final int MESSAGE_UPLOAD_ERROR = 0x3;
     private static final int MESSAGE_UPLOAD_SUCCESS = 0x4;
     private static final int MESSAGE_PUBLISH = 0x5;
-    private ListView mTaskLv;
-    private View mHeadView;
+    private ScrollListView mTaskLv;
+//    private View mHeadView;
     private ImageView mBackBtn;
     private PublishTaskActivity.TaskType actionType;
     private RelativeLayout mNumLayout;
@@ -77,7 +81,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private TextView mRightTv;
     private EditText mContactEt;
     private EditText mPhoneEt;
-    private TextView mAddressEt;
+    private EditText mAddressEt;
     private RadioGroup mEmergcyRG;
     private List<RepairInfo> boxList = new ArrayList<>();
     private FixTaskListAdapter mTaskAdapter;
@@ -133,7 +137,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void getViews() {
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
-        mTaskLv = (ListView) findViewById(R.id.lv_task_list);
+        mTaskLv = (ScrollListView) findViewById(R.id.lv_task_list);
         mRightTv = (TextView) findViewById(R.id.tv_right);
         mTitleTv = (TextView) findViewById(R.id.tv_center);
 
@@ -145,18 +149,18 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         mRightTv.setVisibility(View.VISIBLE);
         mRightTv.setText("发布");
 
-        mHeadView = View.inflate(this, R.layout.header_view_task, null);
-        mNumLayout = (RelativeLayout) mHeadView.findViewById(R.id.rl_num);
-        mAddTv = (TextView) mHeadView.findViewById(R.id.tv_add);
-        mReduceTv = (TextView) mHeadView.findViewById(R.id.tv_reduce);
-        mBoxNumTv = (TextView) mHeadView.findViewById(R.id.tv_box_num);
-        mHotelNameTv = (TextView) mHeadView.findViewById(R.id.tv_select_hotel);
-        mSearchLayout = (RelativeLayout) mHeadView.findViewById(R.id.rl_select_hotel);
-        mContactEt = (EditText) mHeadView.findViewById(R.id.et_contact);
-        mPhoneEt = (EditText) mHeadView.findViewById(R.id.et_phone);
-        mAddressEt = (EditText) mHeadView.findViewById(R.id.et_address);
-        mEmergcyRG = (RadioGroup) mHeadView.findViewById(R.id.rg_emergcy);
-        mRemarkEt = (EditText) mHeadView.findViewById(R.id.et_remark);
+//        mHeadView = View.inflate(this, R.layout.header_view_task, null);
+        mNumLayout = (RelativeLayout) findViewById(R.id.rl_num);
+        mAddTv = (TextView) findViewById(R.id.tv_add);
+        mReduceTv = (TextView) findViewById(R.id.tv_reduce);
+        mBoxNumTv = (TextView) findViewById(R.id.tv_box_num);
+        mHotelNameTv = (TextView) findViewById(R.id.tv_select_hotel);
+        mSearchLayout = (RelativeLayout) findViewById(R.id.rl_select_hotel);
+        mContactEt = (EditText)findViewById(R.id.et_contact);
+        mPhoneEt = (EditText) findViewById(R.id.et_phone);
+        mAddressEt = (EditText) findViewById(R.id.et_address);
+        mEmergcyRG = (RadioGroup) findViewById(R.id.rg_emergcy);
+        mRemarkEt = (EditText) findViewById(R.id.et_remark);
         if (actionType == PublishTaskActivity.TaskType.INFO_CHECK || actionType == PublishTaskActivity.TaskType.NETWORK_REMOULD) {
             mNumLayout.setVisibility(View.GONE);
         }
@@ -177,8 +181,26 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         mTaskAdapter = new FixTaskListAdapter(this);
         mTaskAdapter.setData(boxList);
         mTaskLv.setAdapter(mTaskAdapter);
-        mTaskLv.addHeaderView(mHeadView);
+//        mTaskLv.addHeaderView(mHeadView);
+
+        mTaskLv.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
+//        initEditText(mContactEt);
+//        initEditText(mPhoneEt);
+//        initEditText(mAddressEt);
+//        initEditText(mRemarkEt);
         resetBox();
+    }
+
+    private void initEditText(EditText editText) {
+        editText.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ((ViewGroup) v.getParent())
+                        .setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+                return false;
+            }
+        });
     }
 
     private void resetBox() {
