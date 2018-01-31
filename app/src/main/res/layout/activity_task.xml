@@ -10,11 +10,28 @@
         android:id="@+id/rl_title"
         layout="@layout/layout_head_title"
         />
-    <ListView
+    <ScrollView
         android:layout_below="@id/rl_title"
-        android:background="@color/grid_item_divider"
-        android:id="@+id/lv_task_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include
+
+                layout="@layout/header_view_task"
+                />
+            <com.common.api.widget.ScrollListView
+                android:descendantFocusability="blocksDescendants"
+                android:layout_below="@id/rl_title"
+                android:background="@color/grid_item_divider"
+                android:id="@+id/lv_task_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+    </ScrollView>
+
+
 
 </RelativeLayout>
