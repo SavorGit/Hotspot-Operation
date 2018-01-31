@@ -323,9 +323,9 @@ public class SystemStatusFragment extends BaseFragment implements ApiRequestList
         String freeze_all_num = box.getFreeze_all_num();
         String normal_all_num = box.getNormal_all_num();
         mBoxCountTv.setText(all_num);
-        mBoxNormalCountTv.setText(normal_all_num);
-        mBoxBaosunTv.setText(break_all_num);
-        mBoxFreezeTv.setText(freeze_all_num);
+        mBoxNormalCountTv.setText(NORMAL+normal_all_num);
+        mBoxBaosunTv.setText(BROKEN+break_all_num);
+        mBoxFreezeTv.setText(FREEZEE+freeze_all_num);
 
         List<BoxStatus.ListBean> boxList = box.getList();
         BoxStatus.ListBean boxOne = boxList.get(0);

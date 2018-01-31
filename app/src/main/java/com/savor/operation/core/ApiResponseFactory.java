@@ -29,6 +29,7 @@ import com.savor.operation.bean.BindBoxResponse;
 import com.savor.operation.bean.BoxDetail;
 import com.savor.operation.bean.BoxInfo;
 import com.savor.operation.bean.BoxState;
+import com.savor.operation.bean.ContentListResponse;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.ErrorDetail;
 import com.savor.operation.bean.ErrorReport;
@@ -392,8 +393,11 @@ public class ApiResponseFactory {
                 }.getType());
                 break;
             case POST_DOWNLOAD_ADS_JSON:
-            case POST_PUBLISH_LIST_JSON:
                 result = gson.fromJson(info, new TypeToken<List<PubProgram>>() {
+                }.getType());
+                break;
+            case POST_PUBLISH_LIST_JSON:
+                result = gson.fromJson(info, new TypeToken<ContentListResponse>() {
                 }.getType());
                 break;
             default:

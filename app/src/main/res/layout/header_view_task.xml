@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,11 +33,15 @@
     </RelativeLayout>
 
     <View
+        android:id="@+id/divider1"
+        android:layout_below="@id/rl_select_hotel"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="@color/grid_item_divider" />
 
     <RelativeLayout
+        android:id="@+id/rl_contact"
+        android:layout_below="@id/divider1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -69,11 +73,15 @@
     </RelativeLayout>
 
     <View
+        android:id="@+id/divider2"
+        android:layout_below="@id/rl_contact"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="@color/grid_item_divider" />
 
     <RelativeLayout
+        android:id="@+id/rl_mobile"
+        android:layout_below="@id/divider2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -102,11 +110,15 @@
     </RelativeLayout>
 
     <View
+        android:id="@+id/divider3"
+        android:layout_below="@id/rl_mobile"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="@color/grid_item_divider" />
 
     <RelativeLayout
+        android:layout_below="@id/divider3"
+        android:id="@+id/rl_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -134,11 +146,15 @@
     </RelativeLayout>
 
     <View
+        android:id="@+id/divider4"
+        android:layout_below="@id/rl_address"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="@color/grid_item_divider" />
 
     <RelativeLayout
+        android:id="@+id/rl_task_state"
+        android:layout_below="@id/divider4"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -189,10 +205,14 @@
         </RadioGroup>
     </RelativeLayout>
     <View
+        android:id="@+id/divider5"
+        android:layout_below="@id/rl_task_state"
         android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="@color/grid_item_divider" />
     <LinearLayout
+        android:id="@+id/ll_remark"
+        android:layout_below="@id/divider5"
         android:orientation="vertical"
         android:padding="15dp"
         android:layout_marginBottom="20dp"
@@ -223,6 +243,7 @@
 
 
     <RelativeLayout
+        android:layout_below="@id/ll_remark"
         android:id="@+id/rl_num"
         android:padding="15dp"
         android:background="@color/white"
@@ -270,4 +291,4 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

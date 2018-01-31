@@ -10,8 +10,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -50,6 +52,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static android.view.ViewGroup.FOCUS_AFTER_DESCENDANTS;
 import static com.savor.operation.adapter.FixTaskListAdapter.REQUEST_CODE_IMAGE;
 import static com.savor.operation.adapter.FixTaskListAdapter.TAKE_PHOTO_REQUEST;
 
@@ -77,7 +80,7 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     private TextView mRightTv;
     private EditText mContactEt;
     private EditText mPhoneEt;
-    private TextView mAddressEt;
+    private EditText mAddressEt;
     private RadioGroup mEmergcyRG;
     private List<RepairInfo> boxList = new ArrayList<>();
     private FixTaskListAdapter mTaskAdapter;
@@ -178,7 +181,25 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         mTaskAdapter.setData(boxList);
         mTaskLv.setAdapter(mTaskAdapter);
         mTaskLv.addHeaderView(mHeadView);
+
+        mTaskLv.setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
+//        initEditText(mContactEt);
+//        initEditText(mPhoneEt);
+//        initEditText(mAddressEt);
+//        initEditText(mRemarkEt);
         resetBox();
+    }
+
+    private void initEditText(EditText editText) {
+        editText.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ((ViewGroup) v.getParent())
+                        .setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
+                return false;
+            }
+        });
     }
 
     private void resetBox() {
