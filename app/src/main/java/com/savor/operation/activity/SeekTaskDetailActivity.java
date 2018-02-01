@@ -189,7 +189,10 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
         if (obj instanceof ResponseErrorMessage){
             ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
             String statusCode = String.valueOf(errorMessage.getCode());
-            ShowMessage.showToast(context,errorMessage.getMessage());
+            String msg = errorMessage.getMessage();
+            if (!TextUtils.isEmpty(msg)) {
+                ShowMessage.showToast(context,errorMessage.getMessage());
+            }
         }
         switch (method){
             case POST_REFUSE_TASK_JSON:
@@ -230,7 +233,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                 refuse_time.setVisibility(View.VISIBLE);
                 refuse_time.setText("拒绝时间："+refuseT+"("+taskDetail.getAppoint_user()+")");
             }else {
-                refuse_time.setVisibility(View.INVISIBLE);
+                refuse_time.setVisibility(View.GONE);
             }
             int is_lead_install = 5;
             is_lead_install = taskDetail.getIs_lead_install();
@@ -238,14 +241,14 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
             if (!TextUtils.isEmpty(appoint_exe_timeString)) {
                 appoint_exe_time.setText("执行指派时间 ："+appoint_exe_timeString+"("+taskDetail.getExeuser()+")");
             }else {
-                appoint_exe_time.setText("执行指派时间 ：无");
+                appoint_exe_time.setVisibility(View.GONE);
             }
             String tvNums = taskDetail.getTv_nums();
             if (!TextUtils.isEmpty(tvNums)) {
                 screen_num.setVisibility(View.VISIBLE);
                 screen_num.setText("版位数量 ："+taskDetail.getTv_nums());
             }else {
-                screen_num.setText("版位数量 ：无");
+                screen_num.setVisibility(View.GONE);
             }
             mold.setText(taskDetail.getTask_type_desc());
             hotel_name.setText(taskDetail.getHotel_name());
@@ -258,7 +261,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                     refuse_desc.setVisibility(View.VISIBLE);
                     refuse_desc.setText("拒绝原因："+refuse);
                 }else {
-                    refuse_desc.setText("拒绝原因：无");
+                    refuse_desc.setVisibility(View.GONE);
                 }
             }else {
                 refuse_desc.setVisibility(View.GONE);
@@ -268,7 +271,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
             if (!TextUtils.isEmpty(remarkExe)) {
                 remarkView.setText("备注:"+remarkExe);
             }else {
-                remarkView.setText("备注:"+"无");
+                remarkView.setVisibility(View.GONE);
             }
 //            String appoint_exe_time = taskDetail.getAppoint_exe_time();
 //            if (!TextUtils.isEmpty(appoint_exe_time)) {
@@ -289,7 +292,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
                 contact.setVisibility(View.VISIBLE);
                 contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
             }else {
-                contact.setText("联系人：无");
+                contact.setVisibility(View.GONE);
             }
 
             String create_time = taskDetail.getCreate_time();
