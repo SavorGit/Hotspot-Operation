@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_margin="20dp"
-            android:text="监测报告"
+            android:text="检测报告"
             android:textColor="@color/color_222222"
             android:textSize="16sp"
             android:textStyle="bold" />
