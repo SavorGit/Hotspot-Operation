@@ -130,6 +130,9 @@ public class SystemStatusActivity extends BaseFragmentActivity implements View.O
             case POST_INDEX_JSON:
                 mLoadingPb.setVisibility(View.GONE);
                 break;
+                default:
+                    mLoadingPb.setVisibility(View.GONE);
+                    break;
         }
     }
 

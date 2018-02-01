@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 
 import com.common.api.utils.ShowMessage;
 import com.savor.operation.core.ApiRequestListener;
@@ -50,7 +51,11 @@ public abstract class BaseFragmentActivity extends FragmentActivity implements I
 		if(obj instanceof ResponseErrorMessage) {
 			ResponseErrorMessage message = (ResponseErrorMessage) obj;
 			String msg = message.getMessage();
-			showToast(msg);
+			if(!TextUtils.isEmpty(msg)) {
+				showToast(msg);
+			}else {
+				showToast("网络连接失败");
+			}
 //			if(1006==code||12056==code) {
 //				ActivityPagerUtils.launchLoginActivity(this);
 //				mSession.signOut();

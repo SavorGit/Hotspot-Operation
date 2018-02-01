@@ -55,7 +55,11 @@ public abstract class BaseActivity extends Activity implements ApiRequestListene
         if(obj instanceof ResponseErrorMessage) {
             ResponseErrorMessage message = (ResponseErrorMessage) obj;
             String msg = message.getMessage();
-            ShowMessage.showToast(this,msg);
+            if(!TextUtils.isEmpty(msg)) {
+                ShowMessage.showToast(this,msg);
+            }else {
+                ShowMessage.showToast(this,"网络连接失败");
+            }
         }
     }
 

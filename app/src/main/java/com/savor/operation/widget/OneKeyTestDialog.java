@@ -149,6 +149,7 @@ public class OneKeyTestDialog extends Dialog implements View.OnClickListener {
 
         String box_net_state = oneKeyTestResponse.getBox_net_state();
         mNetworkDelayedTv.setVisibility(TextUtils.isEmpty(box_net_state)?View.GONE:View.VISIBLE);
+        mNetworkDelayedTv.setText(box_net_state);
     }
 
     public void reset() {

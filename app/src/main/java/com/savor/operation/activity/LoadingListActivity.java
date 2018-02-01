@@ -56,9 +56,11 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
         getData();
     }
 
-    public static void startLoadingListActivity(Context context,String pro_download_period) {
+    public static void startLoadingListActivity(Context context,String pro_download_period,Operationtype type,String box_id) {
         Intent intent = new Intent(context,LoadingListActivity.class);
         intent.putExtra("pro_download_period",pro_download_period);
+        intent.putExtra("type",type);
+        intent.putExtra("box_id",box_id);
         context.startActivity(intent);
     }
 
@@ -162,7 +164,7 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
                         mLoadingLv.setAdapter(pubProListAdapter);
                     }
 
-                    mPeriodTv.setText("发布节目期号："+menu_num+"    "+"发布广告期号："+ads_menu_num);
+                    mPeriodTv.setText("发布节目期号："+getFormatStr(menu_num)+"    "+"发布广告期号："+getFormatStr(ads_menu_num));
                 }
                 break;
             case POST_LOADING_PRO_JSON:
