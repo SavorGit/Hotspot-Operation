@@ -168,9 +168,10 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()) {
             case R.id.tv_content_list:
-                Intent intent = new Intent(this,LoadingListActivity.class);
+                intent = new Intent(this,LoadingListActivity.class);
                 intent.putExtra("type",LoadingListActivity.Operationtype.PUB_PRO_LIST);
                 intent.putExtra("pro_period",boxDetail.getPro_period());
                 intent.putExtra("ads_period",boxDetail.getAds_period());
@@ -214,10 +215,18 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.tv_loading_program:
-                LoadingListActivity.startLoadingListActivity(this,boxDetail.getPro_download_period());
+                intent = new Intent(this,LoadingListActivity.class);
+                intent.putExtra("pro_download_period",boxDetail.getPro_download_period());
+                intent.putExtra("type", LoadingListActivity.Operationtype.DOWNLOAD_PRO);
+                intent.putExtra("box_id",box_id);
+                startActivity(intent);
                 break;
             case R.id.tv_loading_advert:
-                LoadingListActivity.startLoadingListActivity(this,boxDetail.getAds_download_period());
+                intent = new Intent(this,LoadingListActivity.class);
+                intent.putExtra("ads_download_period",boxDetail.getAds_download_period());
+                intent.putExtra("type", LoadingListActivity.Operationtype.DOWNLOAD_ADS);
+                intent.putExtra("box_id",box_id);
+                startActivity(intent);
                 break;
         }
     }

@@ -75,7 +75,7 @@ public class ProgramStatusAdapter extends BaseAdapter {
             holder.label.setText(type);
         }
 
-        if (flag == 0) {
+        if (flag == 1) {
             holder.statusIv.setImageResource(R.drawable.ico_exist);
         } else {
             holder.statusIv.setImageResource(R.drawable.ico_noexit);

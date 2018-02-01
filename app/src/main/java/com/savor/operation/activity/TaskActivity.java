@@ -266,7 +266,6 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
 
                     }
 
-
                 }
 
                 List<RepairInfo> data = mTaskAdapter.getData();
