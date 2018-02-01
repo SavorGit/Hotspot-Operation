@@ -272,7 +272,11 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         if (jobAdapter != null) {
             jobAdapter.clear();
         }
-        AppApi.getExeUserList(context,times,is_lead_install,taskDetail.getId(),this);
+
+        if (taskDetail != null) {
+            AppApi.getExeUserList(context,times,is_lead_install,taskDetail.getId(),this);
+        }
+
     }
 
     @Override
