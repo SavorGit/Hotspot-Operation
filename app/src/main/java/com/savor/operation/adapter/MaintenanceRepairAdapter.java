@@ -144,7 +144,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
                 }
             });
         }else {
-            holder.fault_img.setBackgroundResource(R.drawable.kong_mrjz);
+            holder.fault_img.setVisibility(View.INVISIBLE);
         }
 
 

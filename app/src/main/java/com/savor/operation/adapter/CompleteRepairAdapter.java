@@ -98,7 +98,7 @@ public class CompleteRepairAdapter extends BaseAdapter {
                         }
                     });
                 }else {
-                    holder.img_a.setBackgroundResource(R.drawable.kong_mrjz);
+                    holder.img_a.setVisibility(View.INVISIBLE);
                 }
                 holder.la_a.setVisibility(View.VISIBLE);
                 holder.img_a.setVisibility(View.VISIBLE);
@@ -127,7 +127,7 @@ public class CompleteRepairAdapter extends BaseAdapter {
                         }
                     });
                 }else {
-                    holder.img_a.setBackgroundResource(R.drawable.kong_mrjz);
+                    holder.img_a.setVisibility(View.INVISIBLE);
                 }
 
                 String URL2 = obj2.getImg();
@@ -141,7 +141,7 @@ public class CompleteRepairAdapter extends BaseAdapter {
                         }
                     });
                 }else {
-                    holder.img_b.setBackgroundResource(R.drawable.kong_mrjz);
+                    holder.img_b.setVisibility(View.INVISIBLE);
                 }
             }
         }
