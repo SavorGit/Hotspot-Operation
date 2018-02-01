@@ -271,7 +271,7 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
             if (!TextUtils.isEmpty(remarkExe)) {
                 remarkView.setText("备注:"+remarkExe);
             }else {
-                remarkView.setVisibility(View.GONE);
+                remarkView.setText("备注:"+"无");
             }
 //            String appoint_exe_time = taskDetail.getAppoint_exe_time();
 //            if (!TextUtils.isEmpty(appoint_exe_time)) {

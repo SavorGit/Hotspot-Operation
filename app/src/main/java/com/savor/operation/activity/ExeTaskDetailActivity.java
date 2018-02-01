@@ -190,9 +190,9 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     protected void onStart() {
         super.onStart();
         registerNetWorkReceiver();
-        if(!WifiUtil.checkWifiState(this)) {
-            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
-        }
+//        if(!WifiUtil.checkWifiState(this)) {
+//            ShowMessage.showToast(this,"请连接酒楼Wifi后继续操作");
+//        }
         getIp();
     }
 
