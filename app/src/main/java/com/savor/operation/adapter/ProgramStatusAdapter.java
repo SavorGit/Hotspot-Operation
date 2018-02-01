@@ -70,9 +70,13 @@ public class ProgramStatusAdapter extends BaseAdapter {
         String type = program.getType();
         if (!TextUtils.isEmpty(ads_name)) {
             holder.name.setText(ads_name);
+        }else {
+            holder.name.setText("");
         }
         if (!TextUtils.isEmpty(type)) {
             holder.label.setText(type);
+        }else {
+            holder.label.setText("");
         }
 
         if (flag == 1) {
