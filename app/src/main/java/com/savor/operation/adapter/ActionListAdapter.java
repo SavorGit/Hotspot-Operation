@@ -145,7 +145,12 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                 desc = "任务列表";
                 if(num>0) {
                     holder.tv_num.setVisibility(View.VISIBLE);
-                    holder.tv_num.setText(String.valueOf(num));
+                    if(num>99) {
+                        holder.tv_num.setText("99+");
+                    }else {
+
+                        holder.tv_num.setText(String.valueOf(num));
+                    }
                 }else {
                     holder.tv_num.setVisibility(View.GONE);
                 }
