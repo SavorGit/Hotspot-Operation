@@ -192,11 +192,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="25dp"
             android:layout_marginTop="5dp"
-            android:maxLength="8"
             android:layout_marginBottom="5dp"
             android:gravity="center"
             android:layout_alignParentLeft="true"
-            android:text=""
             android:textSize="15dp"
             android:textColor="#333333"/>
 

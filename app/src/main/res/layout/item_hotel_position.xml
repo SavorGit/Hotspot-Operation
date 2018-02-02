@@ -53,6 +53,7 @@
             />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_last_log"
             android:paddingLeft="5dp"
             android:paddingRight="15dp"
