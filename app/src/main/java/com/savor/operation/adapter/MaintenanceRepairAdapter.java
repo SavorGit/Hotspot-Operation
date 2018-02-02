@@ -78,6 +78,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
             holder.state = (TextView) convertView.findViewById(R.id.state);
             holder.user  = (TextView) convertView.findViewById(R.id.user);
             holder.pic_la = (TextView) convertView.findViewById(R.id.pic_la);
+            holder.desc_la_pic = (TextView) convertView.findViewById(R.id.desc_la_pic);
             convertView.setTag(holder);
         }else {
             holder = (MaintenanceRepairAdapter.ViewHolder) convertView.getTag();
@@ -107,19 +108,19 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
 
         String Username = item.getUsername();
         String Remark = item.getRemark();
-        if (!TextUtils.isEmpty(Username)) {
-            holder.user.setVisibility(View.VISIBLE);
-            holder.user.setText("执行人："+item.getUsername());
-        }else {
-            holder.user.setText("执行人：无");
-        }
-
-        if (!TextUtils.isEmpty(Remark)) {
-            holder.remark.setVisibility(View.VISIBLE);
-            holder.remark.setText("备注："+item.getRemark());
-        }else {
-            holder.remark.setText("备注：无");
-        }
+//        if (!TextUtils.isEmpty(Username)) {
+//            holder.user.setVisibility(View.VISIBLE);
+//            holder.user.setText("执行人："+item.getUsername());
+//        }else {
+//            holder.user.setText("执行人：无");
+//        }
+//
+//        if (!TextUtils.isEmpty(Remark)) {
+//            holder.remark.setVisibility(View.VISIBLE);
+//            holder.remark.setText("备注："+item.getRemark());
+//        }else {
+//            holder.remark.setText("备注：无");
+//        }
 
 
         String ts = item.getRepair_time();
@@ -145,6 +146,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
             });
         }else {
             holder.fault_img.setVisibility(View.INVISIBLE);
+            holder.desc_la_pic.setText("故障照片：无");
         }
 
 
@@ -209,6 +211,7 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
         public TextView remark;
         public TextView state;
         public TextView user;
+        public TextView desc_la_pic;
         public TextView pic_la;
 
     }
