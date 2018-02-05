@@ -56,7 +56,7 @@
             android:value="GDeWnZwX2Hfyn9j5zrt2ckBYZMbEULEs" />
         <meta-data
             android:name="app_debug"
-            android:value="1" />
+            android:value="0" />
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="59acb7f0f29d98425d000cfa" />
