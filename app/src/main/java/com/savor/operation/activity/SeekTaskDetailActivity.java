@@ -288,11 +288,23 @@ public class SeekTaskDetailActivity extends BaseActivity implements View.OnClick
             if (!TextUtils.isEmpty(linkman)) {
                 if (TextUtils.isEmpty(tnum)) {
                     tnum = "";
+                    call.setVisibility(View.GONE);
+                }else {
+                    call.setVisibility(View.VISIBLE);
                 }
                 contact.setVisibility(View.VISIBLE);
                 contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
             }else {
-                contact.setVisibility(View.GONE);
+                if (TextUtils.isEmpty(tnum)) {
+                    tnum = "";
+                    call.setVisibility(View.GONE);
+                }else {
+                    contact.setVisibility(View.VISIBLE);
+                    call.setVisibility(View.VISIBLE);
+                    contact.setText("联系人：无"+"    "+tnum);
+                }
+
+                //contact.setText("联系人："+taskDetail.getHotel_linkman()+"    "+tnum);
             }
 
             String create_time = taskDetail.getCreate_time();
