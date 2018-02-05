@@ -16,8 +16,14 @@ public class WifiUtil {
         WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         WifiInfo info = wifiMgr.getConnectionInfo();
         String wifiId = info != null ? info.getSSID() : null;
-        if(!TextUtils.isEmpty(wifiId)) {
-            wifiId = wifiId.replace("\"","");
+        if(wifiMgr.getWifiState()==WifiManager.WIFI_STATE_ENABLED) {
+            if(!TextUtils.isEmpty(wifiId)) {
+                wifiId = wifiId.replace("\"","");
+            }else {
+                wifiId = "";
+            }
+        }else {
+            wifiId = "";
         }
         return wifiId;
     }
