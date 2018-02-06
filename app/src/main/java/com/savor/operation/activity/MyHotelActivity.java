@@ -77,10 +77,17 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
     }
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch (v.getId()){
             case R.id.back:
                 finish();
                 break;
+            case R.id.tv_name:
+                intent = new Intent(this,CityListActivity.class);
+                intent.putExtra("PubUser",pubUser);
+                startActivityForResult(intent,REQUEST_CODE_USER);
+                break;
+
 
         }
     }
@@ -156,6 +163,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void setListeners() {
         back.setOnClickListener(this);
+        tv_name.setOnClickListener(this);
         mPullRefreshListView.setOnRefreshListener(onRefreshListener);
         mPullRefreshListView.setOnLastItemVisibleListener(onLastItemVisibleListener);
         mPullRefreshListView.setOnItemClickListener(itemClickListener);
