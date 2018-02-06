@@ -12,7 +12,7 @@ android {
         applicationId "com.savor.operation"
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode 2018013101
+        versionCode 2018020501
         versionName "2.0"
 
         flavorDimensions "versionCode"
