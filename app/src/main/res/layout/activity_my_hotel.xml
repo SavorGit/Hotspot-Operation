@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/title_bg">
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/colorPrimaryDark">
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="19sp"
+            android:textColor="@color/white"
+            android:text="我的酒楼"
+            />
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/back"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:drawableRight="@drawable/ico_arraw_down_normal"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="4dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:text="" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@id/top_bar"
+        android:id="@+id/info_la"
+        android:layout_width="match_parent"
+        android:layout_height="95dp">
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:padding="4dp"
+            android:text="截止到09-05 14点，共有55家酒楼(54家酒楼异常,52个小平台失联超过15小时,602个机顶盒失联超过15小时)"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="12dp"
+            android:maxLines="4"
+            />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_below="@id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:gravity="center"
+            android:padding="3dp"
+            android:textSize="15sp"
+            android:layout_marginTop="4dp"
+            android:text="2017-09-05 14:01:00"
+            android:textColor="@color/black"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/line"
+        android:layout_below="@id/info_la"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/actionsheet_gray"
+            android:layout_centerInParent="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:text="详细信息"/>
+
+    </RelativeLayout>
+    <com.common.api.widget.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        ptr:ptrAnimationStyle = "scale"
+        ptr:ptrDrawableStart="@drawable/progress_loading_small"
+        ptr:ptrRefreshText="false"
+        android:layout_below="@id/line"
+        android:id="@+id/listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:divider="#e0dad2"
+        android:dividerHeight="1dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:listSelector="#00000000"
+        android:scrollbars="none"
+        android:smoothScrollbar="false" />
+
+</RelativeLayout>

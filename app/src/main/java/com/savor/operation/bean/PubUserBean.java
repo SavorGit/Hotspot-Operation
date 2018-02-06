@@ -10,6 +10,7 @@ public class PubUserBean implements Serializable {
     private static final long serialVersionUID = -1;
     private String publish_user_id;
     private String remark;
+    private boolean isSelect;
 
     public String getPublish_user_id() {
         return publish_user_id;
@@ -27,11 +28,21 @@ public class PubUserBean implements Serializable {
         this.remark = remark;
     }
 
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
+
+
     @Override
     public String toString() {
         return "PubUserBean{" +
                 "publish_user_id='" + publish_user_id + '\'' +
                 ", remark='" + remark + '\'' +
+                ", isSelect=" + isSelect +
                 '}';
     }
 }
