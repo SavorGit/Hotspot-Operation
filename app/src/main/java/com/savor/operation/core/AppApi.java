@@ -124,6 +124,8 @@ public class AppApi {
         POST_DOWNLOAD_ADS_JSON,
         /**显示所有发布者*/
         POST_PUB_USER_JSON,
+        /**展示我的酒楼*/
+        POST_MY_HOTEL_JSON,
     }
 
     /**
@@ -181,7 +183,7 @@ public class AppApi {
             put(Action.POST_PUBLISH_LIST_JSON, formatPhpUrl("Opclient20/Box/getPubProgram"));
             put(Action.POST_DOWNLOAD_ADS_JSON, formatPhpUrl("Opclient20/Box/getDownloadAds"));
             put(Action.POST_PUB_USER_JSON, formatPhpUrl("Opclient20/Pubtask/getPubUser"));
-
+            put(Action.POST_MY_HOTEL_JSON, formatPhpUrl("Opclient20/Pubtask/getMytaskHotel"));
 
         }
     };
@@ -762,6 +764,19 @@ public class AppApi {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("publish_user_id",publish_user_id);
         new AppServiceOk(context, Action.POST_PUB_USER_JSON, handler, params).post();
+    }
+
+    /**
+     * 展示我的酒楼
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getMytaskHotel(Context context, String pageNum, String pageSize, String publish_user_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("publish_user_id",publish_user_id);
+        params.put("pageNum",pageNum);
+        params.put("pageSize",pageSize);
+        new AppServiceOk(context, Action.POST_MY_HOTEL_JSON, handler, params).post();
     }
 
     // 超时（网络）异常
