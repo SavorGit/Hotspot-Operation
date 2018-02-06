@@ -122,6 +122,8 @@ public class AppApi {
         POST_PUBLISH_LIST_JSON,
         /**获取下载中的广告列表*/
         POST_DOWNLOAD_ADS_JSON,
+        /**显示所有发布者*/
+        POST_PUB_USER_JSON,
     }
 
     /**
@@ -178,6 +180,8 @@ public class AppApi {
             put(Action.POST_SYSTEM_STATUS_JSON, formatPhpUrl("Opclient20/System/index"));
             put(Action.POST_PUBLISH_LIST_JSON, formatPhpUrl("Opclient20/Box/getPubProgram"));
             put(Action.POST_DOWNLOAD_ADS_JSON, formatPhpUrl("Opclient20/Box/getDownloadAds"));
+            put(Action.POST_PUB_USER_JSON, formatPhpUrl("Opclient20/Pubtask/getPubUser"));
+
 
         }
     };
@@ -746,6 +750,18 @@ public class AppApi {
         params.put("box_id",box_id);
         params.put("ads_download_period",ads_download_period);
         new AppServiceOk(context, Action.POST_DOWNLOAD_ADS_JSON, handler, params).post();
+    }
+
+
+    /**
+     * 显示所有发布者
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void getPubUser(Context context, String publish_user_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("publish_user_id",publish_user_id);
+        new AppServiceOk(context, Action.POST_PUB_USER_JSON, handler, params).post();
     }
 
     // 超时（网络）异常
