@@ -263,7 +263,8 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
         if (mList != null && mList.size() > 0) {
             pageNum++;
             if (isUp) {
-                info.setText(errorDetail.getInfo());
+
+                initHeader(list.getHeart());
                 hotel.clear();
                 mAdapter.clear();
                 mPullRefreshListView.onLoadComplete(true,false);
