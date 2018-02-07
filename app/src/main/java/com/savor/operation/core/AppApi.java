@@ -12,8 +12,8 @@ public class AppApi {
     public static final String APK_DOWNLOAD_FILENAME = "NewApp.apk";
 
     /**云平台php接口*/
-//    public static final String CLOUND_PLATFORM_PHP_URL = "http://devp.mobile.littlehotspot.com/";
-  public static final String CLOUND_PLATFORM_PHP_URL = "http://mobile.littlehotspot.com/";
+    public static final String CLOUND_PLATFORM_PHP_URL = "http://devp.mobile.littlehotspot.com/";
+//  public static final String CLOUND_PLATFORM_PHP_URL = "http://mobile.littlehotspot.com/";
 
     /**
      * 常用的一些key值 ,签名、时间戳、token、params
@@ -235,10 +235,11 @@ public class AppApi {
      * @param password 密码
      * @param handler 接口回调
      */
-    public static void login(Context context, String username,String password, ApiRequestListener handler) {
+    public static void login(Context context, String username,String password,String device_token, ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<String, Object>();
         params.put("username", username);
         params.put("password", password);
+        params.put("device_token", device_token);
         new AppServiceOk(context, Action.POST_LOGIN_JSON, handler, params).post();
     }
 
