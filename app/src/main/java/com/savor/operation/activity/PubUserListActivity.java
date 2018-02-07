@@ -61,7 +61,7 @@ public class PubUserListActivity extends BaseActivity implements View.OnClickLis
         if (pubUser != null) {
             list =  pubUser.getList();
             if (list != null && list.size()>0) {
-                adapter.setData(list);
+                adapter.setData(list,mSession);
             }
         }
 //        LoginResponse loginResponse = mSession.getLoginResponse();

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.savor.operation.R;
 import com.savor.operation.bean.City;
 import com.savor.operation.bean.PubUserBean;
+import com.savor.operation.core.Session;
 
 import java.util.List;
 
@@ -26,12 +27,14 @@ public class PubUserListAdapter extends RecyclerView.Adapter<PubUserListAdapter.
 
     private final Activity mContext;
     private List<PubUserBean> mCityList;
+    private Session mSession;
 
     public PubUserListAdapter(Activity context) {
         this.mContext = context;
     }
 
-    public void setData(List<PubUserBean> cities) {
+    public void setData(List<PubUserBean> cities,Session session) {
+        this.mSession = session;
         this.mCityList = cities;
     }
 
@@ -53,6 +56,7 @@ public class PubUserListAdapter extends RecyclerView.Adapter<PubUserListAdapter.
                     cty.setSelect(false);
                 }
                 city.setSelect(true);
+                mSession.setPubUserBean(city);
                 mContext.setResult(RESULT_CODE_USER);
                 mContext.finish();
             }

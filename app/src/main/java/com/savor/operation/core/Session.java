@@ -41,6 +41,7 @@ import com.savor.operation.bean.Account;
 import com.savor.operation.bean.BoxState;
 import com.savor.operation.bean.DamageConfig;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.PubUserBean;
 import com.savor.operation.utils.STIDUtil;
 
 import java.io.ByteArrayInputStream;
@@ -182,6 +183,8 @@ public class Session {
     private String currentLocation;
     private DamageConfig singleDamageConfig;
     private ArrayList<BoxState> boxStateList;
+    private PubUserBean pubUserBean;
+
 
     private Session(Context context) {
 
@@ -591,5 +594,13 @@ public class Session {
 
     public ArrayList<BoxState> getBoxStateConfig() {
         return boxStateList;
+    }
+
+    public PubUserBean getPubUserBean() {
+        return pubUserBean;
+    }
+
+    public void setPubUserBean(PubUserBean pubUserBean) {
+        this.pubUserBean = pubUserBean;
     }
 }

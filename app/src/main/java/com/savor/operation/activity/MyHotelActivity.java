@@ -48,6 +48,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
     private ErrorDetail errorDetail;
     private String publish_user_id;
     private PubUser pubUser;
+    private PubUserBean currentPubUser;
     public static final int RESULT_CODE_USER = 500;
     public static final int REQUEST_CODE_USER = 501;
     private TextView tv_name;
@@ -252,7 +253,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RESULT_CODE_USER&&resultCode == REQUEST_CODE_USER) {
-
+            currentPubUser = mSession.getPubUserBean();
 
         }
     }
