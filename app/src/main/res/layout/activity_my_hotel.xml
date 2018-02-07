@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/title_bg">
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/colorPrimaryDark">
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="19sp"
+            android:textColor="@color/white"
+            android:text="我的酒楼"
+            />
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/back"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:drawableRight="@drawable/ico_arraw_down_normal"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawablePadding="4dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:text="" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_below="@id/top_bar"
+        android:id="@+id/info_la"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/hotel_al"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:padding="15dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:src="@drawable/ico_hotel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_hotel_count"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/red"
+                        android:gravity="left"
+                        android:text="3546"
+                        android:layout_width="92dp"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tv_hotel_normal"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="正常 3000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_hotel_freeze"
+                        android:layout_weight="1"
+                        android:textSize="15sp"
+                        android:textColor="@color/title_text_color"
+                        android:text="冻结 546"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/hotel_al"
+            android:background="@color/color_d7d7d7" />
+
+        <RelativeLayout
+            android:id="@+id/box_al"
+            android:layout_below="@id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:textColor="@color/title_text_color"
+                    android:text="机顶盒"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_normal_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_green"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="正常  34"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/tv_exe_box"
+                            android:layout_weight="1"
+                            android:drawablePadding="5dp"
+                            android:drawableLeft="@drawable/cirlce_red"
+                            android:textSize="15sp"
+                            android:textColor="@color/title_text_color"
+                            android:paddingLeft="10dp"
+                            android:text="异常  94"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_black_list"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:drawablePadding="5dp"
+                        android:drawableLeft="@drawable/cirlce_black"
+                        android:textColor="@color/title_text_color"
+                        android:textSize="13sp"
+                        android:paddingTop="10dp"
+                        android:text="黑名单 229"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@id/box_al"
+            android:background="@color/color_d7d7d7" />
+
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_below="@id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingRight="13dp"
+            android:paddingLeft="13dp"
+            android:text="在线指72小时以内；异常指大于72小时
+黑名单指连续三天失联的版位"
+            android:textSize="12.5sp"
+            android:textColor="@color/color_999999"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="12dp"
+            android:maxLines="4"
+            />
+
+
+    </RelativeLayout>
+
+
+    <com.common.api.widget.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        ptr:ptrAnimationStyle = "scale"
+        ptr:ptrDrawableStart="@drawable/progress_loading_small"
+        ptr:ptrRefreshText="false"
+        android:layout_below="@id/info_la"
+        android:id="@+id/listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:divider="#e0dad2"
+        android:dividerHeight="1dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:listSelector="#00000000"
+        android:scrollbars="none"
+        android:smoothScrollbar="false" />
+
+</RelativeLayout>

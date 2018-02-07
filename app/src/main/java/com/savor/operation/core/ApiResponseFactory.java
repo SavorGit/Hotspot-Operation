@@ -42,10 +42,12 @@ import com.savor.operation.bean.IndexInfo;
 import com.savor.operation.bean.LoadingProgramAds;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.MissionTaskListBean;
+import com.savor.operation.bean.MyHotel;
 import com.savor.operation.bean.MyInspectResult;
 import com.savor.operation.bean.OneKeyTestResponse;
 import com.savor.operation.bean.PositionListInfo;
 import com.savor.operation.bean.PubProgram;
+import com.savor.operation.bean.PubUser;
 import com.savor.operation.bean.RepairRecordList;
 import com.savor.operation.bean.SmallPlatformByGetIp;
 import com.savor.operation.bean.StateConf;
@@ -398,6 +400,14 @@ public class ApiResponseFactory {
                 break;
             case POST_PUBLISH_LIST_JSON:
                 result = gson.fromJson(info, new TypeToken<ContentListResponse>() {
+                }.getType());
+                break;
+            case POST_PUB_USER_JSON:
+                result = gson.fromJson(info, new TypeToken<PubUser>() {
+                }.getType());
+                break;
+            case POST_MY_HOTEL_JSON:
+                result = gson.fromJson(info, new TypeToken<MyHotel>() {
                 }.getType());
                 break;
             default:
