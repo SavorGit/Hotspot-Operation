@@ -146,6 +146,11 @@
         <activity
             android:name=".activity.SearchHotelActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyHotelActivity"
+            android:screenOrientation="portrait" />
+
+
 
         <service
             android:name="com.baidu.location.f"

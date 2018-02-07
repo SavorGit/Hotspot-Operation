@@ -3,6 +3,7 @@ package com.savor.operation.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
@@ -12,12 +13,17 @@ import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
 import com.savor.operation.adapter.ErrorReportInfoAdapter;
+import com.savor.operation.adapter.MyHotelAdapter;
 import com.savor.operation.bean.City;
 import com.savor.operation.bean.ErrorDetail;
 import com.savor.operation.bean.ErrorDetailBean;
 import com.savor.operation.bean.ErrorReportBean;
 import com.savor.operation.bean.Hotel;
+import com.savor.operation.bean.HotelHeart;
 import com.savor.operation.bean.LoginResponse;
+import com.savor.operation.bean.MyHotel;
+import com.savor.operation.bean.MyHotelBean;
+import com.savor.operation.bean.MytaskHotel;
 import com.savor.operation.bean.PubUser;
 import com.savor.operation.bean.PubUserBean;
 import com.savor.operation.bean.SkillList;
@@ -38,13 +44,11 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
     private RelativeLayout back;
     private ErrorReportBean item;
     private TextView info;
-    private TextView time;
     private PullToRefreshListView mPullRefreshListView;
-    private ErrorReportInfoAdapter mAdapter;
+    private MyHotelAdapter mAdapter;
     private int pageSize = 15;
     private int pageNum = 1;
     private boolean isUp = true;
-    private List<ErrorDetailBean> list = new ArrayList<ErrorDetailBean>();
     private ErrorDetail errorDetail;
     private String publish_user_id;
     private PubUser pubUser;
@@ -52,17 +56,28 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
     public static final int RESULT_CODE_USER = 500;
     public static final int REQUEST_CODE_USER = 501;
     private TextView tv_name;
+    private MyHotel myHotel;
+    private MytaskHotel list;
+    private List<MyHotelBean> hotel;
+    private TextView tv_hotel_count;
+    private TextView tv_hotel_normal;
+    private TextView tv_hotel_freeze;
+
+    private TextView tv_normal_box;
+    private TextView tv_exe_box;
+    private TextView tv_black_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_abnormality_info);
+        setContentView(R.layout.activity_my_hotel);
         context = this;
         //getIntentData();
         getViews();
         setViews();
         setListeners();
         getUserData();
+        getMytaskHotel();
     }
 
 //    private void getIntentData(){
@@ -76,6 +91,10 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
         AppApi.getPubUser(this,publish_user_id,this);
 
     }
+    private void getMytaskHotel(){
+        AppApi.getMytaskHotel(this,pageNum+"",pageSize+"",publish_user_id,this);
+    }
+
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -96,9 +115,14 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void getViews() {
         info = (TextView) findViewById(R.id.info);
-        time = (TextView) findViewById(R.id.time);
         back = (RelativeLayout) findViewById(R.id.back);
         tv_name = (TextView) findViewById(R.id.tv_name);
+        tv_hotel_count = (TextView) findViewById(R.id.tv_hotel_count);
+        tv_hotel_normal = (TextView) findViewById(R.id.tv_hotel_normal);
+        tv_hotel_freeze = (TextView) findViewById(R.id.tv_hotel_freeze);
+        tv_normal_box = (TextView) findViewById(R.id.tv_normal_box);
+        tv_exe_box = (TextView) findViewById(R.id.tv_exe_box);
+        tv_black_list = (TextView) findViewById(R.id.tv_black_list);
         mPullRefreshListView = (PullToRefreshListView)findViewById(R.id.listview);
     }
 
@@ -110,7 +134,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
             tv_name.setText(loginResponse.getUsername());
         }
 
-        mAdapter = new ErrorReportInfoAdapter(context);
+        mAdapter = new MyHotelAdapter(context);
         mPullRefreshListView.setAdapter(mAdapter);
     }
 
@@ -118,12 +142,16 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
     public void onSuccess(AppApi.Action method, Object obj) {
         mPullRefreshListView.onRefreshComplete();
         switch (method) {
-            case POST_ERROR_REPORT_DETAIL_JSON:
-                if(obj instanceof ErrorDetail) {
-                    errorDetail= (ErrorDetail) obj;
-                    if (errorDetail != null) {
+            case POST_MY_HOTEL_JSON:
+                if(obj instanceof MyHotel) {
+                    myHotel= (MyHotel) obj;
+                    if (myHotel != null) {
+                        list = myHotel.getList();
+                        if (list != null) {
+                            handleVodList(list);
+                        }
                         List<ErrorDetailBean> mList =  errorDetail.getList();
-                        handleVodList(mList);
+
                     }
                 }
                 break;
@@ -171,25 +199,82 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
         mPullRefreshListView.onLoadComplete(true,false);
     }
 
+    private void initHeader(HotelHeart heart){
+        if (heart != null) {
+           String hotel_all_nums = heart.getHotel_all_nums();
+           String hotel_all_normal_nums = heart.getHotel_all_normal_nums();
+           String hotel_all_freeze_nums = heart.getHotel_all_freeze_nums();
+           String box_normal_num = heart.getBox_normal_num();
+           String box_not_normal_num = heart.getBox_not_normal_num();
+           String black_box_num = heart.getBlack_box_num();
 
-    private void handleVodList(List<ErrorDetailBean> mList){
+//            private TextView tv_hotel_count;
+//            private TextView tv_hotel_normal;
+//            private TextView tv_hotel_freeze;
+//
+//            private TextView tv_normal_box;
+//            private TextView tv_exe_box;
+//            private TextView tv_black_list;
 
+            if (!TextUtils.isEmpty(hotel_all_nums)) {
+                tv_hotel_count.setText(hotel_all_nums);
+            }else {
+                tv_hotel_count.setText("");
+            }
+
+            if (!TextUtils.isEmpty(hotel_all_normal_nums)) {
+                tv_hotel_normal.setText("正常"+hotel_all_normal_nums);
+            }else {
+                tv_hotel_normal.setText("");
+            }
+
+            if (!TextUtils.isEmpty(hotel_all_freeze_nums)) {
+                tv_hotel_freeze.setText("冻结"+hotel_all_freeze_nums);
+            }else {
+                tv_hotel_freeze.setText("");
+            }
+
+            if (!TextUtils.isEmpty(box_normal_num)) {
+                tv_normal_box.setText("正常"+box_normal_num);
+            }else {
+                tv_normal_box.setText("");
+            }
+
+            if (!TextUtils.isEmpty(box_not_normal_num)) {
+                tv_exe_box.setText(box_not_normal_num);
+            }else {
+                tv_exe_box.setText("");
+            }
+
+            if (!TextUtils.isEmpty(black_box_num)) {
+                tv_black_list.setText(black_box_num);
+            }else {
+                tv_black_list.setText("");
+            }
+
+
+
+           String remark;
+        }
+    }
+
+    private void handleVodList(MytaskHotel list){
+        List<MyHotelBean> mList = list.getHotel();
         if (mList != null && mList.size() > 0) {
             pageNum++;
             if (isUp) {
                 info.setText(errorDetail.getInfo());
-                time.setText(errorDetail.getDate());
-                list.clear();
+                hotel.clear();
                 mAdapter.clear();
                 mPullRefreshListView.onLoadComplete(true,false);
 
             }else {
                 mPullRefreshListView.onLoadComplete(true,false);
             }
-            list.addAll(mList);
-            mAdapter.setData(list);
+            hotel.addAll(mList);
+            mAdapter.setData(hotel);
             int haveNext = 0;
-            haveNext =  errorDetail.getIsNextPage();
+            haveNext =  list.getIsNextPage();
 
             if (haveNext==0) {
                 mPullRefreshListView.onLoadComplete(false,false);
@@ -197,7 +282,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
                 mPullRefreshListView.onLoadComplete(true,false);
             }
         }else {
-            if (list != null && list.size()>0  ) {
+            if (hotel != null && hotel.size()>0  ) {
                 mAdapter.clear();
             }
 //            mProgressLayout.loadSuccess();
