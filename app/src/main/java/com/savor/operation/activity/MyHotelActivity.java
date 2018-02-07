@@ -322,7 +322,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            ErrorDetailBean item = (ErrorDetailBean)parent.getItemAtPosition(position);
+            MyHotelBean item = (MyHotelBean)parent.getItemAtPosition(position);
             Hotel hotel = new Hotel();
             hotel.setId(item.getHotel_id());
             hotel.setName(item.getHotel_name());
