@@ -150,7 +150,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
                         if (list != null) {
                             handleVodList(list);
                         }
-                        List<ErrorDetailBean> mList =  errorDetail.getList();
+                        //List<ErrorDetailBean> mList =  errorDetail.getList();
 
                     }
                 }
@@ -225,31 +225,31 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
             if (!TextUtils.isEmpty(hotel_all_normal_nums)) {
                 tv_hotel_normal.setText("正常"+hotel_all_normal_nums);
             }else {
-                tv_hotel_normal.setText("");
+                tv_hotel_normal.setText("正常");
             }
 
             if (!TextUtils.isEmpty(hotel_all_freeze_nums)) {
                 tv_hotel_freeze.setText("冻结"+hotel_all_freeze_nums);
             }else {
-                tv_hotel_freeze.setText("");
+                tv_hotel_freeze.setText("冻结");
             }
 
             if (!TextUtils.isEmpty(box_normal_num)) {
                 tv_normal_box.setText("正常"+box_normal_num);
             }else {
-                tv_normal_box.setText("");
+                tv_normal_box.setText("正常");
             }
 
             if (!TextUtils.isEmpty(box_not_normal_num)) {
-                tv_exe_box.setText(box_not_normal_num);
+                tv_exe_box.setText("异常"+box_not_normal_num);
             }else {
-                tv_exe_box.setText("");
+                tv_exe_box.setText("异常");
             }
 
             if (!TextUtils.isEmpty(black_box_num)) {
-                tv_black_list.setText(black_box_num);
+                tv_black_list.setText("黑名单"+black_box_num);
             }else {
-                tv_black_list.setText("");
+                tv_black_list.setText("黑名单");
             }
 
 
@@ -302,6 +302,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
 
             pageNum = 1;
             isUp = true;
+            getMytaskHotel();
             // istop = true;
             //getData();
         }
@@ -311,6 +312,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
         @Override
         public void onLastItemVisible() {
             isUp = false;
+            getMytaskHotel();
             // istop = false;
            // getData();
         }
@@ -339,7 +341,10 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RESULT_CODE_USER&&resultCode == REQUEST_CODE_USER) {
             currentPubUser = mSession.getPubUserBean();
-
+            publish_user_id = currentPubUser.getPublish_user_id();
+            pageNum = 1;
+            isUp = true;
+            getMytaskHotel();
         }
     }
 }
