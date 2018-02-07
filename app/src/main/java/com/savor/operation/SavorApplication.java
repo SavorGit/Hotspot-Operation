@@ -10,8 +10,10 @@ import com.google.gson.Gson;
 import com.savor.operation.activity.AbnormalityInfoActivity;
 import com.savor.operation.activity.LoginActivity;
 import com.savor.operation.activity.SavorMainActivity;
+import com.savor.operation.activity.SeekTaskDetailActivity;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.PushErrorBean;
+import com.savor.operation.bean.PushTaskBean;
 import com.savor.operation.core.Session;
 import com.savor.operation.utils.ActivitiesManager;
 import com.savor.operation.utils.LocationService;
@@ -101,6 +103,26 @@ public class SavorApplication extends Application {
                         }
                         Intent intent = new Intent(context, AbnormalityInfoActivity.class);
                         intent.putExtra("error_id",pushErrorBean.getError_id());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }else {
+                        Intent intent = new Intent(context, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                }else if("2".equals(type)) {
+                    PushTaskBean pushTaskBean = new Gson().fromJson(params, PushTaskBean.class);
+                    Session session = Session.get(context);
+                    LoginResponse loginResponse = session.getLoginResponse();
+                    boolean isRunning = ActivitiesManager.getInstance().contains(SavorMainActivity.class);
+                    if(loginResponse!=null) {
+                        if(!isRunning) {
+                            Intent intent = new Intent(context, SavorMainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                        }
+                        Intent intent = new Intent(context, SeekTaskDetailActivity.class);
+                        intent.putExtra("id",pushTaskBean.getTask_id());
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }else {
