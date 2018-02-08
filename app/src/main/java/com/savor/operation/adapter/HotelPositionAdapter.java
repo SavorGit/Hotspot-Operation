@@ -68,6 +68,7 @@ public class HotelPositionAdapter extends BaseAdapter {
             holder.tv_last_log = (TextView) convertView.findViewById(R.id.tv_last_log);
             holder.tv_hint = (TextView) convertView.findViewById(R.id.tv_hint);
             holder.tv_box_status = (ImageView) convertView.findViewById(R.id.tv_box_status);
+            holder.tv_box_blac = (ImageView) convertView.findViewById(R.id.tv_box_blac);
             holder.divider = convertView.findViewById(R.id.divider);
             convertView.setTag(holder);
         }else {
@@ -116,14 +117,13 @@ public class HotelPositionAdapter extends BaseAdapter {
                 }
             }
         });
-//        holder.tv_fix.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(mOnFixBtnClickListener!=null) {
-//                    mOnFixBtnClickListener.onFixBtnClick(position,boxInfoBean);
-//                }
-//            }
-//        });
+
+        String blstate = boxInfoBean.getBlstate();
+        if("1".equals(blstate)) {
+            holder.tv_box_blac.setVisibility(View.VISIBLE);
+        }else {
+            holder.tv_box_blac.setVisibility(View.INVISIBLE);
+        }
 
         return convertView;
     }
@@ -136,6 +136,7 @@ public class HotelPositionAdapter extends BaseAdapter {
         public TextView tv_last_log;
         public TextView tv_last_xintiao;
         public ImageView tv_box_status;
+        public ImageView tv_box_blac;
         public TextView tv_hint;
     }
 

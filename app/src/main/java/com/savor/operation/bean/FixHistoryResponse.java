@@ -354,6 +354,7 @@ public class FixHistoryResponse implements Serializable {
             private String boxname;
             private String last_nginx;
             private String mac;
+            private String blstate;
             private int ustate;
             private String last_heart_time;
             private String ltime;
@@ -367,6 +368,7 @@ public class FixHistoryResponse implements Serializable {
                         ", boxname='" + boxname + '\'' +
                         ", last_nginx='" + last_nginx + '\'' +
                         ", mac='" + mac + '\'' +
+                        ", blstate='" + blstate + '\'' +
                         ", ustate=" + ustate +
                         ", last_heart_time='" + last_heart_time + '\'' +
                         ", ltime='" + ltime + '\'' +
@@ -389,6 +391,8 @@ public class FixHistoryResponse implements Serializable {
                 if (last_nginx != null ? !last_nginx.equals(that.last_nginx) : that.last_nginx != null)
                     return false;
                 if (mac != null ? !mac.equals(that.mac) : that.mac != null) return false;
+                if (blstate != null ? !blstate.equals(that.blstate) : that.blstate != null)
+                    return false;
                 if (last_heart_time != null ? !last_heart_time.equals(that.last_heart_time) : that.last_heart_time != null)
                     return false;
                 if (ltime != null ? !ltime.equals(that.ltime) : that.ltime != null) return false;
@@ -403,6 +407,7 @@ public class FixHistoryResponse implements Serializable {
                 result = 31 * result + (boxname != null ? boxname.hashCode() : 0);
                 result = 31 * result + (last_nginx != null ? last_nginx.hashCode() : 0);
                 result = 31 * result + (mac != null ? mac.hashCode() : 0);
+                result = 31 * result + (blstate != null ? blstate.hashCode() : 0);
                 result = 31 * result + ustate;
                 result = 31 * result + (last_heart_time != null ? last_heart_time.hashCode() : 0);
                 result = 31 * result + (ltime != null ? ltime.hashCode() : 0);
@@ -441,6 +446,14 @@ public class FixHistoryResponse implements Serializable {
 
             public void setMac(String mac) {
                 this.mac = mac;
+            }
+
+            public String getBlstate() {
+                return blstate;
+            }
+
+            public void setBlstate(String blstate) {
+                this.blstate = blstate;
             }
 
             public int getUstate() {

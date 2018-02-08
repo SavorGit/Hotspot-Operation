@@ -31,8 +31,14 @@
                 android:layout_weight="1"
                 tools:text="V1 B987654321 V1机顶盒"
                 />
+            <ImageView
+                android:id="@+id/tv_box_blac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/cirlce_black" />
 
             <ImageView
+                android:layout_marginLeft="5dp"
                 android:id="@+id/tv_box_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

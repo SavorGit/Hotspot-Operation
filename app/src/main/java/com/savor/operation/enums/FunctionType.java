@@ -32,4 +32,6 @@ public enum FunctionType implements Serializable {
     UPDATE_CHANGE_IMAGE,
     /**巡检酒楼*/
     CHECK_HOTEL,
+    /**我的酒楼*/
+    MY_HOTEL,
 }

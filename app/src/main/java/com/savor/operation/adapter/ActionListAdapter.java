@@ -18,6 +18,7 @@ import com.savor.operation.activity.ExeMissionListActivity;
 import com.savor.operation.activity.InspectionActivity;
 import com.savor.operation.activity.MaintenanceRecordActivity;
 import com.savor.operation.activity.MissionListActivity;
+import com.savor.operation.activity.MyHotelActivity;
 import com.savor.operation.activity.OutSourceMainActivity;
 import com.savor.operation.activity.PubMissionListActivity;
 import com.savor.operation.activity.PublishTaskActivity;
@@ -120,6 +121,10 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                         intent = new Intent(mContext, InspectionActivity.class);
                         mContext.startActivity(intent);
                         break;
+                    case MY_HOTEL:
+                        intent = new Intent(mContext, MyHotelActivity.class);
+                        mContext.startActivity(intent);
+                        break;
                 }
             }
         });
@@ -127,6 +132,10 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
 
     private void initViews(ActionHolder holder, int num, FunctionType type, int imageId, String desc) {
         switch (type) {
+            case MY_HOTEL:
+                imageId = R.drawable.ico_system_status;
+                desc = "我的酒楼";
+                break;
             case CHECK_HOTEL:
                 imageId = R.drawable.ico_checkhotel;
                 desc = "巡检酒楼";
