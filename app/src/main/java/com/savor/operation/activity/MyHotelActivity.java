@@ -202,58 +202,18 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
 
     private void initHeader(HotelHeart heart){
         if (heart != null) {
-           String hotel_all_nums = heart.getHotel_all_nums();
-           String hotel_all_normal_nums = heart.getHotel_all_normal_nums();
-           String hotel_all_freeze_nums = heart.getHotel_all_freeze_nums();
-           String box_normal_num = heart.getBox_normal_num();
-           String box_not_normal_num = heart.getBox_not_normal_num();
-           String black_box_num = heart.getBlack_box_num();
-
-//            private TextView tv_hotel_count;
-//            private TextView tv_hotel_normal;
-//            private TextView tv_hotel_freeze;
-//
-//            private TextView tv_normal_box;
-//            private TextView tv_exe_box;
-//            private TextView tv_black_list;
-
-            if (!TextUtils.isEmpty(hotel_all_nums)) {
-                tv_hotel_count.setText(hotel_all_nums);
-            }else {
-                tv_hotel_count.setText("");
-            }
-
-            if (!TextUtils.isEmpty(hotel_all_normal_nums)) {
-                tv_hotel_normal.setText("正常"+hotel_all_normal_nums);
-            }else {
-                tv_hotel_normal.setText("正常");
-            }
-
-            if (!TextUtils.isEmpty(hotel_all_freeze_nums)) {
-                tv_hotel_freeze.setText("冻结"+hotel_all_freeze_nums);
-            }else {
-                tv_hotel_freeze.setText("冻结");
-            }
-
-            if (!TextUtils.isEmpty(box_normal_num)) {
-                tv_normal_box.setText("正常"+box_normal_num);
-            }else {
-                tv_normal_box.setText("正常");
-            }
-
-            if (!TextUtils.isEmpty(box_not_normal_num)) {
-                tv_exe_box.setText("异常"+box_not_normal_num);
-            }else {
-                tv_exe_box.setText("异常");
-            }
-
-            if (!TextUtils.isEmpty(black_box_num)) {
-                tv_black_list.setText("黑名单"+black_box_num);
-            }else {
-                tv_black_list.setText("黑名单");
-            }
-
-
+            int hotel_all_nums = heart.getHotel_all_nums();
+            int hotel_all_normal_nums = heart.getHotel_all_normal_nums();
+            int hotel_all_freeze_nums = heart.getHotel_all_freeze_nums();
+            int box_normal_num = heart.getBox_normal_num();
+            int box_not_normal_num = heart.getBox_not_normal_num();
+            int black_box_num = heart.getBlack_box_num();
+            tv_hotel_count.setText(""+hotel_all_nums);
+            tv_hotel_normal.setText("正常"+hotel_all_normal_nums);
+            tv_hotel_freeze.setText("冻结"+hotel_all_freeze_nums);
+            tv_normal_box.setText("正常"+box_normal_num);
+            tv_exe_box.setText("异常"+box_not_normal_num);
+            tv_black_list.setText("黑名单"+black_box_num);
 
            String remark;
         }
@@ -261,11 +221,12 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
 
     private void handleVodList(MytaskHotel list){
         List<MyHotelBean> mList = list.getHotel();
+        initHeader(list.getHeart());
         if (mList != null && mList.size() > 0) {
             pageNum++;
             if (isUp) {
 
-                initHeader(list.getHeart());
+
                 hotel.clear();
                 mAdapter.clear();
                 mPullRefreshListView.onLoadComplete(true,false);
