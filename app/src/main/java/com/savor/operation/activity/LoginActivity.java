@@ -22,6 +22,7 @@ import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.SkillList;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.utils.LocationService;
+import com.umeng.message.PushAgent;
 
 import java.util.List;
 
@@ -108,7 +109,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
 
         mLoadingPb.setVisibility(View.VISIBLE);
-        AppApi.login(this, account, pwd,this);
+        String deviceToken = PushAgent.getInstance(this).getRegistrationId();
+        AppApi.login(this, account, pwd,deviceToken,this);
 
     }
 
