@@ -131,7 +131,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
         LoginResponse loginResponse = mSession.getLoginResponse();
         if (loginResponse != null) {
             publish_user_id = loginResponse.getUserid();
-            publish_user_id = "147";
+            //publish_user_id = "147";
             tv_name.setText(loginResponse.getUsername());
         }
 
