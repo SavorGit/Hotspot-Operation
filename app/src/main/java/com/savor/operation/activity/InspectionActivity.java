@@ -175,7 +175,7 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
                 isNextPage = myInspectResult.getIsNextPage();
 
                 if (isNextPage == 0) {
-                    mPullRefreshListView.onLoadComplete(false, true);
+                    mPullRefreshListView.onLoadComplete(false, false);
                 } else {
                     mPullRefreshListView.onLoadComplete(true, false);
                 }
@@ -188,7 +188,7 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
 //            mPullRefreshListView.setVisibility(View.GONE);
 
 
-                mPullRefreshListView.onLoadComplete(false, true);
+                mPullRefreshListView.onLoadComplete(false, false);
             }
         }
 
