@@ -302,13 +302,13 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode == RESULT_CODE_USER&&resultCode == REQUEST_CODE_USER) {
+       if(resultCode == RESULT_CODE_USER) {
             currentPubUser = mSession.getPubUserBean();
             publish_user_id = currentPubUser.getPublish_user_id();
             tv_name.setText(currentPubUser.getRemark());
             pageNum = 1;
             isUp = true;
             getMytaskHotel();
- //       }
+       }
     }
 }
