@@ -75,7 +75,7 @@ public class MyHotelAdapter extends BaseAdapter {
 
 
         MyHotelBean item = (MyHotelBean) getItem(position);
-        holder.hotel_name.setText(item.getHotel_name());
+        holder.hotel_name.setText(item.getBox_info());
         holder.small_palt_info.setText(item.getSmall_palt_info());
         holder.box_info.setText(item.getBox_info());
         return convertView;
