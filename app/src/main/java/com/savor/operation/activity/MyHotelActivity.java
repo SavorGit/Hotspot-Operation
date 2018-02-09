@@ -103,7 +103,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
                 finish();
                 break;
             case R.id.tv_name:
-                intent = new Intent(this,CityListActivity.class);
+                intent = new Intent(this,PubUserListActivity.class);
                 intent.putExtra("PubUser",pubUser);
                 startActivityForResult(intent,REQUEST_CODE_USER);
                 break;
@@ -305,6 +305,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
         if(requestCode == RESULT_CODE_USER&&resultCode == REQUEST_CODE_USER) {
             currentPubUser = mSession.getPubUserBean();
             publish_user_id = currentPubUser.getPublish_user_id();
+            tv_name.setText(currentPubUser.getRemark());
             pageNum = 1;
             isUp = true;
             getMytaskHotel();
