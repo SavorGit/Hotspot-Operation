@@ -103,7 +103,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
                 finish();
                 break;
             case R.id.tv_name:
-                intent = new Intent(this,CityListActivity.class);
+                intent = new Intent(this,PubUserListActivity.class);
                 intent.putExtra("PubUser",pubUser);
                 startActivityForResult(intent,REQUEST_CODE_USER);
                 break;
