@@ -132,7 +132,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
         if (loginResponse != null) {
             publish_user_id = loginResponse.getUserid();
             //publish_user_id = "147";
-            tv_name.setText(loginResponse.getUsername());
+            tv_name.setText(loginResponse.getNickname());
         }
 
         mAdapter = new MyHotelAdapter(context);
