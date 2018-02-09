@@ -58,7 +58,7 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
     private TextView tv_name;
     private MyHotel myHotel;
     private MytaskHotel list;
-    private List<MyHotelBean> hotel;
+    private List<MyHotelBean> hotel = new ArrayList<MyHotelBean>();
     private TextView tv_hotel_count;
     private TextView tv_hotel_normal;
     private TextView tv_hotel_freeze;
@@ -302,13 +302,13 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RESULT_CODE_USER&&resultCode == REQUEST_CODE_USER) {
+//        if(requestCode == RESULT_CODE_USER&&resultCode == REQUEST_CODE_USER) {
             currentPubUser = mSession.getPubUserBean();
             publish_user_id = currentPubUser.getPublish_user_id();
             tv_name.setText(currentPubUser.getRemark());
             pageNum = 1;
             isUp = true;
             getMytaskHotel();
-        }
+ //       }
     }
 }
