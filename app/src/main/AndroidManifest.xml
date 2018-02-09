@@ -101,6 +101,10 @@
             android:name=".activity.CityListActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.PubUserListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".activity.MissionListActivity"
             android:screenOrientation="portrait" />
         <activity
