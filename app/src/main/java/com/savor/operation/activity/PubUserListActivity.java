@@ -26,6 +26,7 @@ public class PubUserListActivity extends BaseActivity implements View.OnClickLis
     private ImageView mBackBtn;
     private RecyclerView mCityListView;
     private TextView tv_name;
+    private TextView tv_center;
     private PubUser pubUser;
     private List<PubUserBean> list;
 
@@ -50,6 +51,7 @@ public class PubUserListActivity extends BaseActivity implements View.OnClickLis
     public void getViews() {
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         tv_name = (TextView) findViewById(R.id.tv_name);
+        tv_center = (TextView) findViewById(R.id.tv_center);
         mCityListView = (RecyclerView) findViewById(R.id.rlv_city_list);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -78,6 +80,7 @@ public class PubUserListActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void setViews() {
+        tv_center.setText("选择酒楼人员");
         tv_name.setText("选择维护人");
     }
 
