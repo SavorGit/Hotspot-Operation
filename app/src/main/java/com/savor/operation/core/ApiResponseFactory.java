@@ -410,6 +410,9 @@ public class ApiResponseFactory {
                 result = gson.fromJson(info, new TypeToken<MyHotel>() {
                 }.getType());
                 break;
+            case POST_UPLOAD_DEVICETOKEN_JSON:
+                result = "success";
+                break;
             default:
                 break;
         }

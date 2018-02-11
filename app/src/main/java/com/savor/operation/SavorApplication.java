@@ -3,6 +3,7 @@ package com.savor.operation;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.common.api.utils.AppUtils;
 import com.common.api.utils.LogUtils;
@@ -14,6 +15,8 @@ import com.savor.operation.activity.SeekTaskDetailActivity;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.PushErrorBean;
 import com.savor.operation.bean.PushTaskBean;
+import com.savor.operation.core.ApiRequestListener;
+import com.savor.operation.core.AppApi;
 import com.savor.operation.core.Session;
 import com.savor.operation.utils.ActivitiesManager;
 import com.savor.operation.utils.LocationService;
@@ -32,7 +35,7 @@ import java.util.Map;
  * Created by hezd on 2016/12/13.
  */
 
-public class SavorApplication extends Application {
+public class SavorApplication extends Application implements ApiRequestListener {
 
     private static SavorApplication mInstance;
     public String imagePath;
@@ -69,6 +72,11 @@ public class SavorApplication extends Application {
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
                 LogUtils.d("savor:push deviceToken="+deviceToken);
+                Session session =  Session.get(getApplicationContext());
+                LoginResponse loginResponse = session.getLoginResponse();
+                if(!TextUtils.isEmpty(deviceToken)&&loginResponse!=null&&!TextUtils.isEmpty(loginResponse.getUserid())) {
+                    AppApi.uploadDeviceToken(SavorApplication.this,deviceToken,loginResponse.getUserid(),SavorApplication.this);
+                }
             }
 
             @Override
@@ -153,5 +161,28 @@ public class SavorApplication extends Application {
     private void initCacheFile() {
         String cachePath = AppUtils.getSDCardPath()+"savor"+ File.separator;
         imagePath = cachePath+File.separator+"operations"+File.separator+"cache";
+    }
+
+    @Override
+    public void onSuccess(AppApi.Action method, Object obj) {
+        switch (method) {
+            case POST_UPLOAD_DEVICETOKEN_JSON:
+
+                break;
+        }
+    }
+
+    @Override
+    public void onError(AppApi.Action method, Object obj) {
+        switch (method) {
+            case POST_UPLOAD_DEVICETOKEN_JSON:
+
+                break;
+        }
+    }
+
+    @Override
+    public void onNetworkFailed(AppApi.Action method) {
+
     }
 }
