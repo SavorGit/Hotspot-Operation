@@ -126,6 +126,8 @@ public class AppApi {
         POST_PUB_USER_JSON,
         /**展示我的酒楼*/
         POST_MY_HOTEL_JSON,
+        /**上传deviceToken*/
+        POST_UPLOAD_DEVICETOKEN_JSON,
     }
 
     /**
@@ -184,6 +186,7 @@ public class AppApi {
             put(Action.POST_DOWNLOAD_ADS_JSON, formatPhpUrl("Opclient20/Box/getDownloadAds"));
             put(Action.POST_PUB_USER_JSON, formatPhpUrl("Opclient20/Pubtask/getPubUser"));
             put(Action.POST_MY_HOTEL_JSON, formatPhpUrl("Opclient20/Pubtask/getMytaskHotel"));
+            put(Action.POST_UPLOAD_DEVICETOKEN_JSON, formatPhpUrl("Opclient11/login/regDeviceToken"));
 
         }
     };
@@ -778,6 +781,18 @@ public class AppApi {
         params.put("pageNum",pageNum);
         params.put("pageSize",pageSize);
         new AppServiceOk(context, Action.POST_MY_HOTEL_JSON, handler, params).post();
+    }
+
+    /**
+     * 展示我的酒楼
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void uploadDeviceToken(Context context, String device_token, String user_id,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("device_token",device_token);
+        params.put("user_id",user_id);
+        new AppServiceOk(context, Action.POST_UPLOAD_DEVICETOKEN_JSON, handler, params).post();
     }
 
     // 超时（网络）异常
