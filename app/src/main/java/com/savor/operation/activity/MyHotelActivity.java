@@ -220,9 +220,11 @@ public class MyHotelActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void handleVodList(MytaskHotel list){
+        mPullRefreshListView.setVisibility(View.VISIBLE);
         List<MyHotelBean> mList = list.getHotel();
         initHeader(list.getHeart());
         if (mList != null && mList.size() > 0) {
+
             pageNum++;
             if (isUp) {
 

@@ -230,7 +230,11 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                 if (obj instanceof ResponseErrorMessage){
                     ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                     String statusCode = String.valueOf(errorMessage.getCode());
-                    ShowMessage.showToast(context,errorMessage.getMessage());
+                    String msg = errorMessage.getMessage();
+                    if (!TextUtils.isEmpty(msg)) {
+                        ShowMessage.showToast(context,msg);
+                    }
+
                 }
                 //  }
                 break;
