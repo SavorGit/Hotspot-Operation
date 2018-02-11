@@ -197,8 +197,8 @@
             android:paddingBottom="4dp"
             android:paddingRight="13dp"
             android:paddingLeft="13dp"
-            android:text="在线指72小时以内；异常指大于72小时
-黑名单指连续三天失联的版位"
+            android:text="1、在线指72小时以内；异常指大于72小时
+2、巡检人员发现电视没有开机导致连续三天失联的版位则进入黑名单。"
             android:textSize="12.5sp"
             android:textColor="@color/color_999999"
             android:layout_marginTop="3dp"
