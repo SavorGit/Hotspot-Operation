@@ -45,13 +45,13 @@
             app:customTabLayout="@layout/layout_custom_tab"
             app:pstsDividerColor="@android:color/transparent"
             app:pstsDividerPaddingTopBottom="0dp"
-            app:pstsIndicatorColor="@color/app_red_color"
+            app:pstsIndicatorColor="#00b7f5"
             app:pstsIndicatorHeight="2dp"
             app:pstsScaleZoomMax="0.1"
             app:pstsShouldExpand="false"
             app:pstsSmoothScrollWhenClickTab="true"
             app:pstsTabPaddingLeftRight="12dp"
-            app:pstsTextSelectedColor="@color/app_red_color"
+            app:pstsTextSelectedColor="#00b7f5"
             app:pstsUnderlineColor="@android:color/transparent" />
 
         <TextView
