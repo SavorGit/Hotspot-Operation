@@ -84,7 +84,8 @@ public class ScaleLoadingLayout extends LoadingLayout {
 
 	@Override
 	protected void resetImpl() {
-		mContentLayout.clearAnimation();
+		if(mContentLayout!=null)
+			mContentLayout.clearAnimation();
 		resetImageRotation();
 	}
 

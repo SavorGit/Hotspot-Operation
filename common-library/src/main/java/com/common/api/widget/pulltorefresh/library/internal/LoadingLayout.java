@@ -240,7 +240,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 //		if (View.VISIBLE == mHeaderTipIv.getVisibility()) {
 //			mHeaderTipIv.setVisibility(View.INVISIBLE);
 //		}
-		if(View.VISIBLE == mTextHintIv.getVisibility()) {
+		if(null!=mTextHintIv&&View.VISIBLE == mTextHintIv.getVisibility()) {
 			mTextHintIv.setVisibility(INVISIBLE);
 		}
 		if(mRefreshText) {
@@ -357,11 +357,11 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 //		if (View.INVISIBLE == mHeaderTipIv.getVisibility()) {
 //			mHeaderTipIv.setVisibility(View.VISIBLE);
 //		}
-		if(View.INVISIBLE == mTextHintIv.getVisibility()) {
+		if(null!=mTextHintIv&&View.INVISIBLE == mTextHintIv.getVisibility()) {
 			mTextHintIv.setVisibility(VISIBLE);
 		}
 		if(mRefreshText) {
-			if (View.INVISIBLE == mHeaderText.getVisibility()) {
+			if (mHeaderText!=null&&View.INVISIBLE == mHeaderText.getVisibility()) {
 				mHeaderText.setVisibility(View.VISIBLE);
 			}
 		}
