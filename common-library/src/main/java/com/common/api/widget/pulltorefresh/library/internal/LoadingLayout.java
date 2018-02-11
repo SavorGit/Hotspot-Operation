@@ -101,7 +101,7 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 				if(Orientation.MOVIE == orientation)
 					LayoutInflater.from(context).inflate(R.layout.pull_to_refresh_header_movie, this);
 				else
-				LayoutInflater.from(context).inflate(R.layout.pull_to_refresh_header_savor, this);
+				LayoutInflater.from(context).inflate(R.layout.pull_to_refresh_header_vertical, this);
 				break;
 		}
 
@@ -313,10 +313,12 @@ public abstract class LoadingLayout extends FrameLayout implements ILoadingLayou
 			resetImpl();
 		}
 
-		if (null != mSubHeaderText&&TextUtils.isEmpty(mSubHeaderText.getText())) {
-			mSubHeaderText.setVisibility(View.GONE);
-		} else {
-			mSubHeaderText.setVisibility(View.VISIBLE);
+		if (null != mSubHeaderText) {
+			if(TextUtils.isEmpty(mSubHeaderText.getText())) {
+				mSubHeaderText.setVisibility(View.GONE);
+			}else {
+				mSubHeaderText.setVisibility(View.VISIBLE);
+			}
 		}
 	}
 

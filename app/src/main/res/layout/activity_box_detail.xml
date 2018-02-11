@@ -9,7 +9,7 @@
 
     <include layout="@layout/layout_head_title" />
 
-    <ListView
+    <com.common.api.widget.pulltorefresh.library.PullToRefreshCustomListView
         android:divider="@null"
         android:dividerHeight="0dp"
         android:layout_weight="1"

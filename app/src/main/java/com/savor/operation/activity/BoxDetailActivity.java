@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.common.api.utils.ShowMessage;
+import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
+import com.common.api.widget.pulltorefresh.library.PullToRefreshCustomListView;
 import com.savor.operation.R;
 import com.savor.operation.adapter.ProgramStatusAdapter;
 import com.savor.operation.adapter.TvBoxFixHistoryAdapter;
@@ -29,11 +31,13 @@ import com.savor.operation.widget.OneKeyTestDialog;
 
 import java.util.List;
 
-public class BoxDetailActivity extends BaseActivity implements View.OnClickListener, OneKeyTestDialog.OnReTestBtnClickLisnter, OneKeyTestDialog.OnCancelBtnClickListener {
+public class BoxDetailActivity extends BaseActivity implements
+        PullToRefreshBase.OnRefreshListener,
+        View.OnClickListener, OneKeyTestDialog.OnReTestBtnClickLisnter, OneKeyTestDialog.OnCancelBtnClickListener {
 
     private static final int MSG_ONKEY_TEST = 0x1;
     private ImageView mBackBtn;
-    private ListView mProgramRlv;
+    private PullToRefreshCustomListView mProgramRlv;
     private String box_id;
     private TextView mBoxNameTv;
     private TextView mBoxMacTv;
@@ -84,7 +88,9 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
 
     private void getData() {
         if(!TextUtils.isEmpty(box_id)) {
-            showLoadingLayout();
+            if(boxDetail == null) {
+                showLoadingLayout();
+            }
             AppApi.getBoxDetail(this,box_id,this);
         }
     }
@@ -101,7 +107,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         mFixBtn = (TextView) findViewById(R.id.tv_fix);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
         mTitleTv = (TextView) findViewById(R.id.tv_center);
-        mProgramRlv = (ListView) findViewById(R.id.rlv_program_status);
+        mProgramRlv = (PullToRefreshCustomListView) findViewById(R.id.rlv_program_status);
 
         initHeaderView();
     }
@@ -128,7 +134,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         mOnkeyTestTv = (TextView) headerView.findViewById(R.id.tv_onekey_test);
         mPubProgramBtn = (TextView) headerView.findViewById(R.id.tv_content_list);
 
-        mProgramRlv.addHeaderView(headerView);
+        mProgramRlv.getRefreshableView().addHeaderView(headerView);
     }
 
     @Override
@@ -148,6 +154,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
         mBackBtn.setOnClickListener(this);
         mLookLoadingProgramTv.setOnClickListener(this);
         mLookLoadingAdvertTv.setOnClickListener(this);
+        mProgramRlv.setOnRefreshListener(this);
     }
 
     public void showOnkeTestDialog() {
@@ -251,6 +258,7 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
                 getData();
                 break;
             case POST_BOX_DETAIL_JSON:
+                mProgramRlv.onRefreshComplete();
                 hideLoadingLayout();
                 if(obj instanceof BoxDetail) {
                     boxDetail = (BoxDetail) obj;
@@ -258,8 +266,8 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
                     mProgramRlv.post(new Runnable() {
                         @Override
                         public void run() {
-                            mProgramRlv.setSelectionAfterHeaderView();
-                            mProgramRlv.setSelection(0);
+                            mProgramRlv.getRefreshableView().setSelectionAfterHeaderView();
+                            mProgramRlv.getRefreshableView().setSelection(0);
                         }
                     });
                 }
@@ -338,5 +346,10 @@ public class BoxDetailActivity extends BaseActivity implements View.OnClickListe
     public void onCancelBtnClick() {
         mHandler.removeMessages(MSG_ONKEY_TEST);
         mHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public void onRefresh(PullToRefreshBase refreshView) {
+        getData();
     }
 }
