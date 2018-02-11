@@ -28,18 +28,20 @@
         android:layout_height="wrap_content"
         android:textColor="@color/title_text_color"
         android:textSize="16sp"
-        android:text="任务性质"/>
+        android:text=""/>
     <TextView
         android:layout_below="@id/title_tv"
         android:id="@+id/info_hotel_name"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/info_state"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="12dp"
+        android:maxLength="12"
+        android:layout_marginRight="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/title_text_color"
         android:textSize="16sp"
-        android:text="酒楼名称"/>
+        android:text=""/>
     <TextView
         android:layout_below="@id/title_tv"
         android:id="@+id/tv_num"
@@ -50,7 +52,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/title_text_color"
         android:textSize="16sp"
-        android:text="版位数量：3"/>
+        android:text=""/>
     <TextView
         android:id="@+id/time"
         android:layout_marginLeft="15dp"
