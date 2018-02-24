@@ -51,9 +51,6 @@
     </RelativeLayout>
     <com.common.api.widget.pulltorefresh.library.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
-        ptr:ptrAnimationStyle = "scale"
-        ptr:ptrDrawableStart="@drawable/progress_loading_small"
-        ptr:ptrRefreshText="false"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
