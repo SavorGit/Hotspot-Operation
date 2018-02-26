@@ -135,6 +135,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     acc.setPwd(this.pwd);
                     mSession.setAccount(acc);
                     startMainActivity();
+                    String registrationId = PushAgent.getInstance(this).getRegistrationId();
+                    if(!TextUtils.isEmpty(registrationId)) {
+                        AppApi.uploadDeviceToken(this,registrationId,loginResponse.getUserid(),this);
+                    }
                 }
                 break;
         }
