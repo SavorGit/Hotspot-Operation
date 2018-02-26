@@ -137,6 +137,7 @@ public class InspectionActivity extends BaseActivity implements View.OnClickList
 //                        mProgressLayout.loadFailure("数据加载超时");
 //                        showRefreshHintAnimation("数据加载超时");
                     }else if (AppApi.ERROR_NETWORK_FAILED.equals(statusCode)){
+
 //                        mProgressLayout.loadFailure("网络异常，点击重试");
 //                        showRefreshHintAnimation("无法连接到网络,请检查网络设置");
                     }
