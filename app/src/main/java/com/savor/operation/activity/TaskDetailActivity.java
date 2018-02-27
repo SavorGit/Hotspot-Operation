@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.common.api.utils.AppUtils;
 import com.common.api.utils.ShowMessage;
 import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
@@ -153,9 +154,17 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 initRefuse();
                 break;
             case R.id.assign:
-                Intent intentp = new Intent(context, AppointActivity.class);
-                intentp.putExtra("taskDetail",taskDetail);
-                startActivityForResult(intentp,10);
+                if (taskDetail != null) {
+                    if (AppUtils.isFastDoubleClick(1)) {
+                        return;
+                    }else {
+                        Intent intentp = new Intent(context, AppointActivity.class);
+                        intentp.putExtra("taskDetail",taskDetail);
+                        startActivityForResult(intentp,10);
+                    }
+
+                }
+
                 break;
             case R.id.call:
                 Intent intent = new Intent(Intent.ACTION_DIAL);
