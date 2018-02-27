@@ -28,6 +28,7 @@ import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.common.api.utils.AppUtils;
 import com.common.api.utils.FileUtils;
 import com.common.api.utils.ShowMessage;
 import com.common.api.widget.ScrollListView;
@@ -231,6 +232,8 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
         String hotelId = "";
         switch (v.getId()) {
             case R.id.tv_right:
+                if(AppUtils.isFastDoubleClick(1))
+                    return;
                 if (hotel != null) {
                     hotelId = hotel.getId();
                 }
