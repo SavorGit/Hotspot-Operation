@@ -83,6 +83,11 @@ public class NetworkTestFragment extends BaseFragment implements PullToRefreshBa
 
     @Override
     public void onRefresh(PullToRefreshBase refreshView) {
-
+        mNetworkTestPlv.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mNetworkTestPlv.onRefreshComplete();
+            }
+        },2000);
     }
 }
