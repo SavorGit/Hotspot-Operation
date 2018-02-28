@@ -101,6 +101,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
             add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
             add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
             add(new ActionListItem(FunctionType.FIX_HISTORY,0));
+            add(new ActionListItem(FunctionType.NETWORK_ASSESSMENT,5));
         }
     };
 
