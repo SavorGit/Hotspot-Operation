@@ -19,6 +19,7 @@ import com.savor.operation.activity.InspectionActivity;
 import com.savor.operation.activity.MaintenanceRecordActivity;
 import com.savor.operation.activity.MissionListActivity;
 import com.savor.operation.activity.MyHotelActivity;
+import com.savor.operation.activity.NetworkTestActivity;
 import com.savor.operation.activity.OutSourceMainActivity;
 import com.savor.operation.activity.PubMissionListActivity;
 import com.savor.operation.activity.PublishTaskActivity;
@@ -126,7 +127,8 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                         mContext.startActivity(intent);
                         break;
                     case NETWORK_ASSESSMENT:
-
+                        intent = new Intent(mContext, NetworkTestActivity.class);
+                        mContext.startActivity(intent);
                         break;
                 }
             }
