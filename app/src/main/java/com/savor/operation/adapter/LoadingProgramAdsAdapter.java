@@ -24,6 +24,7 @@ public class LoadingProgramAdsAdapter extends BaseAdapter {
     private Context mContext;
     private List<LoadingProgramAds> mData;
 
+
     public LoadingProgramAdsAdapter(Context context) {
         this.mContext = context;
     }
@@ -54,10 +55,10 @@ public class LoadingProgramAdsAdapter extends BaseAdapter {
         ProgramStatusHolder holder = null;
         if (convertView == null) {
             holder = new ProgramStatusHolder();
-            convertView = View.inflate(mContext, R.layout.item_system_status, null);
+            convertView = View.inflate(mContext, R.layout.item_loading_list, null);
             holder.label = (TextView) convertView.findViewById(R.id.tv_hint);
             holder.name = (TextView) convertView.findViewById(R.id.tv_name);
-            holder.statusIv = (ImageView) convertView.findViewById(R.id.iv_status);
+            holder.stausTv = (TextView) convertView.findViewById(R.id.iv_status);
             convertView.setTag(holder);
         } else {
             holder = (ProgramStatusHolder) convertView.getTag();
@@ -74,7 +75,7 @@ public class LoadingProgramAdsAdapter extends BaseAdapter {
             holder.label.setText(type);
         }
 //
-        holder.statusIv.setVisibility(View.GONE);
+//        holder.statusIv.setVisibility(View.GONE);
 
         return convertView;
     }
@@ -83,6 +84,6 @@ public class LoadingProgramAdsAdapter extends BaseAdapter {
 
         public TextView label;
         public TextView name;
-        public ImageView statusIv;
+        public TextView stausTv;
     }
 }

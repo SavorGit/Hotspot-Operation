@@ -9,12 +9,30 @@
     <include
         layout="@layout/layout_head_title"
         />
-    <ListView
+
+    <com.common.api.widget.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+
+        android:id="@+id/rlv_loading"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
         android:divider="@null"
         android:dividerHeight="0dp"
-        android:layout_weight="1"
-        android:id="@+id/rlv_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:listSelector="#00000000"
+        android:scrollbars="none"
+        android:smoothScrollbar="false"
         />
+    <!--<ListView-->
+        <!--android:divider="@null"-->
+        <!--android:dividerHeight="0dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:id="@+id/rlv_loading"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--/>-->
 </LinearLayout>

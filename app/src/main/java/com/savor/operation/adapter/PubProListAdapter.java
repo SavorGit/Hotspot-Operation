@@ -21,11 +21,22 @@ import java.util.List;
 
 public class PubProListAdapter extends BaseAdapter {
 
+    private LoadingType type;
     private Context mContext;
     private List<PubProgram> mData;
 
-    public PubProListAdapter(Context context) {
+    /**
+     * 下载列表类型，节目单，广告。
+     */
+    public enum LoadingType {
+        TYPE_ADS,
+        TYPE_PROGRAM,
+        TYPE_PUBLISH,
+    }
+
+    public PubProListAdapter(Context context,LoadingType type) {
         this.mContext = context;
+        this.type = type;
     }
 
     public void setData(List<PubProgram> data) {
@@ -58,6 +69,7 @@ public class PubProListAdapter extends BaseAdapter {
             holder.label = (TextView) convertView.findViewById(R.id.tv_hint);
             holder.name = (TextView) convertView.findViewById(R.id.tv_name);
             holder.statusIv = (ImageView) convertView.findViewById(R.id.iv_status);
+            holder.statusTv = (TextView) convertView.findViewById(R.id.tv_status);
             convertView.setTag(holder);
         } else {
             holder = (ProgramStatusHolder) convertView.getTag();
@@ -74,7 +86,14 @@ public class PubProListAdapter extends BaseAdapter {
             holder.label.setText(type);
         }
 //
-        holder.statusIv.setVisibility(View.GONE);
+        if(this.type == LoadingType.TYPE_PUBLISH) {
+            holder.statusIv.setVisibility(View.GONE);
+            holder.statusTv.setVisibility(View.GONE);
+        }else {
+            holder.statusIv.setVisibility(View.GONE);
+            holder.statusTv.setVisibility(View.VISIBLE);
+
+        }
 
         return convertView;
     }
@@ -84,5 +103,6 @@ public class PubProListAdapter extends BaseAdapter {
         public TextView label;
         public TextView name;
         public ImageView statusIv;
+        public TextView statusTv;
     }
 }

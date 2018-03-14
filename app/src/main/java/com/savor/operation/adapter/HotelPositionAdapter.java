@@ -67,6 +67,9 @@ public class HotelPositionAdapter extends BaseAdapter {
             holder.tv_last_xintiao = (TextView) convertView.findViewById(R.id.tv_last_xintiao);
             holder.tv_last_log = (TextView) convertView.findViewById(R.id.tv_last_log);
             holder.tv_hint = (TextView) convertView.findViewById(R.id.tv_hint);
+            holder.tv_box_name = (TextView) convertView.findViewById(R.id.tv_box_name);
+            holder.tv_box_mac = (TextView) convertView.findViewById(R.id.tv_box_mac);
+            holder.tv_box_ip = (TextView) convertView.findViewById(R.id.tv_box_ip);
             holder.tv_box_status = (ImageView) convertView.findViewById(R.id.tv_box_status);
             holder.tv_box_blac = (ImageView) convertView.findViewById(R.id.tv_box_blac);
             holder.divider = convertView.findViewById(R.id.divider);
@@ -78,13 +81,30 @@ public class HotelPositionAdapter extends BaseAdapter {
         final FixHistoryResponse.PositionInfo.BoxInfoBean boxInfoBean = (FixHistoryResponse.PositionInfo.BoxInfoBean) getItem(position);
         List<FixHistoryResponse.PositionInfo.BoxInfoBean.RepaireInfo> repair_record = boxInfoBean.getRepair_record();
 
-        holder.tv_box_info.setText(boxInfoBean.getRname()+" "+boxInfoBean.getMac()+" "+boxInfoBean.getBoxname());
+        holder.tv_box_info.setText(boxInfoBean.getRname());
 
         int ustate = boxInfoBean.getUstate();
         if(ustate == 1) {
             holder.tv_box_status.setImageResource(R.drawable.cirlce_green);
         }else {
             holder.tv_box_status.setImageResource(R.drawable.cirlce_red);
+        }
+
+        String boxname = boxInfoBean.getRname();
+        if(!TextUtils.isEmpty(boxname)) {
+            holder.tv_box_name.setText("机顶盒名称："+boxname);
+        }
+
+        String mac = boxInfoBean.getMac();
+        if(!TextUtils.isEmpty(mac)) {
+            holder.tv_box_mac.setText("机顶盒mac："+mac);
+        }
+
+        String box_ip = boxInfoBean.getBox_ip();
+        if(!TextUtils.isEmpty(box_ip)) {
+            holder.tv_box_ip.setText("机顶盒IP："+box_ip);
+        }else {
+            holder.tv_box_ip.setText("机顶盒IP：无");
         }
 
         String last_heart_time = boxInfoBean.getLast_heart_time();
@@ -138,6 +158,9 @@ public class HotelPositionAdapter extends BaseAdapter {
         public ImageView tv_box_status;
         public ImageView tv_box_blac;
         public TextView tv_hint;
+        public TextView tv_box_name;
+        public TextView tv_box_mac;
+        public TextView tv_box_ip;
     }
 
    public interface OnItemClickListener {

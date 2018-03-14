@@ -352,11 +352,12 @@ public class FixHistoryResponse implements Serializable {
 
             private String rname;
             private String boxname;
-            private String last_nginx;
             private String mac;
             private String blstate;
             private int ustate;
             private String last_heart_time;
+            private String box_ip;
+            private String last_nginx;
             private String ltime;
             private String box_id;
             private List<RepaireInfo> repair_record;
@@ -366,11 +367,12 @@ public class FixHistoryResponse implements Serializable {
                 return "BoxInfoBean{" +
                         "rname='" + rname + '\'' +
                         ", boxname='" + boxname + '\'' +
-                        ", last_nginx='" + last_nginx + '\'' +
                         ", mac='" + mac + '\'' +
                         ", blstate='" + blstate + '\'' +
                         ", ustate=" + ustate +
                         ", last_heart_time='" + last_heart_time + '\'' +
+                        ", box_ip='" + box_ip + '\'' +
+                        ", last_nginx='" + last_nginx + '\'' +
                         ", ltime='" + ltime + '\'' +
                         ", box_id='" + box_id + '\'' +
                         ", repair_record=" + repair_record +
@@ -388,12 +390,14 @@ public class FixHistoryResponse implements Serializable {
                 if (rname != null ? !rname.equals(that.rname) : that.rname != null) return false;
                 if (boxname != null ? !boxname.equals(that.boxname) : that.boxname != null)
                     return false;
-                if (last_nginx != null ? !last_nginx.equals(that.last_nginx) : that.last_nginx != null)
-                    return false;
                 if (mac != null ? !mac.equals(that.mac) : that.mac != null) return false;
                 if (blstate != null ? !blstate.equals(that.blstate) : that.blstate != null)
                     return false;
                 if (last_heart_time != null ? !last_heart_time.equals(that.last_heart_time) : that.last_heart_time != null)
+                    return false;
+                if (box_ip != null ? !box_ip.equals(that.box_ip) : that.box_ip != null)
+                    return false;
+                if (last_nginx != null ? !last_nginx.equals(that.last_nginx) : that.last_nginx != null)
                     return false;
                 if (ltime != null ? !ltime.equals(that.ltime) : that.ltime != null) return false;
                 if (box_id != null ? !box_id.equals(that.box_id) : that.box_id != null)
@@ -405,11 +409,12 @@ public class FixHistoryResponse implements Serializable {
             public int hashCode() {
                 int result = rname != null ? rname.hashCode() : 0;
                 result = 31 * result + (boxname != null ? boxname.hashCode() : 0);
-                result = 31 * result + (last_nginx != null ? last_nginx.hashCode() : 0);
                 result = 31 * result + (mac != null ? mac.hashCode() : 0);
                 result = 31 * result + (blstate != null ? blstate.hashCode() : 0);
                 result = 31 * result + ustate;
                 result = 31 * result + (last_heart_time != null ? last_heart_time.hashCode() : 0);
+                result = 31 * result + (box_ip != null ? box_ip.hashCode() : 0);
+                result = 31 * result + (last_nginx != null ? last_nginx.hashCode() : 0);
                 result = 31 * result + (ltime != null ? ltime.hashCode() : 0);
                 result = 31 * result + (box_id != null ? box_id.hashCode() : 0);
                 result = 31 * result + (repair_record != null ? repair_record.hashCode() : 0);
@@ -430,14 +435,6 @@ public class FixHistoryResponse implements Serializable {
 
             public void setBoxname(String boxname) {
                 this.boxname = boxname;
-            }
-
-            public String getLast_nginx() {
-                return last_nginx;
-            }
-
-            public void setLast_nginx(String last_nginx) {
-                this.last_nginx = last_nginx;
             }
 
             public String getMac() {
@@ -470,6 +467,22 @@ public class FixHistoryResponse implements Serializable {
 
             public void setLast_heart_time(String last_heart_time) {
                 this.last_heart_time = last_heart_time;
+            }
+
+            public String getBox_ip() {
+                return box_ip;
+            }
+
+            public void setBox_ip(String box_ip) {
+                this.box_ip = box_ip;
+            }
+
+            public String getLast_nginx() {
+                return last_nginx;
+            }
+
+            public void setLast_nginx(String last_nginx) {
+                this.last_nginx = last_nginx;
             }
 
             public String getLtime() {
