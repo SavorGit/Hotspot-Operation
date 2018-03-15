@@ -86,13 +86,20 @@ public class PubProListAdapter extends BaseAdapter {
             holder.label.setText(type);
         }
 //
+        int state = program.getState();
         if(this.type == LoadingType.TYPE_PUBLISH) {
             holder.statusIv.setVisibility(View.GONE);
             holder.statusTv.setVisibility(View.GONE);
         }else {
             holder.statusIv.setVisibility(View.GONE);
             holder.statusTv.setVisibility(View.VISIBLE);
-
+            if(state == 1) {
+                holder.statusTv.setTextColor(mContext.getResources().getColor(R.color.app_color_green));
+                holder.statusTv.setText("已下载");
+            }else {
+                holder.statusTv.setTextColor(mContext.getResources().getColor(R.color.color_999999));
+                holder.statusTv.setText("未下载");
+            }
         }
 
         return convertView;

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.savor.operation.R;
+import com.savor.operation.bean.AdsBean;
 import com.savor.operation.bean.LoadingProgramAds;
 import com.savor.operation.bean.Program;
 
@@ -22,14 +23,14 @@ import java.util.List;
 public class LoadingProgramAdsAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<LoadingProgramAds> mData;
+    private List<AdsBean> mData;
 
 
     public LoadingProgramAdsAdapter(Context context) {
         this.mContext = context;
     }
 
-    public void setData(List<LoadingProgramAds> data) {
+    public void setData(List<AdsBean> data) {
         this.mData = data;
         notifyDataSetChanged();
     }
@@ -58,21 +59,31 @@ public class LoadingProgramAdsAdapter extends BaseAdapter {
             convertView = View.inflate(mContext, R.layout.item_loading_list, null);
             holder.label = (TextView) convertView.findViewById(R.id.tv_hint);
             holder.name = (TextView) convertView.findViewById(R.id.tv_name);
-            holder.stausTv = (TextView) convertView.findViewById(R.id.iv_status);
+            holder.stausTv = (TextView) convertView.findViewById(R.id.tv_status);
             convertView.setTag(holder);
         } else {
             holder = (ProgramStatusHolder) convertView.getTag();
         }
 
-        LoadingProgramAds program = (LoadingProgramAds) getItem(position);
+        AdsBean program = (AdsBean) getItem(position);
 
-        String ads_name = program.getAds_name();
+        String ads_name = program.getName();
         String type = program.getType();
         if (!TextUtils.isEmpty(ads_name)) {
             holder.name.setText(ads_name);
         }
         if (!TextUtils.isEmpty(type)) {
             holder.label.setText(type);
+        }
+
+        int state = program.getState();
+        if(state == 1) {
+            holder.stausTv.setTextColor(mContext.getResources().getColor(R.color.app_color_green));
+            holder.stausTv.setText("已下载");
+        }else {
+            holder.stausTv.setTextColor(mContext.getResources().getColor(R.color.color_999999));
+            holder.stausTv.setText("未下载");
+
         }
 //
 //        holder.statusIv.setVisibility(View.GONE);

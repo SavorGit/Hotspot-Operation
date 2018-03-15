@@ -14,7 +14,9 @@ import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
 import com.savor.operation.adapter.LoadingProgramAdsAdapter;
 import com.savor.operation.adapter.PubProListAdapter;
+import com.savor.operation.bean.AdsBean;
 import com.savor.operation.bean.ContentListResponse;
+import com.savor.operation.bean.LoadingAdsList;
 import com.savor.operation.bean.LoadingProgramAds;
 import com.savor.operation.bean.Program;
 import com.savor.operation.bean.PubProgram;
@@ -38,6 +40,7 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     private TextView mTitleTv;
     private TextView mProgressTv;
     private boolean isShowLoadingDialog = true;
+    private String mac;
 
     public enum Operationtype implements Serializable{
         /**发布内容列表*/
@@ -75,11 +78,11 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
             }
             switch (type) {
                 case DOWNLOAD_ADS:
-                    AppApi.getDownloadAds(this,box_id,ads_download_period,this);
+                    AppApi.getDownloadAds(this,mac,this);
                     break;
                 case DOWNLOAD_PRO:
-                    if(!TextUtils.isEmpty(pro_download_period)) {
-                        AppApi.getLoadingProList(this,pro_download_period,this);
+                    if(!TextUtils.isEmpty(mac)) {
+                        AppApi.getLoadingProList(this,mac,this);
                     }
                     break;
                 case PUB_PRO_LIST:
@@ -94,6 +97,7 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
 
     private void handleIntent() {
         pro_download_period = getIntent().getStringExtra("pro_download_period");
+        mac = getIntent().getStringExtra("mac");
         ads_download_period = getIntent().getStringExtra("ads_download_period");
         pro_period = getIntent().getStringExtra("pro_period");
         ads_period = getIntent().getStringExtra("ads_period");
@@ -156,11 +160,18 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
         mLoadingLv.onRefreshComplete();
         switch (method) {
             case POST_DOWNLOAD_ADS_JSON:
-                if(obj instanceof List) {
-                    List<PubProgram> pubPrograms = (List<PubProgram>) obj;
-                    PubProListAdapter pubProListAdapter = new PubProListAdapter(this, PubProListAdapter.LoadingType.TYPE_ADS);
-                    pubProListAdapter.setData(pubPrograms);
-                    mLoadingLv.setAdapter(pubProListAdapter);
+                if(obj instanceof LoadingAdsList) {
+                    LoadingAdsList loadingAdsList = (LoadingAdsList) obj;
+                    String download_percent = loadingAdsList.getDownload_percent();
+                    mProgressTv.setText("已下载："+download_percent);
+                    List<AdsBean> list = loadingAdsList.getList();
+                    programAdsAdapter = new LoadingProgramAdsAdapter(this);
+                    mLoadingLv.setAdapter(programAdsAdapter);
+                    programAdsAdapter.setData(list);
+//                    List<PubProgram> pubPrograms = (List<PubProgram>) obj;
+//                    PubProListAdapter pubProListAdapter = new PubProListAdapter(this, PubProListAdapter.LoadingType.TYPE_ADS);
+//                    pubProListAdapter.setData(pubPrograms);
+//                    mLoadingLv.setAdapter(pubProListAdapter);
                 }
                 break;
             case POST_PUBLISH_LIST_JSON:
@@ -180,11 +191,15 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
                 }
                 break;
             case POST_LOADING_PRO_JSON:
-                if(obj instanceof List) {
-                    List<LoadingProgramAds> programList = (List<LoadingProgramAds>) obj;
+                if(obj instanceof LoadingAdsList) {
+                    LoadingAdsList loadingAdsList = (LoadingAdsList) obj;
+                    String download_percent = loadingAdsList.getDownload_percent();
+                    mProgressTv.setText("已下载："+download_percent);
+                    List<AdsBean> list = loadingAdsList.getList();
+//                    List<LoadingProgramAds> programList = (List<LoadingProgramAds>) obj;
                     programAdsAdapter = new LoadingProgramAdsAdapter(this);
                     mLoadingLv.setAdapter(programAdsAdapter);
-                    programAdsAdapter.setData(programList);
+                    programAdsAdapter.setData(list);
                 }
                 break;
         }
@@ -193,6 +208,7 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onError(AppApi.Action method, Object obj) {
         super.onError(method, obj);
+        mLoadingLv.onRefreshComplete();
         hideLoadingLayout();
         switch (method) {
             case POST_LOADING_PRO_JSON:

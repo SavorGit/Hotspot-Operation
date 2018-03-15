@@ -14,8 +14,8 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_marginRight="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:background="@color/white"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
@@ -58,8 +58,8 @@
         <TextView
             android:layout_marginRight="10dp"
             android:id="@+id/tv_box_name"
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,8 +71,8 @@
         <TextView
             android:layout_marginRight="10dp"
             android:id="@+id/tv_box_mac"
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -84,8 +84,8 @@
         <TextView
             android:layout_marginRight="10dp"
             android:id="@+id/tv_box_ip"
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -97,8 +97,8 @@
         <TextView
             android:layout_marginRight="10dp"
             android:id="@+id/tv_last_xintiao"
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -111,8 +111,8 @@
         <TextView
             android:visibility="visible"
             android:id="@+id/tv_last_log"
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,8 +125,8 @@
 
         <RelativeLayout
             android:layout_marginRight="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:background="@color/white"
             android:paddingBottom="10dp"
             android:layout_marginLeft="10dp"
