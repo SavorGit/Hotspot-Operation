@@ -115,12 +115,12 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
 //            holder.user.setText("执行人：无");
 //        }
 //
-//        if (!TextUtils.isEmpty(Remark)) {
-//            holder.remark.setVisibility(View.VISIBLE);
-//            holder.remark.setText("备注："+item.getRemark());
-//        }else {
-//            holder.remark.setText("备注：无");
-//        }
+        if (!TextUtils.isEmpty(Remark)) {
+            holder.remark.setVisibility(View.VISIBLE);
+            holder.remark.setText("备注："+item.getRemark());
+        }else {
+            holder.remark.setText("备注：无");
+        }
 
 
         String ts = item.getRepair_time();
