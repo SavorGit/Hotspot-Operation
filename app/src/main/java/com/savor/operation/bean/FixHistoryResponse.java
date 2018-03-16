@@ -101,6 +101,8 @@ public class FixHistoryResponse implements Serializable {
             private LastSmallBean last_small;
             private String new_small;
             private String small_mac;
+            private String pla_inner_ip;
+            private String pla_out_ip;
             private List<BoxInfoBean.RepaireInfo> repair_record;
 
             @Override
@@ -110,6 +112,8 @@ public class FixHistoryResponse implements Serializable {
                         ", last_small=" + last_small +
                         ", new_small='" + new_small + '\'' +
                         ", small_mac='" + small_mac + '\'' +
+                        ", pla_inner_ip='" + pla_inner_ip + '\'' +
+                        ", pla_out_ip='" + pla_out_ip + '\'' +
                         ", repair_record=" + repair_record +
                         '}';
             }
@@ -129,8 +133,11 @@ public class FixHistoryResponse implements Serializable {
                     return false;
                 if (small_mac != null ? !small_mac.equals(that.small_mac) : that.small_mac != null)
                     return false;
+                if (pla_inner_ip != null ? !pla_inner_ip.equals(that.pla_inner_ip) : that.pla_inner_ip != null)
+                    return false;
+                if (pla_out_ip != null ? !pla_out_ip.equals(that.pla_out_ip) : that.pla_out_ip != null)
+                    return false;
                 return repair_record != null ? repair_record.equals(that.repair_record) : that.repair_record == null;
-
             }
 
             @Override
@@ -139,6 +146,8 @@ public class FixHistoryResponse implements Serializable {
                 result = 31 * result + (last_small != null ? last_small.hashCode() : 0);
                 result = 31 * result + (new_small != null ? new_small.hashCode() : 0);
                 result = 31 * result + (small_mac != null ? small_mac.hashCode() : 0);
+                result = 31 * result + (pla_inner_ip != null ? pla_inner_ip.hashCode() : 0);
+                result = 31 * result + (pla_out_ip != null ? pla_out_ip.hashCode() : 0);
                 result = 31 * result + (repair_record != null ? repair_record.hashCode() : 0);
                 return result;
             }
@@ -173,6 +182,22 @@ public class FixHistoryResponse implements Serializable {
 
             public void setSmall_mac(String small_mac) {
                 this.small_mac = small_mac;
+            }
+
+            public String getPla_inner_ip() {
+                return pla_inner_ip;
+            }
+
+            public void setPla_inner_ip(String pla_inner_ip) {
+                this.pla_inner_ip = pla_inner_ip;
+            }
+
+            public String getPla_out_ip() {
+                return pla_out_ip;
+            }
+
+            public void setPla_out_ip(String pla_out_ip) {
+                this.pla_out_ip = pla_out_ip;
             }
 
             public List<BoxInfoBean.RepaireInfo> getRepair_record() {
