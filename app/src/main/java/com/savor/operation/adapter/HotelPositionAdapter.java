@@ -90,7 +90,7 @@ public class HotelPositionAdapter extends BaseAdapter {
             holder.tv_box_status.setImageResource(R.drawable.cirlce_red);
         }
 
-        String boxname = boxInfoBean.getRname();
+        String boxname = boxInfoBean.getBoxname();
         if(!TextUtils.isEmpty(boxname)) {
             holder.tv_box_name.setText("机顶盒名称："+boxname);
         }

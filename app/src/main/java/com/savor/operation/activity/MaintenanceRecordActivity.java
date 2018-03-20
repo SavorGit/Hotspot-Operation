@@ -24,6 +24,7 @@ import com.savor.operation.bean.UserBean;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
+import com.savor.operation.widget.LoadingDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,8 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
     private String userid;
 
     private RepairRecord repairRecord;
+    private LoadingDialog loadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +70,9 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
     }
 
     private void getRepairRecordList(){
+        if(loadingDialog == null)
+            loadingDialog = new LoadingDialog(this,"");
+        loadingDialog.show();
         AppApi.getRepairRecordList(this,userid,page,this);
     }
     @Override
@@ -98,6 +104,8 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         mPullRefreshListView.onRefreshComplete();
+        if(loadingDialog !=null && loadingDialog.isShowing())
+            loadingDialog.dismiss();
         switch (method) {
             case POST_REPAIR_USER_JSON:
                 if(obj instanceof List) {
@@ -126,7 +134,8 @@ public class MaintenanceRecordActivity extends BaseActivity implements View.OnCl
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
-
+        if(loadingDialog !=null && loadingDialog.isShowing())
+            loadingDialog.dismiss();
         switch (method) {
             case POST_ERROR_REPORT_LIST_JSON:
 
