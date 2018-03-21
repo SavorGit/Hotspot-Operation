@@ -628,6 +628,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         box_id = box;
         state = st;
         remark = re;
+        showLoadingLayout();
         uploadPic(urlss, 0);
     }
 
@@ -695,6 +696,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
         if (flag == 2) {
             ShowMessage.showToast(this,"请上传图片");
+            hideLoadingLayout();
         }else {
             Gson gson = new Gson();
             String  repair_info = gson.toJson(des, new TypeToken<List<DetectBean>>() {
@@ -768,13 +770,13 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void toTransform(List<DetectBean> urls) {
-
+        showLoadingLayout();
         hotelUploadPic(urls , 0);
     }
 
     @Override
     public void toDetect(String URL) {
-
+        showLoadingLayout();
         hotelCheckUploadPic(URL);
     }
 
@@ -994,6 +996,9 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 });
 
             }catch (Exception e) {}
+        }else {
+            hideLoadingLayout();
+            ShowMessage.showToast(this,"请上传图片");
         }
     }
 
