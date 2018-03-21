@@ -72,6 +72,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.savor.operation.activity.TaskDetailActivity.RESULT_CODE_BACK;
 import static com.savor.operation.adapter.FixTaskListAdapter.REQUEST_CODE_IMAGE;
 import static com.savor.operation.adapter.FixTaskListAdapter.TAKE_PHOTO_REQUEST;
 
@@ -274,6 +275,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_left:
+                setResult(RESULT_CODE_BACK);
                 finish();
                 break;
             case R.id.assign:

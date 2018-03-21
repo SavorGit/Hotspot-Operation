@@ -136,7 +136,7 @@ public class ExeMissionFragment extends BaseFragment implements ApiRequestListen
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 555) {
+        if (requestCode == 555&&resultCode!=TaskDetailActivity.RESULT_CODE_BACK) {
             pullToRefreshListView.getRefreshableView().setSelection(0);
             page = 1;
             isUp = true;
