@@ -120,7 +120,7 @@ public class InstallDialog implements OnClickListener {
     }
 
     public void startLoading() {
-        pb_loading.setVisibility(View.VISIBLE);
+//        pb_loading.setVisibility(View.VISIBLE);
     }
 
     public void setListeners() {

@@ -356,24 +356,32 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onError(AppApi.Action method, Object obj) {
         hideLoadingLayout();
-        if (obj instanceof ResponseErrorMessage){
-            ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
-            String statusCode = String.valueOf(errorMessage.getCode());
-            String msg = errorMessage.getMessage();
-            if (!TextUtils.isEmpty(msg)) {
-                ShowMessage.showToast(context,errorMessage.getMessage());
-            }
 
-        }
         switch (method){
+            case GET_IP_JSON:
+                break;
             case POST_REFUSE_TASK_JSON:
                 if (refuseDialog != null) {
                     refuseDialog.dismiss();
                 }
+                default:
+                    if (obj instanceof ResponseErrorMessage){
+                        ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
+                        String statusCode = String.valueOf(errorMessage.getCode());
+                        String msg = errorMessage.getMessage();
+                        if (!TextUtils.isEmpty(msg)) {
+                            ShowMessage.showToast(context,errorMessage.getMessage());
+                        }else {
+                            ShowMessage.showToast(context,"操作失败");
+                        }
 
-                break;
+                    }else {
+                        ShowMessage.showToast(context,"操作失败");
+                    }
+                    break;
         }
     }
+
     private void initView(){
         if (taskDetail != null){
             task_type_id = taskDetail.getTask_type_id();
