@@ -62,6 +62,7 @@ import com.savor.operation.utils.WifiUtil;
 import com.savor.operation.widget.CheckDialog;
 import com.savor.operation.widget.DetectDialog;
 import com.savor.operation.widget.InstallDialog;
+import com.savor.operation.widget.LoadingDialog;
 import com.savor.operation.widget.MaintenanceDialog;
 import com.savor.operation.widget.RefuseDialog;
 
@@ -164,6 +165,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         }
     };
     private int nextPos;
+    private LoadingDialog loadingDialog;
 
     private void reset() {
         mHotelId = 0;
@@ -305,6 +307,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
+        hideLoadingLayout();
         switch (method){
             case GET_IP_JSON:
                 if(obj instanceof SmallPlatformByGetIp) {
@@ -352,6 +355,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
+        hideLoadingLayout();
         if (obj instanceof ResponseErrorMessage){
             ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
             String statusCode = String.valueOf(errorMessage.getCode());
@@ -713,6 +717,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
        // if(mHotelId>0 && mHotelId == detailHotelIdInt) {
             if(checkImageUrlIsEmpty(urls)) {
+                showLoadingLayout();
                 InstalluploadPic(urls,0);
             }else {
                 ShowMessage.showToast(this,"请上传图片");
@@ -725,6 +730,19 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
         //        InstalluploadPic(urls,0);
 
+    }
+
+    @Override
+    public void showLoadingLayout() {
+        if(loadingDialog == null)
+        loadingDialog = new LoadingDialog(this,"");
+        loadingDialog.show();
+    }
+
+    @Override
+    public void hideLoadingLayout() {
+        if(loadingDialog!=null&&loadingDialog.isShowing())
+            loadingDialog.dismiss();
     }
 
     /**
@@ -1085,5 +1103,11 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
     private void checkSSDPDelayed() {
         mHandler.sendEmptyMessageDelayed(MSG_CHECK_SSDP,10*1000);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        hideLoadingLayout();
     }
 }
