@@ -89,9 +89,9 @@ public class JobAdapter extends BaseAdapter {
         holder.job_la.setText(time+"的任务");
         boolean isSelect = item.isSelect();
         if (isSelect) {
-
+            holder.assign.setText("已指派");
         }else {
-
+            holder.assign.setText("未指派");
         }
         List<TaskInfoListBean> task_info = item.getTask_info();
         holder.msg_la.removeAllViewsInLayout();
