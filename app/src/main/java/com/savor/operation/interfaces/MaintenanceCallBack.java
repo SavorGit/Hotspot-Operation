@@ -19,7 +19,7 @@ public interface MaintenanceCallBack {
     /**
      * 提交安装任务
      */
-    void toInstallation(List<String> urls);
+    void toInstallation(List<String> urls,String real_tv_nums);
     /**
      * 提交改造任务
      */

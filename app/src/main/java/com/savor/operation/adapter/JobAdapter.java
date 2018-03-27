@@ -109,7 +109,7 @@ public class JobAdapter extends BaseAdapter {
                 holder.msg_la.addView(v);
             }
         }
-        holder.assign.setOnClickListener(new mStoreListener(item) );
+        holder.assign.setOnClickListener(new mStoreListener(item,position) );
 //        TaskDetailRepair item = (TaskDetailRepair) getItem(position);
 //        holder.name.setText("版位名称："+item.getBox_name());
 //        holder.desc.setText("故障现象："+item.getFault_desc());
@@ -122,19 +122,27 @@ public class JobAdapter extends BaseAdapter {
      */
     public class mStoreListener implements View.OnClickListener {
         private ExeUserList itemVo;
+        private int pos;
 
-        public mStoreListener(ExeUserList vodAndTopicItemVo) {
+        public mStoreListener(ExeUserList vodAndTopicItemVo,int pos) {
             this.itemVo = vodAndTopicItemVo;
+            this.pos = pos;
         }
 
         @Override
         public void onClick(View view) {
-            callback.appoint(itemVo);
+            //callback.appoint(itemVo);
+            boolean isSelect = itemVo.isSelect();
+            if (isSelect) {
+                callback.DelAppoint(itemVo,pos);
+            }else {
+                callback.AddAppoint(itemVo,pos);
+            }
         }
     }
 
     public interface Appoint {
-        void appoint(ExeUserList itemVo);
+        void appoint();
         void AddAppoint(ExeUserList itemVo,int pos);
         void DelAppoint(ExeUserList itemVo,int pos);
     }

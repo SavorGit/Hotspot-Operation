@@ -52,6 +52,8 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     private TextView reflrsh;
     private List<ExeUserList> tasks;
     private List<ExeUserList> Appointtasks = new ArrayList<ExeUserList>();
+    private String exe_user_id = "";
+    private TextView assign;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +85,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         time = (TextView) findViewById(R.id.time);
         reflrsh = (TextView) findViewById(R.id.reflrsh);
         exe_num = (TextView) findViewById(R.id.exe_num);
+        assign = (TextView) findViewById(R.id.assign);
     }
 
     @Override
@@ -108,6 +111,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         time.setOnClickListener(this);
         iv_left.setOnClickListener(this);
         reflrsh.setOnClickListener(this);
+        assign.setOnClickListener(this);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup arg0, int arg1) {
@@ -146,6 +150,11 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                     getExeUserList();
                 }
                 break;
+            case R.id.assign:
+                appoint();
+                break;
+
+
         }
 
     }
@@ -286,14 +295,14 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void appoint(ExeUserList itemVo) {
+    public void appoint() {
 
-        final ExeUserList CitemVo = itemVo;
+        initAppoint();
 
-        new CommonDialog(this, "是否指派给"+itemVo.getUsername(), new CommonDialog.OnConfirmListener() {
+        new CommonDialog(this, "是否指派给"+exe_user_id, new CommonDialog.OnConfirmListener() {
             @Override
             public void onConfirm() {
-                AppApi.appointTask(context,times,mSession.getLoginResponse().getUserid(),CitemVo.getUser_id(),taskDetail.getId(),is_lead_install,AppointActivity.this);
+                AppApi.appointTask(context,times,mSession.getLoginResponse().getUserid(),exe_user_id,taskDetail.getId(),is_lead_install,AppointActivity.this);
             }
         }, new CommonDialog.OnCancelListener() {
             @Override
@@ -331,6 +340,16 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
+    private void initAppoint(){
+
+        for (int i = 0; i < Appointtasks.size(); i++) {
+            if (i == 0 || i == Appointtasks.size()-1 ) {
+                exe_user_id =  exe_user_id + tasks.get(0).getUser_id();
+            }else {
+                exe_user_id =  exe_user_id + tasks.get(0).getUser_id()+",";
+            }
+        }
+    }
     @Override
     public void onConfirm() {
 

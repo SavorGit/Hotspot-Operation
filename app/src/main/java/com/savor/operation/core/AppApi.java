@@ -606,7 +606,7 @@ public class AppApi {
      * @param handler 接口回调
      */
     public static void reportMission(Context context, String box_id ,String remark,String repair_img,String state
-            ,String task_id,String task_type,String user_id,ApiRequestListener handler) {
+            ,String task_id,String task_type,String user_id,String real_tv_nums,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         params.put("box_id",box_id);
         params.put("remark",remark);
@@ -615,6 +615,7 @@ public class AppApi {
         params.put("task_id",task_id);
         params.put("task_type",task_type);
         params.put("user_id",user_id);
+        params.put("real_tv_nums",real_tv_nums);
         new AppServiceOk(context, Action.POST_REPORT_MISSION_JSON, handler, params).post();
     }
 

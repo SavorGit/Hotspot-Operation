@@ -130,6 +130,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private TextView  refuse_time;
     private RelativeLayout remark_la;
     private TextView  remarkView;
+    private String real_tv_nums = "";
 
     private static final int MSG_CHECK_SSDP = 100;
     private ServiceConnection mConn = new ServiceConnection() {
@@ -635,6 +636,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
 
     private void publish() {
+        real_tv_nums = "";
         if (urls != null && urls.size()>0) {
             for (int i = 0; i < urls.size(); i++) {
                 String obj = urls.get(i);
@@ -647,7 +649,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         String  repair_info = gson.toJson(urls, new TypeToken<List<String>>() {
         }.getType());
         AppApi.reportMission(context, box_id ,remark, repair_info,state
-                ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
+                ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),real_tv_nums,this);
     }
 
     private void inStallpublish(List<String> infos) {
@@ -680,10 +682,11 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         String  repair_info = gson.toJson(infoss, new TypeToken<List<PicUrl>>() {
         }.getType());
         AppApi.reportMission(context, box_id ,remark, repair_info,state
-                ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
+                ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),real_tv_nums,this);
     }
 
     private void detectPublish( List<DetectBean> des) {
+        real_tv_nums = "";
         int flag = 0;
         if (des != null && des.size()>0) {
 
@@ -704,22 +707,24 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
             String  repair_info = gson.toJson(des, new TypeToken<List<DetectBean>>() {
             }.getType());
             AppApi.reportMission(context, "" ,"", repair_info,""
-                    ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
+                    ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),real_tv_nums,this);
         }
 
     }
 
     private void checkPublish( String url) {
+        real_tv_nums = "";
         List<String>ulist = new ArrayList<String>();
         ulist.add(url);
         Gson gson = new Gson();
         String  repair_info = gson.toJson(ulist, new TypeToken<List<String>>() {
         }.getType());
         AppApi.reportMission(context, "" ,"", repair_info,""
-                ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),this);
+                ,id,taskDetail.getTask_type_id(),mSession.getLoginResponse().getUserid(),real_tv_nums,this);
     }
+
     @Override
-    public void toInstallation(List<String> urls) {
+    public void toInstallation(List<String> urls,String real_tv_nums) {
 //        int detailHotelIdInt = 0;
 //        String detailHotelId = taskDetail.getHotel_id();
 //
@@ -728,6 +733,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 //        }
 
        // if(mHotelId>0 && mHotelId == detailHotelIdInt) {
+        this.real_tv_nums = real_tv_nums;
             if(checkImageUrlIsEmpty(urls)) {
                 showLoadingLayout();
                 InstalluploadPic(urls,0);
