@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -55,6 +56,8 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements  View.OnC
     private RecyclerView mSpHistoryRlv;
     private TvBoxFixHistoryAdapter mSpHistoryAdapter;
     private ImageView mRightIv;
+    private TextView mBoxInnerIpTv;
+    private TextView mBoxOutIpTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,8 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements  View.OnC
         mPostionListView = (ListView) findViewById(R.id.lv_hotel_position_list);
 
         mHeaderView = ImageView.inflate(this, R.layout.header_view_positionlayout,null);
+        mBoxInnerIpTv = (TextView) mHeaderView.findViewById(R.id.tv_box_inner_ip);
+        mBoxOutIpTv = (TextView) mHeaderView.findViewById(R.id.tv_box_out_ip);
         mSpVersionTv = (TextView) mHeaderView.findViewById(R.id.tv_sp_version);
         mLastSpVersionTv = (TextView) mHeaderView.findViewById(R.id.tv_last_sp_version);
         mLastXintiao = (TextView) mHeaderView.findViewById(R.id.tv_last_xintiao);
@@ -245,6 +250,21 @@ public class HotelPositionInfoAcitivty extends BaseActivity implements  View.OnC
                 int lstate = last_heart_time.getLstate();
                 String ltime = last_heart_time.getLtime();
                 mLastXintiao.setText("最后小平台心跳时间：" + ltime);
+
+                String pla_inner_ip = version.getPla_inner_ip();
+                String pla_out_ip = version.getPla_out_ip();
+                if(!TextUtils.isEmpty(pla_inner_ip)) {
+                    mBoxInnerIpTv.setText("小平台内网IP："+pla_inner_ip);
+                }else {
+                    mBoxInnerIpTv.setText("小平台内网IP：无");
+                }
+
+                if(!TextUtils.isEmpty(pla_out_ip)) {
+                    mBoxOutIpTv.setText("小平台外网IP："+pla_out_ip);
+                }else {
+                    mBoxOutIpTv.setText("小平台外网IP：无");
+                }
+
                 if (lstate == 1) {
                     mLastXintiaoIV.setImageResource(R.drawable.cirlce_green);
                 } else {

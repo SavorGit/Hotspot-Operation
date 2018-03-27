@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/ll_parent"
-    android:background="@color/white"
+    android:background="@color/color_app_bg"
     android:orientation="horizontal"
     >
     <LinearLayout
@@ -13,14 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
-            android:background="@color/title_bg"
-            android:paddingTop="5dp"
-            android:paddingBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/white"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -43,13 +42,64 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/cirlce_red" />
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/arraw_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-
+        <View
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#dbd9d4"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
         <TextView
+            android:layout_marginRight="10dp"
+            android:id="@+id/tv_box_name"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="机顶盒名称："
+            />
+        <TextView
+            android:layout_marginRight="10dp"
+            android:id="@+id/tv_box_mac"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="机顶盒mac："
+            />
+        <TextView
+            android:layout_marginRight="10dp"
+            android:id="@+id/tv_box_ip"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="机顶盒IP："
+            />
+        <TextView
+            android:layout_marginRight="10dp"
             android:id="@+id/tv_last_xintiao"
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
-            android:background="@color/title_bg"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
@@ -59,23 +109,25 @@
             />
 
         <TextView
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/tv_last_log"
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
-            android:background="@color/title_bg"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
+            android:layout_marginRight="10dp"
             android:paddingTop="5dp"
             android:layout_marginLeft="10dp"
             android:text="最后上传日志时间："
             />
 
         <RelativeLayout
-            android:paddingLeft="5dp"
-            android:paddingRight="15dp"
-            android:background="@color/title_bg"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/white"
             android:paddingBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
@@ -100,18 +152,18 @@
                 />
         </RelativeLayout>
     </LinearLayout>
-    <LinearLayout
-        android:paddingRight="5dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/color_app_bg"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-        <ImageView
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/arraw_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:paddingRight="5dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:background="@color/color_app_bg"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent">-->
+        <!--<ImageView-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:src="@drawable/arraw_right"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+    <!--</LinearLayout>-->
 
     <!--<TextView-->
         <!--android:padding="10dp"-->

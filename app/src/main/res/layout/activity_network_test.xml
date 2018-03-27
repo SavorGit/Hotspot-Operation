@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.savor.operation.activity.NetworkTestActivity">
+
+    <include layout="@layout/layout_head_title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.gxz.PagerSlidingTabStrip
+            android:id="@+id/tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:textColor="#737373"
+            android:textSize="15sp"
+            app:customTabLayout="@layout/layout_custom_tab"
+            app:pstsDividerColor="@android:color/transparent"
+            app:pstsDividerPaddingTopBottom="10dp"
+            app:pstsIndicatorColor="@color/colorPrimary"
+            app:pstsIndicatorHeight="2dp"
+            app:pstsScaleZoomMax="0.1"
+            app:pstsShouldExpand="false"
+            app:pstsSmoothScrollWhenClickTab="true"
+            app:pstsTabPaddingLeftRight="12dp"
+            app:pstsTextSelectedColor="@color/colorPrimary"
+            app:pstsUnderlineColor="@android:color/transparent" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tabs" />
+
+        <ProgressBar
+            android:id="@+id/pb_loading"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:indeterminateBehavior="repeat"
+            android:indeterminateDrawable="@drawable/base_loading_large_anim"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -62,6 +62,7 @@ import com.savor.operation.utils.WifiUtil;
 import com.savor.operation.widget.CheckDialog;
 import com.savor.operation.widget.DetectDialog;
 import com.savor.operation.widget.InstallDialog;
+import com.savor.operation.widget.LoadingDialog;
 import com.savor.operation.widget.MaintenanceDialog;
 import com.savor.operation.widget.RefuseDialog;
 
@@ -71,6 +72,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static com.savor.operation.activity.TaskDetailActivity.RESULT_CODE_BACK;
 import static com.savor.operation.adapter.FixTaskListAdapter.REQUEST_CODE_IMAGE;
 import static com.savor.operation.adapter.FixTaskListAdapter.TAKE_PHOTO_REQUEST;
 
@@ -164,6 +166,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         }
     };
     private int nextPos;
+    private LoadingDialog loadingDialog;
 
     private void reset() {
         mHotelId = 0;
@@ -272,6 +275,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_left:
+                setResult(RESULT_CODE_BACK);
                 finish();
                 break;
             case R.id.assign:
@@ -305,6 +309,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     }
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
+        hideLoadingLayout();
         switch (method){
             case GET_IP_JSON:
                 if(obj instanceof SmallPlatformByGetIp) {
@@ -352,24 +357,33 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void onError(AppApi.Action method, Object obj) {
-        if (obj instanceof ResponseErrorMessage){
-            ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
-            String statusCode = String.valueOf(errorMessage.getCode());
-            String msg = errorMessage.getMessage();
-            if (!TextUtils.isEmpty(msg)) {
-                ShowMessage.showToast(context,errorMessage.getMessage());
-            }
+        hideLoadingLayout();
 
-        }
         switch (method){
+            case GET_IP_JSON:
+                break;
             case POST_REFUSE_TASK_JSON:
                 if (refuseDialog != null) {
                     refuseDialog.dismiss();
                 }
+                default:
+                    if (obj instanceof ResponseErrorMessage){
+                        ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
+                        String statusCode = String.valueOf(errorMessage.getCode());
+                        String msg = errorMessage.getMessage();
+                        if (!TextUtils.isEmpty(msg)) {
+                            ShowMessage.showToast(context,errorMessage.getMessage());
+                        }else {
+                            ShowMessage.showToast(context,"操作失败");
+                        }
 
-                break;
+                    }else {
+                        ShowMessage.showToast(context,"操作失败");
+                    }
+                    break;
         }
     }
+
     private void initView(){
         if (taskDetail != null){
             task_type_id = taskDetail.getTask_type_id();
@@ -616,6 +630,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         box_id = box;
         state = st;
         remark = re;
+        showLoadingLayout();
         uploadPic(urlss, 0);
     }
 
@@ -683,6 +698,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
         if (flag == 2) {
             ShowMessage.showToast(this,"请上传图片");
+            hideLoadingLayout();
         }else {
             Gson gson = new Gson();
             String  repair_info = gson.toJson(des, new TypeToken<List<DetectBean>>() {
@@ -713,6 +729,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
        // if(mHotelId>0 && mHotelId == detailHotelIdInt) {
             if(checkImageUrlIsEmpty(urls)) {
+                showLoadingLayout();
                 InstalluploadPic(urls,0);
             }else {
                 ShowMessage.showToast(this,"请上传图片");
@@ -725,6 +742,19 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
         //        InstalluploadPic(urls,0);
 
+    }
+
+    @Override
+    public void showLoadingLayout() {
+        if(loadingDialog == null)
+        loadingDialog = new LoadingDialog(this,"");
+        loadingDialog.show();
+    }
+
+    @Override
+    public void hideLoadingLayout() {
+        if(loadingDialog!=null&&loadingDialog.isShowing())
+            loadingDialog.dismiss();
     }
 
     /**
@@ -742,13 +772,13 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
     @Override
     public void toTransform(List<DetectBean> urls) {
-
+        showLoadingLayout();
         hotelUploadPic(urls , 0);
     }
 
     @Override
     public void toDetect(String URL) {
-
+        showLoadingLayout();
         hotelCheckUploadPic(URL);
     }
 
@@ -968,6 +998,9 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 });
 
             }catch (Exception e) {}
+        }else {
+            hideLoadingLayout();
+            ShowMessage.showToast(this,"请上传图片");
         }
     }
 
@@ -1085,5 +1118,11 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
     private void checkSSDPDelayed() {
         mHandler.sendEmptyMessageDelayed(MSG_CHECK_SSDP,10*1000);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        hideLoadingLayout();
     }
 }

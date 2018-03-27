@@ -12,8 +12,8 @@ android {
         applicationId "com.savor.operation"
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
-        versionCode 2018020901
-        versionName "2.1"
+        versionCode 2018032101
+        versionName "2.1.1"
 
         flavorDimensions "versionCode"
         manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaoredian"]
@@ -135,7 +135,10 @@ android {
 
 
 
+
+
 dependencies {
+    implementation 'com.android.support:recyclerview-v7:24.2.1'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':common-library')
     compile project(':Pushlib')

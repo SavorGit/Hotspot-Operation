@@ -224,6 +224,7 @@ public class BoxDetailActivity extends BaseActivity implements
             case R.id.tv_loading_program:
                 intent = new Intent(this,LoadingListActivity.class);
                 intent.putExtra("pro_download_period",boxDetail.getPro_download_period());
+                intent.putExtra("mac",boxDetail.getBox_mac());
                 intent.putExtra("type", LoadingListActivity.Operationtype.DOWNLOAD_PRO);
                 intent.putExtra("box_id",box_id);
                 startActivity(intent);
@@ -232,6 +233,7 @@ public class BoxDetailActivity extends BaseActivity implements
                 intent = new Intent(this,LoadingListActivity.class);
                 intent.putExtra("ads_download_period",boxDetail.getAds_download_period());
                 intent.putExtra("type", LoadingListActivity.Operationtype.DOWNLOAD_ADS);
+                intent.putExtra("mac",boxDetail.getBox_mac());
                 intent.putExtra("box_id",box_id);
                 startActivity(intent);
                 break;
@@ -331,6 +333,7 @@ public class BoxDetailActivity extends BaseActivity implements
                 hideOnKeyTestDialog();
                 break;
             case POST_BOX_DETAIL_JSON:
+                mProgramRlv.onRefreshComplete();
                 hideLoadingLayout();
                 break;
         }

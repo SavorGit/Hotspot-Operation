@@ -39,6 +39,7 @@ import java.util.List;
 
 public class TaskDetailActivity extends BaseActivity implements View.OnClickListener,ApiRequestListener,RefuseCallBack {
 
+    public static final int RESULT_CODE_BACK = 0x1;
     private Context context;
     private PullToRefreshListView mPullRefreshListView;
     private String id;
@@ -148,6 +149,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_left:
+                setResult(RESULT_CODE_BACK);
                 finish();
                 break;
             case R.id.refused:

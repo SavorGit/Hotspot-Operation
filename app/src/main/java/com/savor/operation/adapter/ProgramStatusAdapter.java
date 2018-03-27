@@ -58,6 +58,7 @@ public class ProgramStatusAdapter extends BaseAdapter {
             holder.label = (TextView) convertView.findViewById(R.id.tv_hint);
             holder.name = (TextView) convertView.findViewById(R.id.tv_name);
             holder.statusIv = (ImageView) convertView.findViewById(R.id.iv_status);
+            holder.statusTv = (TextView) convertView.findViewById(R.id.tv_status);
             convertView.setTag(holder);
         } else {
             holder = (ProgramStatusHolder) convertView.getTag();
@@ -79,10 +80,12 @@ public class ProgramStatusAdapter extends BaseAdapter {
             holder.label.setText("");
         }
 
+        holder.statusTv.setVisibility(View.GONE);
+        holder.statusIv.setVisibility(View.VISIBLE);
         if (flag == 1) {
-            holder.statusIv.setImageResource(R.drawable.ico_exist);
+            holder.statusIv.setImageResource(R.drawable.ico_new);
         } else {
-            holder.statusIv.setImageResource(R.drawable.ico_noexit);
+            holder.statusIv.setImageResource(R.drawable.ico_old);
         }
 
         return convertView;
@@ -93,5 +96,6 @@ public class ProgramStatusAdapter extends BaseAdapter {
         public TextView label;
         public TextView name;
         public ImageView statusIv;
+        public TextView statusTv;
     }
 }

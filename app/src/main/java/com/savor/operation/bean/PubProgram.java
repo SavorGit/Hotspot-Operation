@@ -18,6 +18,7 @@ public class PubProgram implements Serializable {
     private String type;
     private String sort_num;
     private String location_id;
+    private int state;
 
     @Override
     public String toString() {
@@ -26,6 +27,7 @@ public class PubProgram implements Serializable {
                 ", type='" + type + '\'' +
                 ", sort_num='" + sort_num + '\'' +
                 ", location_id='" + location_id + '\'' +
+                ", state=" + state +
                 '}';
     }
 
@@ -36,6 +38,7 @@ public class PubProgram implements Serializable {
 
         PubProgram that = (PubProgram) o;
 
+        if (state != that.state) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
         if (sort_num != null ? !sort_num.equals(that.sort_num) : that.sort_num != null)
@@ -49,6 +52,7 @@ public class PubProgram implements Serializable {
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (sort_num != null ? sort_num.hashCode() : 0);
         result = 31 * result + (location_id != null ? location_id.hashCode() : 0);
+        result = 31 * result + state;
         return result;
     }
 
@@ -82,5 +86,13 @@ public class PubProgram implements Serializable {
 
     public void setLocation_id(String location_id) {
         this.location_id = location_id;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }

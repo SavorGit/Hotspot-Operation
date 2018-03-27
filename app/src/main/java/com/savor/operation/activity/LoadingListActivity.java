@@ -9,10 +9,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.common.api.widget.pulltorefresh.library.PullToRefreshBase;
+import com.common.api.widget.pulltorefresh.library.PullToRefreshListView;
 import com.savor.operation.R;
 import com.savor.operation.adapter.LoadingProgramAdsAdapter;
 import com.savor.operation.adapter.PubProListAdapter;
+import com.savor.operation.bean.AdsBean;
 import com.savor.operation.bean.ContentListResponse;
+import com.savor.operation.bean.LoadingAdsList;
 import com.savor.operation.bean.LoadingProgramAds;
 import com.savor.operation.bean.Program;
 import com.savor.operation.bean.PubProgram;
@@ -21,9 +25,9 @@ import com.savor.operation.core.AppApi;
 import java.io.Serializable;
 import java.util.List;
 
-public class LoadingListActivity extends BaseActivity implements View.OnClickListener {
+public class LoadingListActivity extends BaseActivity implements View.OnClickListener,PullToRefreshBase.OnRefreshListener {
 
-    private ListView mLoadingLv;
+    private PullToRefreshListView mLoadingLv;
     private TextView mPeriodTv;
     private LoadingProgramAdsAdapter programAdsAdapter;
     private String pro_download_period;
@@ -34,6 +38,9 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     private String pro_period;
     private String ads_period;
     private TextView mTitleTv;
+    private TextView mProgressTv;
+    private boolean isShowLoadingDialog = true;
+    private String mac;
 
     public enum Operationtype implements Serializable{
         /**发布内容列表*/
@@ -66,20 +73,19 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
 
     private void getData() {
         if(type!=null) {
+            if(isShowLoadingDialog) {
+                showLoadingLayout();
+            }
             switch (type) {
                 case DOWNLOAD_ADS:
-                    showLoadingLayout();
-                    AppApi.getDownloadAds(this,box_id,ads_download_period,this);
+                    AppApi.getDownloadAds(this,mac,this);
                     break;
                 case DOWNLOAD_PRO:
-                    showLoadingLayout();
-                    if(!TextUtils.isEmpty(pro_download_period)) {
-                        showLoadingLayout();
-                        AppApi.getLoadingProList(this,pro_download_period,this);
+                    if(!TextUtils.isEmpty(mac)) {
+                        AppApi.getLoadingProList(this,mac,this);
                     }
                     break;
                 case PUB_PRO_LIST:
-                    showLoadingLayout();
                     if(!TextUtils.isEmpty(box_id)) {
                         AppApi.getPubProList(this,box_id,this);
                     }
@@ -91,6 +97,7 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
 
     private void handleIntent() {
         pro_download_period = getIntent().getStringExtra("pro_download_period");
+        mac = getIntent().getStringExtra("mac");
         ads_download_period = getIntent().getStringExtra("ads_download_period");
         pro_period = getIntent().getStringExtra("pro_period");
         ads_period = getIntent().getStringExtra("ads_period");
@@ -102,7 +109,7 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     public void getViews() {
         mTitleTv = (TextView) findViewById(R.id.tv_center);
         mBackBtn = (ImageView) findViewById(R.id.iv_left);
-        mLoadingLv = (ListView) findViewById(R.id.rlv_loading);
+        mLoadingLv = (PullToRefreshListView) findViewById(R.id.rlv_loading);
 
         initHeaderView();
     }
@@ -110,7 +117,8 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     private void initHeaderView() {
         View headerView = View.inflate(this, R.layout.header_view_loading_list,null);
         mPeriodTv = (TextView) headerView.findViewById(R.id.tv_period);
-        mLoadingLv.addHeaderView(headerView);
+        mProgressTv = (TextView) headerView.findViewById(R.id.tv_progress);
+        mLoadingLv.getRefreshableView().addHeaderView(headerView);
     }
 
     @Override
@@ -136,19 +144,34 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void setListeners() {
         mBackBtn.setOnClickListener(this);
+        mLoadingLv.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onRefresh(PullToRefreshBase refreshView) {
+        getData();
     }
 
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         super.onSuccess(method, obj);
         hideLoadingLayout();
+        isShowLoadingDialog = false;
+        mLoadingLv.onRefreshComplete();
         switch (method) {
             case POST_DOWNLOAD_ADS_JSON:
-                if(obj instanceof List) {
-                    List<PubProgram> pubPrograms = (List<PubProgram>) obj;
-                    PubProListAdapter pubProListAdapter = new PubProListAdapter(this);
-                    pubProListAdapter.setData(pubPrograms);
-                    mLoadingLv.setAdapter(pubProListAdapter);
+                if(obj instanceof LoadingAdsList) {
+                    LoadingAdsList loadingAdsList = (LoadingAdsList) obj;
+                    String download_percent = loadingAdsList.getDownload_percent();
+                    mProgressTv.setText("已下载："+download_percent);
+                    List<AdsBean> list = loadingAdsList.getList();
+                    programAdsAdapter = new LoadingProgramAdsAdapter(this);
+                    mLoadingLv.setAdapter(programAdsAdapter);
+                    programAdsAdapter.setData(list);
+//                    List<PubProgram> pubPrograms = (List<PubProgram>) obj;
+//                    PubProListAdapter pubProListAdapter = new PubProListAdapter(this, PubProListAdapter.LoadingType.TYPE_ADS);
+//                    pubProListAdapter.setData(pubPrograms);
+//                    mLoadingLv.setAdapter(pubProListAdapter);
                 }
                 break;
             case POST_PUBLISH_LIST_JSON:
@@ -159,20 +182,24 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
                     List<PubProgram> program_list = contentListResponse.getProgram_list();
 
                     if(program_list!=null) {
-                        PubProListAdapter pubProListAdapter = new PubProListAdapter(this);
+                        PubProListAdapter pubProListAdapter = new PubProListAdapter(this, PubProListAdapter.LoadingType.TYPE_PUBLISH);
                         pubProListAdapter.setData(program_list);
                         mLoadingLv.setAdapter(pubProListAdapter);
                     }
-
-                    mPeriodTv.setText("发布节目期号："+getFormatStr(menu_num)+"    "+"发布广告期号："+getFormatStr(ads_menu_num));
+                    mProgressTv.setVisibility(View.INVISIBLE);
+                    mPeriodTv.setText("发布节目期号："+getFormatStr(menu_num)+"\n"+"发布广告期号："+getFormatStr(ads_menu_num));
                 }
                 break;
             case POST_LOADING_PRO_JSON:
-                if(obj instanceof List) {
-                    List<LoadingProgramAds> programList = (List<LoadingProgramAds>) obj;
+                if(obj instanceof LoadingAdsList) {
+                    LoadingAdsList loadingAdsList = (LoadingAdsList) obj;
+                    String download_percent = loadingAdsList.getDownload_percent();
+                    mProgressTv.setText("已下载："+download_percent);
+                    List<AdsBean> list = loadingAdsList.getList();
+//                    List<LoadingProgramAds> programList = (List<LoadingProgramAds>) obj;
                     programAdsAdapter = new LoadingProgramAdsAdapter(this);
                     mLoadingLv.setAdapter(programAdsAdapter);
-                    programAdsAdapter.setData(programList);
+                    programAdsAdapter.setData(list);
                 }
                 break;
         }
@@ -181,6 +208,7 @@ public class LoadingListActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onError(AppApi.Action method, Object obj) {
         super.onError(method, obj);
+        mLoadingLv.onRefreshComplete();
         hideLoadingLayout();
         switch (method) {
             case POST_LOADING_PRO_JSON:

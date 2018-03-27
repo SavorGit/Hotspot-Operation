@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <ImageView
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#444444"
+        />
+    <RelativeLayout
+        android:layout_below="@id/line"
+        android:background="#ffffff"
+        android:id="@+id/mission_info_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp">
+        <TextView
+            android:id="@+id/mold"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="17dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:background="@drawable/corner_remote_view"
+            android:text="维"/>
+        <TextView
+            android:id="@+id/hotel_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/title_text_color"
+            android:textSize="16dp"
+            android:text="酒楼名称"/>
+        <TextView
+            android:id="@+id/release_execute_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hotel_name"
+            android:layout_toRightOf="@id/mold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="24dp"
+            android:textSize="14dp"
+            android:textColor="#888888"
+            android:text="指派执行时间：2017-12-08（黄勇）"/>
+        <TextView
+            android:id="@+id/release_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/release_execute_time"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/mold"
+            android:layout_marginLeft="24dp"
+            android:textColor="#888888"
+            android:textSize="14dp"
+            android:text="发布时间：2017-02-15（王莉）"/>
+        <TextView
+            android:id="@+id/execute_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/release_time"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/mold"
+            android:layout_marginLeft="24dp"
+            android:textColor="#888888"
+            android:textSize="14dp"
+            android:text="指派时间：2017-12-07 18:34:57 （郑伟）"/>
+        <TextView
+            android:id="@+id/complete_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/execute_time"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textColor="#888888"
+            android:layout_toRightOf="@id/mold"
+            android:layout_marginLeft="24dp"
+            android:textSize="14dp"
+            android:text="完成时间：2017-12-08 20:07:39 （黄勇）"/>
+
+        <TextView
+            android:id="@+id/refuse_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/execute_time"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textColor="#888888"
+            android:layout_toRightOf="@id/mold"
+            android:layout_marginLeft="24dp"
+            android:textSize="14dp"
+            android:text=""/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

@@ -103,7 +103,6 @@
         <activity
             android:name=".activity.PubUserListActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.MissionListActivity"
             android:screenOrientation="portrait" />
@@ -137,7 +136,6 @@
         <activity
             android:name=".activity.InspectionActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".activity.OutSourceMainActivity"
             android:screenOrientation="portrait" />
@@ -154,8 +152,6 @@
             android:name=".activity.MyHotelActivity"
             android:screenOrientation="portrait" />
 
-
-
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -168,7 +164,10 @@
         <activity
             android:name=".activity.BoxDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.LoadingListActivity"></activity>
+        <activity android:name=".activity.LoadingListActivity" />
+        <activity android:name=".activity.NetworkTestActivity"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

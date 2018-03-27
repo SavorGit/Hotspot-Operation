@@ -19,6 +19,7 @@ import com.savor.operation.activity.InspectionActivity;
 import com.savor.operation.activity.MaintenanceRecordActivity;
 import com.savor.operation.activity.MissionListActivity;
 import com.savor.operation.activity.MyHotelActivity;
+import com.savor.operation.activity.NetworkTestActivity;
 import com.savor.operation.activity.OutSourceMainActivity;
 import com.savor.operation.activity.PubMissionListActivity;
 import com.savor.operation.activity.PublishTaskActivity;
@@ -125,6 +126,10 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                         intent = new Intent(mContext, MyHotelActivity.class);
                         mContext.startActivity(intent);
                         break;
+                    case NETWORK_ASSESSMENT:
+                        intent = new Intent(mContext, NetworkTestActivity.class);
+                        mContext.startActivity(intent);
+                        break;
                 }
             }
         });
@@ -132,6 +137,21 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
 
     private void initViews(ActionHolder holder, int num, FunctionType type, int imageId, String desc) {
         switch (type) {
+            case NETWORK_ASSESSMENT:
+                imageId = R.drawable.ico_network_assegement;
+                desc = "网络测评";
+                if(num>0) {
+                    holder.tv_num.setVisibility(View.VISIBLE);
+                    if(num>99) {
+                        holder.tv_num.setText("99+");
+                    }else {
+
+                        holder.tv_num.setText(String.valueOf(num));
+                    }
+                }else {
+                    holder.tv_num.setVisibility(View.GONE);
+                }
+                break;
             case MY_HOTEL:
                 imageId = R.drawable.ico_item_hotel;
                 desc = "我的酒楼";

@@ -257,9 +257,9 @@ public class AppointMissionFragment extends BaseFragment implements ApiRequestLi
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 666) {
+        if (requestCode == 666&&resultCode!=TaskDetailActivity.RESULT_CODE_BACK) {
             //pullToRefreshListView.onLoadComplete(true,false);
-            pullToRefreshListView.getRefreshableView().setSelection(0);
+//            pullToRefreshListView.getRefreshableView().setSelection(0);
             listItems.clear();
             missionAdapter.clear();
             page = 1;

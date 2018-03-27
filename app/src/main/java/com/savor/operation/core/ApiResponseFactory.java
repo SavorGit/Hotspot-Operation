@@ -39,6 +39,7 @@ import com.savor.operation.bean.FixHistoryResponse;
 import com.savor.operation.bean.HotelListResponse;
 import com.savor.operation.bean.HotelMacInfo;
 import com.savor.operation.bean.IndexInfo;
+import com.savor.operation.bean.LoadingAdsList;
 import com.savor.operation.bean.LoadingProgramAds;
 import com.savor.operation.bean.LoginResponse;
 import com.savor.operation.bean.MissionTaskListBean;
@@ -375,7 +376,7 @@ public class ApiResponseFactory {
                 }.getType());
                 break;
             case POST_LOADING_PRO_JSON:
-                result = gson.fromJson(info, new TypeToken<ArrayList<LoadingProgramAds>>() {
+                result = gson.fromJson(info, new TypeToken<LoadingAdsList>() {
                 }.getType());
                 break;
             case POST_BOX_STATECONFIG_JSON:
@@ -395,7 +396,7 @@ public class ApiResponseFactory {
                 }.getType());
                 break;
             case POST_DOWNLOAD_ADS_JSON:
-                result = gson.fromJson(info, new TypeToken<List<PubProgram>>() {
+                result = gson.fromJson(info, new TypeToken<LoadingAdsList>() {
                 }.getType());
                 break;
             case POST_PUBLISH_LIST_JSON:

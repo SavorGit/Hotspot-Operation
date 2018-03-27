@@ -22,17 +22,7 @@ public class LoadingProgramAds implements Serializable {
     private String sort_num;
     private String type;
     private int flag;
-
-    @Override
-    public String toString() {
-        return "LoadingProgramAds{" +
-                "ads_name='" + ads_name + '\'' +
-                ", location_id='" + location_id + '\'' +
-                ", sort_num='" + sort_num + '\'' +
-                ", type='" + type + '\'' +
-                ", flag=" + flag +
-                '}';
-    }
+    private int state;
 
     @Override
     public boolean equals(Object o) {
@@ -42,6 +32,7 @@ public class LoadingProgramAds implements Serializable {
         LoadingProgramAds that = (LoadingProgramAds) o;
 
         if (flag != that.flag) return false;
+        if (state != that.state) return false;
         if (ads_name != null ? !ads_name.equals(that.ads_name) : that.ads_name != null)
             return false;
         if (location_id != null ? !location_id.equals(that.location_id) : that.location_id != null)
@@ -58,6 +49,7 @@ public class LoadingProgramAds implements Serializable {
         result = 31 * result + (sort_num != null ? sort_num.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + flag;
+        result = 31 * result + state;
         return result;
     }
 
@@ -99,5 +91,13 @@ public class LoadingProgramAds implements Serializable {
 
     public void setFlag(int flag) {
         this.flag = flag;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }
