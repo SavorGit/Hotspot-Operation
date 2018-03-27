@@ -321,10 +321,13 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
             jobAdapter.notifyDataSetChanged();
         }
 
-        for(int i=0;i<Appointtasks.size();i++){
-            if(Appointtasks.get(i).equals(itemVo))
-                Appointtasks.remove(i);
-        }
+        Appointtasks.add(itemVo);
+//        for(int i=0;i<Appointtasks.size();i++){
+//            if(!Appointtasks.get(i).equals(itemVo)){
+//
+//            }
+//                //Appointtasks.remove(i);
+//        }
     }
 
     @Override
@@ -343,10 +346,10 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     private void initAppoint(){
 
         for (int i = 0; i < Appointtasks.size(); i++) {
-            if (i == 0 || i == Appointtasks.size()-1 ) {
-                exe_user_id =  exe_user_id + tasks.get(0).getUser_id();
+            if ((i == 0 && Appointtasks.size() == 1 ) || i == Appointtasks.size()-1 ) {
+                exe_user_id =  exe_user_id + Appointtasks.get(i).getUser_id();
             }else {
-                exe_user_id =  exe_user_id + tasks.get(0).getUser_id()+",";
+                exe_user_id =  exe_user_id + Appointtasks.get(i).getUser_id()+",";
             }
         }
     }

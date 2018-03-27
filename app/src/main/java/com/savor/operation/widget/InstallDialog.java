@@ -198,7 +198,7 @@ public class InstallDialog implements OnClickListener {
         switch (view.getId()){
             case R.id.submit:
                 startLoading();
-                callBack.toInstallation(urls);
+                callBack.toInstallation(urls,Strnum);
                 dismiss();
                 //callBack.toMaintenance(box_id,ev_info.getText().toString(),state,urls);
                 break;
