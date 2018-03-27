@@ -25,8 +25,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.common.api.utils.FileUtils;
+import com.common.api.utils.ShowMessage;
 import com.savor.operation.R;
 import com.savor.operation.SavorApplication;
+import com.savor.operation.activity.PublishTaskActivity;
 import com.savor.operation.adapter.ExeSpinnerAdapter;
 import com.savor.operation.bean.ExecutorInfoBean;
 import com.savor.operation.bean.TaskDetailRepair;
@@ -66,6 +68,11 @@ public class InstallDialog implements OnClickListener {
     private  TextView cdel;
     private ProgressBar pb_loading;
     private List<ExecutorInfoBean> elist;
+    private TextView mAddTv;
+    private TextView mReduceTv;
+    private TextView mBoxNumTv;
+    private String Strnum;
+
 
     public InstallDialog(Context context) {
         this.context = context;
@@ -101,6 +108,9 @@ public class InstallDialog implements OnClickListener {
         cancel = (TextView) view.findViewById(R.id.cancel);
         msg_la = (LinearLayout) view.findViewById(R.id.msg_la);
         pb_loading = (ProgressBar) view.findViewById(R.id.pb_loading);
+        mAddTv = (TextView) view.findViewById(R.id.tv_add);
+        mReduceTv = (TextView) view.findViewById(R.id.tv_reduce);
+        mBoxNumTv = (TextView) view.findViewById(R.id.tv_box_num);
         submit.setText("保存");
         if (dialog == null) {
             dialog = new Dialog(context, R.style.AlertDialogStyle);
@@ -126,6 +136,8 @@ public class InstallDialog implements OnClickListener {
     public void setListeners() {
         submit.setOnClickListener(this);
         cancel.setOnClickListener(this);
+        mAddTv.setOnClickListener(this);
+        mReduceTv.setOnClickListener(this);
 
     }
 
@@ -192,6 +204,36 @@ public class InstallDialog implements OnClickListener {
                 break;
             case R.id.cancel:
                 dismiss();
+                break;
+            case R.id.tv_add:
+                Strnum = mBoxNumTv.getText().toString();
+
+                try {
+                    int boxNum = Integer.valueOf(Strnum);
+                    // 如果当前是非安装验收类型，数量达到最大不可在操作
+//                    if(boxNum>=elist.size()) {
+//                            ShowMessage.showToast(context,"不能大于该酒楼总版位数量");
+//                            return;
+//                    }
+
+                    boxNum += 1;
+                    mBoxNumTv.setText(String.valueOf(boxNum));
+                } catch (Exception e) {
+                    mBoxNumTv.setText("0");
+                }
+                break;
+            case R.id.tv_reduce:
+                Strnum = mBoxNumTv.getText().toString();
+                try {
+                    int boxNum = Integer.valueOf(num);
+                    boxNum -= 1;
+                    if (boxNum < 1) {
+                        boxNum = 1;
+                    }
+                    mBoxNumTv.setText(String.valueOf(boxNum));
+                } catch (Exception e) {
+                    mBoxNumTv.setText("0");
+                }
                 break;
 
 

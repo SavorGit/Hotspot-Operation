@@ -25,6 +25,7 @@ import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.widget.CommonDialog;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     private TextView exe_num;
     private String is_lead_install = "1";
     private TextView reflrsh;
+    private List<ExeUserList> tasks;
+    private List<ExeUserList> Appointtasks = new ArrayList<ExeUserList>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +189,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         switch (method) {
             case POST_EXE_USER_LIST_JSON:
                 if(obj instanceof List) {
-                    List<ExeUserList> tasks = (List<ExeUserList>) obj;
+                    tasks = (List<ExeUserList>) obj;
                     if (tasks != null && tasks.size()>0) {
                         exe_num.setVisibility(View.VISIBLE);
                         exe_num.setText("执行者数量"+tasks.size());
@@ -300,6 +303,32 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         },"确定").show();
 
 
+    }
+
+    @Override
+    public void AddAppoint(ExeUserList itemVo,int pos) {
+        if (tasks != null && tasks.size()>=pos) {
+            tasks.get(pos).setSelect(true);
+            jobAdapter.notifyDataSetChanged();
+        }
+
+        for(int i=0;i<Appointtasks.size();i++){
+            if(Appointtasks.get(i).equals(itemVo))
+                Appointtasks.remove(i);
+        }
+    }
+
+    @Override
+    public void DelAppoint(ExeUserList itemVo,int pos) {
+
+        if (tasks != null && tasks.size()>=pos) {
+            tasks.get(pos).setSelect(false);
+            jobAdapter.notifyDataSetChanged();
+        }
+        for(int i=0;i<Appointtasks.size();i++){
+            if(Appointtasks.get(i).equals(itemVo))
+                Appointtasks.remove(i);
+        }
     }
 
     @Override

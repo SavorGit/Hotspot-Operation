@@ -87,6 +87,12 @@ public class JobAdapter extends BaseAdapter {
         ExeUserList item = (ExeUserList) getItem(position);
         holder.name.setText(item.getUsername());
         holder.job_la.setText(time+"的任务");
+        boolean isSelect = item.isSelect();
+        if (isSelect) {
+
+        }else {
+
+        }
         List<TaskInfoListBean> task_info = item.getTask_info();
         holder.msg_la.removeAllViewsInLayout();
         if (task_info != null && task_info.size()>0) {
@@ -129,6 +135,8 @@ public class JobAdapter extends BaseAdapter {
 
     public interface Appoint {
         void appoint(ExeUserList itemVo);
+        void AddAppoint(ExeUserList itemVo,int pos);
+        void DelAppoint(ExeUserList itemVo,int pos);
     }
 
 

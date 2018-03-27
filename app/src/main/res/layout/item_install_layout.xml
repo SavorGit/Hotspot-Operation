@@ -4,7 +4,57 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
+    <RelativeLayout
+        android:id="@+id/install_num_la"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <TextView
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:paddingLeft="15dp"
+            android:textColor="@color/title_text_color"
+            android:text="实际安装数量"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_reduce"
+                android:padding="10dp"
+                android:textSize="36sp"
+                android:gravity="center"
+                android:text="－"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_box_num"
+                android:padding="10dp"
+                android:text="1"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/title_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tv_add"
+                android:gravity="center"
+                android:padding="10dp"
+                android:textSize="36sp"
+                android:text="＋"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </RelativeLayout>
     <ScrollView
+        android:layout_below="@id/install_num_la"
         android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

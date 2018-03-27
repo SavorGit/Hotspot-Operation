@@ -12,6 +12,7 @@ public class ExeUserList implements Serializable {
     private static final long serialVersionUID = -1;
     private  String  user_id;
     private  String  username;
+    private boolean isSelect;
     private List<TaskInfoListBean> task_info = new ArrayList<TaskInfoListBean>();
 
     public String getUser_id() {
@@ -38,11 +39,20 @@ public class ExeUserList implements Serializable {
         this.task_info = task_info;
     }
 
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect(boolean select) {
+        isSelect = select;
+    }
+
     @Override
     public String toString() {
         return "ExeUserList{" +
                 "user_id='" + user_id + '\'' +
                 ", username='" + username + '\'' +
+                ", isSelect=" + isSelect +
                 ", task_info=" + task_info +
                 '}';
     }
