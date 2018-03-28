@@ -53,6 +53,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
     private List<ExeUserList> tasks;
     private List<ExeUserList> Appointtasks = new ArrayList<ExeUserList>();
     private String exe_user_id = "";
+    private String exe_user_name = "";
     private TextView assign;
 
     @Override
@@ -299,7 +300,7 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
 
         initAppoint();
 
-        new CommonDialog(this, "是否指派给"+exe_user_id, new CommonDialog.OnConfirmListener() {
+        new CommonDialog(this, "是否指派给"+exe_user_name, new CommonDialog.OnConfirmListener() {
             @Override
             public void onConfirm() {
                 AppApi.appointTask(context,times,mSession.getLoginResponse().getUserid(),exe_user_id,taskDetail.getId(),is_lead_install,AppointActivity.this);
@@ -348,8 +349,10 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
         for (int i = 0; i < Appointtasks.size(); i++) {
             if ((i == 0 && Appointtasks.size() == 1 ) || i == Appointtasks.size()-1 ) {
                 exe_user_id =  exe_user_id + Appointtasks.get(i).getUser_id();
+                exe_user_name =  exe_user_name + Appointtasks.get(i).getUsername();
             }else {
                 exe_user_id =  exe_user_id + Appointtasks.get(i).getUser_id()+",";
+                exe_user_name =  exe_user_name + Appointtasks.get(i).getUsername()+",";
             }
         }
     }
