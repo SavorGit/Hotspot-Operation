@@ -39,6 +39,7 @@ public class TaskDetail implements Serializable {
     private  String hotel_linkman_tel;
     private  String remark;
     private  String desc;
+    private  String real_tv_nums;
     private int is_lead_install;
     private List<TaskDetailRepair> repair_list = new ArrayList<TaskDetailRepair>();
     private List<ExecuteRepair> execute = new ArrayList<ExecuteRepair>();
@@ -301,6 +302,14 @@ public class TaskDetail implements Serializable {
         this.desc = desc;
     }
 
+    public String getReal_tv_nums() {
+        return real_tv_nums;
+    }
+
+    public void setReal_tv_nums(String real_tv_nums) {
+        this.real_tv_nums = real_tv_nums;
+    }
+
     @Override
     public String toString() {
         return "TaskDetail{" +
@@ -333,6 +342,7 @@ public class TaskDetail implements Serializable {
                 ", hotel_linkman_tel='" + hotel_linkman_tel + '\'' +
                 ", remark='" + remark + '\'' +
                 ", desc='" + desc + '\'' +
+                ", real_tv_nums='" + real_tv_nums + '\'' +
                 ", is_lead_install=" + is_lead_install +
                 ", repair_list=" + repair_list +
                 ", execute=" + execute +

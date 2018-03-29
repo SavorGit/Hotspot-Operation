@@ -131,6 +131,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
     private RelativeLayout remark_la;
     private TextView  remarkView;
     private String real_tv_nums = "";
+    private RelativeLayout real_tv_nums_la;
+    private TextView tv_real_tv_nums;
 
     private static final int MSG_CHECK_SSDP = 100;
     private ServiceConnection mConn = new ServiceConnection() {
@@ -254,7 +256,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
         refuse_time = (TextView) headerView.findViewById(R.id.refuse_time);
         remark_la =(RelativeLayout) headerView.findViewById(R.id.remark_la);
         remarkView = (TextView) headerView.findViewById(R.id.remark);
-
+        real_tv_nums_la =(RelativeLayout) headerView.findViewById(R.id.real_tv_nums_la);
+        tv_real_tv_nums = (TextView) headerView.findViewById(R.id.real_tv_nums);
         mPullRefreshListView.getRefreshableView().addHeaderView(headerView);
     }
     @Override
@@ -519,6 +522,15 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 remarkView.setText("备注:"+remarkExe);
             }else {
                 remarkView.setText("备注:"+"无");
+            }
+
+            String r_tv_num = taskDetail.getReal_tv_nums();
+            if (!TextUtils.isEmpty(r_tv_num)|| !"0".equals(r_tv_num)) {
+                real_tv_nums_la.setVisibility(View.VISIBLE);
+                tv_real_tv_nums.setText("实际安装数量:"+r_tv_num);
+            }else {
+                real_tv_nums_la.setVisibility(View.GONE);
+                //remarkView.setText("备注:"+"无");
             }
 
                repair_list = taskDetail.getRepair_list();

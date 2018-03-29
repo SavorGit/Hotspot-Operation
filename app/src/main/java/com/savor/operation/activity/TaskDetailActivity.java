@@ -75,6 +75,8 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
     private TextView  refuse_time;
     private RelativeLayout remark_la;
     private TextView  remarkView;
+    private RelativeLayout real_tv_nums_la;
+    private TextView tv_real_tv_nums;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +130,8 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
         refuse_time = (TextView) headerView.findViewById(R.id.refuse_time);
         remark_la =(RelativeLayout) headerView.findViewById(R.id.remark_la);
         remarkView = (TextView) headerView.findViewById(R.id.remark);
-
+        real_tv_nums_la =(RelativeLayout) headerView.findViewById(R.id.real_tv_nums_la);
+        tv_real_tv_nums = (TextView) headerView.findViewById(R.id.real_tv_nums);
         mPullRefreshListView.getRefreshableView().addHeaderView(headerView);
     }
     @Override
@@ -297,6 +300,14 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
                 remarkView.setText("备注:"+"无");
             }
 
+            String r_tv_num = taskDetail.getReal_tv_nums();
+            if (!TextUtils.isEmpty(r_tv_num)|| !"0".equals(r_tv_num)) {
+                real_tv_nums_la.setVisibility(View.VISIBLE);
+                tv_real_tv_nums.setText("实际安装数量:"+r_tv_num);
+            }else {
+                real_tv_nums_la.setVisibility(View.GONE);
+                //remarkView.setText("备注:"+"无");
+            }
 //            String appoint_exe_time = taskDetail.getAppoint_exe_time();
 //            if (!TextUtils.isEmpty(appoint_exe_time)) {
 //                release_execute_time.setVisibility(View.VISIBLE);

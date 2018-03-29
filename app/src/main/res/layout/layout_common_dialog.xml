@@ -27,7 +27,8 @@
        android:layout_centerHorizontal="true"
         android:textColor="@color/color_text_black"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
+        android:ellipsize="end"
         android:textSize="17sp"/>
     <View
         android:visibility="gone"
