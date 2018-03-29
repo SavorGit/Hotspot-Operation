@@ -121,7 +121,6 @@
             android:layout_toLeftOf="@id/refused"
             android:text="指派"
             android:layout_centerVertical="true"
-            android:clickable="false"
             android:layout_marginRight="15dp"
             android:background="@color/gray"
             android:layout_marginLeft="15dp"
