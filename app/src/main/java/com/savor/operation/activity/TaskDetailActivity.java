@@ -301,7 +301,7 @@ public class TaskDetailActivity extends BaseActivity implements View.OnClickList
             }
 
             String r_tv_num = taskDetail.getReal_tv_nums();
-            if (!TextUtils.isEmpty(r_tv_num)|| !"0".equals(r_tv_num)) {
+            if (!TextUtils.isEmpty(r_tv_num)&&!"0".equals(r_tv_num)) {
                 real_tv_nums_la.setVisibility(View.VISIBLE);
                 tv_real_tv_nums.setText("实际安装数量:"+r_tv_num);
             }else {
