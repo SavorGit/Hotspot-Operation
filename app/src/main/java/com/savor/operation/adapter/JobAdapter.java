@@ -76,7 +76,7 @@ public class JobAdapter extends BaseAdapter {
             holder = new JobAdapter.ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.job_la = (TextView) convertView.findViewById(R.id.job_la);
-            holder.assign = (TextView) convertView.findViewById(R.id.assign);
+            holder.assign = (ImageView) convertView.findViewById(R.id.assign);
             holder.msg_la = (LinearLayout) convertView.findViewById(R.id.msg_la);
 
 
@@ -89,9 +89,9 @@ public class JobAdapter extends BaseAdapter {
         holder.job_la.setText(time+"的任务");
         boolean isSelect = item.isSelect();
         if (isSelect) {
-            holder.assign.setText("已指派");
+            holder.assign.setImageResource(R.drawable.xuanzhong);
         }else {
-            holder.assign.setText("未指派");
+            holder.assign.setImageResource(R.drawable.xuantu);
         }
         List<TaskInfoListBean> task_info = item.getTask_info();
         holder.msg_la.removeAllViewsInLayout();
@@ -109,7 +109,7 @@ public class JobAdapter extends BaseAdapter {
                 holder.msg_la.addView(v);
             }
         }
-        holder.assign.setOnClickListener(new mStoreListener(item,position) );
+        convertView.setOnClickListener(new mStoreListener(item,position) );
 //        TaskDetailRepair item = (TaskDetailRepair) getItem(position);
 //        holder.name.setText("版位名称："+item.getBox_name());
 //        holder.desc.setText("故障现象："+item.getFault_desc());
@@ -151,7 +151,7 @@ public class JobAdapter extends BaseAdapter {
     public class ViewHolder {
         public TextView name;
         public TextView job_la;
-        public TextView assign;
+        public ImageView assign;
         public LinearLayout msg_la;
 
     }

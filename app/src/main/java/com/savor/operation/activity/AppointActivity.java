@@ -175,6 +175,8 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                         List<ExeUserList> data = jobAdapter.getData();
                         data.clear();
                         jobAdapter.setData(data,times);
+                        assign.setBackgroundResource(R.color.gray);
+                        assign.setClickable(false);
                     }
                     times = "";
                     exe_num.setText("执行者数量"+0);
@@ -214,7 +216,8 @@ public class AppointActivity extends BaseActivity implements View.OnClickListene
                         }else {
                             jobAdapter.setData(tasks,times);
                         }
-
+                        assign.setBackgroundResource(R.color.actionsheet_blue);
+                        assign.setClickable(true);
                     }else {
                         exe_num.setVisibility(View.GONE);
                     }
