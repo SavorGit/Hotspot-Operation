@@ -349,8 +349,9 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
 
                 break;
             case POST_REPORT_MISSION_JSON:
-                //installDialog.loadFinish();
-                ShowMessage.showToast(context,"执行成功");
+                if (obj instanceof String) {
+                    ShowMessage.showToast(context,(String)obj);
+                }
                 finish();
                 break;
 
