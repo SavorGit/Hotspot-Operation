@@ -125,12 +125,11 @@ public class InstallRepairAdapter extends BaseAdapter {
                         PhotoShowActivity.startPhotoShowActivity(context,obj.getImg());
                     }
                 });
+            }else {
+
             }
 
         }
-
-
-
         return convertView;
     }
 

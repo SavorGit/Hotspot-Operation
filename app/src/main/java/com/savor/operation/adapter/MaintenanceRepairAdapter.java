@@ -108,12 +108,13 @@ public class MaintenanceRepairAdapter extends BaseAdapter {
 
         String Username = item.getUsername();
         String Remark = item.getRemark();
-//        if (!TextUtils.isEmpty(Username)) {
-//            holder.user.setVisibility(View.VISIBLE);
-//            holder.user.setText("执行人："+item.getUsername());
-//        }else {
-//            holder.user.setText("执行人：无");
-//        }
+        if (!TextUtils.isEmpty(Username)) {
+            holder.user.setVisibility(View.GONE);
+            holder.user.setText("执行人："+item.getUsername());
+        }else {
+            holder.user.setText("执行人：无");
+            holder.user.setVisibility(View.GONE);
+        }
 //
         holder.remark.setVisibility(View.VISIBLE);
         if (!TextUtils.isEmpty(Remark)) {
