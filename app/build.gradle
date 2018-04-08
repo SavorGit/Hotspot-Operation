@@ -110,7 +110,7 @@ android {
         jumboMode = false
 //        javaMaxHeapSize "4g"
     }
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
 
     sourceSets {
         main {
@@ -139,17 +139,17 @@ android {
 
 dependencies {
     implementation 'com.android.support:recyclerview-v7:24.2.1'
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':common-library')
-    compile project(':Pushlib')
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.android.support:support-v4:24.2.1'
-    compile 'com.android.support:design:24.2.1'
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
-    compile 'com.android.support:cardview-v7:26.0.0-alpha1'
-    compile 'com.contrarywind:Android-PickerView:3.2.6'
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':common-library')
+    implementation project(':Pushlib')
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.android.support:support-v4:24.2.1'
+    implementation 'com.android.support:design:24.2.1'
+    implementation 'com.android.support:appcompat-v7:25.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    implementation 'com.android.support:cardview-v7:26.0.0-alpha1'
+    implementation 'com.contrarywind:Android-PickerView:3.2.6'
     implementation project(':SSDP-lib')
     implementation project(':pager-indicator-lib')
 }
