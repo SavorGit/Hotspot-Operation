@@ -69,6 +69,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
     private NotificationManager manager;
     private Notification notif;
     private final int NOTIFY_DOWNLOAD_FILE=10001;
+    //RANKING
     /**发布者*/
     public static final List<ActionListItem> PUBLISH_TEMS = new ArrayList<ActionListItem>(){
         {
@@ -78,6 +79,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
             add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
             add(new ActionListItem(FunctionType.FIX_HISTORY,0));
             add(new ActionListItem(FunctionType.MY_HOTEL,0));
+            add(new ActionListItem(FunctionType.RANKING,0));
         }
     };
     /**
@@ -90,6 +92,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
             add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
             add(new ActionListItem(FunctionType.FIX_HISTORY,0));
             add(new ActionListItem(FunctionType.BIND_BOX,0));
+            add(new ActionListItem(FunctionType.RANKING,0));
         }
     };
     /**
@@ -101,6 +104,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
             add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
             add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
             add(new ActionListItem(FunctionType.FIX_HISTORY,0));
+            add(new ActionListItem(FunctionType.RANKING,0));
 //            add(new ActionListItem(FunctionType.NETWORK_ASSESSMENT,5));
         }
     };
@@ -114,6 +118,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
             add(new ActionListItem(FunctionType.SYSTEM_STATUS,0));
             add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
             add(new ActionListItem(FunctionType.FIX_HISTORY,0));
+            add(new ActionListItem(FunctionType.RANKING,0));
         }
     };
 

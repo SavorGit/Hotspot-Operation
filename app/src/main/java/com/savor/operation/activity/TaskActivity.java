@@ -1,6 +1,7 @@
 package com.savor.operation.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -117,12 +118,13 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     };
     private LoadingDialog loadingDialog;
     private EditText mRemarkEt;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
-
+        mContext = this;
         handleIntent();
         getViews();
         setViews();
@@ -392,7 +394,9 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                     }.getType());
                 }
                 if (TextUtils.isEmpty(phone)) {
+                    ShowMessage.showToast(TaskActivity.this,"请输入联系人电话");
                     return;
+
                 }
                 break;
             case INFO_CHECK:

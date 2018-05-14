@@ -151,6 +151,10 @@
         <activity
             android:name=".activity.MyHotelActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WebViewActivity"
+            android:screenOrientation="portrait" />
+
 
         <service
             android:name="com.baidu.location.f"

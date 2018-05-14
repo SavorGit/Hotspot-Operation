@@ -26,6 +26,7 @@ import com.savor.operation.activity.PublishTaskActivity;
 import com.savor.operation.activity.SavorMainActivity;
 import com.savor.operation.activity.SearchActivity;
 import com.savor.operation.activity.SystemStatusActivity;
+import com.savor.operation.activity.WebViewActivity;
 import com.savor.operation.bean.ActionListItem;
 import com.savor.operation.enums.FunctionType;
 
@@ -130,6 +131,11 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                         intent = new Intent(mContext, NetworkTestActivity.class);
                         mContext.startActivity(intent);
                         break;
+                    case RANKING:
+                        intent = new Intent(mContext, WebViewActivity.class);
+                        mContext.startActivity(intent);
+                        break;
+
                 }
             }
         });
@@ -218,6 +224,18 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                 imageId = R.drawable.ico_publish_task;
                 desc = "搜索酒楼";
                 break;
+            case RANKING:
+                imageId = R.drawable.ico_task_list;
+                desc = "排行榜";
+//                if(num>0) {
+//                    holder.tv_num.setVisibility(View.VISIBLE);
+//                    holder.tv_num.setText(String.valueOf(num));
+//                }else {
+//                    holder.tv_num.setVisibility(View.GONE);
+//                }
+                break;
+
+           // add(new ActionListItem(FunctionType.RANKING,0));
         }
         holder.iv_image.setImageResource(imageId);
         holder.tv_desc.setText(desc);

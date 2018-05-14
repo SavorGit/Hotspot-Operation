@@ -36,4 +36,6 @@ public enum FunctionType implements Serializable {
     MY_HOTEL,
     /**网络测评*/
     NETWORK_ASSESSMENT,
+    /**排行*/
+    RANKING,
 }
