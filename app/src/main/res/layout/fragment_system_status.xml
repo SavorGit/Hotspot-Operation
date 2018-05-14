@@ -101,7 +101,7 @@
                                 android:textSize="15sp"
                                 android:textColor="@color/title_text_color"
                                 android:paddingLeft="10dp"
-                                android:text="在线  98"
+                                android:text="在线  "
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
@@ -112,7 +112,7 @@
                                 android:textSize="15sp"
                                 android:textColor="@color/title_text_color"
                                 android:paddingLeft="10dp"
-                                android:text="离线  16"
+                                android:text="离线  "
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
@@ -159,7 +159,7 @@
                             android:drawableLeft="@drawable/cirlce_green"
                             android:drawablePadding="5dp"
                             android:paddingLeft="10dp"
-                            android:text="正常  34"
+                            android:text="正常  "
                             android:textColor="@color/title_text_color"
                             android:textSize="15sp" />
 
@@ -171,7 +171,7 @@
                             android:drawableLeft="@drawable/cirlce_red"
                             android:drawablePadding="5dp"
                             android:paddingLeft="10dp"
-                            android:text="异常  70"
+                            android:text="异常  "
                             android:textColor="@color/title_text_color"
                             android:textSize="15sp" />
                     </LinearLayout>
@@ -209,7 +209,7 @@
                                 android:textSize="15sp"
                                 android:textColor="@color/title_text_color"
                                 android:paddingLeft="10dp"
-                                android:text="正常  34"
+                                android:text="正常  "
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                             <TextView
@@ -220,7 +220,7 @@
                                 android:textSize="15sp"
                                 android:textColor="@color/title_text_color"
                                 android:paddingLeft="10dp"
-                                android:text="异常  94"
+                                android:text="异常  "
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
@@ -233,7 +233,7 @@
                             android:textColor="@color/title_text_color"
                             android:textSize="13sp"
                             android:paddingTop="10dp"
-                            android:text="黑名单 229"
+                            android:text="黑名单 "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -280,7 +280,7 @@
                         android:textSize="20sp"
                         android:textColor="@color/red"
                         android:gravity="left"
-                        android:text="3546"
+                        android:text=""
                         android:layout_width="92dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -294,7 +294,7 @@
                         android:layout_weight="1"
                         android:textSize="15sp"
                         android:textColor="@color/title_text_color"
-                        android:text="正常 3000"
+                        android:text="正常 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -302,7 +302,7 @@
                         android:layout_weight="1"
                         android:textSize="15sp"
                         android:textColor="@color/title_text_color"
-                        android:text="冻结 546"
+                        android:text="冻结 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -340,7 +340,7 @@
                         android:drawablePadding="5dp"
                         android:textColor="@color/title_text_color"
                         android:textSize="13sp"
-                        android:text="总数 104"
+                        android:text="总数 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -357,7 +357,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="正常  98"
+                            android:text="正常  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
@@ -368,7 +368,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="冻结  94"
+                            android:text="冻结  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -402,7 +402,7 @@
                         android:drawablePadding="5dp"
                         android:textColor="@color/title_text_color"
                         android:textSize="13sp"
-                        android:text="总数 104"
+                        android:text="总数 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -419,7 +419,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="正常  98"
+                            android:text="正常  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
@@ -430,7 +430,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="冻结  94"
+                            android:text="冻结  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -464,7 +464,7 @@
                         android:drawablePadding="5dp"
                         android:textColor="@color/title_text_color"
                         android:textSize="13sp"
-                        android:text="总数 104"
+                        android:text="总数 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -481,7 +481,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="正常  98"
+                            android:text="正常  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
@@ -492,7 +492,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="冻结  94"
+                            android:text="冻结  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -527,7 +527,7 @@
                         android:drawablePadding="5dp"
                         android:textColor="@color/title_text_color"
                         android:textSize="13sp"
-                        android:text="总数 104"
+                        android:text="总数 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -544,7 +544,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="正常  98"
+                            android:text="正常  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
@@ -555,7 +555,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="冻结  94"
+                            android:text="冻结  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -587,7 +587,7 @@
                         android:textSize="20sp"
                         android:textColor="@color/color_3aba9a"
                         android:gravity="left"
-                        android:text="3546"
+                        android:text=""
                         android:layout_width="92dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -601,7 +601,7 @@
                         android:layout_weight="1"
                         android:textSize="15sp"
                         android:textColor="@color/title_text_color"
-                        android:text="正常 3000"
+                        android:text="正常 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <TextView
@@ -609,7 +609,7 @@
                         android:layout_weight="1"
                         android:textSize="15sp"
                         android:textColor="@color/title_text_color"
-                        android:text="冻结 546"
+                        android:text="冻结 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -637,7 +637,7 @@
                         android:textSize="20sp"
                         android:textColor="@color/color_16abe5"
                         android:gravity="left"
-                        android:text="17874"
+                        android:text=""
                         android:layout_width="92dp"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -651,7 +651,7 @@
                         android:layout_weight="1"
                         android:textSize="15sp"
                         android:textColor="@color/title_text_color"
-                        android:text="正常 13957"
+                        android:text="正常 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -660,7 +660,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="报损 2839"
+                        android:text="报损 "
                         android:textColor="@color/title_text_color"
                         android:textSize="15sp" />
                     <TextView
@@ -668,7 +668,7 @@
                         android:layout_weight="1"
                         android:textSize="15sp"
                         android:textColor="@color/title_text_color"
-                        android:text="冻结 1078"
+                        android:text="冻结 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -706,7 +706,7 @@
                         android:drawablePadding="5dp"
                         android:textColor="@color/title_text_color"
                         android:textSize="13sp"
-                        android:text="总数 104"
+                        android:text="总数 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -723,7 +723,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="正常  98"
+                            android:text="正常  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
@@ -734,7 +734,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="报损  16"
+                            android:text="报损  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -746,7 +746,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="冻结  16"
+                            android:text="冻结  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -780,7 +780,7 @@
                         android:drawablePadding="5dp"
                         android:textColor="@color/title_text_color"
                         android:textSize="13sp"
-                        android:text="总数 104"
+                        android:text="总数 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -797,7 +797,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="正常  98"
+                            android:text="正常  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
@@ -808,7 +808,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="破损  16"
+                            android:text="报损  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -820,7 +820,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="冻结  16"
+                            android:text="冻结 "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -854,7 +854,7 @@
                         android:drawablePadding="5dp"
                         android:textColor="@color/title_text_color"
                         android:textSize="13sp"
-                        android:text="总数 104"
+                        android:text="总数 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -871,7 +871,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="正常  98"
+                            android:text="正常  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
@@ -882,7 +882,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="报损  16"
+                            android:text="报损  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -894,7 +894,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="冻结  16"
+                            android:text="冻结  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -929,7 +929,7 @@
                         android:drawablePadding="5dp"
                         android:textColor="@color/title_text_color"
                         android:textSize="13sp"
-                        android:text="总数 104"
+                        android:text="总数 "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -946,7 +946,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="正常  98"
+                            android:text="正常  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                         <TextView
@@ -957,7 +957,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="报损  16"
+                            android:text="报损  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -969,7 +969,7 @@
                             android:textSize="15sp"
                             android:textColor="@color/title_text_color"
                             android:paddingLeft="10dp"
-                            android:text="冻结  16"
+                            android:text="冻结  "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
