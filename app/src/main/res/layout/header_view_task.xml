@@ -104,6 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:inputType="number"
             android:background="@color/transparent"
             android:textColor="@color/title_text_color"
             android:textSize="16sp"

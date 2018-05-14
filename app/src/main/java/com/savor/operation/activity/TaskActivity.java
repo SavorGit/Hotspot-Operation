@@ -397,6 +397,11 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                     ShowMessage.showToast(TaskActivity.this,"请输入联系人电话");
                     return;
 
+                }else {
+                    if (phone.length()!= 11) {
+                        ShowMessage.showToast(TaskActivity.this,"请输入正确格式的联系人电话");
+                        return;
+                    }
                 }
                 break;
             case INFO_CHECK:
