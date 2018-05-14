@@ -391,6 +391,9 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
                     repair_info = gson.toJson(boxInfos, new TypeToken<List<BaseBoxInfo>>() {
                     }.getType());
                 }
+                if (TextUtils.isEmpty(phone)) {
+                    return;
+                }
                 break;
             case INFO_CHECK:
                 task_type = "1";
