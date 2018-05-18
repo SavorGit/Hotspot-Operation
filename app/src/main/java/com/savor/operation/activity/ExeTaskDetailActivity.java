@@ -350,7 +350,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 break;
             case POST_REPORT_MISSION_JSON:
                 if (obj instanceof String) {
-                    ShowMessage.showToast(context,(String)obj);
+                    ShowMessage.showToast(context,"操作成功");
                 }
                 finish();
                 break;
@@ -371,7 +371,8 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                 if (refuseDialog != null) {
                     refuseDialog.dismiss();
                 }
-                default:
+                break;
+            default:
                     if (obj instanceof ResponseErrorMessage){
                         ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                         String statusCode = String.valueOf(errorMessage.getCode());
@@ -385,7 +386,7 @@ public class ExeTaskDetailActivity extends BaseActivity implements View.OnClickL
                     }else {
                         ShowMessage.showToast(context,"操作失败");
                     }
-                    break;
+              break;
         }
     }
 

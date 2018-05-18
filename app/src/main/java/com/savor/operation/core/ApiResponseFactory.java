@@ -338,9 +338,9 @@ public class ApiResponseFactory {
                 }.getType());
                 break;
             case POST_REPORT_MISSION_JSON:
-                result = gson.fromJson(info, new TypeToken<String>() {
-                }.getType());
-               // result = "success";
+//                result = gson.fromJson(info, new TypeToken<String>() {
+//                }.getType());
+              result = "success";
                 break;
             case POST_EXE_USER_LIST_JSON:
                 result = gson.fromJson(info, new TypeToken<List<ExeUserList>>() {
