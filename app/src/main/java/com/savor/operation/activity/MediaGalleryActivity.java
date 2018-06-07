@@ -9,7 +9,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.OSSClient;
@@ -50,6 +52,9 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
     private String URL;
     private String checkUrl = "";
     private ProgressBar progressbar;
+    private ImageView iv_left;
+    private TextView tv_center;
+    private TextView tv_right;
     /**加载本地图片完成*/
     public static final int LOAD_COMPLETE = 0x1;
     /**图片投屏*/
@@ -92,19 +97,32 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_left:
+                // setResult(RESULT_CODE_BACK);
+                finish();
+                AppApi.StopForscreen(context, this);
+                break;
+            case R.id.tv_right:
+                AppApi.StopForscreen(context, this);
+                break;
 
+        }
     }
 
     @Override
     public void getViews() {
         mMediasGv = (GridView) findViewById(R.id.gv_medias);
         progressbar = (ProgressBar) findViewById(R.id.progressbar);
+        iv_left = (ImageView) findViewById(R.id.iv_left);
+        tv_center = (TextView) findViewById(R.id.tv_center);
+        tv_right = (TextView) findViewById(R.id.tv_right);
     }
 
     @Override
     public void setViews() {
         //MediaUtils.getMediaVideo(MediaGalleryActivity.this,mVideoList);
-
+        tv_center.setText("4G投屏演示");
         mMediaListAdapter = new MediaAdapter(this);
         mMediasGv.setAdapter(mMediaListAdapter);
         loadMediaFiles();
@@ -113,6 +131,8 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void setListeners() {
         mMediasGv.setOnItemClickListener(this);
+        iv_left.setOnClickListener(this);
+        tv_right.setOnClickListener(this);
     }
 
     private void showMedia() {
@@ -229,6 +249,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
 //        Gson gson = new Gson();
 //        String  repair_info = gson.toJson(ulist, new TypeToken<List<String>>() {
 //        }.getType());
+        mMediasGv.setClickable(false);
         AppApi.Forscreen(context, url ,this);
 
 
@@ -237,10 +258,18 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onSuccess(AppApi.Action method, Object obj) {
         hideLoadingLayout();
+        mMediasGv.setClickable(true);
         switch (method){
             case POST_FORSCREEN_JSON:
                 progressbar.setVisibility(View.GONE);
+                tv_right.setVisibility(View.VISIBLE);
+                tv_right.setText("退出投屏");
                 ShowMessage.showToast(MediaGalleryActivity.this,"投屏成功");
+                break;
+            case POST_STOP_FORSCREEN_JSON:
+                tv_right.setVisibility(View.GONE);
+                tv_right.setText("退出投屏");
+                //ShowMessage.showToast(FirstActivity.this,"投屏成功");
                 break;
 
 
@@ -252,7 +281,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onError(AppApi.Action method, Object obj) {
         //  hideLoadingLayout();
-
+        mMediasGv.setClickable(true);
         switch (method){
             case GET_IP_JSON:
                 break;
@@ -280,4 +309,9 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppApi.StopForscreen(context, this);
+    }
 }

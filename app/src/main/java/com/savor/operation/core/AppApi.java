@@ -815,7 +815,7 @@ public class AppApi {
         new AppServiceOk(context, Action.POST_FORSCREEN_JSON, handler, params).post();
     }
 
-    public static void StopForscreen(Context context,String resource_url,ApiRequestListener handler) {
+    public static void StopForscreen(Context context,ApiRequestListener handler) {
         final HashMap<String, Object> params = new HashMap<>();
         new AppServiceOk(context, Action.POST_STOP_FORSCREEN_JSON, handler, params).post();
     }

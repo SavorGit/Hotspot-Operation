@@ -15,6 +15,7 @@ import com.savor.operation.activity.AbnormalityReportActivity;
 import com.savor.operation.activity.AppointMissionListActivity;
 import com.savor.operation.activity.BindBoxActivity;
 import com.savor.operation.activity.ExeMissionListActivity;
+import com.savor.operation.activity.FirstActivity;
 import com.savor.operation.activity.InspectionActivity;
 import com.savor.operation.activity.MaintenanceRecordActivity;
 import com.savor.operation.activity.MissionListActivity;
@@ -135,6 +136,10 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
                         intent = new Intent(mContext, WebViewActivity.class);
                         mContext.startActivity(intent);
                         break;
+                    case T4G:
+                        intent = new Intent(mContext, FirstActivity.class);
+                        mContext.startActivity(intent);
+                        break;
 
                 }
             }
@@ -227,6 +232,16 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.Ac
             case RANKING:
                 imageId = R.drawable.ico_task_list;
                 desc = "排行榜";
+//                if(num>0) {
+//                    holder.tv_num.setVisibility(View.VISIBLE);
+//                    holder.tv_num.setText(String.valueOf(num));
+//                }else {
+//                    holder.tv_num.setVisibility(View.GONE);
+//                }
+                break;
+            case T4G:
+                imageId = R.drawable.ico_task_list;
+                desc = "4G投屏演示";
 //                if(num>0) {
 //                    holder.tv_num.setVisibility(View.VISIBLE);
 //                    holder.tv_num.setText(String.valueOf(num));

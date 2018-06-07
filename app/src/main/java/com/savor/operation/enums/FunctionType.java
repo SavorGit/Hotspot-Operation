@@ -38,4 +38,6 @@ public enum FunctionType implements Serializable {
     NETWORK_ASSESSMENT,
     /**排行*/
     RANKING,
+    /**4G*/
+    T4G,
 }

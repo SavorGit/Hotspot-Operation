@@ -55,6 +55,9 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
     private TextView pic;
     private ImageView iv;
     private TextView video;
+    private ImageView iv_left;
+    private TextView tv_center;
+    private TextView tv_right;
 
     private Handler mHandler = new Handler(){
         @Override
@@ -92,18 +95,24 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
     public void getViews() {
         pic = (TextView) findViewById(R.id.pic);
         iv = (ImageView) findViewById(R.id.iv);
+        iv_left = (ImageView) findViewById(R.id.iv_left);
         video = (TextView) findViewById(R.id.video);
+        tv_center = (TextView) findViewById(R.id.tv_center);
+        tv_right = (TextView) findViewById(R.id.tv_right);
     }
 
     @Override
     public void setViews() {
-
+        tv_center.setText("4G投屏演示");
+        //tv_right.setText();
     }
 
     @Override
     public void setListeners() {
         pic.setOnClickListener(this);
         video.setOnClickListener(this);
+        iv_left.setOnClickListener(this);
+        tv_right.setOnClickListener(this);
     }
 
     private void ChoosePicDialog(){
@@ -210,8 +219,8 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_left:
-//                setResult(RESULT_CODE_BACK);
-//                finish();
+               // setResult(RESULT_CODE_BACK);
+                finish();
                 break;
             case R.id.pic:
                 ChoosePicDialog();
@@ -222,6 +231,10 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
                 intent.setClass(FirstActivity.this,MediaGalleryActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.tv_right:
+                AppApi.StopForscreen(context, this);
+                break;
+
         }
     }
     private void checkPublish( String url) {
@@ -241,7 +254,14 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
         hideLoadingLayout();
         switch (method){
             case POST_FORSCREEN_JSON:
+                tv_right.setVisibility(View.VISIBLE);
+                tv_right.setText("退出投屏");
                 ShowMessage.showToast(FirstActivity.this,"投屏成功");
+                break;
+            case POST_STOP_FORSCREEN_JSON:
+                tv_right.setVisibility(View.GONE);
+                tv_right.setText("退出投屏");
+                //ShowMessage.showToast(FirstActivity.this,"投屏成功");
                 break;
 
 
@@ -278,5 +298,11 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AppApi.StopForscreen(context, this);
     }
 }

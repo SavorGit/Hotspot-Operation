@@ -119,6 +119,7 @@ public class SavorMainActivity extends BaseActivity implements View.OnClickListe
             add(new ActionListItem(FunctionType.EXCEPTION_REPORT,0));
             add(new ActionListItem(FunctionType.FIX_HISTORY,0));
             add(new ActionListItem(FunctionType.RANKING,0));
+            add(new ActionListItem(FunctionType.T4G,0));
         }
     };
 
