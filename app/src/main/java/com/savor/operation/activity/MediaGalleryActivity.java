@@ -162,6 +162,8 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        tv_right.setVisibility(View.GONE);
+        tv_right.setText("退出投屏");
         MediaInfo mediaInfo = (MediaInfo) mMediaListAdapter.getItem(position);
         if (mediaInfo != null) {
             String assetpath = mediaInfo.getAssetpath();
@@ -313,5 +315,11 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
     protected void onDestroy() {
         super.onDestroy();
         AppApi.StopForscreen(context, this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
     }
 }

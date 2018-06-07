@@ -65,6 +65,9 @@ public class Session {
     private static  Session mInstance;
     public boolean isDebug = true;
 
+    /**压缩图片的路径*/
+    public String mCompressPath;
+
     /** 是否已经显示引导图，没有显示则显示 */
     private boolean isNeedGuide = true;
     private boolean isScanGuide = true;
@@ -254,6 +257,15 @@ public class Session {
         return this.damageConfig;
     }
 
+    public String getCompressPath() {
+        return mCompressPath;
+    }
+
+    public void setmCompressPath(String mCompressPath) {
+        this.mCompressPath = mCompressPath;
+    }
+
+
     private void readSettings() {
         boxStateList = (ArrayList<BoxState>) getObj(P_APP_BOX_STATE_DAMAGE_CONFIG);
         account = (Account) getObj(P_APP_ACCOUNT);
@@ -265,7 +277,7 @@ public class Session {
         isNeedGuide = mPreference.loadBooleanKey(P_APP_IS_SHOW_GUIDE, isNeedGuide);
         isScanGuide = mPreference.loadBooleanKey(P_APP_IS_SHOW_SCAN_GUIDE, isScanGuide);
         lastTime = mPreference.loadLongKey(P_APP_LASTSTARTUP,0);
-
+        mCompressPath = getCompressPath(mContext);
         setDeviceid(deviceid);
         getApplicationInfo();
 

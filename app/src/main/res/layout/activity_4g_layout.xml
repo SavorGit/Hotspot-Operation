@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_app_bg">
+    android:background="@drawable/zajindan_bg1">
     <include
         android:id="@+id/top_bar"
         layout="@layout/layout_head_title"
@@ -14,8 +14,11 @@
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/top_bar"
-        android:text="图片"
+        android:text="投图片"
         android:gravity="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:background="@drawable/hb_2"
         android:layout_marginTop="50dp"/>
 
     <TextView
@@ -24,8 +27,11 @@
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/pic"
-        android:text="视频"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="投视频"
         android:gravity="center"
+        android:background="@drawable/hb_8"
         android:layout_marginTop="50dp"/>
 
     <ImageView

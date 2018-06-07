@@ -29,12 +29,15 @@ import com.google.gson.reflect.TypeToken;
 import com.savor.operation.R;
 import com.savor.operation.SavorApplication;
 import com.savor.operation.bean.ExecutorInfo;
+import com.savor.operation.bean.MediaInfo;
 import com.savor.operation.bean.SmallPlatformByGetIp;
 import com.savor.operation.bean.TaskDetail;
 import com.savor.operation.core.ApiRequestListener;
 import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
+import com.savor.operation.utils.CompressImage;
 import com.savor.operation.utils.ConstantValues;
+import com.savor.operation.utils.NetWorkUtil;
 import com.savor.operation.utils.OSSClientUtil;
 import com.savor.operation.utils.STIDUtil;
 import com.savor.operation.utils.WifiUtil;
@@ -58,7 +61,10 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
     private ImageView iv_left;
     private TextView tv_center;
     private TextView tv_right;
-
+    private String copyPath ;
+    public static final int PRO_IMAGE = 0x2;
+    private String imagePath;
+    private boolean isSmall = true;
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -68,9 +74,10 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
 //                    initSSDP();
 //                    getIp();
                     break;
-                case WifiManager.WIFI_STATE_DISABLED:
+                case PRO_IMAGE:
 //                    stopSSDPService();
 //                    reset();
+                    updateImagePath(copyPath);
                     break;
 //                case MSG_CHECK_SSDP:
 //                    if(mHotelId==0 ) {
@@ -113,6 +120,7 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
         video.setOnClickListener(this);
         iv_left.setOnClickListener(this);
         tv_right.setOnClickListener(this);
+        iv.setOnClickListener(this);
     }
 
     private void ChoosePicDialog(){
@@ -122,6 +130,36 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
        startActivityForResult(intent, REQUEST_CODE_IMAGE);
     }
 
+    private void compressFirstImage(final String path) {
+        new Thread(){
+            @Override
+            public void run() {
+                String cachePath = ((SavorApplication)getApplication()).imagePath;
+                File dir = new File(cachePath);
+                if(!dir.exists()) {
+                    dir.mkdirs();
+                }
+
+                // String box_id = currentExecutorInfoBean.getBox_id();
+                long timeMillis = System.currentTimeMillis();
+                String key = STIDUtil.getDeviceId(mContext)+"_"+timeMillis+".jpg";
+                copyPath = dir.getAbsolutePath()+File.separator+key;
+                //String copyPath = dir.getAbsolutePath()+File.separator;
+
+                File sFile = new File(path);
+                FileUtils.copyFile(sFile, copyPath);
+                copyPath = CompressImage.compressAndSaveBitmap(FirstActivity.this, path,sFile.getName(),true);
+
+                Message message = Message.obtain();
+                message.what = PRO_IMAGE;
+                mHandler.removeMessages(PRO_IMAGE);
+                mHandler.sendMessage(message);
+
+            }
+        }.start();
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_IMAGE&&resultCode == Activity.RESULT_OK && data != null) {
@@ -130,8 +168,9 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
             Cursor c = getContentResolver().query(selectedImage, filePathColumns, null, null, null);
             c.moveToFirst();
             int columnIndex = c.getColumnIndex(filePathColumns[0]);
-            String imagePath = c.getString(columnIndex);
-            updateImagePath(imagePath);
+            imagePath = c.getString(columnIndex);
+            compressFirstImage(imagePath);
+            //updateImagePath(imagePath);
 //            if ("1".equals(task_type_id)) {//信息检测
 //                checkDialog.updateImagePath(imagePath);
 //            }else if ("2".equals(task_type_id)){//安装验收
@@ -223,6 +262,7 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
                 finish();
                 break;
             case R.id.pic:
+            case R.id.iv:
                 ChoosePicDialog();
 
                 break;
@@ -257,6 +297,13 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
                 tv_right.setVisibility(View.VISIBLE);
                 tv_right.setText("退出投屏");
                 ShowMessage.showToast(FirstActivity.this,"投屏成功");
+                if (isSmall) {
+                    isSmall = false;
+                    updateImagePath(imagePath);
+                    ShowMessage.showToast(context,"1");
+                }else {
+                    ShowMessage.showToast(context,"2");
+                }
                 break;
             case POST_STOP_FORSCREEN_JSON:
                 tv_right.setVisibility(View.GONE);
@@ -304,5 +351,12 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
     protected void onDestroy() {
         super.onDestroy();
         AppApi.StopForscreen(context, this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        tv_right.setVisibility(View.GONE);
+        tv_right.setText("退出投屏");
     }
 }
