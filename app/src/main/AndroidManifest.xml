@@ -67,8 +67,20 @@
             android:name="UMENG_MESSAGE_SECRET"
             android:value="e903fceae381b42402bbcb971a6b8442" />
 
+        <!--<activity-->
+            <!--android:name=".activity.LoginActivity"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/LoginTheme"-->
+            <!--android:windowSoftInputMode="adjustResize|stateHidden">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.FirstActivity"
             android:screenOrientation="portrait"
             android:theme="@style/LoginTheme"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -78,6 +90,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
+
         <activity
             android:name=".activity.SearchActivity"
             android:screenOrientation="portrait" />
@@ -153,6 +169,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WebViewActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.MediaGalleryActivity"
             android:screenOrientation="portrait" />
 
 

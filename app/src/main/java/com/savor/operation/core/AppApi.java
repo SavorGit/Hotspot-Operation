@@ -12,8 +12,8 @@ public class AppApi {
     public static final String APK_DOWNLOAD_FILENAME = "NewApp.apk";
 
     /**云平台php接口*/
-  //  public static final String CLOUND_PLATFORM_PHP_URL = "http://devp.mobile.littlehotspot.com/";
-  public static final String CLOUND_PLATFORM_PHP_URL = "http://mobile.littlehotspot.com/";
+    public static final String CLOUND_PLATFORM_PHP_URL = "http://devp.mobile.littlehotspot.com/";
+  //public static final String CLOUND_PLATFORM_PHP_URL = "http://mobile.littlehotspot.com/";
 
     /**
      * 常用的一些key值 ,签名、时间戳、token、params
@@ -128,6 +128,10 @@ public class AppApi {
         POST_MY_HOTEL_JSON,
         /**上传deviceToken*/
         POST_UPLOAD_DEVICETOKEN_JSON,
+        /**客户端推送开始投屏的相关数据*/
+        POST_FORSCREEN_JSON,
+        /**客户端推送结束投屏的相关数据*/
+        POST_STOP_FORSCREEN_JSON,
     }
 
     /**
@@ -187,6 +191,10 @@ public class AppApi {
             put(Action.POST_PUB_USER_JSON, formatPhpUrl("Opclient20/Pubtask/getPubUser"));
             put(Action.POST_MY_HOTEL_JSON, formatPhpUrl("Opclient20/Pubtask/getMytaskHotel"));
             put(Action.POST_UPLOAD_DEVICETOKEN_JSON, formatPhpUrl("Opclient11/login/regDeviceToken"));
+            put(Action.POST_FORSCREEN_JSON, formatPhpUrl("Forscreen/index/receiveStartInfo"));
+            put(Action.POST_STOP_FORSCREEN_JSON, formatPhpUrl("Forscreen/index/receiveStopInfo"));
+
+
 
         }
     };
@@ -795,6 +803,24 @@ public class AppApi {
         params.put("user_id",user_id);
         new AppServiceOk(context, Action.POST_UPLOAD_DEVICETOKEN_JSON, handler, params).post();
     }
+
+    /**
+     * 展示我的酒楼
+     * @param context 上下文
+     * @param handler 接口回调
+     */
+    public static void Forscreen(Context context,String resource_url,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        params.put("resource_url",resource_url);
+        new AppServiceOk(context, Action.POST_FORSCREEN_JSON, handler, params).post();
+    }
+
+    public static void StopForscreen(Context context,String resource_url,ApiRequestListener handler) {
+        final HashMap<String, Object> params = new HashMap<>();
+        new AppServiceOk(context, Action.POST_STOP_FORSCREEN_JSON, handler, params).post();
+    }
+
+
 
     // 超时（网络）异常
     public static final String ERROR_TIMEOUT = "3001";

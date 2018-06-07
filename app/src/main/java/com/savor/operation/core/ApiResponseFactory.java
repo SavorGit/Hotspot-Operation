@@ -416,6 +416,12 @@ public class ApiResponseFactory {
             case POST_UPLOAD_DEVICETOKEN_JSON:
                 result = "success";
                 break;
+            case POST_FORSCREEN_JSON:
+                result = "success";
+                break;
+            case POST_STOP_FORSCREEN_JSON:
+                result = "success";
+                break;
             default:
                 break;
         }
