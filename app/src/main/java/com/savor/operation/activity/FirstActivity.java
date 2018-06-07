@@ -36,6 +36,7 @@ import com.savor.operation.core.AppApi;
 import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.utils.ConstantValues;
 import com.savor.operation.utils.OSSClientUtil;
+import com.savor.operation.utils.STIDUtil;
 import com.savor.operation.utils.WifiUtil;
 
 import java.io.File;
@@ -147,7 +148,7 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
 
        // String box_id = currentExecutorInfoBean.getBox_id();
         long timeMillis = System.currentTimeMillis();
-        String key = "FCD5D900B377"+"_"+timeMillis+".jpg";
+        String key = STIDUtil.getDeviceId(mContext)+"_"+timeMillis+".jpg";
         String copyPath = dir.getAbsolutePath()+File.separator+key;
         //String copyPath = dir.getAbsolutePath()+File.separator;
 
@@ -168,7 +169,7 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
             Date date = new Date(System.currentTimeMillis());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
             String dateStr = simpleDateFormat.format(date);
-            final String objectKey = "log/resource/operation/mobile/hotel/"+dateStr+"/"+file.getName();
+            final String objectKey = "media/4G/launch_screen/"+dateStr+"/"+"FCD5D900B377/"+file.getName();
             // 构造上传请求
             PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
             try {

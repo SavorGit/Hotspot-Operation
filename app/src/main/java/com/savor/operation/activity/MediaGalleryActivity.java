@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 
 import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.OSSClient;
@@ -29,6 +30,7 @@ import com.savor.operation.core.ResponseErrorMessage;
 import com.savor.operation.utils.ConstantValues;
 import com.savor.operation.utils.MediaUtils;
 import com.savor.operation.utils.OSSClientUtil;
+import com.savor.operation.utils.STIDUtil;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -47,6 +49,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
     private Context context;
     private String URL;
     private String checkUrl = "";
+    private ProgressBar progressbar;
     /**加载本地图片完成*/
     public static final int LOAD_COMPLETE = 0x1;
     /**图片投屏*/
@@ -95,6 +98,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void getViews() {
         mMediasGv = (GridView) findViewById(R.id.gv_medias);
+        progressbar = (ProgressBar) findViewById(R.id.progressbar);
     }
 
     @Override
@@ -142,6 +146,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
         if (mediaInfo != null) {
             String assetpath = mediaInfo.getAssetpath();
             if (!TextUtils.isEmpty(assetpath)) {
+                progressbar.setVisibility(View.VISIBLE);
                 updateImagePath(assetpath);
             }
         }
@@ -158,7 +163,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
 
         // String box_id = currentExecutorInfoBean.getBox_id();
         long timeMillis = System.currentTimeMillis();
-        String key = "FCD5D900B377"+"_"+timeMillis+".mp4";
+        String key = STIDUtil.getDeviceId(mContext)+"_"+timeMillis+".mp4";
         String copyPath = dir.getAbsolutePath()+File.separator+key;
         //String copyPath = dir.getAbsolutePath()+File.separator;
 
@@ -179,7 +184,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
             Date date = new Date(System.currentTimeMillis());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
             String dateStr = simpleDateFormat.format(date);
-            final String objectKey = "log/resource/operation/mobile/hotel/"+dateStr+"/"+file.getName();
+            final String objectKey = "media/4G/launch_screen/"+dateStr+"/"+"FCD5D900B377/"+file.getName();
             // 构造上传请求
             PutObjectRequest put = new PutObjectRequest(ConstantValues.BUCKET_NAME,objectKey , imagePath);
             try {
@@ -199,13 +204,14 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
 
                     @Override
                     public void onFailure(PutObjectRequest putObjectRequest, ClientException e, ServiceException e1) {
-                        checkUrl = "";
-                        mHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                checkPublish(checkUrl);
-                            }
-                        });
+//                        checkUrl = "";
+//                        mHandler.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                checkPublish(checkUrl);
+//                            }
+//                        });
+                        ShowMessage.showToast(context,"操作失败");
                     }
                 });
 
@@ -233,6 +239,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
         hideLoadingLayout();
         switch (method){
             case POST_FORSCREEN_JSON:
+                progressbar.setVisibility(View.GONE);
                 ShowMessage.showToast(MediaGalleryActivity.this,"投屏成功");
                 break;
 
@@ -255,6 +262,7 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
 //                }
                 break;
             case POST_FORSCREEN_JSON:
+                progressbar.setVisibility(View.GONE);
                 if (obj instanceof ResponseErrorMessage){
                     ResponseErrorMessage errorMessage = (ResponseErrorMessage)obj;
                     String statusCode = String.valueOf(errorMessage.getCode());
