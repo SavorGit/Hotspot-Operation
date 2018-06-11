@@ -2,7 +2,11 @@ package com.savor.operation.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -34,7 +38,11 @@ import com.savor.operation.utils.MediaUtils;
 import com.savor.operation.utils.OSSClientUtil;
 import com.savor.operation.utils.STIDUtil;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,6 +63,8 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
     private ImageView iv_left;
     private TextView tv_center;
     private TextView tv_right;
+    private boolean isPic = true;
+    private String assetpath;
     /**加载本地图片完成*/
     public static final int LOAD_COMPLETE = 0x1;
     /**图片投屏*/
@@ -166,14 +176,43 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
         tv_right.setText("退出投屏");
         MediaInfo mediaInfo = (MediaInfo) mMediaListAdapter.getItem(position);
         if (mediaInfo != null) {
-            String assetpath = mediaInfo.getAssetpath();
+            assetpath = mediaInfo.getAssetpath();
             if (!TextUtils.isEmpty(assetpath)) {
                 progressbar.setVisibility(View.VISIBLE);
-                updateImagePath(assetpath);
+
+                Bitmap bitmap = getImageFromVideo(assetpath);
+                File file = compressImage(bitmap);
+                updateImagePathPic(file.getPath());
             }
         }
     }
 
+
+
+
+
+    public void updateImagePathPic(String path) {
+        //       if(elist!=null && elist.size()>=currentTakePhonePos) {
+
+        String cachePath = ((SavorApplication)getApplication()).imagePath;
+        File dir = new File(cachePath);
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        // String box_id = currentExecutorInfoBean.getBox_id();
+        long timeMillis = System.currentTimeMillis();
+        String key = STIDUtil.getDeviceId(mContext)+"_"+timeMillis+".jpg";
+        String copyPath = dir.getAbsolutePath()+File.separator+key;
+        //String copyPath = dir.getAbsolutePath()+File.separator;
+
+        File sFile = new File(path);
+        FileUtils.copyFile(sFile, copyPath);
+        URL = copyPath;
+        // Glide.with(context).load(copyPath).into(iv);
+        hotelCheckUploadPic(URL);
+
+    }
     public void updateImagePath(String path) {
         //       if(elist!=null && elist.size()>=currentTakePhonePos) {
 
@@ -267,6 +306,12 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
                 tv_right.setVisibility(View.VISIBLE);
                 tv_right.setText("退出投屏");
                 ShowMessage.showToast(MediaGalleryActivity.this,"投屏成功");
+                if (isPic){
+                    isPic = false;
+                    updateImagePath(assetpath);
+                }else {
+                    isPic = true;
+                }
                 break;
             case POST_STOP_FORSCREEN_JSON:
                 tv_right.setVisibility(View.GONE);
@@ -321,5 +366,73 @@ public class MediaGalleryActivity extends BaseActivity implements View.OnClickLi
     protected void onPause() {
         super.onPause();
 
+    }
+
+    //从视频中截取图片
+
+    public static Bitmap getImageFromVideo(String videoPath){
+
+        MediaMetadataRetriever media = new MediaMetadataRetriever();
+
+        media.setDataSource(videoPath);
+
+        return media.getFrameAtTime();
+
+    }
+
+    public static Bitmap getVideoThumb(String videoPath, int kind)
+    {
+
+        return ThumbnailUtils.createVideoThumbnail(videoPath,
+                kind);
+
+    }
+
+
+    /**
+     * 压缩图片（质量压缩）
+     * @param bitmap
+     */
+    public static File compressImage(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+        while (baos.toByteArray().length / 1024 > 500) {  //循环判断如果压缩后图片是否大于500kb,大于继续压缩
+            baos.reset();//重置baos即清空baos
+            options -= 10;//每次都减少10
+            bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            long length = baos.toByteArray().length;
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date(System.currentTimeMillis());
+        String filename = format.format(date);
+        File file = new File(Environment.getExternalStorageDirectory(),filename+".png");
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            try {
+                fos.write(baos.toByteArray());
+                fos.flush();
+                fos.close();
+            } catch (IOException e) {
+                //BAFLogger.e(TAG,e.getMessage());
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            //BAFLogger.e(TAG,e.getMessage());
+            e.printStackTrace();
+        }
+        recycleBitmap(bitmap);
+        return file;
+    }
+
+    public static void recycleBitmap(Bitmap... bitmaps) {
+        if (bitmaps==null) {
+            return;
+        }
+        for (Bitmap bm : bitmaps) {
+            if (null != bm && !bm.isRecycled()) {
+                bm.recycle();
+            }
+        }
     }
 }

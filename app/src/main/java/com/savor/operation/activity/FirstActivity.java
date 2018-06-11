@@ -358,5 +358,6 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
         super.onPause();
         tv_right.setVisibility(View.GONE);
         tv_right.setText("退出投屏");
+        isSmall = true;
     }
 }
