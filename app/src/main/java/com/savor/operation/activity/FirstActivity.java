@@ -300,9 +300,9 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
                 if (isSmall) {
                     isSmall = false;
                     updateImagePath(imagePath);
-                    ShowMessage.showToast(context,"压缩版投屏成功");
+                    ShowMessage.showToast(context,"压缩版上传成功");
                 }else {
-                    ShowMessage.showToast(context,"原件投屏成功");
+                    ShowMessage.showToast(context,"原件上传成功");
                 }
                 break;
             case POST_STOP_FORSCREEN_JSON:
