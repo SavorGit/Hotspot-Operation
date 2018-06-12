@@ -306,8 +306,8 @@ public class FirstActivity extends BaseActivity implements View.OnClickListener,
                 }
                 break;
             case POST_STOP_FORSCREEN_JSON:
-                tv_right.setVisibility(View.GONE);
-                tv_right.setText("退出投屏");
+//                tv_right.setVisibility(View.GONE);
+//                tv_right.setText("退出投屏");
                 //ShowMessage.showToast(FirstActivity.this,"投屏成功");
                 break;
 
