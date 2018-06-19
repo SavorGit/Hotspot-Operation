@@ -618,7 +618,8 @@ public class TaskActivity extends BaseActivity implements View.OnClickListener {
     public void onError(AppApi.Action method, Object obj) {
         switch (method) {
             case POST_PUBLISH_JSON:
-                loadingDialog.dismiss();
+                if(loadingDialog!=null&&loadingDialog.isShowing())
+                    loadingDialog.dismiss();
                 break;
         }
     }
