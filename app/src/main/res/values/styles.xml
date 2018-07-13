@@ -12,6 +12,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="android:listDivider">@drawable/dvider_bg</item>
+
         <!--<item name="colorPrimaryDark">@color/transparent</item>-->
         <!--
             Theme customizations available in newer API levels can go in
